@@ -2,7 +2,7 @@
 
 /**
  * PayTabs 2 PHP SDK
- * Version: 1.3.1
+ * Version: 1.3.3
  */
 
 
@@ -770,7 +770,8 @@ class PaytabsHolder2
             $this->customer_details,
             $this->shipping_details,
             $this->hide_shipping,
-            $this->lang
+            $this->lang,
+            $this->framed
         );
 
         return $all;
@@ -869,11 +870,9 @@ class PaytabsHolder2
         return $this;
     }
 
-    public function set05ShippingDetails($same_as_billing, $name, $email, $phone, $address, $city, $state, $country, $zip, $ip)
+    public function set05ShippingDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip)
     {
-        $infos = $same_as_billing
-            ? $this->customer_details['customer_details']
-            : $this->setCustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip);
+        $infos = $this->setCustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip);
 
         //
 
@@ -916,6 +915,8 @@ class PaytabsHolder2
     {
         $this->framed = [
             'framed' => $on,
+            'framed_return_parent' => true,
+            'framed_return_top' => true
         ];
 
         return $this;
