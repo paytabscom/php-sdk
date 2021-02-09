@@ -2,7 +2,7 @@
 
 /**
  * PayTabs 2 PHP SDK
- * Version: 1.3.4
+ * Version: 1.3.4.1
  */
 
 
@@ -914,7 +914,7 @@ class PaytabsHolder2
     }
 
     /**
-     * @param string redirect_target: "parent" or "top" or "iframe"
+     * @param string $redirect_target "parent" or "top" or "iframe"
      */
     public function set09Framed($on = false, $redirect_target = 'iframe')
     {
