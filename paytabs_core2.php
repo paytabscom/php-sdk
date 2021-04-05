@@ -153,7 +153,10 @@ abstract class PaytabsHelper
 }
 
 
-class PaytabsHolder
+/**
+ * @abstract class: Enum for static values of PayTabs requests
+ */
+abstract class PaytabsEnum
 {
     const TRAN_TYPE_AUTH    = 'auth';
     const TRAN_TYPE_CAPTURE = 'capture';
@@ -164,6 +167,20 @@ class PaytabsHolder
 
     //
 
+    const TRAN_CLASS_ECOM = 'ecom';
+    const TRAN_CLASS_MOTO = 'moto';
+    const TRAN_CLASS_RECURRING = 'recurring';
+
+    //
+
+}
+
+
+/**
+ * Holder class: Holds & Generates the parameters array that pass to PayTabs' API
+ */
+class PaytabsHolder
+{
     /**
      * tran_type
      * tran_class
@@ -230,7 +247,8 @@ class PaytabsHolder
 
 
 /**
- * Holder class that holds PayTabs's request's values
+ * Holder class, Inherit class PaytabsHolder
+ * Holds & Generates the parameters array that pass to PayTabs' API
  */
 class PaytabsRequestHolder extends PaytabsHolder
 {
@@ -478,6 +496,10 @@ class PaytabsRequestHolder extends PaytabsHolder
 }
 
 
+/**
+ * Holder class, Inherit class PaytabsHolder
+ * Holds & Generates the parameters array for the Tokenised payments
+ */
 class PaytabsTokenHolder extends PaytabsHolder
 {
     /**
@@ -509,7 +531,12 @@ class PaytabsTokenHolder extends PaytabsHolder
 
 
 /**
- * Holder class that holds PayTabs's followup request's values
+ * Holder class, Inherit class PaytabsHolder
+ * Holder & Generates the parameters array for the Followup requests
+ * Followup requests:
+ * - Capture (follows Auth)
+ * - Void    (follows Auth)
+ * - Refund  (follows Capture or Sale)
  */
 class PaytabsFollowupHolder extends PaytabsHolder
 {
