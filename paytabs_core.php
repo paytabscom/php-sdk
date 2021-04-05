@@ -561,7 +561,7 @@ class PaytabsFollowupHolder extends PaytabsHolder
 
     //
 
-    public function set30Transaction($transaction_id)
+    public function set30TransactionInfo($transaction_id)
     {
         $this->transaction_id = [
             'tran_ref' => $transaction_id,
