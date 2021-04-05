@@ -1,12 +1,12 @@
 <?php
 
 /**
- * PayTabs 2 PHP SDK
+ * PayTabs v2 PHP SDK
  * Version: 2.0.0
  */
 
 
-class PaytabsHelper
+abstract class PaytabsHelper
 {
     static function paymentType($key)
     {
@@ -153,17 +153,16 @@ class PaytabsHelper
 }
 
 
-/**
- * Holder class that holds PayTabs's request's values
- */
-class PaytabsHolder2
+class PaytabsHolder
 {
-    const GLUE = ' || ';
+    const TRAN_TYPE_AUTH    = 'auth';
+    const TRAN_TYPE_CAPTURE = 'capture';
+    const TRAN_TYPE_SALE    = 'sale';
 
-    /**
-     * payment_type
-     */
-    private $payment_code;
+    const TRAN_TYPE_VOID    = 'void';
+    const TRAN_TYPE_REFUND  = 'refund';
+
+    //
 
     /**
      * tran_type
@@ -178,6 +177,67 @@ class PaytabsHolder2
      * cart_descriptions
      */
     private $cart;
+
+    //
+
+
+    /**
+     * @return array
+     */
+    public function pt_build()
+    {
+        $all = array_merge(
+            $this->transaction,
+            $this->cart
+        );
+
+        return $all;
+    }
+
+    protected function pt_merges(&$all, ...$arrays)
+    {
+        foreach ($arrays as $array) {
+            if ($array) {
+                $all = array_merge($all, $array);
+            }
+        }
+    }
+
+    //
+
+    public function set02Transaction($tran_type, $tran_class)
+    {
+        $this->transaction = [
+            'tran_type' => $tran_type,
+            'tran_class' => $tran_class,
+        ];
+
+        return $this;
+    }
+
+    public function set03Cart($cart_id, $currency, $amount, $cart_description)
+    {
+        $this->cart = [
+            'cart_id'          => "$cart_id",
+            'cart_currency'    => "$currency",
+            'cart_amount'      => (float) $amount,
+            'cart_description' => $cart_description,
+        ];
+
+        return $this;
+    }
+}
+
+
+/**
+ * Holder class that holds PayTabs's request's values
+ */
+class PaytabsRequestHolder extends PaytabsHolder
+{
+    /**
+     * payment_type
+     */
+    private $payment_code;
 
     /**
      * name
@@ -240,6 +300,14 @@ class PaytabsHolder2
      */
     private $tokenise;
 
+    /**
+     * cart_name
+     * cart_version
+     * plugin_version
+     */
+    private $plugin_info;
+
+
     //
 
     /**
@@ -247,10 +315,7 @@ class PaytabsHolder2
      */
     public function pt_build()
     {
-        $all = array_merge(
-            $this->transaction,
-            $this->cart
-        );
+        $all = parent::pt_build();
 
         $this->pt_merges(
             $all,
@@ -261,26 +326,13 @@ class PaytabsHolder2
             $this->hide_shipping,
             $this->lang,
             $this->framed,
-            $this->tokenise
+            $this->tokenise,
+            $this->plugin_info
         );
 
         return $all;
     }
 
-    private function pt_merges(&$all, ...$arrays)
-    {
-        foreach ($arrays as $array) {
-            if ($array) {
-                $all = array_merge($all, $array);
-            }
-        }
-    }
-
-    private function _fill(&$var, ...$options)
-    {
-        $var = trim($var);
-        $var = PaytabsHelper::getNonEmpty($var, ...$options);
-    }
 
     private function setCustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip)
     {
@@ -325,27 +377,6 @@ class PaytabsHolder2
         return $this;
     }
 
-    public function set02Transaction($tran_type, $tran_class)
-    {
-        $this->transaction = [
-            'tran_type' => $tran_type,
-            'tran_class' => $tran_class,
-        ];
-
-        return $this;
-    }
-
-    public function set03Cart($cart_id, $currency, $amount, $cart_description)
-    {
-        $this->cart = [
-            'cart_id'          => "$cart_id",
-            'cart_currency'    => "$currency",
-            'cart_amount'      => (float) $amount,
-            'cart_description' => $cart_description,
-        ];
-
-        return $this;
-    }
 
     public function set04CustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip)
     {
@@ -432,10 +463,22 @@ class PaytabsHolder2
 
         return $this;
     }
+
+
+    public function set99PluginInfo($platform_name, $platform_version, $plugin_version)
+    {
+        $this->plugin_info = [
+            'cart_name'    => $platform_name,
+            'cart_version' => $platform_version,
+            'plugin_version' => $plugin_version,
+        ];
+
+        return $this;
+    }
 }
 
 
-class PaytabsTokenHolder extends PaytabsHolder2
+class PaytabsTokenHolder extends PaytabsHolder
 {
     /**
      * token
@@ -468,24 +511,8 @@ class PaytabsTokenHolder extends PaytabsHolder2
 /**
  * Holder class that holds PayTabs's followup request's values
  */
-class PaytabsFollowupHolder
+class PaytabsFollowupHolder extends PaytabsHolder
 {
-    const Followup_REFUND  = 'refund';
-    const Followup_CAPTURE = 'capture';
-    const Followup_VOID    = 'void';
-
-    /**
-     * tran_type
-     * tran_class
-     */
-    private $followupInfo;
-
-    /**
-     * cart_amount
-     * cart_currency
-     */
-    private $cartInfo;
-
     /**
      * transaction_id
      */
@@ -498,39 +525,16 @@ class PaytabsFollowupHolder
      */
     public function pt_build()
     {
-        $all = array_merge(
-            $this->followupInfo,
-            $this->cartInfo,
-            $this->transaction_id
-        );
+        $all = parent::pt_build();
+
+        $all = array_merge($all, $this->transaction_id);
+
         return $all;
     }
 
     //
 
-    public function set01FollowupInfo($operation_type)
-    {
-        $this->followupInfo = [
-            'tran_type'  => $operation_type,
-            'tran_class' => 'ecom'
-        ];
-
-        return $this;
-    }
-
-    public function set02Cart($cart_id, $currency, $amount, $reason)
-    {
-        $this->cartInfo = [
-            'cart_id'          => "{$cart_id}",
-            'cart_currency'    => "$currency",
-            'cart_amount'      => (float) $amount,
-            'cart_description' => $reason,
-        ];
-
-        return $this;
-    }
-
-    public function set03Transaction($transaction_id)
+    public function set30Transaction($transaction_id)
     {
         $this->transaction_id = [
             'tran_ref' => $transaction_id,
