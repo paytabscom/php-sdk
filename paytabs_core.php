@@ -2,7 +2,7 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.0.0
+ * Version: 2.0.2
  */
 
 
@@ -222,7 +222,7 @@ class PaytabsHolder
 
     //
 
-    public function set02Transaction($tran_type, $tran_class)
+    public function set02Transaction($tran_type, $tran_class = PaytabsEnum::TRAN_CLASS_ECOM)
     {
         $this->transaction = [
             'tran_type' => $tran_type,
