@@ -2,10 +2,10 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.6.0
+ * Version: 2.7.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.6.0');
+define('PAYTABS_SDK_VERSION', '2.7.0');
 
 
 abstract class PaytabsHelper
@@ -409,6 +409,10 @@ abstract class PaytabsBasicHolder extends PaytabsHolder
      */
     private $urls;
 
+    /**
+     * udf[1-9]
+     */
+    private $user_defined;
 
     //
 
@@ -424,7 +428,8 @@ abstract class PaytabsBasicHolder extends PaytabsHolder
             $this->payment_code,
             $this->urls,
             $this->customer_details,
-            $this->shipping_details
+            $this->shipping_details,
+            $this->user_defined
         );
 
         return $all;
@@ -524,6 +529,25 @@ abstract class PaytabsBasicHolder extends PaytabsHolder
         $this->urls = [
             'return'   => $return_url,
             'callback' => $callback_url,
+        ];
+
+        return $this;
+    }
+
+
+    public function set50UserDefined($udf1, $udf2 = null, $udf3 = null, $udf4 = null, $udf5 = null, $udf6 = null, $udf7 = null, $udf8 = null, $udf9 = null)
+    {
+        $user_defined = [];
+
+        for ($i = 1; $i <= 9; $i++) {
+            $param = "udf$i";
+            if ($$param != null) {
+                $user_defined[$param] = $$param;
+            }
+        }
+
+        $this->user_defined = [
+            'user_defined' => $user_defined
         ];
 
         return $this;
