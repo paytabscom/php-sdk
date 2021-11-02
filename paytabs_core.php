@@ -2,10 +2,10 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.5.0
+ * Version: 2.6.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.5.0');
+define('PAYTABS_SDK_VERSION', '2.6.0');
 
 
 abstract class PaytabsHelper
@@ -263,6 +263,10 @@ abstract class PaytabsEnum
 
 /**
  * Holder class: Holds & Generates the parameters array that pass to PayTabs' API
+ * Members:
+ * - Transaction Info (Type & Class)
+ * - Cart Info (id, desc, amount, currency)
+ * - Plugin Info (platform name, platform version, plugin version)
  */
 class PaytabsHolder
 {
@@ -360,8 +364,13 @@ class PaytabsHolder
 /**
  * Holder class, Inherit class PaytabsHolder
  * Holds & Generates the parameters array that pass to PayTabs' API
+ * Members:
+ * - Payment method (payment_code)
+ * - Customer Details
+ * - Shipping Details
+ * - URLs (return & callback)
  */
-class PaytabsBasicHolder extends PaytabsHolder
+abstract class PaytabsBasicHolder extends PaytabsHolder
 {
     /**
      * payment_type
@@ -523,8 +532,13 @@ class PaytabsBasicHolder extends PaytabsHolder
 
 
 /**
- * Holder class, Inherit class PaytabsHolder
+ * Holder class, Inherit class PaytabsBasicHolder
  * Holds & Generates the parameters array that pass to PayTabs' API
+ * Members:
+ * - Hide shipping
+ * - Language
+ * - Framed
+ * - Tokenise
  */
 class PaytabsRequestHolder extends PaytabsBasicHolder
 {
@@ -532,14 +546,6 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
      * hide_shipping
      */
     private $hide_shipping;
-
-    /**
-     * pan
-     * expiry_month
-     * expiry_year
-     * cvv
-     */
-    private $card_details;
 
     /**
      * paypage_lang
@@ -631,6 +637,8 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
 /**
  * Holder class, Inherit class PaytabsHolder
  * Holds & Generates the parameters array for the Tokenised payments
+ * Members:
+ * - Token Info (token & tran_ref)
  */
 class PaytabsTokenHolder extends PaytabsHolder
 {
@@ -668,8 +676,10 @@ class PaytabsTokenHolder extends PaytabsHolder
 /**
  * Holder class, Inherit class PaytabsBasicHolder
  * Holds & Generates the parameters array for the Managed form payments
+ * Members:
+ * - Payment token
  */
-abstract class PaytabsManagedFormHolder extends PaytabsBasicHolder
+class PaytabsManagedFormHolder extends PaytabsBasicHolder
 {
     /**
      * payment_token
@@ -698,12 +708,61 @@ abstract class PaytabsManagedFormHolder extends PaytabsBasicHolder
 
 
 /**
+ * Holder class, Inherit class PaytabsBasicHolder
+ * Holds & Generates the parameters array for the Managed form payments
+ * Members:
+ * - Card Info (pan, cvv, expiry_year, expiry_month)
+ */
+class PaytabsOwnFormHolder extends PaytabsBasicHolder
+{
+    /**
+     * pan
+     * cvv
+     * expiry_year
+     * expiry_month
+     */
+    private $card_details;
+
+
+    public function set40CardDetails($pan, $expiry_year, $expiry_month, $cvv = null)
+    {
+        $card_info = [
+            'pan' => $pan,
+            'expiry_year'  => (int) $expiry_year,
+            'expiry_month' => (int) $expiry_month,
+        ];
+
+        if ($cvv) {
+            $card_info['cvv'] = $cvv;
+        }
+
+        $this->card_details = [
+            'card_details' => $card_info
+        ];
+
+        return $this;
+    }
+
+    public function pt_build()
+    {
+        $all = parent::pt_build();
+
+        $all = array_merge($all, $this->card_details);
+
+        return $all;
+    }
+}
+
+
+/**
  * Holder class, Inherit class PaytabsHolder
  * Holder & Generates the parameters array for the Followup requests
  * Followup requests:
  * - Capture (follows Auth)
  * - Void    (follows Auth)
  * - Refund  (follows Capture or Sale)
+ * Members:
+ * - Transaction ID
  */
 class PaytabsFollowupHolder extends PaytabsHolder
 {
