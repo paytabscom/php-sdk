@@ -2,10 +2,10 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.7.0
+ * Version: 2.7.1
  */
 
-define('PAYTABS_SDK_VERSION', '2.7.0');
+define('PAYTABS_SDK_VERSION', '2.7.1');
 
 
 abstract class PaytabsHelper
@@ -944,7 +944,10 @@ class PaytabsApi
         // $serverIP = getHostByName(getHostName());
         // $values['ip_merchant'] = PaytabsHelper::getNonEmpty($serverIP, $_SERVER['SERVER_ADDR'], 'NA');
 
-        $isTokenize = $values['tran_class'] == PaytabsEnum::TRAN_CLASS_RECURRING || array_key_exists('payment_token', $values);
+        $isTokenize =
+            $values['tran_class'] == PaytabsEnum::TRAN_CLASS_RECURRING
+            || array_key_exists('payment_token', $values)
+            || array_key_exists('card_details', $values);
 
         $response = $this->sendRequest(self::URL_REQUEST, $values);
 
