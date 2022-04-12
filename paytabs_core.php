@@ -2,10 +2,10 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.7.7
+ * Version: 2.7.8
  */
 
-define('PAYTABS_SDK_VERSION', '2.7.7');
+define('PAYTABS_SDK_VERSION', '2.7.8');
 
 
 
@@ -1092,7 +1092,10 @@ class PaytabsApi
             $data = json_decode($response);
 
             $headers = getallheaders();
-            $signature = $headers['Signature'];
+            // Lower case all keys
+            $headers = array_change_key_case($headers);
+
+            $signature = $headers['signature'];
             // $client_key = $headers['Client-Key'];
 
             $is_valid = $this->is_valid_ipn($response, $signature, false);
