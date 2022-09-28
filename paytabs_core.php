@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.8.1
+ * Version: 2.8.2
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.8.1');
+define('PAYTABS_SDK_VERSION', '2.8.2');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -298,6 +298,11 @@ abstract class PaytabsEnum
     static function TranIsRefund($tran_type)
     {
         return strcasecmp($tran_type, PaytabsEnum::TRAN_TYPE_REFUND) == 0;
+    }
+
+    static function TransAreSame($tran_type1, $tran_type2)
+    {
+        return strcasecmp($tran_type1, $tran_type2) == 0;
     }
 
 
