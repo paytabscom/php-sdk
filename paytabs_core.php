@@ -1254,6 +1254,8 @@ class PaytabsApi
         $_verify->reference_no = @$verify->cart_id;
         $_verify->transaction_id = @$verify->tran_ref;
 
+        $_verify->failed = !($_verify->success || $_verify->is_on_hold || $_verify->is_pending);
+
         return $_verify;
     }
 
@@ -1281,6 +1283,8 @@ class PaytabsApi
             $_verify->transaction_id = $return_data['tranRef'];
             $_verify->reference_no = $return_data['cartId'];
         }
+
+        $_verify->failed = !($_verify->success || $_verify->is_on_hold || $_verify->is_pending);
 
         return $_verify;
     }
