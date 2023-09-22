@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.11.6
+ * Version: 2.12.0
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.11.6');
+define('PAYTABS_SDK_VERSION', '2.12.0');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -886,6 +886,40 @@ class PaytabsOwnFormHolder extends PaytabsBasicHolder
 
 
 /**
+ * Holder class, Inherit class PaytabsBasicHolder
+ * Holds & Generates the parameters array for the ApplePay form payments
+ * Members:
+ * - apple_pay_token
+ */
+class PaytabsApplePayHolder extends PaytabsBasicHolder
+{
+    /**
+     * apple_pay_token
+     */
+    private $apple_pay_token;
+
+
+    public function set50ApplePay($apple_pay_token)
+    {
+        $this->apple_pay_token = [
+            'apple_pay_token' => $apple_pay_token
+        ];
+
+        return $this;
+    }
+
+    public function pt_build()
+    {
+        $all = parent::pt_build();
+
+        $all = array_merge($all, $this->apple_pay_token);
+
+        return $all;
+    }
+}
+
+
+/**
  * Holder class, Inherit class PaytabsHolder
  * Holder & Generates the parameters array for the Followup requests
  * Followup requests:
@@ -1072,6 +1106,7 @@ class PaytabsApi
         $isTokenize =
             $values['tran_class'] == PaytabsEnum::TRAN_CLASS_RECURRING
             || array_key_exists('payment_token', $values)
+            || array_key_exists('apple_pay_token', $values)
             || array_key_exists('card_details', $values);
 
         $response = $this->sendRequest(self::URL_REQUEST, $values);
