@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.12.1
+ * Version: 2.12.2
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.12.1');
+define('PAYTABS_SDK_VERSION', '2.12.2');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -1235,7 +1235,8 @@ class PaytabsApi
         }
 
         if (!$is_valid) {
-            PaytabsHelper::log("Paytabs Admin: Invalid Signature", 3);
+            $hashed_key = explode('-', @$this->server_key ?? '')[0];
+            PaytabsHelper::log("Paytabs Admin: Invalid Signature ({$hashed_key}, {$signature})", 3);
             return false;
         }
 
