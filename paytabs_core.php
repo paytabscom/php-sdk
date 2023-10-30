@@ -114,6 +114,16 @@ abstract class PaytabsHelper
         return false;
     }
 
+    static function supportRefund($code)
+    {
+        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+            if ($value['name'] === $code) {
+                return in_array(PaytabsApi::GROUP_REFUND, $value['groups']);
+            }
+        }
+        return false;
+    }
+
     //
 
     static function read_ipn_response()
