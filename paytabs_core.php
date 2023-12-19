@@ -894,7 +894,7 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
 
             $cards[$i]['discount_cards'] = $pattern;
             $cards[$i][$type_key] = $amount;
-            $cards[$i]['title'] = $title;
+            $cards[$i]['discount_title'] = $title;
         }
 
         if (count($cards) > 0) {
