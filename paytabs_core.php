@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.18.0
+ * Version: 2.19.0
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.17.0');
+define('PAYTABS_SDK_VERSION', '2.19.0');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -785,6 +785,14 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
      */
     private $card_discounts;
 
+    /**
+     * invoice
+     * order_amount, 
+     * shipping_charges, 
+     * array line_items
+     */
+    private $invoice;
+
     //
 
     /**
@@ -800,7 +808,8 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
             $this->framed,
             $this->config_id,
             $this->alt_currency,
-            $this->card_discounts
+            $this->card_discounts,
+            $this->invoice
         );
 
         return $all;
@@ -904,6 +913,50 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
         }
 
         return $this;
+    }
+
+      public function set30Invoice($order_amount, $shipping_charges, array $line_items)
+    {
+
+        $infos = $this->setInvoiceDetails($order_amount, $shipping_charges, $line_items);
+    
+            $this->invoice = [
+                'invoice' => $infos
+            ];
+    
+            return $this;
+        
+    }
+
+    private function setInvoiceDetails($order_amount, $shipping_charges, array $line_items)
+    {
+        $lineItemsData = [];
+
+        foreach ($line_items as $line_item) {
+            $lineItemsData[] = [
+                "sku"           => $line_item['sku'],
+                "description"   => $line_item['name'],
+                "url"           => '',
+                "unit_cost"     => $line_item['price'],
+                "quantity"      => $line_item['quantity'],
+                "net_total"     => 0,
+                "discount_rate" => 0,
+                "discount_amount" => $line_item['discount'],
+                "tax_rate"      => 0,
+                "tax_total"     => 0,
+                "total"         => $line_item['total'],
+            ];
+        }
+
+        $info = [
+            'shipping_charges' => $shipping_charges,
+            "extra_charges"    => 0,
+            "extra_discount"   => 0,
+            "total"            => $order_amount,
+            "line_items"       => $lineItemsData,
+        ];
+
+        return $info;
     }
 }
 
