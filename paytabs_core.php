@@ -259,6 +259,8 @@ abstract class PaytabsHelper
                 return false;
             }
         }
+
+        return true;
     }
 }
 
