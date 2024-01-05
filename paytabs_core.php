@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.18.0
+ * Version: 2.18.1
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.18.0');
+define('PAYTABS_SDK_VERSION', '2.18.1');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -1236,7 +1236,11 @@ class PaytabsApi
 
     private function __construct($region, $profile_id, $server_key)
     {
-        $this->base_url = self::BASE_URLS[$region]['endpoint'];
+        if (array_key_exists($region, self::BASE_URLS)) {
+            $this->base_url = self::BASE_URLS[$region]['endpoint'];
+        } else {
+            PaytabsHelper::log("Paytabs Admin: Region {$region} is not valid", 2);
+        }
         $this->setAuth($profile_id, $server_key);
     }
 
