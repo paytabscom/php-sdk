@@ -472,7 +472,9 @@ class PaytabsHolder
      */
     public function pt_build()
     {
-        $all = array_merge(
+        $all = [];
+        $this->pt_merges(
+            $all,
             $this->transaction,
             $this->cart,
             $this->urls,
