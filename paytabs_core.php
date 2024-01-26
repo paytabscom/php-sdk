@@ -284,6 +284,9 @@ abstract class PaytabsEnum
     const TRAN_TYPE_CAPTURE  = 'capture';
     const TRAN_TYPE_SALE     = 'sale';
     const TRAN_TYPE_REGISTER = 'register';
+    // Auth Extension is used to refresh the hold on the funds
+    // Followup an Auth transaction
+    const TRAN_TYPE_AUTH_EXT = 'authext';
 
     const TRAN_TYPE_PAYMENT_REQUEST = 'payment request';
 
@@ -331,6 +334,11 @@ abstract class PaytabsEnum
     static function TranIsAuth($tran_type)
     {
         return strcasecmp($tran_type, PaytabsEnum::TRAN_TYPE_AUTH) == 0;
+    }
+
+    static function TranIsAuthExt($tran_type)
+    {
+        return strcasecmp($tran_type, PaytabsEnum::TRAN_TYPE_AUTH_EXT) == 0;
     }
 
     static function TranIsSale($tran_type)
