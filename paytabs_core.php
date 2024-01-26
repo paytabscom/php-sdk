@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.19.0
+ * Version: 2.20.0
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.19.0');
+define('PAYTABS_SDK_VERSION', '2.20.0');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -432,6 +432,7 @@ abstract class PaytabsEnum
  * Members:
  * - Transaction Info (Type & Class)
  * - Cart Info (id, desc, amount, currency)
+ * - URLs (return & callback)
  * - Plugin Info (platform name, platform version, plugin version)
  */
 class PaytabsHolder
@@ -547,18 +548,56 @@ class PaytabsHolder
 
 
 /**
+ * Holder class: Holds & Generates the paramters array.
+ * Holds & Generates the parameters array for the payments
+ * Members:
+ * - airline_data
+ *  -- pnr_code
+ */
+abstract class PaytabsExtraDataHolder extends PaytabsHolder
+{
+    private $airline_data;
+
+    /**
+     * @return array
+     */
+    public function pt_build()
+    {
+        $all = parent::pt_build();
+
+        $this->pt_merges(
+            $all,
+            $this->airline_data,
+        );
+
+        return $all;
+    }
+
+    public function set50AirelineData($pnr_code)
+    {
+        $this->airline_data = [
+            'airline_data' => [
+                'pnr_code' => $pnr_code,
+            ],
+        ];
+
+        return $this;
+    }
+}
+
+
+/**
  * Holder class, Inherit class PaytabsHolder
  * Holds & Generates the parameters array that pass to PayTabs' API
  * Members:
  * - Payment method (payment_code)
  * - Customer Details
  * - Shipping Details
- * - URLs (return & callback)
  * - Language (paypage_lang)
  * - Tokenise
  * - User defined
  */
-abstract class PaytabsBasicHolder extends PaytabsHolder
+abstract class PaytabsBasicHolder extends PaytabsExtraDataHolder
 {
     /**
      * payment_type
@@ -976,7 +1015,7 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
  * Members:
  * - Token Info (token & tran_ref)
  */
-class PaytabsTokenHolder extends PaytabsHolder
+class PaytabsTokenHolder extends PaytabsExtraDataHolder
 {
     /**
      * token
