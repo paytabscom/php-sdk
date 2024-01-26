@@ -581,7 +581,7 @@ abstract class PaytabsExtraDataHolder extends PaytabsHolder
         return $all;
     }
 
-    public function set50AirelineData($pnr_code)
+    public function set60AirlineData($pnr_code)
     {
         $this->airline_data = [
             'airline_data' => [
