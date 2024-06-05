@@ -1468,7 +1468,7 @@ class PaytabsApi
         ],
         'KUWAIT' => [
             'title' => 'Kuwait',
-            'endpoint' => ' secure-kuwait.paytabs.com/'
+            'endpoint' => 'https://secure-kuwait.paytabs.com/'
         ],
         // 'DEMO' => [
         //     'title' => 'Demo',
