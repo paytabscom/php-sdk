@@ -1466,6 +1466,10 @@ class PaytabsApi
             'title' => 'Global',
             'endpoint' => 'https://secure-global.paytabs.com/'
         ],
+        'KUWAIT' => [
+            'title' => 'Kuwait',
+            'endpoint' => ' secure-kuwait.paytabs.com/'
+        ],
         // 'DEMO' => [
         //     'title' => 'Demo',
         //     'endpoint' => 'https://paypage.paytabs.com/'
