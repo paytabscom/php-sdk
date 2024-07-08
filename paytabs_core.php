@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.21.2
+ * Version: 2.22.0
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.21.2');
+define('PAYTABS_SDK_VERSION', '2.22.0');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -33,7 +33,7 @@ abstract class PaytabsHelper
     static function paymentAllowed($code, $currencyCode)
     {
         $row = null;
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
                 $row = $value;
                 break;
@@ -54,7 +54,7 @@ abstract class PaytabsHelper
 
     static function isPayTabsPayment($code)
     {
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
                 return true;
             }
@@ -64,9 +64,9 @@ abstract class PaytabsHelper
 
     static function isCardPayment($code, $is_international = false)
     {
-        $group = $is_international ? PaytabsApi::GROUP_CARDS_INTERNATIONAL : PaytabsApi::GROUP_CARDS;
+        $group = $is_international ? ::GROUP_CARDS_INTERNATIONAL : ::GROUP_CARDS;
 
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
                 return in_array($group, $value['groups']);
             }
@@ -78,9 +78,9 @@ abstract class PaytabsHelper
     {
         $methods = [];
 
-        $group = $international_only ? PaytabsApi::GROUP_CARDS_INTERNATIONAL : PaytabsApi::GROUP_CARDS;
+        $group = $international_only ? ::GROUP_CARDS_INTERNATIONAL : ::GROUP_CARDS;
 
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if (in_array($group, $value['groups'])) {
                 if ($currency) {
                     if ($value['currencies'] == null || in_array($currency, $value['currencies'])) {
@@ -104,9 +104,9 @@ abstract class PaytabsHelper
 
     static function supportTokenization($code)
     {
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
-                return in_array(PaytabsApi::GROUP_TOKENIZE, $value['groups']);
+                return in_array(::GROUP_TOKENIZE, $value['groups']);
             }
         }
         return false;
@@ -114,9 +114,9 @@ abstract class PaytabsHelper
 
     static function supportAuthCapture($code)
     {
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
-                return in_array(PaytabsApi::GROUP_AUTH_CAPTURE, $value['groups']);
+                return in_array(::GROUP_AUTH_CAPTURE, $value['groups']);
             }
         }
         return false;
@@ -124,9 +124,9 @@ abstract class PaytabsHelper
 
     static function supportIframe($code)
     {
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
-                return in_array(PaytabsApi::GROUP_IFRAME, $value['groups']);
+                return in_array(::GROUP_IFRAME, $value['groups']);
             }
         }
         return false;
@@ -134,9 +134,9 @@ abstract class PaytabsHelper
 
     static function supportRefund($code)
     {
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
-                return in_array(PaytabsApi::GROUP_REFUND, $value['groups']);
+                return in_array(::GROUP_REFUND, $value['groups']);
             }
         }
         return false;
@@ -144,9 +144,9 @@ abstract class PaytabsHelper
 
     static function supportPending($code)
     {
-        foreach (PaytabsApi::PAYMENT_TYPES as $key => $value) {
+        foreach (::PAYMENT_TYPES as $key => $value) {
             if ($value['name'] === $code) {
-                return in_array(PaytabsApi::GROUP_PENDING, $value['groups']);
+                return in_array(::GROUP_PENDING, $value['groups']);
             }
         }
         return false;
@@ -1430,6 +1430,8 @@ class PaytabsApi
         '24' => ['name' => 'tabby', 'title' => 'PayTabs - Tabby', 'currencies' => ['AED', 'SAR'], 'groups' => []],
         '25' => ['name' => 'souhoola', 'title' => 'PayTabs - Souhoola', 'currencies' => ['EGP'], 'groups' => [PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND]],
         '26' => ['name' => 'amaninstallments', 'title' => 'PayTabs - Aman installments', 'currencies' => ['EGP'], 'groups' => [PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND]],
+        '27' => ['name' => 'tamara', 'title' => 'PayTabs - Tamara', 'currencies' => null, 'groups' => []],
+
 
     ];
 
