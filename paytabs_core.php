@@ -2,11 +2,11 @@
 
 /**
  * PayTabs v2 PHP SDK
- * Version: 2.21.3
+ * Version: 2.24.0
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.21.3');
+define('PAYTABS_SDK_VERSION', '2.24.0');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -176,7 +176,7 @@ abstract class PaytabsHelper
 
     /**
      * convert non-english digits to English
-     * used for fileds that accepts only English digits like: "postal_code"
+     * used for fields that accepts only English digits like: "postal_code"
      */
     public static function convertAr2En($string)
     {
@@ -680,7 +680,7 @@ class PaytabsHolder
 
 
 /**
- * Holder class: Holds & Generates the paramters array.
+ * Holder class: Holds & Generates the parameters array.
  * Holds & Generates the parameters array for the payments
  * Members:
  * - airline_data
@@ -1112,7 +1112,7 @@ class PaytabsRequestHolder extends PaytabsBasicHolder
 
             if (!PaytabsHelper::isValidDiscountPattern($pattern)) {
                 PaytabsHelper::log('Paytabs admin: Discount pattern not valid', 2);
-                // uncomment if you want to stop the request, otherwise send the reqeust
+                // uncomment if you want to stop the request, otherwise send the request
                 // return $this;
             }
 
@@ -1609,7 +1609,7 @@ class PaytabsApi
         return $res;
     }
 
-    function inqiry_valu($params)
+    function inquiry_valu($params)
     {
         $res1 = $this->sendRequest(self::URL_INQUIRY_VALU, $params);
 
