@@ -1412,7 +1412,7 @@ class PaytabsApi
         '6'  => ['name' => 'creditcard', 'title' => 'PayTabs - CreditCard', 'currencies' => null, 'groups' => [PaytabsApi::GROUP_TOKENIZE, PaytabsApi::GROUP_CARDS, PaytabsApi::GROUP_CARDS_INTERNATIONAL, PaytabsApi::GROUP_AUTH_CAPTURE, PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND]],
         '7'  => ['name' => 'sadad', 'title' => 'PayTabs - Sadad', 'currencies' => ['SAR'], 'groups' => [PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_PENDING]],
         // '8'  => ['name' => 'fawry', 'title' => 'PayTabs - @Fawry', 'currencies' => ['EGP'], 'groups' => [PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND, PaytabsApi::GROUP_PENDING]],
-        '9'  => ['name' => 'knet', 'title' => 'PayTabs - KnPay', 'currencies' => ['KWD'], 'groups' => [PaytabsApi::GROUP_CARDS, PaytabsApi::GROUP_REFUND]],
+        '9'  => ['name' => 'knet', 'title' => 'PayTabs - KnPay', 'currencies' => ['KWD', 'USD'], 'groups' => [PaytabsApi::GROUP_CARDS, PaytabsApi::GROUP_REFUND]],
         '10' => ['name' => 'amex', 'title' => 'PayTabs - Amex', 'currencies' => ['AED', 'SAR', 'USD'], 'groups' => [PaytabsApi::GROUP_TOKENIZE, PaytabsApi::GROUP_CARDS, PaytabsApi::GROUP_CARDS_INTERNATIONAL, PaytabsApi::GROUP_AUTH_CAPTURE, PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND]],
         '11' => ['name' => 'valu', 'title' => 'PayTabs - valU', 'currencies' => ['EGP'], 'groups' => [PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND]],
         '12' => ['name' => 'meeza', 'title' => 'PayTabs - Meeza', 'currencies' => ['EGP'], 'groups' => [PaytabsApi::GROUP_CARDS, PaytabsApi::GROUP_AUTH_CAPTURE, PaytabsApi::GROUP_IFRAME, PaytabsApi::GROUP_REFUND]],
@@ -1466,7 +1466,7 @@ class PaytabsApi
             'title' => 'Global',
             'endpoint' => 'https://secure-global.paytabs.com/'
         ],
-        'KUWAIT' => [
+        'KWT' => [
             'title' => 'Kuwait',
             'endpoint' => 'https://secure-kuwait.paytabs.com/'
         ],
