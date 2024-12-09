@@ -1,0 +1,17 @@
+<?php
+
+namespace Holder\Builders;
+
+use Holder\Parts\TransactionRef;
+
+class Followup extends Root
+{
+    public function setTransactionRef(string $tranRef)
+    {
+        $this->product->buildBody(
+            new TransactionRef($tranRef)
+        );
+
+        return $this;
+    }
+}

@@ -1,0 +1,28 @@
+<?php
+
+namespace Holder\Builders;
+
+use Holder\Parts\Framed;
+use Holder\Parts\HideShipping;
+
+class HostedPage extends PrimaryPayment
+{
+    public function setHideShipping(bool $hideShipping = true)
+    {
+        $this->product->buildBody(
+            new HideShipping($hideShipping)
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param string $redirect_target "parent" or "top" or "iframe"
+     */
+    public function setFramedObj(Framed $framed)
+    {
+        $this->product->buildBody($framed);
+
+        return $this;
+    }
+}

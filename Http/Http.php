@@ -1,0 +1,95 @@
+<?php
+
+namespace Http;
+
+use CurlHandle;
+use Logger\LoggerInterface;
+use Request\Request;
+use Response\Response;
+
+class Http
+{
+    private int $timeout = 30;
+
+    private Request $request;
+
+    private LoggerInterface $logger;
+
+    //
+
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
+    }
+
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function submit(): Response
+    {
+        $curl_handle = $this->initRequest();
+
+        $this->logger->error('Executing cURL ...', null);
+
+        $curl_response = curl_exec($curl_handle);
+        $errorNo = curl_errno($curl_handle);
+        if ($errorNo) {
+            $errorMsg = curl_error($curl_handle);
+
+            $this->logger->error($errorMsg, null);
+        }
+
+        curl_close($curl_handle);
+
+        $response = new Response;
+        $response->setResponse($curl_response);
+
+        return $response;
+    }
+
+    //
+
+    private function initRequest(): CurlHandle
+    {
+        $url = $this->request->getUrl();
+        $payload = $this->request->getPayload();
+        $headers = $this->request->getHeader();
+
+        $curl = curl_init($url);
+
+        $curl_options_ssl = [
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
+        ];
+
+        $curl_options_response = [
+            CURLOPT_TIMEOUT => $this->timeout,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => false,
+
+            CURLOPT_VERBOSE => true,
+        ];
+
+        $arr =
+            $curl_options_ssl
+            + $curl_options_response
+            + [
+                CURLOPT_POST => true,
+            ]
+            + [
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_POSTFIELDS => json_encode($payload),
+            ];
+
+        var_dump($arr);
+
+        curl_setopt_array(
+            $curl,
+            $arr
+        );
+
+        return $curl;
+    }
+}
