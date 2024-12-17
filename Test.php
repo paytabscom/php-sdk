@@ -67,13 +67,11 @@ require_once '_Log.php';
 
 $log = new Log();
 
-$endpoint = new Uae();
-$gateway = new Gateway($endpoint, 47170, 'SRJNLKK2Z2-HWRGM6JDZM-MGMGGNW9JZ');
+$gateway = new Gateway(new Uae, 47170, 'SRJNLKK2Z2-HWRGM6JDZM-MGMGGNW9JZ');
 
 $holder = new HostedPage();
-
 $holder
-    ->setCart("c01", "AED", 401, "Test")
+    ->setCart("c01", "AED", 100.5, "Test")
     ->setTransaction(TranType::Sale, TranClass::Ecom)
     ->setPluginInfo('PHP', phpversion(), '')
     ->setCustomerDetails(
