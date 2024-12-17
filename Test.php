@@ -10,6 +10,7 @@ use Holder\Parts\CustomerDetails;
 use Holder\Parts\Framed;
 use Holder\Parts\ShippingDetails;
 use Http\Http;
+use Request\PaymentRequest;
 use Request\Request;
 
 require_once 'Holder/BuilderInterface.php';
@@ -57,6 +58,7 @@ require_once 'Http/Http.php';
 require_once 'Logger/LoggerInterface.php';
 
 require_once 'Request/Request.php';
+require_once 'Request/PaymentRequest.php';
 
 require_once 'Response/Response.php';
 require_once '_Log.php';
@@ -83,7 +85,7 @@ $holder
     ->setHideShipping(false)
 ;
 
-$request = new Request($gateway, $holder, '/payment/request');
+$request = new PaymentRequest($gateway, $holder);
 
 $http = new Http();
 $http->setLogger($log);
