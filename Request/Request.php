@@ -7,28 +7,32 @@ use Holder\BuilderInterface;
 
 class Request
 {
-    private Gateway $environment;
-    private BuilderInterface $dataHolder;
-    private string $path;
+    protected Gateway $environment;
+    protected BuilderInterface $dataHolder;
+    protected string $path;
 
     public function __construct(
         Gateway $environment,
         BuilderInterface $holder,
-        string $path
+        string $path = null,
     ) {
         $this->environment = $environment;
         $this->dataHolder = $holder;
-        $this->path = $path;
+        if ($path) {
+            $this->path = $path;
+        }
     }
 
     //
 
-    public function getPayload(): array
+    public function getPayload(): array|string
     {
-        return array_merge(
+        $payload = array_merge(
             $this->environment->getBody(),
             $this->dataHolder->getPayload()->getBody(),
         );
+
+        return json_encode($payload);
     }
 
     public function getHeader(): array
@@ -38,6 +42,7 @@ class Request
 
     public function getUrl(): string
     {
-        return $this->environment->getUrl() . $this->path;
+        $domain = rtrim($this->environment->getUrl(), '/');
+        return $domain . '/' . $this->path;
     }
 }

@@ -80,10 +80,8 @@ class Http
             ]
             + [
                 CURLOPT_HTTPHEADER => $headers,
-                CURLOPT_POSTFIELDS => json_encode($payload),
+                CURLOPT_POSTFIELDS => $payload,
             ];
-
-        var_dump($arr);
 
         curl_setopt_array(
             $curl,
