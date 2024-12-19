@@ -42,13 +42,16 @@ require_once 'Enums/TokenType.php';
 require_once 'Enums/FramedTarget.php';
 require_once 'Enums/HttpRequestPart.php';
 require_once 'Enums/TokenPaymentFrequency.php';
+require_once 'Enums/HttpType.php';
 
 require_once 'Http/Http.php';
 
 require_once 'Logger/LoggerInterface.php';
 
-require_once 'Request/Request.php';
-require_once 'Request/PaymentRequest.php';
+require_once 'Request/RequestInterface.php';
+require_once 'Request/AbstractRequest.php';
+require_once 'Request/PaytabsRequest.php';
+require_once 'Request/Requests/PaymentRequest.php';
 
 require_once 'Response/Response.php';
 require_once '_Log.php';

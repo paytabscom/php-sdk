@@ -11,8 +11,7 @@ use Holder\Parts\CustomerDetails;
 use Holder\Parts\Framed;
 use Holder\Parts\ShippingDetails;
 use Http\Http;
-use Request\PaymentRequest;
-use Request\Request;
+use Request\Requests\PaymentRequest;
 
 require_once 'Test_req.php';
 
