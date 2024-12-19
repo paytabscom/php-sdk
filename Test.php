@@ -16,10 +16,13 @@ $http = new Http();
 $http->setLogger($log);
 
 // Test Payment Request
-include 'Tests/PaymentRequest.php';
+// include 'Tests/PaymentRequest.php';
 
 // Test Query Token
 // include 'Tests/TestTokenQuery.php';
 
 // Test Query Delete
 // include 'Tests/TestTokenDelete.php';
+
+// Test Transaction Query
+include 'Tests/TransactionQuery.php';

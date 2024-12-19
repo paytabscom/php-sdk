@@ -10,12 +10,13 @@ require_once 'Holder/Payload/AbstractPayload.php';
 require_once 'Holder/Payload/PaytabsPayload.php';
 
 require_once 'Holder/Builders/AbstractHolder.php';
-require_once 'Holder/Builders/Root.php';
+require_once 'Holder/Builders/PaymentRequest.php';
 require_once 'Holder/Builders/AirlineData.php';
 require_once 'Holder/Builders/Followup.php';
 require_once 'Holder/Builders/PrimaryPayment.php';
 require_once 'Holder/Builders/HostedPage.php';
 require_once 'Holder/Builders/Token/Token.php';
+require_once 'Holder/Builders/TransactionQuery.php';
 
 require_once 'Holder/Parts/Airline.php';
 require_once 'Holder/Parts/ApplePayToken.php';
@@ -56,6 +57,7 @@ require_once 'Request/PaytabsRequest.php';
 require_once 'Request/Requests/PaymentRequest.php';
 require_once 'Request/Requests/TokenQuery.php';
 require_once 'Request/Requests/TokenDelete.php';
+require_once 'Request/Requests/TransactionQuery.php';
 
 require_once 'Response/Response.php';
 require_once '_Log.php';
