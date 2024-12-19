@@ -4,14 +4,14 @@ namespace Http;
 
 use CurlHandle;
 use Logger\LoggerInterface;
-use Request\Request;
+use Request\RequestInterface;
 use Response\Response;
 
 class Http
 {
     private int $timeout = 30;
 
-    private Request $request;
+    private RequestInterface $request;
 
     private LoggerInterface $logger;
 
@@ -22,7 +22,7 @@ class Http
         $this->logger = $logger;
     }
 
-    public function setRequest(Request $request)
+    public function setRequest(RequestInterface $request)
     {
         $this->request = $request;
     }
