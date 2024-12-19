@@ -6,6 +6,7 @@ use Enums\HttpType;
 use Gateway\Gateway;
 use Helpers\Helpers;
 use Holder\BuilderInterface;
+use Holder\PayloadInterface;
 
 class Request
 {
@@ -34,9 +35,12 @@ class Request
 
     public function getPayload(): array|string
     {
+        /** @var PayloadInterface */
+        $dataPayload = $this->dataHolder->getPayload();
+
         $payload = array_merge(
             $this->environment->getBody(),
-            $this->dataHolder->getPayload()->getBody(),
+            $dataPayload->getBody(),
         );
 
         return json_encode($payload);
