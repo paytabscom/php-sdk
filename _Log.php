@@ -6,6 +6,20 @@ use Logger\LoggerInterface;
 class Log implements LoggerInterface
 {
 
+    private static $instances = [];
+
+    public static function getInstance(): Log
+    {
+        $cls = static::class;
+        if (!isset(self::$instances[$cls])) {
+            self::$instances[$cls] = new static();
+        }
+
+        return self::$instances[$cls];
+    }
+
+    //
+
     private function log($msg, int $severity = 1, array $meta = null)
     {
         switch ($severity) {

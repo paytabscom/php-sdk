@@ -10,6 +10,20 @@ abstract class Endpoint
 
     //
 
+    private static $instances = [];
+
+    public static function getInstance(): Endpoint
+    {
+        $cls = static::class;
+        if (!isset(self::$instances[$cls])) {
+            self::$instances[$cls] = new static();
+        }
+
+        return self::$instances[$cls];
+    }
+
+    //
+
     public function getCode(): string
     {
         return static::CODE;
