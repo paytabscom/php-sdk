@@ -4,7 +4,7 @@ namespace Holder\Builders;
 
 use Holder\Parts\TransactionRef;
 
-class Followup extends Root
+class Followup extends PaymentRequest
 {
     public function setTransactionRef(string $tranRef)
     {

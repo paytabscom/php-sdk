@@ -6,7 +6,7 @@ namespace Holder\Builders;
 use Holder\Parts\Airline;
 
 
-abstract class AirlineData extends Root
+abstract class AirlineData extends PaymentRequest
 {
     public function setAirlineData(string $pnrCode)
     {

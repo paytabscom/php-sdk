@@ -9,7 +9,7 @@ use Holder\Parts\PluginInfo;
 use Holder\Parts\Transaction;
 use Holder\Parts\Urls;
 
-class Root extends AbstractHolder
+class PaymentRequest extends AbstractHolder
 {
     public function setTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)
     {
