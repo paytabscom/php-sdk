@@ -25,4 +25,7 @@ $http->setLogger($log);
 // include 'Tests/TestTokenDelete.php';
 
 // Test Transaction Query
-include 'Tests/TransactionQuery.php';
+// include 'Tests/TransactionQuery.php';
+
+// Test Refund
+include 'Tests/RefundRequest.php';
