@@ -31,7 +31,7 @@ class Http
     {
         $curl_handle = $this->initRequest();
 
-        $this->logger->error('Executing cURL ...', null);
+        $this->logger->debug('Executing cURL ...', null);
 
         $curl_response = curl_exec($curl_handle);
         $errorNo = curl_errno($curl_handle);

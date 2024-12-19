@@ -17,6 +17,7 @@ require_once 'Holder/Builders/PrimaryPayment.php';
 require_once 'Holder/Builders/HostedPage.php';
 require_once 'Holder/Builders/Token/Token.php';
 require_once 'Holder/Builders/TransactionQuery.php';
+require_once 'Holder/Builders/Followup/Refund.php';
 
 require_once 'Holder/Parts/Airline.php';
 require_once 'Holder/Parts/ApplePayToken.php';
