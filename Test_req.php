@@ -1,5 +1,6 @@
 <?php
 
+require_once 'Helpers/Helpers.php';
 
 require_once 'Holder/BuilderInterface.php';
 require_once 'Holder/PartInterface.php';

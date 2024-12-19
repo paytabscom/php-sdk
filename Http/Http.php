@@ -55,7 +55,7 @@ class Http
     {
         $url = $this->request->getUrl();
         $payload = $this->request->getPayload();
-        $headers = $this->request->getHeader();
+        $headers = $this->request->getHeaders();
 
         $curl = curl_init($url);
 
@@ -72,12 +72,14 @@ class Http
             CURLOPT_VERBOSE => true,
         ];
 
+        $curl_http_type = [
+            CURLOPT_POST => $this->request->isHttpPost(),
+        ];
+
         $arr =
             $curl_options_ssl
             + $curl_options_response
-            + [
-                CURLOPT_POST => true,
-            ]
+            + $curl_http_type
             + [
                 CURLOPT_HTTPHEADER => $headers,
                 CURLOPT_POSTFIELDS => $payload,

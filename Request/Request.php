@@ -2,14 +2,21 @@
 
 namespace Request;
 
+use Enums\HttpType;
 use Gateway\Gateway;
+use Helpers\Helpers;
 use Holder\BuilderInterface;
 
 class Request
 {
     protected Gateway $environment;
     protected BuilderInterface $dataHolder;
+
     protected string $path;
+
+    protected HttpType $httpType = HttpType::POST;
+
+    //
 
     public function __construct(
         Gateway $environment,
@@ -35,14 +42,26 @@ class Request
         return json_encode($payload);
     }
 
-    public function getHeader(): array
+    public function getHeaders(): array
     {
         return $this->environment->getHeaders();
     }
 
     public function getUrl(): string
     {
-        $domain = rtrim($this->environment->getUrl(), '/');
-        return $domain . '/' . $this->path;
+        return Helpers::urlBuild(
+            $this->environment->getUrl(),
+            $this->path
+        );
+    }
+
+    public function getHttpType(): HttpType
+    {
+        return $this->httpType;
+    }
+
+    public function isHttpPost(): bool
+    {
+        return $this->getHttpType() == HttpType::POST;
     }
 }
