@@ -1,11 +1,12 @@
 <?php
 
-namespace Request;
+namespace Request\Requests;
 
 use Gateway\Gateway;
 use Holder\BuilderInterface;
+use Request\PaytabsRequest;
 
-class PaymentRequest extends Request
+class PaymentRequest extends PaytabsRequest
 {
     protected string $path = 'payment/request';
 

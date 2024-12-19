@@ -8,7 +8,7 @@ use Helpers\Helpers;
 use Holder\BuilderInterface;
 use Holder\PayloadInterface;
 
-class Request
+abstract class AbstractRequest implements RequestInterface
 {
     protected Gateway $environment;
     protected BuilderInterface $dataHolder;
@@ -48,7 +48,15 @@ class Request
 
     public function getHeaders(): array
     {
-        return $this->environment->getHeaders();
+        /** @var PayloadInterface */
+        $dataPayload = $this->dataHolder->getPayload();
+
+        $headers = array_merge(
+            $this->environment->getHeaders(),
+            $dataPayload->getHeaders(),
+        );
+
+        return $headers;
     }
 
     public function getUrl(): string
