@@ -19,4 +19,12 @@ class PaymentResult
     public string $cvv_result; // " ",
     public string $avs_result; // " ",
     public string $transaction_time; // "2024-12-19T11:41:30Z"
+
+    //
+
+    public function setResponseStatus(string $response_status)
+    {
+        $this->response_status = $response_status;
+        $this->tranStatus = TranStatus::tryFrom(strtoupper($response_status));
+    }
 }
