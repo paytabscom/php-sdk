@@ -41,6 +41,8 @@ class Http
         $this->logger->debug('Executing cURL ...', null);
 
         $curl_response = curl_exec($curl_handle);
+        $curl_response_code = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+
         $errorNo = curl_errno($curl_handle);
         if ($errorNo) {
             $errorMsg = curl_error($curl_handle);
@@ -50,8 +52,7 @@ class Http
 
         curl_close($curl_handle);
 
-        $response = new Response;
-        $response->setResponse($curl_response);
+        $response = new Response($curl_response, $curl_response_code);
 
         return $response;
     }
