@@ -5,6 +5,7 @@ use Enums\TranType;
 use Holder\Builders\Followup;
 use Holder\Builders\Followup\Refund;
 use Request\Requests\PaymentRequest;
+use Response\Payload\Completed;
 
 /*
 $refundHolder = new Followup();
@@ -31,5 +32,8 @@ $http->setRequest($request);
 
 $response = $http->submit();
 
+$res_completed = $jsonMapper->map($response->getJson(), Completed::class);
+
 var_dump($refundHolder);
 var_dump($response);
+var_dump($res_completed);
