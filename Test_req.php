@@ -1,5 +1,7 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
 require_once 'Helpers/Helpers.php';
 
 require_once 'Holder/BuilderInterface.php';
@@ -47,6 +49,7 @@ require_once 'Enums/FramedTarget.php';
 require_once 'Enums/HttpRequestPart.php';
 require_once 'Enums/TokenPaymentFrequency.php';
 require_once 'Enums/HttpType.php';
+require_once 'Enums/ResponseType.php';
 
 require_once 'Http/Http.php';
 
@@ -60,5 +63,12 @@ require_once 'Request/Requests/TokenQuery.php';
 require_once 'Request/Requests/TokenDelete.php';
 require_once 'Request/Requests/TransactionQuery.php';
 
+require_once 'Response/ResponseInterface.php';
 require_once 'Response/Response.php';
+require_once 'Response/Payload/Paytabs.php';
+require_once 'Response/Payload/Failure.php';
+require_once 'Response/Payload/Payment.php';
+require_once 'Response/Payload/Redirect.php';
+require_once 'Response/Payload/Completed.php';
+
 require_once '_Log.php';
