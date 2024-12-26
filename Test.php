@@ -9,7 +9,6 @@ require_once 'Test_req.php';
 //
 
 $log = Log::getInstance();
-$jsonMapper = new JsonMapper();
 
 $gateway = new Gateway(Uae::getInstance(), 47170, 'SRJNLKK2Z2-HWRGM6JDZM-MGMGGNW9JZ');
 
