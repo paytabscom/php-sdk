@@ -52,7 +52,7 @@ class Http
 
         curl_close($curl_handle);
 
-        $response = new Response($curl_response, $curl_response_code);
+        $response = new Response($curl_response, $curl_response_code, $this->request);
 
         return $response;
     }

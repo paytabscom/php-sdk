@@ -19,6 +19,8 @@ abstract class AbstractRequest implements RequestInterface
 
     protected array $expectedResponses;
 
+    protected string $responseClass;
+
     //
 
     public function __construct(
@@ -89,5 +91,10 @@ abstract class AbstractRequest implements RequestInterface
         }
 
         return $this->expectedResponses;
+    }
+
+    public function getResponseClass(): string
+    {
+        return $this->responseClass;
     }
 }

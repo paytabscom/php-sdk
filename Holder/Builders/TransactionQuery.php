@@ -3,9 +3,14 @@
 namespace Holder\Builders;
 
 use Holder\Parts\TransactionRef;
+use Response\Payload\Completed;
 
 class TransactionQuery extends AbstractHolder
 {
+    protected string $responseClass = Completed::class;
+
+    //
+
     public function setTransactionRef(string $tran_ref)
     {
         $this->product->buildBody(

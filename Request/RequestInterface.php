@@ -15,4 +15,5 @@ interface RequestInterface
     public function isHttpPost(): bool;
 
     public function expectedResponses(): array;
+    public function getResponseClass(): string;
 }

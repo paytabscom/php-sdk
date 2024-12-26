@@ -3,28 +3,57 @@
 namespace Response;
 
 use Enums\ResponseType;
+use JsonMapper;
+use Request\RequestInterface;
 
 class Response implements ResponseInterface
 {
+    protected RequestInterface $request;
+
     protected int $responseCode;
     private string $response;
 
     //
 
-    public function __construct(string $response, int $responseCode)
+    public function __construct(string $response, int $responseCode, RequestInterface $request)
     {
         $this->responseCode = $responseCode;
         $this->response = $response;
+
+        $this->request = $request;
     }
 
-    public function getResponse(): string
+    public function getRaw(): string
     {
         return $this->response;
     }
 
     public function getJson()
     {
-        return json_decode($this->getResponse());
+        return json_decode($this->getRaw());
+    }
+
+    public function getResponse(?string $responseClass = null)
+    {
+        $mapToClass = null;
+        $isArray = false;
+
+        if ($responseClass != null) {
+            $mapToClass = $responseClass;
+        } elseif ($this->request->getResponseClass() != null) {
+            $mapToClass = $this->request->getResponseClass();
+        }
+
+        if ($mapToClass != null) {
+            $jsonMapper = new JsonMapper();
+            if ($isArray) {
+                // return $jsonMapper->mapArray($this->getJson(),)
+            } else {
+                return $jsonMapper->map($this->getJson(), $mapToClass);
+            }
+        }
+
+        return $this->getJson();
     }
 
     //
@@ -40,7 +69,8 @@ class Response implements ResponseInterface
             return ResponseType::Redirect;
         }
 
-        if (isset($response_decoded->code)) {
+        // Delete Token request returns same structure but code=0
+        if (isset($response_decoded->code) && $response_decoded->code > 0) {
             return ResponseType::Error;
         }
 
