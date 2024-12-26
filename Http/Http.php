@@ -15,6 +15,8 @@ class Http
 
     private LoggerInterface $logger;
 
+    private bool $debugMode = false;
+
     //
 
     public function setLogger(LoggerInterface $logger): void
@@ -25,6 +27,11 @@ class Http
     public function setRequest(RequestInterface $request)
     {
         $this->request = $request;
+    }
+
+    public function setDebugMode(bool $debugMode)
+    {
+        $this->debugMode = $debugMode;
     }
 
     public function submit(): Response
@@ -69,21 +76,23 @@ class Http
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => false,
 
-            CURLOPT_VERBOSE => true,
+            CURLOPT_VERBOSE => $this->debugMode,
         ];
 
         $curl_http_type = [
             CURLOPT_POST => $this->request->isHttpPost(),
         ];
 
+        $curl_data =  [
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $payload,
+        ];
+
         $arr =
             $curl_options_ssl
             + $curl_options_response
             + $curl_http_type
-            + [
-                CURLOPT_HTTPHEADER => $headers,
-                CURLOPT_POSTFIELDS => $payload,
-            ];
+            + $curl_data;
 
         curl_setopt_array(
             $curl,
