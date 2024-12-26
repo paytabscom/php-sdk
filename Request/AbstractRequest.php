@@ -17,6 +17,8 @@ abstract class AbstractRequest implements RequestInterface
 
     protected HttpType $httpType = HttpType::POST;
 
+    protected array $expectedResponses;
+
     //
 
     public function __construct(
@@ -75,5 +77,17 @@ abstract class AbstractRequest implements RequestInterface
     public function isHttpPost(): bool
     {
         return $this->getHttpType() == HttpType::POST;
+    }
+
+    //
+
+    public function expectedResponses(): array
+    {
+        $dataHolderExpected = $this->dataHolder->expectedResponses();
+        if ($dataHolderExpected) {
+            return $dataHolderExpected;
+        }
+
+        return $this->expectedResponses;
     }
 }

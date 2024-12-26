@@ -8,9 +8,18 @@ use Holder\Parts\Cart;
 use Holder\Parts\PluginInfo;
 use Holder\Parts\Transaction;
 use Holder\Parts\Urls;
+use Response\Payload\Completed;
+use Response\Payload\Redirect;
 
 class PaymentRequest extends AbstractHolder
 {
+    protected array $expectedResponses = [
+        Redirect::class,
+        Completed::class,
+    ];
+
+    //
+
     public function setTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)
     {
         $this->product->buildBody(

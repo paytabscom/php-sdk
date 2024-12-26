@@ -6,10 +6,16 @@ use Enums\TranClass;
 use Enums\TranType;
 use Exception;
 use Holder\Builders\Followup;
-
+use Response\Payload\Completed;
 
 class Refund extends Followup
 {
+    protected array $expectedResponses = [
+        Completed::class,
+    ];
+
+    //
+
     public function __construct()
     {
         parent::__construct();

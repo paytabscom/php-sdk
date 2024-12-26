@@ -3,8 +3,15 @@
 namespace Request\Requests;
 
 use Request\PaytabsRequest;
+use Response\Payload\Completed;
+use Response\Payload\Redirect;
 
 class PaymentRequest extends PaytabsRequest
 {
     protected string $path = 'payment/request';
+
+    protected array $expectedResponses = [
+        Redirect::class,
+        Completed::class,
+    ];
 }

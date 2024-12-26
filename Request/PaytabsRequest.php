@@ -5,7 +5,7 @@ namespace Request;
 use Gateway\Gateway;
 use Holder\BuilderInterface;
 
-class PaytabsRequest extends AbstractRequest
+abstract class PaytabsRequest extends AbstractRequest
 {
     public function __construct(
         Gateway $environment,
