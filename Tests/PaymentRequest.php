@@ -37,17 +37,28 @@ $http->setDebugMode(false);
 /** @var Response */
 $response = $http->submit();
 
-$responseType = $response->responseStage();
+$responseStage = $response->getResponseStage();
 
-$resMapped;
-if ($responseType == ResponseStage::Error) {
-    $resMapped = $response->getResponse(Failure::class);
-} elseif ($responseType == ResponseStage::Redirect) {
-    $resMapped = $response->getResponse(Redirect::class);
-} else {
-    $resMapped = $response->getResponse();
+switch ($responseStage) {
+    case ResponseStage::Error:
+        $resClassed = $response->asFailure();
+        $resClassed->code;
+        $resClassed->message;
+        break;
+
+    case ResponseStage::Redirect:
+        $resClassed = $response->asRedirect();
+        $resClassed->redirect_url;
+        break;
+
+    case ResponseStage::UnKnown:
+    case ResponseStage::Completed:
+    default:
+        $resClassed = $response->getResponse();
+
+        break;
 }
 
 // var_dump($holder);
 // var_dump($response);
-var_dump($resMapped);
+var_dump($resClassed);
