@@ -2,7 +2,7 @@
 
 namespace Enums;
 
-enum ResponseType
+enum ResponseStage
 {
     case Redirect;
     case Error;

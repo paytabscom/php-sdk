@@ -2,9 +2,12 @@
 
 namespace Response;
 
-use Enums\ResponseType;
+use Enums\ResponseStage;
 
 interface ResponseInterface
 {
-    public function responseType(): ResponseType;
+    public function responseStage(): ResponseStage;
+
+    public function getRaw(): string;
+    public function getJson();
 }

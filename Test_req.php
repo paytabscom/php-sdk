@@ -49,7 +49,7 @@ require_once 'Enums/FramedTarget.php';
 require_once 'Enums/HttpRequestPart.php';
 require_once 'Enums/TokenPaymentFrequency.php';
 require_once 'Enums/HttpType.php';
-require_once 'Enums/ResponseType.php';
+require_once 'Enums/ResponseStage.php';
 
 require_once 'Http/Http.php';
 

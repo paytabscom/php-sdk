@@ -2,7 +2,7 @@
 
 namespace Response;
 
-use Enums\ResponseType;
+use Enums\ResponseStage;
 use JsonMapper;
 use Request\RequestInterface;
 
@@ -58,7 +58,7 @@ class Response implements ResponseInterface
 
     //
 
-    public function responseType(): ResponseType
+    public function responseStage(): ResponseStage
     {
         $response_decoded = json_decode($this->response);
 
@@ -66,18 +66,18 @@ class Response implements ResponseInterface
             isset($response_decoded->tran_ref, $response_decoded->redirect_url)
             && !empty($response_decoded->redirect_url)
         ) {
-            return ResponseType::Redirect;
+            return ResponseStage::Redirect;
         }
 
         // Delete Token request returns same structure but code=0
         if (isset($response_decoded->code) && $response_decoded->code > 0) {
-            return ResponseType::Error;
+            return ResponseStage::Error;
         }
 
         if (isset($response_decoded->payment_result)) {
-            return ResponseType::Completed;
+            return ResponseStage::Completed;
         }
 
-        return ResponseType::UnKnown;
+        return ResponseStage::UnKnown;
     }
 }
