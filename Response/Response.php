@@ -5,6 +5,8 @@ namespace Response;
 use Enums\ResponseStage;
 use JsonMapper;
 use Request\RequestInterface;
+use Response\Payload\Failure;
+use Response\Payload\Redirect;
 
 class Response implements ResponseInterface
 {
@@ -15,12 +17,23 @@ class Response implements ResponseInterface
 
     //
 
+    private ResponseStage $responseStage;
+    private JsonMapper $jsonMapper;
+
+    //
+
     public function __construct(string $response, int $responseCode, RequestInterface $request)
     {
         $this->responseCode = $responseCode;
         $this->response = $response;
 
         $this->request = $request;
+
+        //
+
+        $this->jsonMapper = new JsonMapper();
+
+        $this->responseStage = $this->responseStage();
     }
 
     public function getRaw(): string
@@ -38,6 +51,18 @@ class Response implements ResponseInterface
         $mapToClass = null;
         $isArray = false;
 
+        $responseStage = $this->responseStage();
+
+        if ($responseStage == ResponseStage::Error) {
+            return $this->asFailure();
+        }
+
+        if ($responseStage == ResponseStage::Redirect) {
+            return $this->asRedirect();
+        }
+
+        //
+
         if ($responseClass != null) {
             $mapToClass = $responseClass;
         } elseif ($this->request->getResponseClass() != null) {
@@ -45,22 +70,31 @@ class Response implements ResponseInterface
         }
 
         if ($mapToClass != null) {
-            $jsonMapper = new JsonMapper();
             if ($isArray) {
                 // return $jsonMapper->mapArray($this->getJson(),)
             } else {
-                return $jsonMapper->map($this->getJson(), $mapToClass);
+                return $this->jsonMapper->map($this->getJson(), $mapToClass);
             }
         }
 
         return $this->getJson();
     }
 
+    public function asFailure(): Failure
+    {
+        return $this->jsonMapper->map($this->getJson(), Failure::class);
+    }
+
+    public function asRedirect(): Redirect
+    {
+        return $this->jsonMapper->map($this->getJson(), Redirect::class);
+    }
+
     //
 
-    public function responseStage(): ResponseStage
+    protected function responseStage(): ResponseStage
     {
-        $response_decoded = json_decode($this->response);
+        $response_decoded = $this->getJson();
 
         // "Delete Token" request returns same structure but code=0
         if (isset($response_decoded->code) && $response_decoded->code > 0) {
@@ -79,5 +113,10 @@ class Response implements ResponseInterface
         }
 
         return ResponseStage::UnKnown;
+    }
+
+    public function getResponseStage(): ResponseStage
+    {
+        return $this->responseStage;
     }
 }

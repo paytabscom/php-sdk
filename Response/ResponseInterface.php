@@ -6,7 +6,7 @@ use Enums\ResponseStage;
 
 interface ResponseInterface
 {
-    public function responseStage(): ResponseStage;
+    public function getResponseStage(): ResponseStage;
 
     public function getRaw(): string;
     public function getJson();
