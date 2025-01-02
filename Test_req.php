@@ -44,6 +44,7 @@ require_once 'Gateway/Endpoints/Ksa.php';
 
 require_once 'Enums/TranClass.php';
 require_once 'Enums/TranType.php';
+require_once 'Enums/TranStatus.php';
 require_once 'Enums/TokenType.php';
 require_once 'Enums/FramedTarget.php';
 require_once 'Enums/HttpRequestPart.php';
@@ -62,6 +63,10 @@ require_once 'Request/Requests/PaymentRequest.php';
 require_once 'Request/Requests/TokenQuery.php';
 require_once 'Request/Requests/TokenDelete.php';
 require_once 'Request/Requests/TransactionQuery.php';
+
+require_once 'Response/Parts/ParentRequest.php';
+require_once 'Response/Parts/PaymentInfo.php';
+require_once 'Response/Parts/PaymentResult.php';
 
 require_once 'Response/ResponseInterface.php';
 require_once 'Response/Response.php';
