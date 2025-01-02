@@ -1,6 +1,6 @@
 <?php
 
-use Enums\ResponseType;
+use Enums\ResponseStage;
 use Enums\TranClass;
 use Enums\TranType;
 use Holder\Builders\HostedPage;
@@ -23,7 +23,7 @@ $holder
     ->setShippingDetails(
         new ShippingDetails('Wajih 2')
     )
-    ->setHideShipping(false)
+    ->setHideShipping(true)
     ->setTokenise(true)
     ->setURLs(null, 'https://webhook.site/1ae2a776-cc70-44e5-adf0-d90966843f46')
 ;
@@ -37,12 +37,12 @@ $http->setDebugMode(false);
 /** @var Response */
 $response = $http->submit();
 
-$responseType = $response->responseType();
+$responseType = $response->responseStage();
 
 $resMapped;
-if ($responseType == ResponseType::Error) {
+if ($responseType == ResponseStage::Error) {
     $resMapped = $response->getResponse(Failure::class);
-} elseif ($responseType == ResponseType::Redirect) {
+} elseif ($responseType == ResponseStage::Redirect) {
     $resMapped = $response->getResponse(Redirect::class);
 } else {
     $resMapped = $response->getResponse();

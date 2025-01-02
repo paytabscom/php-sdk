@@ -62,16 +62,16 @@ class Response implements ResponseInterface
     {
         $response_decoded = json_decode($this->response);
 
+        // "Delete Token" request returns same structure but code=0
+        if (isset($response_decoded->code) && $response_decoded->code > 0) {
+            return ResponseStage::Error;
+        }
+
         if (
             isset($response_decoded->tran_ref, $response_decoded->redirect_url)
             && !empty($response_decoded->redirect_url)
         ) {
             return ResponseStage::Redirect;
-        }
-
-        // Delete Token request returns same structure but code=0
-        if (isset($response_decoded->code) && $response_decoded->code > 0) {
-            return ResponseStage::Error;
         }
 
         if (isset($response_decoded->payment_result)) {
