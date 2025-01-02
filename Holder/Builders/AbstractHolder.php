@@ -11,7 +11,6 @@ abstract class AbstractHolder implements BuilderInterface
 {
     protected PayloadInterface $product;
 
-    protected array $expectedResponses;
     protected string $responseClass;
 
     //
@@ -33,11 +32,6 @@ abstract class AbstractHolder implements BuilderInterface
     public function getPayload(): PayloadInterface
     {
         return $this->product;
-    }
-
-    public function expectedResponses(): array
-    {
-        return $this->expectedResponses;
     }
 
     public function getResponseClass(): string

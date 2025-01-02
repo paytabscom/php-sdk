@@ -9,9 +9,5 @@ class TokenQuery extends PaytabsRequest
 {
     protected string $path = 'payment/token';
 
-    protected array $expectedResponses = [
-        Completed::class,
-    ];
-
     protected string $responseClass = Completed::class;
 }

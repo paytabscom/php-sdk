@@ -13,10 +13,6 @@ use Response\Payload\Redirect;
 
 class PaymentRequest extends AbstractHolder
 {
-    protected array $expectedResponses = [
-        Redirect::class,
-        Completed::class,
-    ];
 
     //
 

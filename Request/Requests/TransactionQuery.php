@@ -9,9 +9,5 @@ class TransactionQuery extends PaytabsRequest
 {
     protected string $path = 'payment/query';
 
-    protected array $expectedResponses = [
-        Completed::class,
-    ];
-
     protected string $responseClass = Completed::class;
 }

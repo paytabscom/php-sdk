@@ -10,10 +10,5 @@ class PaymentRequest extends PaytabsRequest
 {
     protected string $path = 'payment/request';
 
-    protected array $expectedResponses = [
-        Redirect::class,
-        Completed::class,
-    ];
-
     protected string $responseClass = Completed::class;
 }

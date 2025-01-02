@@ -10,9 +10,6 @@ use Response\Payload\Payment\Completed;
 
 class Refund extends Followup
 {
-    protected array $expectedResponses = [
-        Completed::class,
-    ];
 
     //
 
