@@ -3,7 +3,7 @@
 namespace Request\Requests;
 
 use Request\PaytabsRequest;
-use Response\Payload\Completed;
+use Response\Payload\Payment\Completed;
 use Response\Payload\Redirect;
 
 class PaymentRequest extends PaytabsRequest

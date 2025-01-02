@@ -3,7 +3,7 @@
 namespace Holder\Builders;
 
 use Holder\Parts\TransactionRef;
-use Response\Payload\Completed;
+use Response\Payload\Payment\Completed;
 
 class Followup extends PaymentRequest
 {

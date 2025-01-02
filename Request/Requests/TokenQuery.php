@@ -3,7 +3,7 @@
 namespace Request\Requests;
 
 use Request\PaytabsRequest;
-use Response\Payload\Completed;
+use Response\Payload\Payment\Completed;
 
 class TokenQuery extends PaytabsRequest
 {
