@@ -14,4 +14,6 @@ class PaymentRequest extends PaytabsRequest
         Redirect::class,
         Completed::class,
     ];
+
+    protected string $responseClass = Completed::class;
 }

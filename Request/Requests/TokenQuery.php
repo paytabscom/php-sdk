@@ -12,4 +12,6 @@ class TokenQuery extends PaytabsRequest
     protected array $expectedResponses = [
         Completed::class,
     ];
+
+    protected string $responseClass = Completed::class;
 }
