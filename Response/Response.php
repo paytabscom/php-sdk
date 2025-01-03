@@ -3,7 +3,6 @@
 namespace Response;
 
 use Enums\ResponseStage;
-use JsonMapper;
 use Request\RequestInterface;
 use Response\Payload\Failure;
 use Response\Payload\Redirect;

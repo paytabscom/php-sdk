@@ -2,7 +2,6 @@
 
 namespace Request\Requests;
 
-use Request\PaytabsRequest;
 
 class TokenDelete extends TokenQuery
 {

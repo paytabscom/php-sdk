@@ -8,8 +8,6 @@ use Holder\Parts\CustomerDetails;
 use Holder\Parts\ShippingDetails;
 use Http\Http;
 use Request\Requests\PaymentRequest;
-use Response\Payload\Failure;
-use Response\Payload\Redirect;
 use Response\Response;
 
 $holder = new HostedPage();
