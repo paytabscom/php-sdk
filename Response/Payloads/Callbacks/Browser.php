@@ -1,8 +1,10 @@
 <?php
 
-namespace Response\Payloads;
+namespace Response\Payloads\Callbacks;
 
-class CompletedReturn extends Paytabs
+use Response\Payload\Paytabs;
+
+class Browser extends Paytabs
 {
     public string $acquirerMessage;
     public string $acquirerRRN;
