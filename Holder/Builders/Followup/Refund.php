@@ -6,7 +6,6 @@ use Enums\TranClass;
 use Enums\TranType;
 use Exception;
 use Holder\Builders\Followup;
-use Response\Payload\Payment\Completed;
 
 class Refund extends Followup
 {

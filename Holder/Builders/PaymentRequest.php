@@ -8,8 +8,6 @@ use Holder\Parts\Cart;
 use Holder\Parts\PluginInfo;
 use Holder\Parts\Transaction;
 use Holder\Parts\Urls;
-use Response\Payload\Payment\Completed;
-use Response\Payload\Redirect;
 
 class PaymentRequest extends AbstractHolder
 {

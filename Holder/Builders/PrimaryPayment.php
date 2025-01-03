@@ -5,7 +5,6 @@ namespace Holder\Builders;
 use Enums\TokenPaymentFrequency;
 use Enums\TokenType;
 use Holder\Parts\CustomerDetails;
-use Holder\Parts\HideShipping;
 use Holder\Parts\PaypageLang;
 use Holder\Parts\ShippingDetails;
 use Holder\Parts\Tokenise;

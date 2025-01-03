@@ -69,6 +69,7 @@ require_once 'Response/Parts/PaymentInfo.php';
 require_once 'Response/Parts/PaymentResult.php';
 
 require_once 'Response/ResponseInterface.php';
+require_once 'Response/PayloadInterface.php';
 require_once 'Response/Response.php';
 require_once 'Response/Payload/Paytabs.php';
 require_once 'Response/Payload/Failure.php';
