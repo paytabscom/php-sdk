@@ -46,8 +46,9 @@ class Log implements LoggerInterface
         if (is_array($msg)) {
             var_export($msg);
         } else {
-            echo 'Log: ' . $msg . PHP_EOL;
+            echo 'Log: ' . $msg;
         }
+        echo PHP_EOL;
     }
 
     public function debug(string $message, ?array $meta)

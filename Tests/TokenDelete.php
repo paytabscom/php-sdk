@@ -16,4 +16,4 @@ $http->setRequest($tokenDelReq);
 $response = new Response();
 $http->submit($response);
 
-var_dump($response);
+print_r($response);

@@ -60,4 +60,4 @@ switch ($responseStage) {
 
 // var_dump($holder);
 // var_dump($response);
-var_dump($resClassed);
+print_r($resClassed);

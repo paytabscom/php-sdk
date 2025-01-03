@@ -16,7 +16,7 @@ $response = new Response();
 $http->submit($response);
 
 // var_dump($tranHolder);
-var_dump($response);
+print_r($response);
 
 //
 echo '<hr>';
@@ -29,4 +29,4 @@ $http->setRequest($tokenReq);
 $http->submit($response);
 
 // var_dump($tranHolder);
-var_dump($response);
+print_r($response);

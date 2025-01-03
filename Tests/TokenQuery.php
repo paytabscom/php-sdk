@@ -15,5 +15,5 @@ $http->setRequest($tokenReq);
 $response = new Response();
 $http->submit($response);
 
-var_dump($tokenHolder);
-var_dump($response);
+// var_dump($tokenHolder);
+print_r($response);

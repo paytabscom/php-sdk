@@ -21,6 +21,8 @@ $trxRef = 'TST2500302199207';
 $urlCallback = 'https://webhook.site/1c481b22-9981-4372-85cc-c79bb0e342cc';
 $token = '2C4654BD67A3E830C6B693FA63827EB0';
 
+echo '<pre>';
+
 // Test Payment Request
 include 'Tests/PaymentRequest.php';
 
