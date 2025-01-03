@@ -5,7 +5,9 @@ use Enums\TranClass;
 use Enums\TranType;
 use Holder\Builders\Followup;
 use Holder\Builders\Followup\Refund;
+use Http\Http;
 use Request\Requests\PaymentRequest;
+use Response\Response;
 
 //
 
@@ -32,9 +34,13 @@ $refundHolder2
 
 
 $request = new PaymentRequest($gateway, $refundHolder2);
+
+/** @var Http $http */
 $http->setRequest($request);
 
-$response = $http->submit();
+$response = new Response();
+$http->submit($response);
+
 $responseType = $response->getResponseStage();
 
 if ($responseType == ResponseStage::Error) {
