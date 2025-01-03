@@ -35,8 +35,12 @@ abstract class AbstractHolder implements BuilderInterface
         return $this->product;
     }
 
-    public function getResponseClass(): ResponsePayloadInterface
+    public function getResponseClass(): ?ResponsePayloadInterface
     {
+        if (!isset($this->responseClass)) {
+            return null;
+        }
+
         return $this->responseClass->init();
     }
 }

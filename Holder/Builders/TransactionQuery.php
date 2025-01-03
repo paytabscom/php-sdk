@@ -3,13 +3,13 @@
 namespace Holder\Builders;
 
 use Holder\Parts\TransactionRef;
-use Response\Payload\Payment\Completed;
+use Response\Payloads\Payment\Completed;
 use Response\PayloadInterface;
 
 class TransactionQuery extends AbstractHolder
 {
     /** @return Completed */
-    public function getResponseClass(): PayloadInterface
+    public function getResponseClass(): ?PayloadInterface
     {
         return new Completed();
     }

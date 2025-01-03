@@ -4,8 +4,8 @@ namespace Response;
 
 use Enums\ResponseStage;
 use Request\RequestInterface;
-use Response\Payload\Failure;
-use Response\Payload\Redirect;
+use Response\Payloads\Failure;
+use Response\Payloads\Redirect;
 
 class Response implements ResponseInterface
 {

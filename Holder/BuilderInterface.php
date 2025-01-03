@@ -8,5 +8,5 @@ interface BuilderInterface
 {
     public function getPayload(): PayloadInterface;
 
-    public function getResponseClass(): ResponsePayload;
+    public function getResponseClass(): ?ResponsePayload;
 }
