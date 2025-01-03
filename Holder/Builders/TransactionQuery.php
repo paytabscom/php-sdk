@@ -4,10 +4,15 @@ namespace Holder\Builders;
 
 use Holder\Parts\TransactionRef;
 use Response\Payload\Payment\Completed;
+use Response\PayloadInterface;
 
 class TransactionQuery extends AbstractHolder
 {
-    protected string $responseClass = Completed::class;
+    /** @return Completed */
+    public function getResponseClass(): PayloadInterface
+    {
+        return new Completed();
+    }
 
     //
 

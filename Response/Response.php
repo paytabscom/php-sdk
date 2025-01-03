@@ -18,7 +18,6 @@ class Response implements ResponseInterface
     //
 
     private ResponseStage $responseStage;
-    private JsonMapper $jsonMapper;
 
     //
 
@@ -30,8 +29,6 @@ class Response implements ResponseInterface
         $this->request = $request;
 
         //
-
-        $this->jsonMapper = new JsonMapper();
 
         $this->responseStage = $this->responseStage();
     }
@@ -46,7 +43,7 @@ class Response implements ResponseInterface
         return json_decode($this->getRaw());
     }
 
-    public function getResponse(?string $responseClass = null)
+    public function getResponse(?PayloadInterface $responseClass = null)
     {
         $mapToClass = null;
         $isArray = false;
@@ -64,8 +61,10 @@ class Response implements ResponseInterface
         //
 
         if ($responseClass != null) {
-            $mapToClass = $responseClass;
-        } elseif ($this->request->getResponseClass() != null) {
+            return $responseClass->fromJson($this->getJson());
+        }
+
+        if ($this->request->getResponseClass() != null) {
             $mapToClass = $this->request->getResponseClass();
         }
 
@@ -73,7 +72,7 @@ class Response implements ResponseInterface
             if ($isArray) {
                 // return $jsonMapper->mapArray($this->getJson(),)
             } else {
-                return $this->jsonMapper->map($this->getJson(), $mapToClass);
+                return $mapToClass->fromJson($this->getJson());
             }
         }
 
@@ -82,12 +81,12 @@ class Response implements ResponseInterface
 
     public function asFailure(): Failure
     {
-        return $this->jsonMapper->map($this->getJson(), Failure::class);
+        return (new Failure())->fromJson($this->getJson());
     }
 
     public function asRedirect(): Redirect
     {
-        return $this->jsonMapper->map($this->getJson(), Redirect::class);
+        return (new Redirect)->fromJson($this->getJson());
     }
 
     //

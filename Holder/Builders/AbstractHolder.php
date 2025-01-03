@@ -6,12 +6,13 @@ use Holder\BuilderInterface;
 use Holder\PartInterface;
 use Holder\Payload\PaytabsPayload;
 use Holder\PayloadInterface;
+use Response\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractHolder implements BuilderInterface
 {
     protected PayloadInterface $product;
 
-    protected string $responseClass;
+    protected ResponsePayloadInterface $responseClass;
 
     //
 
@@ -34,8 +35,8 @@ abstract class AbstractHolder implements BuilderInterface
         return $this->product;
     }
 
-    public function getResponseClass(): string
+    public function getResponseClass(): ResponsePayloadInterface
     {
-        return $this->responseClass;
+        return $this->responseClass->init();
     }
 }

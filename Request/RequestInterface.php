@@ -3,6 +3,7 @@
 namespace Request;
 
 use Enums\HttpType;
+use Response\PayloadInterface;
 
 interface RequestInterface
 {
@@ -14,5 +15,5 @@ interface RequestInterface
     public function getHttpType(): HttpType;
     public function isHttpPost(): bool;
 
-    public function getResponseClass(): string;
+    public function getResponseClass(): PayloadInterface;
 }

@@ -2,10 +2,12 @@
 
 namespace Holder;
 
+use Response\PayloadInterface as ResponsePayload;
+
 interface BuilderInterface
 {
 
     public function getPayload(): PayloadInterface;
 
-    public function getResponseClass(): string;
+    public function getResponseClass(): ResponsePayload;
 }
