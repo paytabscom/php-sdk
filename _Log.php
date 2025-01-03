@@ -5,7 +5,6 @@ use Logger\LoggerInterface;
 
 class Log implements LoggerInterface
 {
-
     private static $instances = [];
 
     public static function getInstance(): Log

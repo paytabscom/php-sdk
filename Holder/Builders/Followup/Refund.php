@@ -9,7 +9,6 @@ use Holder\Builders\Followup;
 
 class Refund extends Followup
 {
-
     //
 
     public function __construct()

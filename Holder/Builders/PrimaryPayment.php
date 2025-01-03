@@ -57,17 +57,14 @@ abstract class PrimaryPayment extends AirlineData
     public function setTokeniseEnhanced(
         TokenType $tokenType = TokenType::Registered,
         int $tokenFormat = 2,
-
         ?TokenPaymentFrequency $paymentFrequency = null,
         ?float $minAmountPerPayment = null,
         ?float $maxAmountPerPayment = null,
         ?int $minDaysBetweenPayments = null,
         ?string $startDate = null,
         ?string $expiryDate = null,
-
         ?int $counter = null,
         ?int $totalCount = null,
-
         bool $isOptional = false
     ) {
         $obj = (new TokeniseEnhanced(

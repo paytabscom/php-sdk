@@ -86,7 +86,7 @@ class Response implements ResponseInterface
 
     public function asRedirect(): Redirect
     {
-        return (new Redirect)->fromJson($this->getJson());
+        return (new Redirect())->fromJson($this->getJson());
     }
 
     //

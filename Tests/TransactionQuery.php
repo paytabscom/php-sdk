@@ -3,7 +3,6 @@
 use Holder\Builders\TransactionQuery as BuildersTransactionQuery;
 use Request\Requests\TransactionQuery;
 
-
 $tranHolder = new BuildersTransactionQuery();
 $tranHolder->setTransactionRef('TST2435402180636');
 $tokenReq = new TransactionQuery($gateway, $tranHolder);

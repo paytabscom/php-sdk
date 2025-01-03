@@ -9,8 +9,8 @@ enum TranType: string
     case Sale = 'sale';
 
     case AuthExt = 'authext';
-        // Auth Extension is used to refresh the hold on the funds
-        // Followup an Auth transaction
+    // Auth Extension is used to refresh the hold on the funds
+    // Followup an Auth transaction
 
     case PaymentRequest = 'payment request';
 

@@ -11,7 +11,6 @@ use Holder\Parts\Urls;
 
 class PaymentRequest extends AbstractHolder
 {
-
     //
 
     public function setTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)

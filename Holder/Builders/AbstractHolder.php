@@ -18,7 +18,7 @@ abstract class AbstractHolder implements BuilderInterface
 
     public function __construct()
     {
-        $this->product = new PaytabsPayload;
+        $this->product = new PaytabsPayload();
     }
 
     //
