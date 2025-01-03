@@ -33,8 +33,7 @@ $http->setRequest($request);
 $http->setDebugMode(false);
 
 /** @var Response */
-$response = new Response();
-$http->submit($response);
+$response = $http->submit();
 
 $responseStage = $response->getResponseStage();
 

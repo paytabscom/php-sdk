@@ -6,6 +6,7 @@ use CurlHandle;
 use Exception;
 use Logger\LoggerInterface;
 use Request\RequestInterface;
+use Response\Response;
 use Response\ResponseInterface;
 
 class Http
@@ -33,7 +34,7 @@ class Http
         $this->debugMode = $debugMode;
     }
 
-    public function submit(ResponseInterface $response)
+    public function submit(?ResponseInterface $response = null): ResponseInterface
     {
         $curl_handle = $this->initRequest();
 
@@ -53,7 +54,11 @@ class Http
 
         curl_close($curl_handle);
 
+        $response = $response ?? new Response;
+
         $response->init($curl_response, $curl_response_code, $this->request);
+
+        return $response;
     }
 
     //
