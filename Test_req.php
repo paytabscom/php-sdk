@@ -71,10 +71,10 @@ require_once 'Response/Parts/PaymentResult.php';
 require_once 'Response/ResponseInterface.php';
 require_once 'Response/PayloadInterface.php';
 require_once 'Response/Response.php';
-require_once 'Response/Payload/Paytabs.php';
-require_once 'Response/Payload/Failure.php';
-require_once 'Response/Payload/Payment.php';
-require_once 'Response/Payload/Redirect.php';
-require_once 'Response/Payload/Payment/Completed.php';
+require_once 'Response/Payloads/Paytabs.php';
+require_once 'Response/Payloads/Failure.php';
+require_once 'Response/Payloads/Payment.php';
+require_once 'Response/Payloads/Redirect.php';
+require_once 'Response/Payloads/Payment/Completed.php';
 
 require_once '_Log.php';

@@ -11,9 +11,6 @@ use Response\Response;
 
 //
 
-$trxRef = 'TST2500202198615';
-$urlCallback = 'https://webhook.site/1c481b22-9981-4372-85cc-c79bb0e342cc';
-
 $refundHolder1 = new Followup();
 $refundHolder1
     ->setTransaction(TranType::Refund, TranClass::Ecom)
