@@ -20,7 +20,7 @@ class Response implements ResponseInterface
 
     //
 
-    public function __construct(string $response, int $responseCode, RequestInterface $request)
+    public function init(string $response, int $responseCode, RequestInterface $request): self
     {
         $this->responseCode = $responseCode;
         $this->response = $response;
@@ -30,6 +30,8 @@ class Response implements ResponseInterface
         //
 
         $this->responseStage = $this->responseStage();
+
+        return $this;
     }
 
     public function getRaw(): string

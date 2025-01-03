@@ -3,18 +3,17 @@
 namespace Http;
 
 use CurlHandle;
+use Exception;
 use Logger\LoggerInterface;
 use Request\RequestInterface;
-use Response\Response;
+use Response\ResponseInterface;
 
 class Http
 {
+    protected RequestInterface $request;
+    protected LoggerInterface $logger;
+
     private int $timeout = 30;
-
-    private RequestInterface $request;
-
-    private LoggerInterface $logger;
-
     private bool $debugMode = false;
 
     //
@@ -34,7 +33,7 @@ class Http
         $this->debugMode = $debugMode;
     }
 
-    public function submit(): Response
+    public function submit(ResponseInterface $response)
     {
         $curl_handle = $this->initRequest();
 
@@ -48,13 +47,13 @@ class Http
             $errorMsg = curl_error($curl_handle);
 
             $this->logger->error($errorMsg, null);
+
+            throw new Exception($errorMsg);
         }
 
         curl_close($curl_handle);
 
-        $response = new Response($curl_response, $curl_response_code, $this->request);
-
-        return $response;
+        $response->init($curl_response, $curl_response_code, $this->request);
     }
 
     //
