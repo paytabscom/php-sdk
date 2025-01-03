@@ -5,6 +5,7 @@ namespace Response;
 use Enums\ResponseStage;
 use Request\RequestInterface;
 use Response\Payloads\Failure;
+use Response\Payloads\Generic;
 use Response\Payloads\Redirect;
 
 class Response implements ResponseInterface
@@ -44,10 +45,10 @@ class Response implements ResponseInterface
         return json_decode($this->getRaw());
     }
 
-    public function getResponse(?PayloadInterface $responseClass = null)
+    public function getResponse(?PayloadInterface $responseClass = null): PayloadInterface
     {
+        /** @var PayloadInterface */
         $mapToClass = null;
-        $isArray = false;
 
         $responseStage = $this->responseStage();
 
@@ -70,14 +71,10 @@ class Response implements ResponseInterface
         }
 
         if ($mapToClass != null) {
-            if ($isArray) {
-                // return $jsonMapper->mapArray($this->getJson(),)
-            } else {
-                return $mapToClass->fromJson($this->getJson());
-            }
+            return $mapToClass->fromJson($this->getJson());
         }
 
-        return $this->getJson();
+        return (new Generic)->fromJson($this->getJson());
     }
 
     public function asFailure(): Failure

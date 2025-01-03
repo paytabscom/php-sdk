@@ -3,6 +3,8 @@
 use Holder\Builders\TransactionQuery as BuildersTransactionQuery;
 use Http\Http;
 use Request\Requests\TransactionQuery;
+use Response\Payloads\CompletedArray;
+use Response\Payloads\Generic;
 use Response\Response;
 
 $tranHolder = new BuildersTransactionQuery();
@@ -16,7 +18,8 @@ $response = new Response();
 $http->submit($response);
 
 // var_dump($tranHolder);
-print_r($response);
+print_r($response->getResponse());
+// print_r($response->getResponse(new Generic));
 
 //
 echo '<hr>';
@@ -26,7 +29,9 @@ $tranHolder->setCartId('c01');
 $tokenReq = new TransactionQuery($gateway, $tranHolder);
 
 $http->setRequest($tokenReq);
+
+$response = new Response();
 $http->submit($response);
 
 // var_dump($tranHolder);
-print_r($response);
+print_r($response->getResponse(new CompletedArray));

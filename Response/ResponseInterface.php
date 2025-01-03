@@ -16,7 +16,7 @@ interface ResponseInterface
     public function getRaw(): string;
     public function getJson();
 
-    public function getResponse(?PayloadInterface $responseClass = null);
+    public function getResponse(?PayloadInterface $responseClass = null): PayloadInterface;
 
     public function asFailure(): Failure;
     public function asRedirect(): Redirect;

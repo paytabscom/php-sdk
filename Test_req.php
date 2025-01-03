@@ -76,5 +76,7 @@ require_once 'Response/Payloads/Failure.php';
 require_once 'Response/Payloads/Payment.php';
 require_once 'Response/Payloads/Redirect.php';
 require_once 'Response/Payloads/Payment/Completed.php';
+require_once 'Response/Payloads/CompletedArray.php';
+require_once 'Response/Payloads/Generic.php';
 
 require_once '_Log.php';
