@@ -24,7 +24,7 @@ $token = '2C4654BD67A3E830C6B693FA63827EB0';
 echo '<pre>';
 
 // Test Payment Request
-include 'Tests/PaymentRequest.php';
+// include 'Tests/PaymentRequest.php';
 
 // Test Query Token
 // include 'Tests/TokenQuery.php';
@@ -37,3 +37,6 @@ include 'Tests/PaymentRequest.php';
 
 // Test Refund
 // include 'Tests/RefundRequest.php';
+
+// Invoice New
+include 'Tests/InvoiceNew.php';

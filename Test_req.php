@@ -79,4 +79,10 @@ require_once 'Response/Payloads/Payment/Completed.php';
 require_once 'Response/Payloads/CompletedArray.php';
 require_once 'Response/Payloads/Generic.php';
 
+require_once 'Holder/Builders/Invoice/Invoice.php';
+require_once 'Holder/Parts/Invoice/Invoice.php';
+require_once 'Holder/Parts/Invoice/LineItem.php';
+require_once 'Holder/Parts/Invoice/LineItems.php';
+require_once 'Request/Requests/Invoice/NewInvoice.php';
+
 require_once '_Log.php';
