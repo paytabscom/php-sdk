@@ -44,6 +44,4 @@ if ($responseType == ResponseStage::Error) {
     $resMapped = $response->getResponse();
 }
 
-// var_dump($refundHolder);
-// var_dump($response);
 print_r($resMapped);

@@ -16,7 +16,9 @@ $holder
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP', phpversion(), '')
     ->buildCustomerDetails(
-        new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com', 'ARE', 'Dubai', 'Dubai', null, '1.1.1.1', '11111')
+        (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
+            ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
+            ->setIp('1.1.1.1')
     )
     ->buildShippingDetails(
         new ShippingDetails('Wajih 2')
@@ -57,6 +59,4 @@ switch ($responseStage) {
         break;
 }
 
-// var_dump($holder);
-// var_dump($response);
 print_r($resClassed);
