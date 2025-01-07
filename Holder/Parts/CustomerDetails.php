@@ -11,12 +11,16 @@ class CustomerDetails implements PartInterface
     public ?string $name = null;
     public ?string $phone = null;
     public ?string $email = null;
+
     public ?string $country = null;
     public ?string $state = null;
     public ?string $city = null;
-    public ?string $address = null;
-    public ?string $ip = null;
+    public ?string $street = null;
     public ?string $zip = null;
+
+    public ?string $ip = null;
+
+    //
 
     public function __construct(
         ?string $name = null,
@@ -34,13 +38,13 @@ class CustomerDetails implements PartInterface
         ?string $country = null,
         ?string $state = null,
         ?string $city = null,
-        ?string $address = null,
+        ?string $street = null,
         ?string $zip = null
     ): self {
         $this->country = $country;
         $this->state = $state;
         $this->city = $city;
-        $this->address = $address;
+        $this->street = $street;
         $this->zip = $zip;
 
         return $this;
@@ -64,7 +68,7 @@ class CustomerDetails implements PartInterface
                 'country' => $this->country,
                 'state' => $this->state,
                 'city' => $this->city,
-                'address' => $this->address,
+                'street1' => $this->street,
                 'ip' => $this->ip,
                 'zip' => $this->zip,
             ]
