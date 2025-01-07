@@ -15,5 +15,5 @@ interface RequestInterface
     public function getHttpType(): HttpType;
     public function isHttpPost(): bool;
 
-    public function getResponseClass(): PayloadInterface;
+    public function getResponseClass(): ?PayloadInterface;
 }

@@ -18,7 +18,7 @@ abstract class AbstractRequest implements RequestInterface
 
     protected HttpType $httpType = HttpType::POST;
 
-    protected ResponsePayloadInterface $responseClass;
+    protected ?ResponsePayloadInterface $responseClass = null;
 
     //
 
@@ -82,8 +82,8 @@ abstract class AbstractRequest implements RequestInterface
 
     //
 
-    public function getResponseClass(): ResponsePayloadInterface
+    public function getResponseClass(): ?ResponsePayloadInterface
     {
-        return $this->responseClass->init();
+        return $this->responseClass;
     }
 }
