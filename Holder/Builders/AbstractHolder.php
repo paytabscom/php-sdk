@@ -12,7 +12,7 @@ abstract class AbstractHolder implements BuilderInterface
 {
     protected PayloadInterface $product;
 
-    protected ResponsePayloadInterface $responseClass;
+    protected ?ResponsePayloadInterface $responseClass = null;
 
     //
 
@@ -37,10 +37,6 @@ abstract class AbstractHolder implements BuilderInterface
 
     public function getResponseClass(): ?ResponsePayloadInterface
     {
-        if (!isset($this->responseClass)) {
-            return null;
-        }
-
-        return $this->responseClass->init();
+        return $this->responseClass;
     }
 }
