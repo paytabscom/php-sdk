@@ -2,7 +2,7 @@
 
 namespace Response\Payloads\Callbacks;
 
-use Response\Payload\Paytabs;
+use Response\Payloads\Paytabs;
 
 class Browser extends Paytabs
 {

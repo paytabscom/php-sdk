@@ -12,18 +12,18 @@ use Response\Response;
 
 $holder = new HostedPage();
 $holder
-    ->setCart("c01", "AED", 100.51, "Test")
-    ->setTransaction(TranType::Sale, TranClass::Ecom)
-    ->setPluginInfo('PHP', phpversion(), '')
-    ->setCustomerDetails(
+    ->buildCart("c01", "AED", 100.51, "Test")
+    ->buildTransaction(TranType::Sale, TranClass::Ecom)
+    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildCustomerDetails(
         new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com', 'ARE', 'Dubai', 'Dubai', null, '1.1.1.1', '11111')
     )
-    ->setShippingDetails(
+    ->buildShippingDetails(
         new ShippingDetails('Wajih 2')
     )
-    ->setHideShipping(true)
-    ->setTokenise(true)
-    ->setURLs(null, $urlCallback)
+    ->buildHideShipping(true)
+    ->buildTokenise(true)
+    ->buildURLs(null, $urlCallback)
 ;
 
 $request = new PaymentRequest($gateway, $holder);

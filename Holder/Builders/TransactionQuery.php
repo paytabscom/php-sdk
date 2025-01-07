@@ -16,7 +16,7 @@ class TransactionQuery extends AbstractHolder
 
     //
 
-    public function setTransactionRef(string $tran_ref)
+    public function buildTransactionRef(string $tran_ref)
     {
         $this->product->buildBody(
             new TransactionRef($tran_ref)
@@ -25,7 +25,7 @@ class TransactionQuery extends AbstractHolder
         return $this;
     }
 
-    public function setCartId(string $cart_id)
+    public function buildCartId(string $cart_id)
     {
         $this->product->buildBody(
             [

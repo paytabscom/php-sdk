@@ -31,10 +31,10 @@ $invoicePart
 ;
 
 $holder
-    ->setInvoice($invoicePart)
-    ->setTransaction(TranType::Sale, TranClass::Ecom)
-    ->setCart('inv-01', 'AED', 20, 'Invoice test')
-    ->setPluginInfo('PHP', phpversion(), '')
+    ->buildInvoice($invoicePart)
+    ->buildTransaction(TranType::Sale, TranClass::Ecom)
+    ->buildCart('inv-01', 'AED', 20, 'Invoice test')
+    ->buildPluginInfo('PHP', phpversion(), '')
 ;
 
 // print_r($holder->getPayload()->getBody());

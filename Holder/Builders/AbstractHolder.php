@@ -23,7 +23,7 @@ abstract class AbstractHolder implements BuilderInterface
 
     //
 
-    public function set(PartInterface $part)
+    public function build(PartInterface $part)
     {
         $this->product->buildBody($part);
 

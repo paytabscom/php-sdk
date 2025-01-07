@@ -9,7 +9,7 @@ class Invoice extends PaymentRequest
 {
     //
 
-    public function setInvoice(InvoicePart $invoice)
+    public function buildInvoice(InvoicePart $invoice)
     {
         $this->product->buildBody($invoice);
 

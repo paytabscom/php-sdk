@@ -6,7 +6,7 @@ use Holder\Parts\Airline;
 
 abstract class AirlineData extends PaymentRequest
 {
-    public function setAirlineData(string $pnrCode)
+    public function buildAirlineData(string $pnrCode)
     {
         $this->product->buildBody(
             new Airline($pnrCode)

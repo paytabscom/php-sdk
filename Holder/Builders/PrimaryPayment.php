@@ -12,21 +12,21 @@ use Holder\Parts\TokeniseEnhanced;
 
 abstract class PrimaryPayment extends AirlineData
 {
-    public function setCustomerDetails(CustomerDetails $customerDetails)
+    public function buildCustomerDetails(CustomerDetails $customerDetails)
     {
         $this->product->buildBody($customerDetails);
 
         return $this;
     }
 
-    public function setShippingDetails(ShippingDetails $shippingDetails)
+    public function buildShippingDetails(ShippingDetails $shippingDetails)
     {
         $this->product->buildBody($shippingDetails);
 
         return $this;
     }
 
-    public function setPaypageLang(string $lang)
+    public function buildPaypageLang(string $lang)
     {
         $this->product->buildBody(
             new PaypageLang($lang)
@@ -35,7 +35,7 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function setTokenise(bool $on = false, int $tokenFormat = 2, bool $isOptional = false)
+    public function buildTokenise(bool $on = false, int $tokenFormat = 2, bool $isOptional = false)
     {
         if ($on) {
             $this->product->buildBody(
@@ -54,7 +54,7 @@ abstract class PrimaryPayment extends AirlineData
      * @param int $totalCount
      * @param bool $isOptional Display the save card option on the payment page
      */
-    public function setTokeniseEnhanced(
+    public function buildTokeniseEnhanced(
         TokenType $tokenType = TokenType::Registered,
         int $tokenFormat = 2,
         ?TokenPaymentFrequency $paymentFrequency = null,
@@ -71,22 +71,22 @@ abstract class PrimaryPayment extends AirlineData
             $tokenType,
             $tokenFormat,
             $isOptional
-        ))->setPaymentInfo(
+        ))->buildPaymentInfo(
             $paymentFrequency,
             $minAmountPerPayment,
             $maxAmountPerPayment,
             $minDaysBetweenPayments,
             $startDate,
             $expiryDate,
-        )->setCounter(
+        )->buildCounter(
             $counter,
             $totalCount,
         );
 
-        return $this->setTokeniseEnhancedObj($obj);
+        return $this->buildTokeniseEnhancedObj($obj);
     }
 
-    public function setTokeniseEnhancedObj(
+    public function buildTokeniseEnhancedObj(
         TokeniseEnhanced $tokeniseEnhanced
     ) {
         $this->product->buildBody(

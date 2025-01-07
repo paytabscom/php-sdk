@@ -12,20 +12,20 @@ use Request\Requests\PaymentRequest;
 
 $refundHolder1 = new Followup();
 $refundHolder1
-    ->setTransaction(TranType::Refund, TranClass::Ecom)
-    ->setTransactionRef($trxRef)
-    ->setCart('refund_01', 'AED', 10, 'Refund test')
-    ->setPluginInfo('PHP', phpversion(), '')
-    ->setURLs(null, $urlCallback)
+    ->buildTransaction(TranType::Refund, TranClass::Ecom)
+    ->buildTransactionRef($trxRef)
+    ->buildCart('refund_01', 'AED', 10, 'Refund test')
+    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildURLs(null, $urlCallback)
 ;
 
 
 $refundHolder2 = new Refund();
 $refundHolder2
-    ->setTransactionRef($trxRef)
-    ->setCart('refund_01', 'AED', 10, 'Refund test')
-    ->setPluginInfo('PHP', phpversion(), '')
-    ->setURLs(null, $urlCallback)
+    ->buildTransactionRef($trxRef)
+    ->buildCart('refund_01', 'AED', 10, 'Refund test')
+    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildURLs(null, $urlCallback)
 ;
 
 

@@ -16,7 +16,7 @@ class Followup extends PaymentRequest
 
     //
 
-    public function setTransactionRef(string $tranRef)
+    public function buildTransactionRef(string $tranRef)
     {
         $this->product->buildBody(
             new TransactionRef($tranRef)
