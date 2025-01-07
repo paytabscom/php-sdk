@@ -71,14 +71,14 @@ abstract class PrimaryPayment extends AirlineData
             $tokenType,
             $tokenFormat,
             $isOptional
-        ))->buildPaymentInfo(
+        ))->setPaymentInfo(
             $paymentFrequency,
             $minAmountPerPayment,
             $maxAmountPerPayment,
             $minDaysBetweenPayments,
             $startDate,
             $expiryDate,
-        )->buildCounter(
+        )->setCounter(
             $counter,
             $totalCount,
         );

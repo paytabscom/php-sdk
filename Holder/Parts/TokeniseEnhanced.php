@@ -35,7 +35,7 @@ class TokeniseEnhanced implements PartInterface
         $this->isOptional = $isOptional;
     }
 
-    public function buildPaymentInfo(
+    public function setPaymentInfo(
         ?TokenPaymentFrequency $paymentFrequency = null,
         ?float $minAmountPerPayment = null,
         ?float $maxAmountPerPayment = null,
@@ -53,7 +53,7 @@ class TokeniseEnhanced implements PartInterface
         return $this;
     }
 
-    public function buildCounter(
+    public function setCounter(
         ?int $counter = null,
         ?int $totalCount = null,
     ): TokeniseEnhanced {
