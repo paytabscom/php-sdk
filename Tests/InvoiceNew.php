@@ -47,5 +47,6 @@ $http->setRequest($request);
 $http->setDebugMode(true);
 
 $response = $http->submit();
+$resClassed = $response->getResponse();
 
-print_r($response);
+print_r($resClassed);
