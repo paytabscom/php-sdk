@@ -2,5 +2,6 @@
 
 namespace Holder\Payload;
 
-
-class PaytabsPayload extends AbstractPayload {}
+class PaytabsPayload extends AbstractPayload
+{
+}

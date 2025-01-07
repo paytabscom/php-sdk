@@ -7,7 +7,7 @@ use Holder\Parts\HideShipping;
 
 class HostedPage extends PrimaryPayment
 {
-    public function setHideShipping(bool $hideShipping = true)
+    public function buildHideShipping(bool $hideShipping = true)
     {
         $this->product->buildBody(
             new HideShipping($hideShipping)
@@ -19,7 +19,7 @@ class HostedPage extends PrimaryPayment
     /**
      * @param string $redirect_target "parent" or "top" or "iframe"
      */
-    public function setFramedObj(Framed $framed)
+    public function buildFramedObj(Framed $framed)
     {
         $this->product->buildBody($framed);
 

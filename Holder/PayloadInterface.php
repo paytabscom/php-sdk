@@ -4,7 +4,6 @@ namespace Holder;
 
 interface PayloadInterface
 {
-
     public function buildHeader(PartInterface|array $part): void;
 
     public function buildBody(PartInterface|array $part): void;

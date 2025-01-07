@@ -1,13 +1,17 @@
 <?php
 
 use Holder\Builders\Token\Token;
+use Http\Http;
 use Request\Requests\TokenDelete;
 
 $tokenHolder = new Token();
-$tokenHolder->setToken('2C4654BD67A3E830C6B693FA63827EB0');
+$tokenHolder->setToken($token);
 
 $tokenDelReq = new TokenDelete($gateway, $tokenHolder);
+
+/** @var Http $http */
 $http->setRequest($tokenDelReq);
+
 $response = $http->submit();
 
-var_dump($response);
+print_r($response);

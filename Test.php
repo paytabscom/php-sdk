@@ -15,17 +15,28 @@ $gateway = new Gateway(Uae::getInstance(), 47170, 'SRJNLKK2Z2-HWRGM6JDZM-MGMGGNW
 $http = new Http();
 $http->setLogger($log);
 
+//
+
+$trxRef = 'TST2500302199207';
+$urlCallback = 'https://webhook.site/1c481b22-9981-4372-85cc-c79bb0e342cc';
+$token = '2C4654BD67A3E830C6B693FA63827EB0';
+
+echo '<pre>';
+
 // Test Payment Request
 // include 'Tests/PaymentRequest.php';
 
 // Test Query Token
-// include 'Tests/TestTokenQuery.php';
+// include 'Tests/TokenQuery.php';
 
 // Test Query Delete
-// include 'Tests/TestTokenDelete.php';
+// include 'Tests/TokenDelete.php';
 
 // Test Transaction Query
 // include 'Tests/TransactionQuery.php';
 
 // Test Refund
-include 'Tests/RefundRequest.php';
+// include 'Tests/RefundRequest.php';
+
+// Invoice New
+include 'Tests/InvoiceNew.php';

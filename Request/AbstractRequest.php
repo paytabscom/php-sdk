@@ -7,6 +7,7 @@ use Gateway\Gateway;
 use Helpers\Helpers;
 use Holder\BuilderInterface;
 use Holder\PayloadInterface;
+use Response\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractRequest implements RequestInterface
 {
@@ -16,6 +17,8 @@ abstract class AbstractRequest implements RequestInterface
     protected string $path;
 
     protected HttpType $httpType = HttpType::POST;
+
+    protected ?ResponsePayloadInterface $responseClass = null;
 
     //
 
@@ -75,5 +78,12 @@ abstract class AbstractRequest implements RequestInterface
     public function isHttpPost(): bool
     {
         return $this->getHttpType() == HttpType::POST;
+    }
+
+    //
+
+    public function getResponseClass(): ?ResponsePayloadInterface
+    {
+        return $this->responseClass;
     }
 }

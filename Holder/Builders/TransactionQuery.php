@@ -3,10 +3,20 @@
 namespace Holder\Builders;
 
 use Holder\Parts\TransactionRef;
+use Response\Payloads\Payment\Completed;
+use Response\PayloadInterface;
 
 class TransactionQuery extends AbstractHolder
 {
-    public function setTransactionRef(string $tran_ref)
+    /** @return Completed */
+    public function getResponseClass(): ?PayloadInterface
+    {
+        return new Completed();
+    }
+
+    //
+
+    public function buildTransactionRef(string $tran_ref)
     {
         $this->product->buildBody(
             new TransactionRef($tran_ref)
@@ -15,7 +25,7 @@ class TransactionQuery extends AbstractHolder
         return $this;
     }
 
-    public function setCartId(string $cart_id)
+    public function buildCartId(string $cart_id)
     {
         $this->product->buildBody(
             [

@@ -6,21 +6,24 @@ use Holder\BuilderInterface;
 use Holder\PartInterface;
 use Holder\Payload\PaytabsPayload;
 use Holder\PayloadInterface;
+use Response\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractHolder implements BuilderInterface
 {
     protected PayloadInterface $product;
 
+    protected ?ResponsePayloadInterface $responseClass = null;
+
     //
 
     public function __construct()
     {
-        $this->product = new PaytabsPayload;
+        $this->product = new PaytabsPayload();
     }
 
     //
 
-    public function set(PartInterface $part)
+    public function build(PartInterface $part)
     {
         $this->product->buildBody($part);
 
@@ -30,5 +33,10 @@ abstract class AbstractHolder implements BuilderInterface
     public function getPayload(): PayloadInterface
     {
         return $this->product;
+    }
+
+    public function getResponseClass(): ?ResponsePayloadInterface
+    {
+        return $this->responseClass;
     }
 }

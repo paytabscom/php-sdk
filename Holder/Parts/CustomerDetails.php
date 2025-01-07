@@ -21,23 +21,37 @@ class CustomerDetails implements PartInterface
     public function __construct(
         ?string $name = null,
         ?string $phone = null,
-        ?string $email = null,
-        ?string $country = null,
-        ?string $state = null,
-        ?string $city = null,
-        ?string $address = null,
-        ?string $ip = null,
-        ?string $zip = null
+        ?string $email = null
     ) {
         $this->name = $name;
         $this->phone = $phone;
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function setAddress(
+        ?string $country = null,
+        ?string $state = null,
+        ?string $city = null,
+        ?string $address = null,
+        ?string $zip = null
+    ): self {
         $this->country = $country;
         $this->state = $state;
         $this->city = $city;
         $this->address = $address;
-        $this->ip = $ip;
         $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function setIp(
+        ?string $ip = null
+    ): self {
+        $this->ip = $ip;
+
+        return $this;
     }
 
     public function build(): array

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
 require_once 'Helpers/Helpers.php';
 
 require_once 'Holder/BuilderInterface.php';
@@ -42,11 +44,13 @@ require_once 'Gateway/Endpoints/Ksa.php';
 
 require_once 'Enums/TranClass.php';
 require_once 'Enums/TranType.php';
+require_once 'Enums/TranStatus.php';
 require_once 'Enums/TokenType.php';
 require_once 'Enums/FramedTarget.php';
 require_once 'Enums/HttpRequestPart.php';
 require_once 'Enums/TokenPaymentFrequency.php';
 require_once 'Enums/HttpType.php';
+require_once 'Enums/ResponseStage.php';
 
 require_once 'Http/Http.php';
 
@@ -60,5 +64,26 @@ require_once 'Request/Requests/TokenQuery.php';
 require_once 'Request/Requests/TokenDelete.php';
 require_once 'Request/Requests/TransactionQuery.php';
 
+require_once 'Response/Parts/ParentRequest.php';
+require_once 'Response/Parts/PaymentInfo.php';
+require_once 'Response/Parts/PaymentResult.php';
+
+require_once 'Response/ResponseInterface.php';
+require_once 'Response/PayloadInterface.php';
 require_once 'Response/Response.php';
+require_once 'Response/Payloads/Paytabs.php';
+require_once 'Response/Payloads/Failure.php';
+require_once 'Response/Payloads/Payment.php';
+require_once 'Response/Payloads/Redirect.php';
+require_once 'Response/Payloads/Payment/Completed.php';
+require_once 'Response/Payloads/CompletedArray.php';
+require_once 'Response/Payloads/Generic.php';
+
+require_once 'Holder/Builders/Invoice/Invoice.php';
+require_once 'Holder/Parts/Invoice/Invoice.php';
+require_once 'Holder/Parts/Invoice/LineItem.php';
+require_once 'Holder/Parts/Invoice/LineItems.php';
+require_once 'Request/Requests/Invoice/NewInvoice.php';
+require_once 'Response/Payloads/Invoice/NewInvoice.php';
+
 require_once '_Log.php';

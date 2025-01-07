@@ -3,17 +3,19 @@
 namespace Http;
 
 use CurlHandle;
+use Exception;
 use Logger\LoggerInterface;
 use Request\RequestInterface;
 use Response\Response;
+use Response\ResponseInterface;
 
 class Http
 {
+    protected RequestInterface $request;
+    protected LoggerInterface $logger;
+
     private int $timeout = 30;
-
-    private RequestInterface $request;
-
-    private LoggerInterface $logger;
+    private bool $debugMode = false;
 
     //
 
@@ -27,24 +29,34 @@ class Http
         $this->request = $request;
     }
 
-    public function submit(): Response
+    public function setDebugMode(bool $debugMode)
+    {
+        $this->debugMode = $debugMode;
+    }
+
+    public function submit(?ResponseInterface $response = null): ResponseInterface
     {
         $curl_handle = $this->initRequest();
 
         $this->logger->debug('Executing cURL ...', null);
 
         $curl_response = curl_exec($curl_handle);
+        $curl_response_code = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+
         $errorNo = curl_errno($curl_handle);
         if ($errorNo) {
             $errorMsg = curl_error($curl_handle);
 
             $this->logger->error($errorMsg, null);
+
+            throw new Exception($errorMsg);
         }
 
         curl_close($curl_handle);
 
-        $response = new Response;
-        $response->setResponse($curl_response);
+        $response = $response ?? new Response;
+
+        $response->init($curl_response, $curl_response_code, $this->request);
 
         return $response;
     }
@@ -69,21 +81,23 @@ class Http
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => false,
 
-            CURLOPT_VERBOSE => true,
+            CURLOPT_VERBOSE => $this->debugMode,
         ];
 
         $curl_http_type = [
             CURLOPT_POST => $this->request->isHttpPost(),
         ];
 
+        $curl_data =  [
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $payload,
+        ];
+
         $arr =
             $curl_options_ssl
             + $curl_options_response
             + $curl_http_type
-            + [
-                CURLOPT_HTTPHEADER => $headers,
-                CURLOPT_POSTFIELDS => $payload,
-            ];
+            + $curl_data;
 
         curl_setopt_array(
             $curl,

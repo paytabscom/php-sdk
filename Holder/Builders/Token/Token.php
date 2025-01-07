@@ -5,10 +5,9 @@ namespace Holder\Builders\Token;
 use Holder\Builders\AbstractHolder;
 use Holder\Parts\Token\Token as TokenPart;
 
-
 class Token extends AbstractHolder
 {
-    public function setToken(string $token)
+    public function buildToken(string $token)
     {
         $this->product->buildBody(
             new TokenPart($token)
