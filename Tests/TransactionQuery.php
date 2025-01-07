@@ -7,7 +7,7 @@ use Response\Payloads\CompletedArray;
 use Response\Payloads\Generic;
 
 $tranHolder = new BuildersTransactionQuery();
-$tranHolder->setTransactionRef($trxRef);
+$tranHolder->buildTransactionRef($trxRef);
 $tokenReq = new TransactionQuery($gateway, $tranHolder);
 
 /** @var Http $http */
@@ -22,12 +22,12 @@ print_r($response->getResponse(new Generic));
 echo '<hr>';
 
 $tranHolder = new BuildersTransactionQuery();
-$tranHolder->setCartId('c01');
+$tranHolder->buildCartId('c01');
 $tokenReq = new TransactionQuery($gateway, $tranHolder);
 
 $http->setRequest($tokenReq);
 
 $response = $http->submit();
 
-// var_dump($tranHolder);
+
 print_r($response->getResponse(new CompletedArray));

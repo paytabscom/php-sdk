@@ -5,7 +5,7 @@ use Http\Http;
 use Request\Requests\TokenQuery;
 
 $tokenHolder = new Token();
-$tokenHolder->setToken($token);
+$tokenHolder->buildToken($token);
 
 $tokenReq = new TokenQuery($gateway, $tokenHolder);
 
@@ -14,5 +14,5 @@ $http->setRequest($tokenReq);
 
 $response = $http->submit();
 
-// var_dump($tokenHolder);
+
 print_r($response);

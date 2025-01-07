@@ -5,7 +5,7 @@ use Http\Http;
 use Request\Requests\TokenDelete;
 
 $tokenHolder = new Token();
-$tokenHolder->setToken($token);
+$tokenHolder->buildToken($token);
 
 $tokenDelReq = new TokenDelete($gateway, $tokenHolder);
 
