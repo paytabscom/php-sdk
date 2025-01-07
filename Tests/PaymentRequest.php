@@ -26,6 +26,7 @@ $holder
     ->buildHideShipping(true)
     ->buildTokenise(true)
     ->buildURLs(null, $urlCallback)
+    ->buildAltCurrency('USD')
 ;
 
 $request = new PaymentRequest($gateway, $holder);
