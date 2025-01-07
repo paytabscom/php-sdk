@@ -5,6 +5,7 @@ namespace Holder\Builders;
 use Enums\TokenPaymentFrequency;
 use Enums\TokenType;
 use Holder\Parts\CustomerDetails;
+use Holder\Parts\PaymentMethods;
 use Holder\Parts\PaypageLang;
 use Holder\Parts\ShippingDetails;
 use Holder\Parts\Tokenise;
@@ -91,6 +92,28 @@ abstract class PrimaryPayment extends AirlineData
     ) {
         $this->product->buildBody(
             $tokeniseEnhanced
+        );
+
+        return $this;
+    }
+
+    public function buildPaymentMethods(PaymentMethods|array $methods)
+    {
+        if (is_array($methods)) {
+            $methods = new PaymentMethods($methods);
+        }
+
+        $this->product->buildBody(
+            $methods
+        );
+
+        return $this;
+    }
+
+    public function buildPaymentMethod(string $method)
+    {
+        $this->product->buildBody(
+            new PaymentMethods([$method])
         );
 
         return $this;

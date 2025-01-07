@@ -5,6 +5,7 @@ use Enums\TranClass;
 use Enums\TranType;
 use Holder\Builders\HostedPage;
 use Holder\Parts\CustomerDetails;
+use Holder\Parts\PaymentMethods;
 use Holder\Parts\ShippingDetails;
 use Http\Http;
 use Request\Requests\PaymentRequest;
@@ -27,6 +28,9 @@ $holder
     ->buildTokenise(true)
     ->buildURLs(null, $urlCallback)
     ->buildAltCurrency('USD')
+    ->buildPaymentMethods(
+        (new PaymentMethods())->excludeMethod('tabby')
+    )
 ;
 
 $request = new PaymentRequest($gateway, $holder);

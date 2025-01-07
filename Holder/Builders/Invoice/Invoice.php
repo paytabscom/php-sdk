@@ -2,10 +2,10 @@
 
 namespace Holder\Builders\Invoice;
 
-use Holder\Builders\PaymentRequest;
+use Holder\Builders\PrimaryPayment;
 use Holder\Parts\Invoice\Invoice as InvoicePart;
 
-class Invoice extends PaymentRequest
+class Invoice extends PrimaryPayment
 {
     //
 

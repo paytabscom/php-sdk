@@ -37,6 +37,7 @@ require_once 'Holder/Parts/TransactionRef.php';
 require_once 'Holder/Parts/Urls.php';
 require_once 'Holder/Parts/Token/Token.php';
 require_once 'Holder/Parts/AltCurrency.php';
+require_once 'Holder/Parts/PaymentMethods.php';
 
 require_once 'Gateway/Gateway.php';
 require_once 'Gateway/Endpoint.php';
