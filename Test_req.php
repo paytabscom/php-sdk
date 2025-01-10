@@ -3,6 +3,7 @@
 require_once 'vendor/autoload.php';
 
 require_once 'Helpers/Helpers.php';
+require_once 'Helpers/NextIf.php';
 
 require_once 'Holder/BuilderInterface.php';
 require_once 'Holder/PartInterface.php';

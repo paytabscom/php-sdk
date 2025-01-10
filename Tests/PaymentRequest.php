@@ -31,6 +31,7 @@ $holder
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod('card')
+            ->nextIf(true)
             ->excludeMethod('tabby')
             ->includeMethods(['card', 'tamara'])
             ->excludeMethods(['applepay', 'samsungpay'])

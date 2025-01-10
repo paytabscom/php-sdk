@@ -2,9 +2,10 @@
 
 namespace Holder\Parts;
 
+use Helpers\NextIf;
 use Holder\PartInterface;
 
-class PaymentMethods implements PartInterface
+class PaymentMethods implements PartInterface, NextIf
 {
     private ?array $paymentMethods;
 
@@ -49,6 +50,10 @@ class PaymentMethods implements PartInterface
 
     private function add(array $codes, bool $isExclude = false): void
     {
+        if ($this->readNextIf() === false) {
+            return;
+        }
+
         $this->paymentMethods ??= [];
 
         $codesArray = $codes;
@@ -58,6 +63,29 @@ class PaymentMethods implements PartInterface
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);
+    }
+
+    //
+
+    private ?bool $nextIf = null;
+    public function nextIf(bool $cond): self
+    {
+        $this->nextIf = $cond;
+        return $this;
+    }
+
+    public function nextSkipIf(bool $cond): self
+    {
+        return $this->nextIf(!$cond);
+    }
+
+    public function readNextIf(): ?bool
+    {
+        $next = $this->nextIf;
+
+        $this->nextIf = null;
+
+        return $next;
     }
 
     //
