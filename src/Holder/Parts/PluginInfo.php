@@ -17,6 +17,7 @@ class PluginInfo implements PartInterface
     ) {
         $this->platformName = $platformName ?? 'PHP';
         $this->platformVersion = $platformVersion ?? phpversion();
+        // @todo
         $this->pluginVersion = $pluginVersion ?? 'PAYTABS_SDK_VERSION';
     }
 
