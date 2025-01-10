@@ -29,7 +29,11 @@ $holder
     ->buildURLs(null, $urlCallback)
     ->buildAltCurrency('USD')
     ->buildPaymentMethods(
-        (new PaymentMethods())->excludeMethod('tabby')
+        PaymentMethods::init()
+            ->includeMethod('card')
+            ->excludeMethod('tabby')
+            ->includeMethods(['card', 'tamara'])
+            ->excludeMethods(['applepay', 'samsungpay'])
     )
 ;
 
