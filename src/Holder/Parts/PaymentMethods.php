@@ -1,6 +1,6 @@
 <?php
 
-namespace Holder\Parts;
+namespace Paytabs\Sdk\Holder\Parts;
 
 use Helpers\NextIf;
 use Holder\PartInterface;

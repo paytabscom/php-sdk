@@ -1,6 +1,6 @@
 <?php
 
-namespace Logger;
+namespace Paytabs\Sdk\Logger;
 
 interface LoggerInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Response\Parts;
+namespace Paytabs\Sdk\Response\Parts;
 
 use Enums\TranStatus;
 

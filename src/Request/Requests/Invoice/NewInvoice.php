@@ -1,6 +1,6 @@
 <?php
 
-namespace Request\Requests\Invoice;
+namespace Paytabs\Sdk\Request\Requests\Invoice;
 
 use Gateway\Gateway;
 use Holder\Builders\Invoice\Invoice;

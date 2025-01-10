@@ -1,6 +1,6 @@
 <?php
 
-namespace Http;
+namespace Paytabs\Sdk\Http;
 
 use CurlHandle;
 use Exception;

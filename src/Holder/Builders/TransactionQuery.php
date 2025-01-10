@@ -1,6 +1,6 @@
 <?php
 
-namespace Holder\Builders;
+namespace Paytabs\Sdk\Holder\Builders;
 
 use Holder\Parts\TransactionRef;
 use Response\Payloads\Payment\Completed;

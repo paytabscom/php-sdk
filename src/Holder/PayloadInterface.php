@@ -1,6 +1,6 @@
 <?php
 
-namespace Holder;
+namespace Paytabs\Sdk\Holder;
 
 interface PayloadInterface
 {

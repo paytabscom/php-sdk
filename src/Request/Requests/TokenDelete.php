@@ -1,6 +1,6 @@
 <?php
 
-namespace Request\Requests;
+namespace Paytabs\Sdk\Request\Requests;
 
 
 class TokenDelete extends TokenQuery

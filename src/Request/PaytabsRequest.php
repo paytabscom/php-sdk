@@ -1,6 +1,6 @@
 <?php
 
-namespace Request;
+namespace Paytabs\Sdk\Request;
 
 use Gateway\Gateway;
 use Holder\BuilderInterface;

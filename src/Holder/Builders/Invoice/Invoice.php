@@ -1,6 +1,6 @@
 <?php
 
-namespace Holder\Builders\Invoice;
+namespace Paytabs\Sdk\Holder\Builders\Invoice;
 
 use Holder\Builders\PrimaryPayment;
 use Holder\Parts\Invoice\Invoice as InvoicePart;

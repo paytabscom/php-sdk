@@ -1,6 +1,6 @@
 <?php
 
-namespace Response\Payloads;
+namespace Paytabs\Sdk\Response\Payloads;
 
 use Enums\TranType;
 use Holder\Parts\CustomerDetails;

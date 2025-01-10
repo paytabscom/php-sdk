@@ -1,6 +1,6 @@
 <?php
 
-namespace Gateway\Endpoints;
+namespace Paytabs\Sdk\Gateway\Endpoints;
 
 use Gateway\Endpoint;
 

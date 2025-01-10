@@ -1,6 +1,6 @@
 <?php
 
-namespace Response\Payloads\Callbacks;
+namespace Paytabs\Sdk\Response\Payloads\Callbacks;
 
 use Response\Payloads\Paytabs;
 

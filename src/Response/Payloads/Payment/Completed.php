@@ -1,6 +1,6 @@
 <?php
 
-namespace Response\Payloads\Payment;
+namespace Paytabs\Sdk\Response\Payloads\Payment;
 
 use Enums\TranClass;
 use Response\Parts\ParentRequest;

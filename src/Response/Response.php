@@ -1,6 +1,6 @@
 <?php
 
-namespace Response;
+namespace Paytabs\Sdk\Response;
 
 use Enums\ResponseStage;
 use Request\RequestInterface;

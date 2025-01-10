@@ -1,6 +1,6 @@
 <?php
 
-namespace Holder\Parts\Token;
+namespace Paytabs\Sdk\Holder\Parts\Token;
 
 use Holder\PartInterface;
 

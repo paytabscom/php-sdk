@@ -1,6 +1,6 @@
 <?php
 
-namespace Gateway;
+namespace Paytabs\Sdk\Gateway;
 
 use Holder\Payload\AbstractPayload;
 

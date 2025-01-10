@@ -1,6 +1,6 @@
 <?php
 
-namespace Enums;
+namespace Paytabs\Sdk\Enums;
 
 enum TokenPaymentFrequency: string
 {

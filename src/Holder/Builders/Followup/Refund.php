@@ -1,6 +1,6 @@
 <?php
 
-namespace Holder\Builders\Followup;
+namespace Paytabs\Sdk\Holder\Builders\Followup;
 
 use Enums\TranClass;
 use Enums\TranType;

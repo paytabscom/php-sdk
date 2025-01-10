@@ -1,6 +1,6 @@
 <?php
 
-namespace Response\Payloads\Invoice;
+namespace Paytabs\Sdk\Response\Payloads\Invoice;
 
 use Response\Payloads\Paytabs;
 

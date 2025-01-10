@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Paytabs\Sdk\Helpers;
 
 interface NextIf
 {
