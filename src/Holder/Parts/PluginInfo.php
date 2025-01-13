@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class PluginInfo implements PartInterface
+class PluginInfo extends AbstractPart
 {
     private string $platformName;
     private string $platformVersion;

@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class CustomerDetails implements PartInterface
+class CustomerDetails extends AbstractPart
 {
     protected const KEY = 'customer_details';
 

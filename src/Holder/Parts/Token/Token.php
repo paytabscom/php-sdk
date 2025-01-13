@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Parts\Token;
 
-use Paytabs\Sdk\Holder\PartInterface;
+use Paytabs\Sdk\Holder\Parts\AbstractPart;
 
-class Token implements PartInterface
+class Token extends AbstractPart
 {
     private string $token;
 

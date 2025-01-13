@@ -4,9 +4,8 @@ namespace Paytabs\Sdk\Holder\Parts;
 
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
-use Paytabs\Sdk\Holder\PartInterface;
 
-class TokeniseEnhanced implements PartInterface
+class TokeniseEnhanced extends AbstractPart
 {
     private TokenType $tokenType;
     private int $tokenFormat = 2;

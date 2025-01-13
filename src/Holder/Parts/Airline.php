@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class Airline implements PartInterface
+class Airline extends AbstractPart
 {
     private string $pnrCode;
 

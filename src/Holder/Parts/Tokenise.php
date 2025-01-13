@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class Tokenise implements PartInterface
+class Tokenise extends AbstractPart
 {
     private int $tokenFormat;
     private bool $isOptional;

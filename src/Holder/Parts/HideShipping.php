@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class HideShipping implements PartInterface
+class HideShipping extends AbstractPart
 {
     public bool $hideShipping;
 

@@ -4,9 +4,8 @@ namespace Paytabs\Sdk\Holder\Parts;
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\PartInterface;
 
-class Transaction implements PartInterface
+class Transaction extends AbstractPart
 {
     private TranType $tranType;
     private TranClass $tranClass = TranClass::Ecom;

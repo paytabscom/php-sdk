@@ -3,9 +3,8 @@
 namespace Paytabs\Sdk\Holder\Parts;
 
 use Paytabs\Sdk\Enums\FramedTarget;
-use Paytabs\Sdk\Holder\PartInterface;
 
-class Framed implements PartInterface
+class Framed extends AbstractPart
 {
     private bool $framed;
     private FramedTarget $framedTarget;

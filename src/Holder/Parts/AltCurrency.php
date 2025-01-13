@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class AltCurrency implements PartInterface
+class AltCurrency extends AbstractPart
 {
     public string $altCurrency;
 

@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class Urls implements PartInterface
+class Urls extends AbstractPart
 {
     private ?string $returnUrl;
     private ?string $callbackUrl;

@@ -2,9 +2,8 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
 
-class Cart implements PartInterface
+class Cart extends AbstractPart
 {
     private string $cartId;
     private string $currency;

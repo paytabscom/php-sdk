@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class PaypageLang implements PartInterface
+class PaypageLang extends AbstractPart
 {
     public string $paypageLang;
 

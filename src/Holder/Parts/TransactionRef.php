@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class TransactionRef implements PartInterface
+class TransactionRef extends AbstractPart
 {
     private string $tranRef;
 

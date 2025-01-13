@@ -2,9 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\PartInterface;
-
-class ApplePayToken implements PartInterface
+class ApplePayToken extends AbstractPart
 {
     public string $applepayToken;
 
