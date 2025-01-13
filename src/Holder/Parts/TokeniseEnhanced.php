@@ -74,7 +74,7 @@ class TokeniseEnhanced implements PartInterface
             'counter' => $this->counter,
             'total_count' => $this->totalCount,
 
-            'payment_frequency' => $this->paymentFrequency,
+            'payment_frequency' => $this->paymentFrequency->value,
             'min_amount_per_payment' => $this->minAmountPerPayment,
             'max_amount_per_payment' => $this->maxAmountPerPayment,
             'min_days_between_payments' => $this->minDaysBetweenPayments,
