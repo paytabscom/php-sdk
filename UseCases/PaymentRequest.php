@@ -1,21 +1,21 @@
 <?php
 
-use Enums\ResponseStage;
-use Enums\TranClass;
-use Enums\TranType;
-use Holder\Builders\HostedPage;
-use Holder\Parts\CustomerDetails;
-use Holder\Parts\PaymentMethods;
-use Holder\Parts\ShippingDetails;
-use Http\Http;
-use Request\Requests\PaymentRequest;
-use Response\Response;
+use Paytabs\Sdk\Enums\ResponseStage;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Holder\Builders\HostedPage;
+use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\PaymentMethods;
+use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Request\Requests\PaymentRequest;
+use Paytabs\Sdk\Response\Response;
 
 $holder = new HostedPage();
 $holder
     ->buildCart("c01", "AED", 100.51, "Test")
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildPluginInfo('PHP', phpversion(), null)
     ->buildCustomerDetails(
         (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
             ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
@@ -39,6 +39,11 @@ $holder
 ;
 
 $request = new PaymentRequest($gateway, $holder);
+
+// print_r($holder->getPayload()->getBody());
+// echo '<hr>';
+print_r($request->getPayload());
+die;
 
 /** @var Http $http */
 $http->setRequest($request);

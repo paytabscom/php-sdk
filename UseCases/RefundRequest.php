@@ -1,12 +1,12 @@
 <?php
 
-use Enums\ResponseStage;
-use Enums\TranClass;
-use Enums\TranType;
-use Holder\Builders\Followup;
-use Holder\Builders\Followup\Refund;
-use Http\Http;
-use Request\Requests\PaymentRequest;
+use Paytabs\Sdk\Enums\ResponseStage;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Holder\Builders\Followup;
+use Paytabs\Sdk\Holder\Builders\Followup\Refund;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 //
 

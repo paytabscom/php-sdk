@@ -1,13 +1,13 @@
 <?php
 
-use Enums\TranClass;
-use Enums\TranType;
-use Holder\Builders\Invoice\Invoice;
-use Holder\Parts\Invoice\Invoice as InvoicePart;
-use Holder\Parts\Invoice\LineItem;
-use Holder\Parts\Invoice\LineItems;
-use Http\Http;
-use Request\Requests\Invoice\NewInvoice;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
+use Paytabs\Sdk\Holder\Parts\Invoice\Invoice as InvoicePart;
+use Paytabs\Sdk\Holder\Parts\Invoice\LineItem;
+use Paytabs\Sdk\Holder\Parts\Invoice\LineItems;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
 
 $holder = new Invoice();
 

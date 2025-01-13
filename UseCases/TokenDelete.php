@@ -1,8 +1,8 @@
 <?php
 
-use Holder\Builders\Token\Token;
-use Http\Http;
-use Request\Requests\TokenDelete;
+use Paytabs\Sdk\Holder\Builders\Token\Token;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Request\Requests\TokenDelete;
 
 $tokenHolder = new Token();
 $tokenHolder->buildToken($token);

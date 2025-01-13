@@ -1,10 +1,10 @@
 <?php
 
-use Holder\Builders\TransactionQuery as BuildersTransactionQuery;
-use Http\Http;
-use Request\Requests\TransactionQuery;
-use Response\Payloads\CompletedArray;
-use Response\Payloads\Generic;
+use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Request\Requests\TransactionQuery;
+use Paytabs\Sdk\Response\Payloads\CompletedArray;
+use Paytabs\Sdk\Response\Payloads\Generic;
 
 $tranHolder = new BuildersTransactionQuery();
 $tranHolder->buildTransactionRef($trxRef);
