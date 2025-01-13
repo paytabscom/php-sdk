@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Payloads\Invoice;
 
-use Response\Payloads\Paytabs;
+use Paytabs\Sdk\Response\Payloads\Paytabs;
 
 class NewInvoice extends Paytabs
 {

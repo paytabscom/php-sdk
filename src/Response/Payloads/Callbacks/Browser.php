@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Payloads\Callbacks;
 
-use Response\Payloads\Paytabs;
+use Paytabs\Sdk\Response\Payloads\Paytabs;
 
 class Browser extends Paytabs
 {

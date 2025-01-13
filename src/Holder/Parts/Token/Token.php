@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts\Token;
 
-use Holder\PartInterface;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class Token implements PartInterface
 {

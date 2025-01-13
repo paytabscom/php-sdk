@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
-use Holder\Parts\Airline;
+use Paytabs\Sdk\Holder\Parts\Airline;
 
 abstract class AirlineData extends PaymentRequest
 {

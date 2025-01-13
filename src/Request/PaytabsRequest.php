@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Request;
 
-use Gateway\Gateway;
-use Holder\BuilderInterface;
+use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Holder\BuilderInterface;
 
 abstract class PaytabsRequest extends AbstractRequest
 {

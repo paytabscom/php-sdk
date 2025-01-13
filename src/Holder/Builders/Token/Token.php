@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Holder\Builders\Token;
 
-use Holder\Builders\AbstractHolder;
-use Holder\Parts\Token\Token as TokenPart;
+use Paytabs\Sdk\Holder\Builders\AbstractHolder;
+use Paytabs\Sdk\Holder\Parts\Token\Token as TokenPart;
 
 class Token extends AbstractHolder
 {

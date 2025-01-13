@@ -2,10 +2,10 @@
 
 namespace Paytabs\Sdk\Holder\Payload;
 
-use Enums\HttpRequestPart;
+use Paytabs\Sdk\Enums\HttpRequestPart;
 use Exception;
-use Holder\PartInterface;
-use Holder\PayloadInterface;
+use Paytabs\Sdk\Holder\PartInterface;
+use Paytabs\Sdk\Holder\PayloadInterface;
 
 abstract class AbstractPayload implements PayloadInterface
 {

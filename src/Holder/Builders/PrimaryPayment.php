@@ -2,14 +2,14 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
-use Enums\TokenPaymentFrequency;
-use Enums\TokenType;
-use Holder\Parts\CustomerDetails;
-use Holder\Parts\PaymentMethods;
-use Holder\Parts\PaypageLang;
-use Holder\Parts\ShippingDetails;
-use Holder\Parts\Tokenise;
-use Holder\Parts\TokeniseEnhanced;
+use Paytabs\Sdk\Enums\TokenPaymentFrequency;
+use Paytabs\Sdk\Enums\TokenType;
+use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\PaymentMethods;
+use Paytabs\Sdk\Holder\Parts\PaypageLang;
+use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Holder\Parts\Tokenise;
+use Paytabs\Sdk\Holder\Parts\TokeniseEnhanced;
 
 abstract class PrimaryPayment extends AirlineData
 {

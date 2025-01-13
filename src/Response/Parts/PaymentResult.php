@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Parts;
 
-use Enums\TranStatus;
+use Paytabs\Sdk\Enums\TranStatus;
 
 class PaymentResult
 {

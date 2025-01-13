@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Holder\PartInterface;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class CustomerDetails implements PartInterface
 {

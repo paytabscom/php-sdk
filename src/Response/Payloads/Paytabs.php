@@ -3,7 +3,7 @@
 namespace Paytabs\Sdk\Response\Payloads;
 
 use JsonMapper;
-use Response\PayloadInterface;
+use Paytabs\Sdk\Response\PayloadInterface;
 
 abstract class Paytabs implements PayloadInterface
 {

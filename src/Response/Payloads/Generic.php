@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Payloads;
 
-use Response\PayloadInterface;
+use Paytabs\Sdk\Response\PayloadInterface;
 
 class Generic implements PayloadInterface
 {

@@ -3,7 +3,7 @@
 namespace Paytabs\Sdk\Response\Payloads;
 
 use JsonMapper;
-use Response\Payloads\Payment\Completed;
+use Paytabs\Sdk\Response\Payloads\Payment\Completed;
 
 class CompletedArray extends Payment
 {

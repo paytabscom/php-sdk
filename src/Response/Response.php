@@ -2,11 +2,11 @@
 
 namespace Paytabs\Sdk\Response;
 
-use Enums\ResponseStage;
-use Request\RequestInterface;
-use Response\Payloads\Failure;
-use Response\Payloads\Generic;
-use Response\Payloads\Redirect;
+use Paytabs\Sdk\Enums\ResponseStage;
+use Paytabs\Sdk\Request\RequestInterface;
+use Paytabs\Sdk\Response\Payloads\Failure;
+use Paytabs\Sdk\Response\Payloads\Generic;
+use Paytabs\Sdk\Response\Payloads\Redirect;
 
 class Response implements ResponseInterface
 {

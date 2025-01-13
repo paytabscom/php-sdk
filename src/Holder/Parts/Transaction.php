@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Enums\TranClass;
-use Enums\TranType;
-use Holder\PartInterface;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class Transaction implements PartInterface
 {
@@ -22,8 +22,8 @@ class Transaction implements PartInterface
     public function build(): array
     {
         return [
-            'tran_type' => $this->tranType,
-            'tran_class' => $this->tranClass,
+            'tran_type' => $this->tranType->value,
+            'tran_class' => $this->tranClass->value,
         ];
     }
 }

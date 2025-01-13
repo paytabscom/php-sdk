@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
-use Holder\Parts\AltCurrency;
-use Holder\Parts\Framed;
-use Holder\Parts\HideShipping;
+use Paytabs\Sdk\Holder\Parts\AltCurrency;
+use Paytabs\Sdk\Holder\Parts\Framed;
+use Paytabs\Sdk\Holder\Parts\HideShipping;
 
 class HostedPage extends PrimaryPayment
 {

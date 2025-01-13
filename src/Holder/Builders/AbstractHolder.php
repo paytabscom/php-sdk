@@ -2,11 +2,11 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
-use Holder\BuilderInterface;
-use Holder\PartInterface;
-use Holder\Payload\PaytabsPayload;
-use Holder\PayloadInterface;
-use Response\PayloadInterface as ResponsePayloadInterface;
+use Paytabs\Sdk\Holder\BuilderInterface;
+use Paytabs\Sdk\Holder\PartInterface;
+use Paytabs\Sdk\Holder\Payload\PaytabsPayload;
+use Paytabs\Sdk\Holder\PayloadInterface;
+use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractHolder implements BuilderInterface
 {

@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Request;
 
-use Enums\HttpType;
-use Response\PayloadInterface;
+use Paytabs\Sdk\Enums\HttpType;
+use Paytabs\Sdk\Response\PayloadInterface;
 
 interface RequestInterface
 {

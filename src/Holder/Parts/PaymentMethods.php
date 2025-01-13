@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Helpers\NextIf;
-use Holder\PartInterface;
+use Paytabs\Sdk\Helpers\NextIf;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class PaymentMethods implements PartInterface, NextIf
 {

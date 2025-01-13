@@ -1,7 +1,7 @@
 <?php
 
-
-use Logger\LoggerInterface;
+namespace Paytabs\Sdk;
+use Paytabs\Sdk\Logger\LoggerInterface;
 
 class Log implements LoggerInterface
 {

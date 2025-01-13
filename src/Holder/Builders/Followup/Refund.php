@@ -2,10 +2,10 @@
 
 namespace Paytabs\Sdk\Holder\Builders\Followup;
 
-use Enums\TranClass;
-use Enums\TranType;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranType;
 use Exception;
-use Holder\Builders\Followup;
+use Paytabs\Sdk\Holder\Builders\Followup;
 
 class Refund extends Followup
 {

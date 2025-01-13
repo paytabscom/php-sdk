@@ -4,10 +4,10 @@ namespace Paytabs\Sdk\Http;
 
 use CurlHandle;
 use Exception;
-use Logger\LoggerInterface;
-use Request\RequestInterface;
-use Response\Response;
-use Response\ResponseInterface;
+use Paytabs\Sdk\Logger\LoggerInterface;
+use Paytabs\Sdk\Request\RequestInterface;
+use Paytabs\Sdk\Response\Response;
+use Paytabs\Sdk\Response\ResponseInterface;
 
 class Http
 {

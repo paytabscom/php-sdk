@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Enums\TokenPaymentFrequency;
-use Enums\TokenType;
-use Holder\PartInterface;
+use Paytabs\Sdk\Enums\TokenPaymentFrequency;
+use Paytabs\Sdk\Enums\TokenType;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class TokeniseEnhanced implements PartInterface
 {

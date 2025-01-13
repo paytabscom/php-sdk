@@ -2,11 +2,11 @@
 
 namespace Paytabs\Sdk\Request\Requests;
 
-use Gateway\Gateway;
-use Holder\Builders\PaymentRequest as BuildersPaymentRequest;
-use Request\PaytabsRequest;
-use Response\Payloads\Payment\Completed;
-use Response\PayloadInterface;
+use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Holder\Builders\PaymentRequest as BuildersPaymentRequest;
+use Paytabs\Sdk\Request\PaytabsRequest;
+use Paytabs\Sdk\Response\Payloads\Payment\Completed;
+use Paytabs\Sdk\Response\PayloadInterface;
 
 class PaymentRequest extends PaytabsRequest
 {

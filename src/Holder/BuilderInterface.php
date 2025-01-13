@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Holder;
 
-use Response\PayloadInterface as ResponsePayload;
+use Paytabs\Sdk\Response\PayloadInterface as ResponsePayload;
 
 interface BuilderInterface
 {

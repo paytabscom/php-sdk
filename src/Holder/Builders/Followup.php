@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
-use Holder\Parts\TransactionRef;
-use Response\Payloads\Payment\Completed;
-use Response\PayloadInterface;
+use Paytabs\Sdk\Holder\Parts\TransactionRef;
+use Paytabs\Sdk\Response\Payloads\Payment\Completed;
+use Paytabs\Sdk\Response\PayloadInterface;
 
 class Followup extends PaymentRequest
 {

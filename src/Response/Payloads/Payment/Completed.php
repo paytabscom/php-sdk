@@ -2,11 +2,11 @@
 
 namespace Paytabs\Sdk\Response\Payloads\Payment;
 
-use Enums\TranClass;
-use Response\Parts\ParentRequest;
-use Response\Parts\PaymentInfo;
-use Response\Parts\PaymentResult;
-use Response\Payloads\Payment;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Response\Parts\ParentRequest;
+use Paytabs\Sdk\Response\Parts\PaymentInfo;
+use Paytabs\Sdk\Response\Parts\PaymentResult;
+use Paytabs\Sdk\Response\Payloads\Payment;
 
 class Completed extends Payment
 {

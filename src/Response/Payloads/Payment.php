@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Response\Payloads;
 
-use Enums\TranType;
-use Holder\Parts\CustomerDetails;
-use Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 
 abstract class Payment extends Paytabs
 {

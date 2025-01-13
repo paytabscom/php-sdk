@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Gateway\Endpoints;
 
-use Gateway\Endpoint;
+use Paytabs\Sdk\Gateway\Endpoint;
 
 final class Ksa extends Endpoint
 {

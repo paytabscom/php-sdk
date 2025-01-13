@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Enums\FramedTarget;
-use Holder\PartInterface;
+use Paytabs\Sdk\Enums\FramedTarget;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class Framed implements PartInterface
 {

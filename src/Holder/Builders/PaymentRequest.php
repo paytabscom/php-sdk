@@ -2,12 +2,12 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
-use Enums\TranClass;
-use Enums\TranType;
-use Holder\Parts\Cart;
-use Holder\Parts\PluginInfo;
-use Holder\Parts\Transaction;
-use Holder\Parts\Urls;
+use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Holder\Parts\Cart;
+use Paytabs\Sdk\Holder\Parts\PluginInfo;
+use Paytabs\Sdk\Holder\Parts\Transaction;
+use Paytabs\Sdk\Holder\Parts\Urls;
 
 class PaymentRequest extends AbstractHolder
 {

@@ -2,11 +2,11 @@
 
 namespace Paytabs\Sdk\Request\Requests\Invoice;
 
-use Gateway\Gateway;
-use Holder\Builders\Invoice\Invoice;
-use Request\PaytabsRequest;
-use Response\PayloadInterface;
-use Response\Payloads\Invoice\NewInvoice as NewInvoiceResponse;
+use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
+use Paytabs\Sdk\Request\PaytabsRequest;
+use Paytabs\Sdk\Response\PayloadInterface;
+use Paytabs\Sdk\Response\Payloads\Invoice\NewInvoice as NewInvoiceResponse;
 
 class NewInvoice extends PaytabsRequest
 {

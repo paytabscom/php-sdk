@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Parts\Invoice;
 
-use Holder\PartInterface;
+use Paytabs\Sdk\Holder\PartInterface;
 
 class LineItem implements PartInterface
 {
