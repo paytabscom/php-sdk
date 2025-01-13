@@ -1,7 +1,9 @@
 {
     "name": "paytabs/sdk",
+    "version": "3.0.0",
     "type": "library",
     "require": {
+        "php": "^8.x",
         "netresearch/jsonmapper": "^5.0"
     },
     "require-dev": {

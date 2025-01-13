@@ -2,6 +2,8 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
+use Paytabs\Sdk\Paytabs;
+
 class PluginInfo extends AbstractPart
 {
     private string $platformName;
@@ -15,8 +17,7 @@ class PluginInfo extends AbstractPart
     ) {
         $this->platformName = $platformName ?? 'PHP';
         $this->platformVersion = $platformVersion ?? phpversion();
-        // @todo
-        $this->pluginVersion = $pluginVersion ?? 'PAYTABS_SDK_VERSION';
+        $this->pluginVersion = $pluginVersion ?? Paytabs::getVersion();
     }
 
     public function build(): array
