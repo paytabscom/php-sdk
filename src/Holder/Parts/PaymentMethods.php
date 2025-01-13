@@ -2,11 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Helpers\NextIf;
-use Paytabs\Sdk\Holder\PartInterface;
-
-class PaymentMethods implements PartInterface, NextIf
+class PaymentMethods extends AbstractPart
 {
+    /** @var string[] */
     private ?array $paymentMethods;
 
     protected function __construct(
@@ -67,32 +65,12 @@ class PaymentMethods implements PartInterface, NextIf
 
     //
 
-    private ?bool $nextIf = null;
-    public function nextIf(bool $cond): self
-    {
-        $this->nextIf = $cond;
-        return $this;
-    }
-
-    public function nextSkipIf(bool $cond): self
-    {
-        return $this->nextIf(!$cond);
-    }
-
-    public function readNextIf(): ?bool
-    {
-        $next = $this->nextIf;
-
-        $this->nextIf = null;
-
-        return $next;
-    }
-
-    //
-
     public function build(): array
     {
-        $paymentMethods = array_unique($this->paymentMethods);
+        /** array_values used to remove the indexes */
+        $paymentMethods = array_values(
+            array_unique($this->paymentMethods)
+        );
 
         return [
             'payment_methods' => $paymentMethods,
