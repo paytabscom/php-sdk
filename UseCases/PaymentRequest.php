@@ -8,6 +8,7 @@ use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use Paytabs\Sdk\Response\Response;
 
@@ -40,10 +41,8 @@ $holder
 
 $request = new PaymentRequest($gateway, $holder);
 
-// print_r($holder->getPayload()->getBody());
-// echo '<hr>';
-print_r($request->getPayload());
-die;
+Paytabs::Logger()->debug('PaymentRequest holder Payload', $holder->getPayload()->getBody());
+Paytabs::Logger()->debug('PaymentRequest Payload:', [$request->getPayload()]);
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -74,4 +73,4 @@ switch ($responseStage) {
         break;
 }
 
-print_r($resClassed);
+Paytabs::Logger()->debug('PaymentRequest response: ', [$resClassed]);

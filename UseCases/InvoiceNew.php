@@ -7,6 +7,7 @@ use Paytabs\Sdk\Holder\Parts\Invoice\Invoice as InvoicePart;
 use Paytabs\Sdk\Holder\Parts\Invoice\LineItem;
 use Paytabs\Sdk\Holder\Parts\Invoice\LineItems;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
 
 $holder = new Invoice();
@@ -37,8 +38,10 @@ $holder
     ->buildPluginInfo('PHP', phpversion(), '')
 ;
 
-// print_r($holder->getPayload()->getBody());
-// die;
+Paytabs::Logger()->debug(
+    'InvoiceNew holder Payload: ',
+    $holder->getPayload()->getBody()
+);
 
 $request = new NewInvoice($gateway, $holder);
 
@@ -49,4 +52,4 @@ $http->setDebugMode(true);
 $response = $http->submit();
 $resClassed = $response->getResponse();
 
-print_r($resClassed);
+Paytabs::Logger()->debug('InvoiceNew response: ', [$resClassed]);

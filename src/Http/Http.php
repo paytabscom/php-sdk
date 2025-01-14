@@ -4,10 +4,10 @@ namespace Paytabs\Sdk\Http;
 
 use CurlHandle;
 use Exception;
-use Paytabs\Sdk\Logger\LoggerInterface;
 use Paytabs\Sdk\Request\RequestInterface;
 use Paytabs\Sdk\Response\Response;
 use Paytabs\Sdk\Response\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class Http
 {
@@ -38,7 +38,7 @@ class Http
     {
         $curl_handle = $this->initRequest();
 
-        $this->logger->debug('Executing cURL ...', null);
+        $this->logger->debug('Executing cURL ...', []);
 
         $curl_response = curl_exec($curl_handle);
         $curl_response_code = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
@@ -47,7 +47,7 @@ class Http
         if ($errorNo) {
             $errorMsg = curl_error($curl_handle);
 
-            $this->logger->error($errorMsg, null);
+            $this->logger->error('cURL failed: ', [$errorMsg]);
 
             throw new Exception($errorMsg);
         }
