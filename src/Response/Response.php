@@ -10,7 +10,7 @@ use Paytabs\Sdk\Response\Payloads\Redirect;
 
 class Response implements ResponseInterface
 {
-    protected RequestInterface $request;
+    protected ?RequestInterface $request;
 
     protected int $responseCode;
     private string $response;
@@ -21,7 +21,7 @@ class Response implements ResponseInterface
 
     //
 
-    public function init(string $response, int $responseCode, RequestInterface $request): self
+    public function init(string $response, int $responseCode, ?RequestInterface $request = null): self
     {
         $this->responseCode = $responseCode;
         $this->response = $response;
@@ -66,7 +66,7 @@ class Response implements ResponseInterface
             return $responseClass->fromJson($this->getJson());
         }
 
-        if ($this->request->getResponseClass() != null) {
+        if ($this->request?->getResponseClass() != null) {
             $mapToClass = $this->request->getResponseClass();
         }
 
