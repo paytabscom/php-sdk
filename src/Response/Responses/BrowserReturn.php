@@ -15,13 +15,18 @@ class BrowserReturn extends AbstractResponse
     {
         $data = filter_input_array(INPUT_POST);
 
-        if (!$data) {
+        return BrowserReturn::initWith($data, $localParams);
+    }
+
+    public static function initWith(array $postArray, array $localParams = []): self
+    {
+        if (!$postArray) {
             throw new Exception('Invalid init');
         }
 
-        $dataJson = json_encode($data);
+        $dataJson = json_encode($postArray);
 
-        return new BrowserReturn($dataJson, $data, $localParams);
+        return new BrowserReturn($dataJson, $postArray, $localParams);
     }
 
     public function __construct(string $response, array $postArray, array $localParams)

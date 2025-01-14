@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractResponse
 {
-    protected string $response;
+    protected ?string $response;
 
     protected array $headers;
 
@@ -22,7 +22,7 @@ abstract class AbstractResponse
 
     abstract public static function init(): self;
 
-    public function __construct(string $response, array $headers = [], array $localParams = [])
+    public function __construct(?string $response, array $headers = [], array $localParams = [])
     {
         $this->response = $response;
         $this->headers = $headers;
@@ -41,13 +41,16 @@ abstract class AbstractResponse
         return $this;
     }
 
-    public function getRaw(): string
+    public function getRaw(): ?string
     {
         return $this->response;
     }
 
     public function getJson()
     {
+        if (!$this->getRaw()) {
+            return null;
+        }
         return json_decode($this->getRaw());
     }
 

@@ -15,10 +15,15 @@ class Callback extends AbstractResponse
         $response_stream = file_get_contents('php://input');
         $headers = getallheaders();
 
+        return Callback::initWith($response_stream, $headers);
+    }
+
+    public static function initWith(string $jsonPayload, array $headers): self
+    {
         // Lower case all keys
         $headers = array_change_key_case($headers);
 
-        return new Callback($response_stream, $headers);
+        return new Callback($jsonPayload, $headers);
     }
 
     //
