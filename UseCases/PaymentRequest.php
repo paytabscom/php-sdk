@@ -27,7 +27,7 @@ $holder
     )
     ->buildHideShipping(true)
     ->buildTokenise(true)
-    ->buildURLs($urlReturn, $urlCallback)
+    ->buildURLs($urlReturn, $urlCallback, true)
     ->buildAltCurrency('USD')
     ->buildPaymentMethods(
         PaymentMethods::init()

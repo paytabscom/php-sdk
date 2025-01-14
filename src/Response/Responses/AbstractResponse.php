@@ -3,7 +3,6 @@
 namespace Paytabs\Sdk\Response\Responses;
 
 use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractResponse
@@ -11,6 +10,9 @@ abstract class AbstractResponse
     protected string $response;
 
     protected array $headers;
+
+    /** Query params those had been set with the URLs (Return/Callback) */
+    protected array $localParams;
 
     protected Gateway $gateway;
 
@@ -20,10 +22,11 @@ abstract class AbstractResponse
 
     abstract public static function init(): self;
 
-    public function __construct(string $response, array $headers = [])
+    public function __construct(string $response, array $headers = [], array $localParams = [])
     {
         $this->response = $response;
         $this->headers = $headers;
+        $this->localParams = $localParams;
     }
 
     public function setLogger(LoggerInterface $logger): self

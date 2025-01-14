@@ -11,7 +11,7 @@ class BrowserReturn extends AbstractResponse
 
     //
 
-    public static function init(): self
+    public static function init(array $localParams = []): self
     {
         $data = filter_input_array(INPUT_POST);
 
@@ -21,12 +21,12 @@ class BrowserReturn extends AbstractResponse
 
         $dataJson = json_encode($data);
 
-        return new BrowserReturn($dataJson, $data);
+        return new BrowserReturn($dataJson, $data, $localParams);
     }
 
-    public function __construct(string $response, array $postArray)
+    public function __construct(string $response, array $postArray, array $localParams)
     {
-        parent::__construct($response);
+        parent::__construct($response, [], $localParams);
 
         $this->postArray = $postArray;
     }
@@ -54,6 +54,12 @@ class BrowserReturn extends AbstractResponse
         // 'signature' (hexadecimal encoding for hmac of sorted post form fields)
         $requestSignature = $post_values["signature"];
         unset($post_values["signature"]);
+
+        // Remove any local query param sent within the generate payment page request
+        foreach ($this->localParams as $localParam) {
+            unset($post_values[$localParam]);
+        }
+
         $fields = array_filter($post_values);
 
         // Sort form fields

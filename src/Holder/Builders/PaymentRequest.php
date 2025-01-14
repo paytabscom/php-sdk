@@ -36,13 +36,19 @@ class PaymentRequest extends AbstractHolder
         return $this;
     }
 
-    public function buildURLs(?string $return_url, ?string $callback_url)
+    public function buildURLs(?string $return_url, ?string $callback_url, bool $returnUsingGet = false)
     {
+        $urls = new Urls(
+            $return_url,
+            $callback_url
+        );
+
+        if ($returnUsingGet) {
+            $urls->setReturnUsingGet(true);
+        }
+
         $this->product->buildBody(
-            new Urls(
-                $return_url,
-                $callback_url
-            )
+            $urls
         );
 
         return $this;
