@@ -10,6 +10,19 @@ class Callback extends AbstractResponse
 
     //
 
+    public static function init(): self
+    {
+        $response_stream = file_get_contents('php://input');
+        $headers = getallheaders();
+
+        // Lower case all keys
+        $headers = array_change_key_case($headers);
+
+        return new Callback($response_stream, $headers);
+    }
+
+    //
+
     public function getResponse(): Ipn
     {
         $payload = new Ipn();
@@ -22,10 +35,11 @@ class Callback extends AbstractResponse
 
     final public function isValid(): bool
     {
-        // Lower case all keys
-        $headers = array_change_key_case($this->headers);
+        if (!array_key_exists('signature', $this->headers)) {
+            return false;
+        }
 
-        $signature = @$headers['signature'] ?? '';
+        $signature = $this->headers['signature'];
 
         $serverKey = $this->gateway->getServerKey();
 

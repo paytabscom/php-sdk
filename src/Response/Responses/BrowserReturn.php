@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Responses;
 
+use Exception;
 use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
 
 class BrowserReturn extends AbstractResponse
@@ -9,6 +10,19 @@ class BrowserReturn extends AbstractResponse
     protected array $postArray;
 
     //
+
+    public static function init(): self
+    {
+        $data = filter_input_array(INPUT_POST);
+
+        if (!$data) {
+            throw new Exception('Invalid init');
+        }
+
+        $dataJson = json_encode($data);
+
+        return new BrowserReturn($dataJson, $data);
+    }
 
     public function __construct(string $response, array $postArray)
     {

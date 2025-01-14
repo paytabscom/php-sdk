@@ -18,6 +18,8 @@ abstract class AbstractResponse
 
     //
 
+    abstract public static function init(): self;
+
     public function __construct(string $response, array $headers = [])
     {
         $this->response = $response;
@@ -54,7 +56,7 @@ abstract class AbstractResponse
     {
         $signature = hash_hmac('sha256', $data, $serverKey);
 
-        if (hash_equals($signature, $requestSignature) === TRUE) {
+        if (hash_equals($signature, $requestSignature) === true) {
             // VALID Redirect
             return true;
         } else {
