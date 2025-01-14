@@ -54,7 +54,7 @@ class Http
 
         curl_close($curl_handle);
 
-        $response = $response ?? new Response;
+        $response = $response ?? new Response();
 
         $response->init($curl_response, $curl_response_code, $this->request);
 

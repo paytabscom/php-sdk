@@ -24,7 +24,7 @@ $lineItems = new LineItems();
 $lineItems->addLineItem($lineItem1);
 $lineItems->addLineItem($item2);
 
-$invoicePart = new InvoicePart;
+$invoicePart = new InvoicePart();
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
     ->setDates(null, null, '2025-01-27T13:33:00+04:00')

@@ -13,7 +13,7 @@ use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Http\Http;
-use Paytabs\Sdk\Log;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -89,7 +89,7 @@ final class PaymentRequestTest extends TestCase
         $request = new PaymentRequest($gateway, $holder);
 
         $http = new Http();
-        $http->setLogger(new Log);
+        $http->setLogger(Paytabs::Logger());
         $http->setRequest($request);
         $http->setDebugMode(false);
 

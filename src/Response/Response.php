@@ -74,7 +74,7 @@ class Response implements ResponseInterface
             return $mapToClass->fromJson($this->getJson());
         }
 
-        return (new Generic)->fromJson($this->getJson());
+        return (new Generic())->fromJson($this->getJson());
     }
 
     public function asFailure(): Failure

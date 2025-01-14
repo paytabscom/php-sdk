@@ -2,7 +2,6 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-
 class Cart extends AbstractPart
 {
     private string $cartId;

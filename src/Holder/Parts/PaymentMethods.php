@@ -57,7 +57,7 @@ class PaymentMethods extends AbstractPart
         $codesArray = $codes;
 
         if ($isExclude) {
-            $codesArray = array_map(fn($code): string => "-{$code}", $codesArray);
+            $codesArray = array_map(fn ($code): string => "-{$code}", $codesArray);
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);

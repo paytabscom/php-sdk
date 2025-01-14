@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 
 abstract class Paytabs
 {
-    const VERSION = '3.0.0';
+    public const VERSION = '3.0.0';
 
     final public static function getVersion(): string
     {
@@ -19,7 +19,7 @@ abstract class Paytabs
     public static function Logger(): LoggerInterface
     {
         if (Paytabs::$logger == null) {
-            Paytabs::$logger = new Log;
+            Paytabs::$logger = new Log();
         }
 
         return Paytabs::$logger;

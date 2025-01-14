@@ -16,7 +16,7 @@ $http->setRequest($tokenReq);
 $response = $http->submit();
 
 print_r($response->getResponse());
-print_r($response->getResponse(new Generic));
+print_r($response->getResponse(new Generic()));
 
 //
 echo '<hr>';
@@ -30,4 +30,4 @@ $http->setRequest($tokenReq);
 $response = $http->submit();
 
 
-print_r($response->getResponse(new CompletedArray));
+print_r($response->getResponse(new CompletedArray()));

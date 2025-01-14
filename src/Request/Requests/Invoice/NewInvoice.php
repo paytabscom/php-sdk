@@ -24,6 +24,6 @@ class NewInvoice extends PaytabsRequest
     /** @return NewInvoiceResponse */
     public function getResponseClass(): PayloadInterface
     {
-        return new NewInvoiceResponse;
+        return new NewInvoiceResponse();
     }
 }
