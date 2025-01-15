@@ -16,6 +16,10 @@ abstract class AbstractRequest implements RequestInterface
 
     protected string $path;
 
+    // There are some params that could be fitted in the URL itself as part of the path
+    // Sample: secure.paytabs.com/invoice/{invoice_id}/status
+    protected bool $hasPathParams = false;
+
     protected HttpType $httpType = HttpType::POST;
 
     protected ?ResponsePayloadInterface $responseClass = null;
@@ -64,10 +68,19 @@ abstract class AbstractRequest implements RequestInterface
 
     public function getUrl(): string
     {
-        return Helpers::urlBuild(
+        $fullUrl = Helpers::urlBuild(
             $this->environment->getUrl(),
             $this->path
         );
+
+        if ($this->hasPathParams) {
+            $pathParams = $this->dataHolder->getPayload()->getPath();
+            if (!empty($pathParams)) {
+                $fullUrl = str_replace(array_keys($pathParams), array_values($pathParams), $fullUrl);
+            }
+        }
+
+        return $fullUrl;
     }
 
     public function getHttpType(): HttpType

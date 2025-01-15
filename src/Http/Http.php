@@ -49,10 +49,16 @@ class Http
 
             $this->logger->error('cURL failed: ', [$errorMsg]);
 
+            curl_close($curl_handle);
+
             throw new Exception($errorMsg);
         }
 
         curl_close($curl_handle);
+
+        if (!($curl_response_code >= 200 && $curl_response_code < 300)) {
+            // throw new Exception('Invalid Request');
+        }
 
         $response = $response ?? new Response();
 
@@ -103,6 +109,11 @@ class Http
             $curl,
             $arr
         );
+
+        // Force set GET request type
+        if (!$this->request->isHttpPost()) {
+            curl_setopt($curl, CURLOPT_HTTPGET, 1);
+        }
 
         return $curl;
     }
