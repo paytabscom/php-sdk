@@ -8,6 +8,7 @@ use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use Paytabs\Sdk\Response\Response;
@@ -31,7 +32,7 @@ $holder
     ->buildAltCurrency('USD')
     ->buildPaymentMethods(
         PaymentMethods::init()
-            ->includeMethod('card')
+            ->includeMethod(Card::CODE)
             ->nextIf(true)
             ->excludeMethod('tabby')
             ->includeMethods(['card', 'tamara'])
