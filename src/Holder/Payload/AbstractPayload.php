@@ -12,6 +12,7 @@ abstract class AbstractPayload implements PayloadInterface
     protected array $headers = [];
     protected array $body = [];
     protected array $query = [];
+    protected array $path = [];
 
     //
 
@@ -30,6 +31,11 @@ abstract class AbstractPayload implements PayloadInterface
         $this->buildPart($part, HttpRequestPart::Query);
     }
 
+    public function buildPath(PartInterface|array $part): void
+    {
+        $this->buildPart($part, HttpRequestPart::Path);
+    }
+
     public function getBody(bool $removeNulls = true): array
     {
         return $this->get($this->body, $removeNulls);
@@ -38,6 +44,11 @@ abstract class AbstractPayload implements PayloadInterface
     public function getQuery(bool $removeNulls = true): array
     {
         return $this->get($this->query, $removeNulls);
+    }
+
+    public function getPath(bool $removeNulls = true): array
+    {
+        return $this->get($this->path, $removeNulls);
     }
 
     public function getHeaders(bool $removeNulls = true): array
@@ -64,6 +75,11 @@ abstract class AbstractPayload implements PayloadInterface
                 break;
             case HttpRequestPart::Query:
                 $this->add($this->query, $newPart);
+
+                break;
+
+            case HttpRequestPart::Path:
+                $this->add($this->path, $newPart);
 
                 break;
 

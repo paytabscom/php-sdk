@@ -60,21 +60,27 @@ class Response implements ResponseInterface
             return $this->asRedirect();
         }
 
-        //
-
-        if ($responseClass != null) {
-            return $responseClass->fromJson($this->getJson());
+        if ($responseStage == ResponseStage::UnKnown) {
+            // @todo
         }
 
-        if ($this->request?->getResponseClass() != null) {
-            $mapToClass = $this->request->getResponseClass();
+        //
+
+        if ($this->isSuccessful()) {
+            if ($responseClass != null) {
+                return $responseClass->fromJson($this->getJson());
+            }
+
+            if ($this->request?->getResponseClass() != null) {
+                $mapToClass = $this->request->getResponseClass();
+            }
         }
 
         if ($mapToClass != null) {
             return $mapToClass->fromJson($this->getJson());
         }
 
-        return (new Generic())->fromJson($this->getJson());
+        return (new Generic($this->getRaw()))->fromJson($this->getJson());
     }
 
     public function asFailure(): Failure
@@ -115,5 +121,10 @@ class Response implements ResponseInterface
     public function getResponseStage(): ResponseStage
     {
         return $this->responseStage;
+    }
+
+    public function isSuccessful(): bool
+    {
+        return $this->responseCode >= 200 && $this->responseCode < 300;
     }
 }

@@ -10,6 +10,8 @@ interface PayloadInterface
 
     public function buildQuery(PartInterface|array $part): void;
 
+    public function buildPath(PartInterface|array $part): void;
+
     //
 
     public function getHeaders(bool $removeNulls = true): array;
@@ -17,4 +19,6 @@ interface PayloadInterface
     public function getBody(bool $removeNulls = true): array;
 
     public function getQuery(bool $removeNulls = true): array;
+
+    public function getPath(bool $removeNulls = true): array;
 }
