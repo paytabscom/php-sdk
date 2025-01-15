@@ -35,6 +35,11 @@ class Gateway extends AbstractPayload
         );
     }
 
+    public function getServerKey(): string
+    {
+        return $this->serverKey;
+    }
+
     //
 
     public function getUrl(): string
