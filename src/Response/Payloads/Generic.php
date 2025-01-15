@@ -6,9 +6,16 @@ use Paytabs\Sdk\Response\PayloadInterface;
 
 class Generic implements PayloadInterface
 {
+    protected ?string $response;
+
     public $json;
 
     //
+
+    public function __construct(?string $response = null)
+    {
+        $this->response = $response;
+    }
 
     public function init(): self
     {
