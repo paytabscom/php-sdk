@@ -2,32 +2,36 @@
 
 use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\TransactionQuery;
 use Paytabs\Sdk\Response\Payloads\CompletedArray;
 use Paytabs\Sdk\Response\Payloads\Generic;
 
-$tranHolder = new BuildersTransactionQuery();
-$tranHolder->buildTransactionRef($trxRef);
-$tokenReq = new TransactionQuery($gateway, $tranHolder);
+$holder = new BuildersTransactionQuery();
+$holder->buildTransactionRef($trxRef);
+$request = new TransactionQuery($gateway, $holder);
 
 /** @var Http $http */
-$http->setRequest($tokenReq);
+$http->setRequest($request);
 
 $response = $http->submit();
 
-print_r($response->getResponse());
-print_r($response->getResponse(new Generic()));
+Paytabs::Logger()->debug('TokenQuery Response', [
+    'Classed' => $response->getResponse(),
+    'Generic' => $response->getResponse(new Generic()),
+]);
 
 //
 echo '<hr>';
 
-$tranHolder = new BuildersTransactionQuery();
-$tranHolder->buildCartId('c01');
-$tokenReq = new TransactionQuery($gateway, $tranHolder);
+$holder2 = new BuildersTransactionQuery();
+$holder2->buildCartId('c01');
+$request2 = new TransactionQuery($gateway, $holder2);
 
-$http->setRequest($tokenReq);
+$http->setRequest($request2);
 
-$response = $http->submit();
+$response2 = $http->submit();
 
-
-print_r($response->getResponse(new CompletedArray()));
+Paytabs::Logger()->debug('TokenQuery Response (Array)', [
+    $response2->getResponse(new CompletedArray())
+]);

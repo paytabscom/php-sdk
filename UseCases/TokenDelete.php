@@ -2,16 +2,23 @@
 
 use Paytabs\Sdk\Holder\Builders\Token\Token;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\TokenDelete;
 
-$tokenHolder = new Token();
-$tokenHolder->buildToken($token);
+$holder = new Token();
+$holder->buildToken($token);
 
-$tokenDelReq = new TokenDelete($gateway, $tokenHolder);
+$request = new TokenDelete($gateway, $holder);
 
 /** @var Http $http */
-$http->setRequest($tokenDelReq);
+$http->setRequest($request);
 
 $response = $http->submit();
 
-print_r($response);
+
+Paytabs::Logger()->debug(
+    'TokenDelete Response',
+    [
+        $response,
+    ]
+);

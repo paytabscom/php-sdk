@@ -2,17 +2,29 @@
 
 use Paytabs\Sdk\Holder\Builders\Token\Token;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\TokenQuery;
 
-$tokenHolder = new Token();
-$tokenHolder->buildToken($token);
+$holder = new Token();
+$holder->buildToken($token);
 
-$tokenReq = new TokenQuery($gateway, $tokenHolder);
+$request = new TokenQuery($gateway, $holder);
+
+Paytabs::Logger()->debug(
+    'TokenQuery holder Payload',
+    $holder->getPayload()->getBody()
+);
+
 
 /** @var Http $http */
-$http->setRequest($tokenReq);
+$http->setRequest($request);
 
 $response = $http->submit();
 
 
-print_r($response);
+Paytabs::Logger()->debug(
+    'TokenQuery Response',
+    [
+        $response,
+    ]
+);

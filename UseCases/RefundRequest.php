@@ -6,12 +6,13 @@ use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Builders\Followup;
 use Paytabs\Sdk\Holder\Builders\Followup\Refund;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 //
 
-$refundHolder1 = new Followup();
-$refundHolder1
+$holder1 = new Followup();
+$holder1
     ->buildTransaction(TranType::Refund, TranClass::Ecom)
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', 'AED', 10, 'Refund test')
@@ -20,8 +21,8 @@ $refundHolder1
 ;
 
 
-$refundHolder2 = new Refund();
-$refundHolder2
+$holder2 = new Refund();
+$holder2
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', 'AED', 10, 'Refund test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')
@@ -29,7 +30,7 @@ $refundHolder2
 ;
 
 
-$request = new PaymentRequest($gateway, $refundHolder2);
+$request = new PaymentRequest($gateway, $holder2);
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -44,4 +45,4 @@ if ($responseType === ResponseStage::Error) {
     $resMapped = $response->getResponse();
 }
 
-print_r($resMapped);
+Paytabs::Logger()->debug('Refund Response', [$resMapped]);
