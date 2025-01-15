@@ -60,6 +60,10 @@ class Response implements ResponseInterface
             return $this->asRedirect();
         }
 
+        if ($responseStage == ResponseStage::UnKnown) {
+            // @todo
+        }
+
         //
 
         if ($responseClass != null) {
