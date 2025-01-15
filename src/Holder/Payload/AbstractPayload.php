@@ -108,10 +108,10 @@ abstract class AbstractPayload implements PayloadInterface
     private function filterNulls(array $array): array
     {
         foreach ($array as $key => $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $array[$key] = $this->filterNulls($value);
             }
-            if (is_null($value) || $value == '') {
+            if (null === $value || $value === '') {
                 unset($array[$key]);
             }
         }

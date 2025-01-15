@@ -35,7 +35,7 @@ $holder
     ->buildInvoice($invoicePart)
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildCart('inv-01', 'AED', 20, 'Invoice test')
-    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildPluginInfo('PHP', PHP_VERSION, '')
 ;
 
 Paytabs::Logger()->debug(

@@ -8,7 +8,7 @@ class Log extends AbstractLogger
 {
     private static $instances = [];
 
-    public static function getInstance(): Log
+    public static function getInstance(): self
     {
         $cls = static::class;
         if (!isset(self::$instances[$cls])) {

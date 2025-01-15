@@ -34,7 +34,7 @@ final class PaymentRequestTest extends TestCase
         $holder
             ->buildCart("c01", "AED", 100.51, "Test")
             ->buildTransaction(TranType::Sale, TranClass::Ecom)
-            ->buildPluginInfo('PHP', phpversion(), null)
+            ->buildPluginInfo('PHP', PHP_VERSION, null)
             ->buildCustomerDetails(
                 (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
                     ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
@@ -65,10 +65,10 @@ final class PaymentRequestTest extends TestCase
         $holder = $this->generatePayload();
         $payload = $holder->getPayload()->getBody();
 
-        $this->assertIsArray($payload);
-        $this->assertArrayHasKey('cart_id', $payload);
-        $this->assertArrayHasKey('payment_methods', $payload);
-        $this->assertIsArray($payload['payment_methods']);
+        self::assertIsArray($payload);
+        self::assertArrayHasKey('cart_id', $payload);
+        self::assertArrayHasKey('payment_methods', $payload);
+        self::assertIsArray($payload['payment_methods']);
     }
 
     public function testGenerateGateway(): void
@@ -77,8 +77,8 @@ final class PaymentRequestTest extends TestCase
 
         $payload = $gateway->getBody();
 
-        $this->assertIsArray($payload);
-        $this->assertArrayHasKey('profile_id', $payload);
+        self::assertIsArray($payload);
+        self::assertArrayHasKey('profile_id', $payload);
     }
 
     public function testRequest(): void
@@ -96,6 +96,6 @@ final class PaymentRequestTest extends TestCase
         $response = $http->submit();
         $responseStage = $response->getResponseStage();
 
-        $this->assertEquals($responseStage, ResponseStage::Redirect);
+        self::assertSame($responseStage, ResponseStage::Redirect);
     }
 }

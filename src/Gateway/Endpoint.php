@@ -12,7 +12,7 @@ abstract class Endpoint
 
     private static $instances = [];
 
-    public static function getInstance(): Endpoint
+    public static function getInstance(): self
     {
         $cls = static::class;
         if (!isset(self::$instances[$cls])) {

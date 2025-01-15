@@ -15,7 +15,7 @@ class BrowserReturn extends AbstractResponse
     {
         $data = filter_input_array(INPUT_POST);
 
-        return BrowserReturn::initWith($data, $localParams);
+        return self::initWith($data, $localParams);
     }
 
     public static function initWith(array $postArray, array $localParams = []): self
@@ -26,7 +26,7 @@ class BrowserReturn extends AbstractResponse
 
         $dataJson = json_encode($postArray);
 
-        return new BrowserReturn($dataJson, $postArray, $localParams);
+        return new self($dataJson, $postArray, $localParams);
     }
 
     public function __construct(string $response, array $postArray, array $localParams)
@@ -49,7 +49,7 @@ class BrowserReturn extends AbstractResponse
     final public function isValid(): bool
     {
         $post_values = $this->postArray;
-        if (empty($post_values) || !array_key_exists('signature', $post_values)) {
+        if (empty($post_values) || !\array_key_exists('signature', $post_values)) {
             return false;
         }
 

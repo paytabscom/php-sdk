@@ -52,31 +52,31 @@ class Response implements ResponseInterface
 
         $responseStage = $this->responseStage();
 
-        if ($responseStage == ResponseStage::Error) {
+        if ($responseStage === ResponseStage::Error) {
             return $this->asFailure();
         }
 
-        if ($responseStage == ResponseStage::Redirect) {
+        if ($responseStage === ResponseStage::Redirect) {
             return $this->asRedirect();
         }
 
-        if ($responseStage == ResponseStage::UnKnown) {
+        if ($responseStage === ResponseStage::UnKnown) {
             // @todo
         }
 
         //
 
         if ($this->isSuccessful()) {
-            if ($responseClass != null) {
+            if ($responseClass !== null) {
                 return $responseClass->fromJson($this->getJson());
             }
 
-            if ($this->request?->getResponseClass() != null) {
+            if ($this->request?->getResponseClass() !== null) {
                 $mapToClass = $this->request->getResponseClass();
             }
         }
 
-        if ($mapToClass != null) {
+        if ($mapToClass !== null) {
             return $mapToClass->fromJson($this->getJson());
         }
 

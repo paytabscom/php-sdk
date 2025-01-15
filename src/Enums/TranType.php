@@ -29,7 +29,7 @@ enum TranType: string
         return TranType::from(strtolower($value));
     }
 
-    // @todo
+    /** @todo */
     public function isPaymentComplete(object $ipn_data): bool
     {
         if ($ipn_data) {
@@ -37,7 +37,7 @@ enum TranType: string
             $tran_type = $ipn_data->tran_type;
 
             // Sale && previous_tran_ref
-            if (isset($original_trx) && (TranType::get($tran_type) == TranType::Sale)) {
+            if (isset($original_trx) && (TranType::get($tran_type) === TranType::Sale)) {
                 return true;
             }
 

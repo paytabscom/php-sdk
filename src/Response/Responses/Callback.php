@@ -15,7 +15,7 @@ class Callback extends AbstractResponse
         $response_stream = file_get_contents('php://input');
         $headers = getallheaders();
 
-        return Callback::initWith($response_stream, $headers);
+        return self::initWith($response_stream, $headers);
     }
 
     public static function initWith(string $jsonPayload, array $headers): self
@@ -23,7 +23,7 @@ class Callback extends AbstractResponse
         // Lower case all keys
         $headers = array_change_key_case($headers);
 
-        return new Callback($jsonPayload, $headers);
+        return new self($jsonPayload, $headers);
     }
 
     //
@@ -40,7 +40,7 @@ class Callback extends AbstractResponse
 
     final public function isValid(): bool
     {
-        if (!array_key_exists('signature', $this->headers)) {
+        if (!\array_key_exists('signature', $this->headers)) {
             return false;
         }
 

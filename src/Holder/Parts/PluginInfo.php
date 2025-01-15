@@ -16,7 +16,7 @@ class PluginInfo extends AbstractPart
         ?string $pluginVersion
     ) {
         $this->platformName = $platformName ?? 'PHP';
-        $this->platformVersion = $platformVersion ?? phpversion();
+        $this->platformVersion = $platformVersion ?? PHP_VERSION;
         $this->pluginVersion = $pluginVersion ?? Paytabs::getVersion();
     }
 

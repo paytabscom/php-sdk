@@ -90,7 +90,7 @@ abstract class AbstractRequest implements RequestInterface
 
     public function isHttpPost(): bool
     {
-        return $this->getHttpType() == HttpType::POST;
+        return $this->getHttpType() === HttpType::POST;
     }
 
     //

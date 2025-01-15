@@ -15,7 +15,7 @@ class PaymentMethods extends AbstractPart
 
     public static function init(?array $methods = null): self
     {
-        return new PaymentMethods($methods);
+        return new self($methods);
     }
 
     public function includeMethod(string $code): self
@@ -57,7 +57,7 @@ class PaymentMethods extends AbstractPart
         $codesArray = $codes;
 
         if ($isExclude) {
-            $codesArray = array_map(fn ($code): string => "-{$code}", $codesArray);
+            $codesArray = array_map(static fn ($code): string => "-{$code}", $codesArray);
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);

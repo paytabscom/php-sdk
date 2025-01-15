@@ -15,7 +15,7 @@ $refundHolder1
     ->buildTransaction(TranType::Refund, TranClass::Ecom)
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', 'AED', 10, 'Refund test')
-    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildURLs(null, $urlCallback)
 ;
 
@@ -24,7 +24,7 @@ $refundHolder2 = new Refund();
 $refundHolder2
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', 'AED', 10, 'Refund test')
-    ->buildPluginInfo('PHP', phpversion(), '')
+    ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildURLs(null, $urlCallback)
 ;
 
@@ -38,9 +38,9 @@ $response = $http->submit();
 
 $responseType = $response->getResponseStage();
 
-if ($responseType == ResponseStage::Error) {
+if ($responseType === ResponseStage::Error) {
     $resMapped = $response->asFailure();
-} elseif ($responseType == ResponseStage::Completed) {
+} elseif ($responseType === ResponseStage::Completed) {
     $resMapped = $response->getResponse();
 }
 

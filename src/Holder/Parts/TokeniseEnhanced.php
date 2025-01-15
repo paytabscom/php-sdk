@@ -41,7 +41,7 @@ class TokeniseEnhanced extends AbstractPart
         ?int $minDaysBetweenPayments = null,
         ?string $startDate = null,
         ?string $expiryDate = null
-    ): TokeniseEnhanced {
+    ): self {
         $this->paymentFrequency = $paymentFrequency;
         $this->minAmountPerPayment = $minAmountPerPayment;
         $this->maxAmountPerPayment = $maxAmountPerPayment;
@@ -55,7 +55,7 @@ class TokeniseEnhanced extends AbstractPart
     public function setCounter(
         ?int $counter = null,
         ?int $totalCount = null,
-    ): TokeniseEnhanced {
+    ): self {
         $this->counter = $counter;
         $this->totalCount = $totalCount;
 

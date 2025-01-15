@@ -20,6 +20,6 @@ class BrowserCallback extends BrowserReturn
 
         $dataJson = json_encode($data);
 
-        return new BrowserCallback($dataJson, $data, $localParams);
+        return new self($dataJson, $data, $localParams);
     }
 }

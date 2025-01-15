@@ -11,17 +11,17 @@ abstract class Paytabs
 
     final public static function getVersion(): string
     {
-        return Paytabs::VERSION;
+        return self::VERSION;
     }
 
     public static ?Log $logger = null;
 
     public static function Logger(): LoggerInterface
     {
-        if (Paytabs::$logger == null) {
-            Paytabs::$logger = new Log();
+        if (self::$logger === null) {
+            self::$logger = new Log();
         }
 
-        return Paytabs::$logger;
+        return self::$logger;
     }
 }

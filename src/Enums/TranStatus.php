@@ -16,7 +16,7 @@ enum TranStatus: string
 
     public function isSuccessful(): bool
     {
-        return $this == TranStatus::Authorised;
+        return $this === TranStatus::Authorised;
     }
 
     public function isNotFinal(): bool
@@ -31,16 +31,16 @@ enum TranStatus: string
 
     public function isOnHold(): bool
     {
-        return $this == TranStatus::OnHold;
+        return $this === TranStatus::OnHold;
     }
 
     public function isPending(): bool
     {
-        return $this == TranStatus::Pending;
+        return $this === TranStatus::Pending;
     }
 
     public function isExpired(): bool
     {
-        return $this == TranStatus::Expired;
+        return $this === TranStatus::Expired;
     }
 }
