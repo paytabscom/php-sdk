@@ -40,73 +40,73 @@ abstract class AbstractMethod
 
     //
 
-    public function isCard(): bool
+    final public function isCard(): bool
     {
         return self::$isCard;
     }
 
-    public function supportCard(): bool
+    final public function supportCard(): bool
     {
         return self::$supportCard;
     }
 
-    public function isDeferred(): bool
+    final public function isDeferred(): bool
     {
         return self::$isAsync;
     }
 
-    public function supportDeferred(): bool
+    final public function supportDeferred(): bool
     {
         return self::$supportAsync;
     }
 
-    public function supportCurrency(string $currency): bool
+    final public function supportCurrency(string $currency): bool
     {
         return
             self::$supportAnyCurrency
             || in_array(strtoupper($currency), self::$currencies);
     }
 
-    public function supportedCurrencies(): array
+    final public function supportedCurrencies(): array
     {
         return self::$currencies;
     }
 
-    public function supportFramed(): bool
+    final public function supportFramed(): bool
     {
         return self::$supportFramed;
     }
 
-    public function supportTokenization(): bool
+    final public function supportTokenization(): bool
     {
         return self::$supportTokenization;
     }
 
-    public function supportRefund(): bool
+    final public function supportRefund(): bool
     {
         return self::$supportRefund;
     }
 
-    public function supportRefundPartial(): bool
+    final public function supportRefundPartial(): bool
     {
         return
             self::supportRefund()
             && self::$supportRefundPartial;
     }
 
-    public function supportMultipleRefund(): bool
+    final public function supportMultipleRefund(): bool
     {
         return
             self::supportRefund()
             && self::$supportMultipleRefund;
     }
 
-    public function supportAuthCapture(): bool
+    final public function supportAuthCapture(): bool
     {
         return self::$supportAuthCapture;
     }
 
-    public function supportMultipleCapture(): bool
+    final public function supportMultipleCapture(): bool
     {
         return
             self::supportAuthCapture()
