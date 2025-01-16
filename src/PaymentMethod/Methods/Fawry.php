@@ -9,7 +9,6 @@ class Fawry extends AbstractMethod
     const ID = 51;
 
     const CODE = 'fawry';
-    const PT_CODE = 'paytabs_' . self::CODE;
 
     const TITLE = 'PayTabs - Fawry';
 

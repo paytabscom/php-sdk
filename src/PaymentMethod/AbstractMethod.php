@@ -9,6 +9,8 @@ abstract class AbstractMethod
     const CODE = '';
     const PT_CODE = 'paytabs_' . self::CODE;
 
+    const CODE_ALIASES = [];
+
     const TITLE = '';
 
     const ACTIVE = true;
