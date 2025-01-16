@@ -23,9 +23,11 @@ class PluginInfo extends AbstractPart
     public function build(): array
     {
         return [
-            'cart_name' => $this->platformName,
-            'cart_version' => $this->platformVersion,
-            'plugin_version' => $this->pluginVersion,
+            'plugin_info' => [
+                'cart_name' => $this->platformName,
+                'cart_version' => $this->platformVersion,
+                'plugin_version' => $this->pluginVersion,
+            ]
         ];
     }
 }

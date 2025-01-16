@@ -22,7 +22,7 @@ class Log extends AbstractLogger
 
     public function log($level, string|\Stringable $message, array $context = []): void
     {
-        echo '<pre> ' . $level . ': ' . $message . PHP_EOL;
+        echo '<pre>' . $level . ': ' . $message . PHP_EOL;
         print_r($context);
         echo '</pre>';
     }
