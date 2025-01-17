@@ -40,6 +40,21 @@ abstract class AbstractMethod
 
     //
 
+    final public function matchesCode(string $code): bool
+    {
+        $code = strtolower($code);
+        if (static::CODE === $code) {
+            return true;
+        }
+        if (\in_array($code, self::CODE_ALIASES, true)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //
+
     final public function isCard(): bool
     {
         return self::$isCard;
@@ -64,7 +79,7 @@ abstract class AbstractMethod
     {
         return
             self::$supportAnyCurrency
-            || in_array(strtoupper($currency), self::$currencies);
+            || \in_array(strtoupper($currency), self::$currencies, true);
     }
 
     final public function supportedCurrencies(): array
