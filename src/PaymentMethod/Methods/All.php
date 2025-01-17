@@ -9,6 +9,7 @@ class All extends AbstractMethod
     const ID = 1;
 
     const CODE = 'all';
+    const PT_CODE = 'paytabs_' . self::CODE;
 
     const TITLE = 'PayTabs';
 

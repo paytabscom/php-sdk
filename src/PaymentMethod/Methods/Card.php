@@ -9,6 +9,7 @@ class Card extends AbstractMethod
     const ID = 2;
 
     const CODE = 'card';
+    const PT_CODE = 'paytabs_' . self::CODE;
 
     const CODE_ALIASES = [
         'creditcard',

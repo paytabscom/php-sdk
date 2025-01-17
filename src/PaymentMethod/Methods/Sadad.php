@@ -9,6 +9,7 @@ class Sadad extends AbstractMethod
     const ID = 50;
 
     const CODE = 'sadad';
+    const PT_CODE = 'paytabs_' . self::CODE;
 
     const TITLE = 'PayTabs - Sadad';
 

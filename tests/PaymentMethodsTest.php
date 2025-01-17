@@ -10,6 +10,6 @@ final class PaymentMethodsTest extends TestCase
     public function testCreatePaymentMethod(): void
     {
         $card = new Card();
-        $this::assertTrue($card::ACTIVE);
+        self::assertTrue($card::ACTIVE);
     }
 }
