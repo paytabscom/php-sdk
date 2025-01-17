@@ -18,6 +18,28 @@ abstract class MethodsFactory
         return $instance;
     }
 
+    public static function createMethodById(int $id): AbstractMethod
+    {
+        $instance = static::findMethodClassById($id);
+
+        if (!$instance) {
+            throw new Exception("Payment Method not found for ID: $id");
+        }
+
+        return $instance;
+    }
+
+    public static function createMethodByUnique(string $pt_code): AbstractMethod
+    {
+        $instance = static::findMethodClassByUnique($pt_code);
+
+        if (!$instance) {
+            throw new Exception("Payment Method not found for Unique Code: $pt_code");
+        }
+
+        return $instance;
+    }
+
     //
 
     private static array $methodsMapper = [];
@@ -36,12 +58,40 @@ abstract class MethodsFactory
         return static::$methodsMapper;
     }
 
+    //
+
     private static function findMethodClass(string $code): ?AbstractMethod
     {
         $allMethods = self::getMethodsMapper();
 
         foreach ($allMethods as $method) {
             if ($method->matchesCode($code)) {
+                return $method;
+            }
+        }
+
+        return null;
+    }
+
+    private static function findMethodClassById(int $id): ?AbstractMethod
+    {
+        $allMethods = self::getMethodsMapper();
+
+        foreach ($allMethods as $method) {
+            if ($method::ID === $id) {
+                return $method;
+            }
+        }
+
+        return null;
+    }
+
+    private static function findMethodClassByUnique(string $pt_code): ?AbstractMethod
+    {
+        $allMethods = self::getMethodsMapper();
+
+        foreach ($allMethods as $method) {
+            if (strcasecmp($method::PT_CODE, $pt_code) === 0) {
                 return $method;
             }
         }
