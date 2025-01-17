@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\Gateway\Endpoints;
 
 use Paytabs\Sdk\Gateway\Endpoint;
 
-final class Irq extends Endpoint
+final class Iraq extends Endpoint
 {
     protected const CODE = 'IRQ';
     protected const TITLE = 'Iraq';

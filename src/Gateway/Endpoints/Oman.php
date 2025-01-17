@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\Gateway\Endpoints;
 
 use Paytabs\Sdk\Gateway\Endpoint;
 
-final class Omn extends Endpoint
+final class Oman extends Endpoint
 {
     protected const CODE = 'OMN';
     protected const TITLE = 'Oman';

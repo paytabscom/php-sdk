@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\Gateway\Endpoints;
 
 use Paytabs\Sdk\Gateway\Endpoint;
 
-final class Jor extends Endpoint
+final class Jordan extends Endpoint
 {
     protected const CODE = 'JOR';
     protected const TITLE = 'Jordan';
