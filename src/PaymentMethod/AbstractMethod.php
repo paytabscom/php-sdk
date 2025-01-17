@@ -46,7 +46,7 @@ abstract class AbstractMethod
         if (static::CODE === $code) {
             return true;
         }
-        if (\in_array($code, self::CODE_ALIASES, true)) {
+        if (\in_array($code, static::CODE_ALIASES, true)) {
             return true;
         }
 
