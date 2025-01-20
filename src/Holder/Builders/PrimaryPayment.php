@@ -104,7 +104,8 @@ abstract class PrimaryPayment extends AirlineData
         }
 
         $this->product->buildBody(
-            $methods
+            $methods,
+            true
         );
 
         return $this;
@@ -113,7 +114,8 @@ abstract class PrimaryPayment extends AirlineData
     public function buildPaymentMethod(string $method)
     {
         $this->product->buildBody(
-            new PaymentMethods([$method])
+            PaymentMethods::init()->includeMethod($method),
+            true
         );
 
         return $this;

@@ -38,6 +38,7 @@ $holder
             ->includeMethods(['card', 'tamara'])
             ->excludeMethods(['applepay', 'samsungpay'])
     )
+    ->buildPaymentMethod('test')
 ;
 
 $request = new PaymentRequest($gateway, $holder);
