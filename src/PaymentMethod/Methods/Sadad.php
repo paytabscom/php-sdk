@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\PaymentMethod\Methods;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
-class Sadad extends AbstractMethod
+final class Sadad extends AbstractMethod
 {
     const ID = 50;
 
@@ -17,26 +17,26 @@ class Sadad extends AbstractMethod
 
     //
 
-    protected static bool $supportAnyCurrency = false;
-    protected static array $currencies = [
+    final protected const SUPPORT_ANY_CURRENCY = false;
+    final const CURRENCIES = [
         'SAR'
     ];
 
-    protected static bool $isCard = false;
-    protected static bool $supportCard = false;
+    final protected const IS_CARD = false;
+    final protected const SUPPORT_CARD_FEATURES = false;
 
     // Fawry, Sadad
-    protected static bool $isAsync = true;
-    protected static bool $supportAsync = true;
+    final protected const IS_ASYNC = true;
+    final protected const SUPPORT_ASYNC = true;
 
-    protected static bool $supportTokenization = false;
+    final protected const SUPPORT_TOKENIZATION = false;
 
-    protected static bool $supportAuthCapture = false;
-    protected static bool $supportMultipleCapture = false;
+    final protected const SUPPORT_AUTH_CAPTURE = false;
+    final protected const SUPPORT_MULTIPLE_CAPTURE = false;
 
-    protected static bool $supportRefund = false;
-    protected static bool $supportRefundPartial = false;
-    protected static bool $supportMultipleRefund = false;
+    final protected const SUPPORT_REFUND = false;
+    final protected const SUPPORT_REFUND_PARTIAL = false;
+    final protected const SUPPORT_MULTIPLE_REFUND = false;
 
-    protected static bool $supportFramed = true;
+    final protected const SUPPORT_FRAMED = true;
 }

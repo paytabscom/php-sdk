@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\PaymentMethod\Methods;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
-class ApplePay extends AbstractMethod
+final class ApplePay extends AbstractMethod
 {
     const ID = 10;
 
@@ -21,23 +21,22 @@ class ApplePay extends AbstractMethod
 
     //
 
-    protected static bool $supportAnyCurrency = true;
+    final protected const SUPPORT_ANY_CURRENCY = true;
 
-    protected static bool $isCard = false;
-    protected static bool $supportCard = false;
+    final protected const IS_CARD = false;
+    final protected const SUPPORT_CARD_FEATURES = false;
 
-    // Fawry, Sadad
-    protected static bool $isAsync = false;
-    protected static bool $supportAsync = false;
+    final protected const IS_ASYNC = false;
+    final protected const SUPPORT_ASYNC = false;
 
-    protected static bool $supportTokenization = true;
+    final protected const SUPPORT_TOKENIZATION = true;
 
-    protected static bool $supportAuthCapture = true;
-    protected static bool $supportMultipleCapture = true;
+    final protected const SUPPORT_AUTH_CAPTURE = true;
+    final protected const SUPPORT_MULTIPLE_CAPTURE = true;
 
-    protected static bool $supportRefund = true;
-    protected static bool $supportRefundPartial = true;
-    protected static bool $supportMultipleRefund = true;
+    final protected const SUPPORT_REFUND = true;
+    final protected const SUPPORT_REFUND_PARTIAL = true;
+    final protected const SUPPORT_MULTIPLE_REFUND = true;
 
-    protected static bool $supportFramed = false;
+    final protected const SUPPORT_FRAMED = false;
 }

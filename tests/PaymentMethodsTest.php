@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
+use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 use Paytabs\Sdk\PaymentMethod\MethodsFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -13,6 +14,10 @@ final class PaymentMethodsTest extends TestCase
     {
         $card = new Card();
         self::assertTrue($card::ACTIVE);
+
+        $sadad = new Sadad();
+        self::assertContains('SAR', $sadad::supportedCurrencies());
+        self::assertContains('SAR', Sadad::supportedCurrencies());
     }
 
     public function testCreatePaymentMethods(): void

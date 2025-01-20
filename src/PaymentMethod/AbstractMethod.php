@@ -17,26 +17,26 @@ abstract class AbstractMethod
 
     //
 
-    protected static bool $supportAnyCurrency;
-    protected static array $currencies = [];
+    protected const SUPPORT_ANY_CURRENCY = false;
+    protected const CURRENCIES = [];
 
-    protected static bool $isCard;
-    protected static bool $supportCard;
+    protected const IS_CARD = false;
+    protected const SUPPORT_CARD_FEATURES = false;
 
     // Fawry, Sadad
-    protected static bool $isAsync;
-    protected static bool $supportAsync;
+    protected const IS_ASYNC = false;
+    protected const SUPPORT_ASYNC = false;
 
-    protected static bool $supportTokenization;
+    protected const SUPPORT_TOKENIZATION = false;
 
-    protected static bool $supportAuthCapture;
-    protected static bool $supportMultipleCapture;
+    protected const SUPPORT_AUTH_CAPTURE = false;
+    protected const SUPPORT_MULTIPLE_CAPTURE = false;
 
-    protected static bool $supportRefund;
-    protected static bool $supportRefundPartial;
-    protected static bool $supportMultipleRefund;
+    protected const SUPPORT_REFUND = false;
+    protected const SUPPORT_REFUND_PARTIAL = false;
+    protected const SUPPORT_MULTIPLE_REFUND = false;
 
-    protected static bool $supportFramed;
+    protected const SUPPORT_FRAMED = false;
 
     //
 
@@ -55,76 +55,76 @@ abstract class AbstractMethod
 
     //
 
-    final public function isCard(): bool
+    final public static function isCard(): bool
     {
-        return self::$isCard;
+        return static::IS_CARD;
     }
 
-    final public function supportCard(): bool
+    final public static function supportCard(): bool
     {
-        return self::$supportCard;
+        return static::SUPPORT_CARD_FEATURES;
     }
 
-    final public function isDeferred(): bool
+    final public static function isDeferred(): bool
     {
-        return self::$isAsync;
+        return static::IS_ASYNC;
     }
 
-    final public function supportDeferred(): bool
+    final public static function supportDeferred(): bool
     {
-        return self::$supportAsync;
+        return static::SUPPORT_ASYNC;
     }
 
-    final public function supportCurrency(string $currency): bool
+    final public static function supportCurrency(string $currency): bool
     {
         return
-            self::$supportAnyCurrency
-            || \in_array(strtoupper($currency), self::$currencies, true);
+            static::SUPPORT_ANY_CURRENCY
+            || \in_array(strtoupper($currency), static::CURRENCIES, true);
     }
 
-    final public function supportedCurrencies(): array
+    final public static function supportedCurrencies(): array
     {
-        return self::$currencies;
+        return static::CURRENCIES;
     }
 
-    final public function supportFramed(): bool
+    final public static function supportFramed(): bool
     {
-        return self::$supportFramed;
+        return static::SUPPORT_FRAMED;
     }
 
-    final public function supportTokenization(): bool
+    final public static function supportTokenization(): bool
     {
-        return self::$supportTokenization;
+        return static::SUPPORT_TOKENIZATION;
     }
 
-    final public function supportRefund(): bool
+    final public static function supportRefund(): bool
     {
-        return self::$supportRefund;
+        return static::SUPPORT_REFUND;
     }
 
-    final public function supportRefundPartial(): bool
-    {
-        return
-            self::supportRefund()
-            && self::$supportRefundPartial;
-    }
-
-    final public function supportMultipleRefund(): bool
+    final public static function supportRefundPartial(): bool
     {
         return
-            self::supportRefund()
-            && self::$supportMultipleRefund;
+            static::supportRefund()
+            && static::SUPPORT_REFUND_PARTIAL;
     }
 
-    final public function supportAuthCapture(): bool
-    {
-        return self::$supportAuthCapture;
-    }
-
-    final public function supportMultipleCapture(): bool
+    final public static function supportMultipleRefund(): bool
     {
         return
-            self::supportAuthCapture()
-            && self::$supportMultipleCapture;
+            static::supportRefund()
+            && static::SUPPORT_MULTIPLE_REFUND;
+    }
+
+    final public static function supportAuthCapture(): bool
+    {
+        return static::SUPPORT_AUTH_CAPTURE;
+    }
+
+    final public static function supportMultipleCapture(): bool
+    {
+        return
+            static::supportAuthCapture()
+            && static::SUPPORT_MULTIPLE_CAPTURE;
     }
 }
