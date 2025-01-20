@@ -54,7 +54,7 @@ class TokeniseEnhanced extends AbstractPart
 
     public function setCounter(
         ?int $counter = null,
-        ?int $totalCount = null,
+        ?int $totalCount = null
     ): self {
         $this->counter = $counter;
         $this->totalCount = $totalCount;
