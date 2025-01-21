@@ -29,7 +29,7 @@ abstract class AbstractRequest implements RequestInterface
     public function __construct(
         Gateway $environment,
         BuilderInterface $holder,
-        string $path = null,
+        string $path = null
     ) {
         $this->environment = $environment;
         $this->dataHolder = $holder;

@@ -21,9 +21,9 @@ abstract class AbstractPayload implements PayloadInterface
         $this->buildPart($part, HttpRequestPart::Header);
     }
 
-    public function buildBody(PartInterface|array $part): void
+    public function buildBody(PartInterface|array $part, bool $merge = true): void
     {
-        $this->buildPart($part, HttpRequestPart::Body);
+        $this->buildPart($part, HttpRequestPart::Body, $merge);
     }
 
     public function buildQuery(PartInterface|array $part): void
@@ -58,7 +58,7 @@ abstract class AbstractPayload implements PayloadInterface
 
     //
 
-    private function buildPart(PartInterface|array $part, HttpRequestPart $httpPart): void
+    private function buildPart(PartInterface|array $part, HttpRequestPart $httpPart, bool $merge = false): void
     {
         $newPart = ($part instanceof PartInterface)
             ? $part->build()
@@ -70,7 +70,7 @@ abstract class AbstractPayload implements PayloadInterface
 
                 break;
             case HttpRequestPart::Body:
-                $this->add($this->body, $newPart);
+                $this->add($this->body, $newPart, $merge);
 
                 break;
             case HttpRequestPart::Query:
@@ -89,9 +89,13 @@ abstract class AbstractPayload implements PayloadInterface
         }
     }
 
-    private function add(array &$array, array $newItems): void
+    private function add(array &$array, array $newItems, bool $merge = false): void
     {
-        $array += $newItems;
+        if ($merge) {
+            $array = array_merge_recursive($array, $newItems);
+        } else {
+            $array = array_merge($array, $newItems);
+        }
     }
 
     private function get(array $array, bool $removeNulls): array

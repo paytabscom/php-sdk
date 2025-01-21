@@ -6,7 +6,8 @@ interface PayloadInterface
 {
     public function buildHeader(PartInterface|array $part): void;
 
-    public function buildBody(PartInterface|array $part): void;
+    /** @param bool $merge Merge the values, otherwise the new value will override any existing value */
+    public function buildBody(PartInterface|array $part, bool $merge = false): void;
 
     public function buildQuery(PartInterface|array $part): void;
 

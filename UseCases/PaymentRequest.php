@@ -8,6 +8,7 @@ use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use Paytabs\Sdk\Response\Response;
@@ -16,10 +17,10 @@ $holder = new HostedPage();
 $holder
     ->buildCart("c01", "AED", 100.51, "Test")
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildPluginInfo('PHP', PHP_VERSION, null)
+    ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
-        (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
-            ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
+        (new CustomerDetails('Wajih SDK3', '0522222222', 'wajih@mail.com'))
+            ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
             ->setIp('1.1.1.1')
     )
     ->buildShippingDetails(
@@ -27,16 +28,17 @@ $holder
     )
     ->buildHideShipping(true)
     ->buildTokenise(true)
-    ->buildURLs($urlReturn, $urlCallback)
+    ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
     ->buildPaymentMethods(
         PaymentMethods::init()
-            ->includeMethod('card')
+            ->includeMethod(Card::CODE)
             ->nextIf(true)
             ->excludeMethod('tabby')
             ->includeMethods(['card', 'tamara'])
             ->excludeMethods(['applepay', 'samsungpay'])
     )
+    ->buildPaymentMethod('test')
 ;
 
 $request = new PaymentRequest($gateway, $holder);
