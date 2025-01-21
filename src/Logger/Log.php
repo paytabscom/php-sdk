@@ -34,6 +34,15 @@ class Log extends AbstractLogger
 
     public function log($level, string|\Stringable $message, array $context = []): void
     {
+        $logMessage = $this->buildMessage($level, $message, $context);
+
+        if (file_put_contents($this->logFile, $logMessage, FILE_APPEND) === false) {
+            throw new Exception('Can not write to the Log');
+        }
+    }
+
+    private function buildMessage($level, string|\Stringable $message, array $context): string
+    {
         $_prefix =
             date('c')
             . ' '
@@ -53,9 +62,7 @@ class Log extends AbstractLogger
             . $_context
             . PHP_EOL;
 
-        if (file_put_contents($this->logFile, $logMessage, FILE_APPEND) === false) {
-            throw new Exception('Can not write to the Log');
-        }
+        return $logMessage;
     }
 
     /**

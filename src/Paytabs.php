@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk;
 
+use Paytabs\Sdk\Logger\BrowserLog;
 use Paytabs\Sdk\Logger\Log;
 use Psr\Log\LoggerInterface;
 
@@ -28,7 +29,13 @@ abstract class Paytabs
 
     public static function getLogger(): LoggerInterface
     {
-        return Log::getInstance(static::getLogFile(), static::LOG_PREFIX);
+        $useBrowser = true;
+
+        if (!$useBrowser) {
+            return Log::getInstance(static::getLogFile(), static::LOG_PREFIX);
+        } else {
+            return BrowserLog::getInstance(static::getLogFile(), static::LOG_PREFIX);
+        }
     }
 
     public static function getLogFile(): string
