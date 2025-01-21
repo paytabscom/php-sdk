@@ -4,14 +4,14 @@ namespace Paytabs\Sdk\Holder;
 
 interface PayloadInterface
 {
-    public function buildHeader(PartInterface|array $part): void;
+    public function buildHeader(PartInterface $part): void;
 
     /** @param bool $merge Merge the values, otherwise the new value will override any existing value */
-    public function buildBody(PartInterface|array $part, bool $merge = false): void;
+    public function buildBody(PartInterface $part, bool $merge = false): void;
 
-    public function buildQuery(PartInterface|array $part): void;
+    public function buildQuery(PartInterface $part): void;
 
-    public function buildPath(PartInterface|array $part): void;
+    public function buildPath(PartInterface $part): void;
 
     //
 

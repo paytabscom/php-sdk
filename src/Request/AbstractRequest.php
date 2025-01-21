@@ -40,7 +40,7 @@ abstract class AbstractRequest implements RequestInterface
 
     //
 
-    public function getPayload(): array|string
+    public function getPayload(): string
     {
         /** @var PayloadInterface */
         $dataPayload = $this->dataHolder->getPayload();

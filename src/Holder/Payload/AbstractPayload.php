@@ -16,22 +16,22 @@ abstract class AbstractPayload implements PayloadInterface
 
     //
 
-    public function buildHeader(PartInterface|array $part): void
+    public function buildHeader(PartInterface $part): void
     {
         $this->buildPart($part, HttpRequestPart::Header);
     }
 
-    public function buildBody(PartInterface|array $part, bool $merge = true): void
+    public function buildBody(PartInterface $part, bool $merge = true): void
     {
         $this->buildPart($part, HttpRequestPart::Body, $merge);
     }
 
-    public function buildQuery(PartInterface|array $part): void
+    public function buildQuery(PartInterface $part): void
     {
         $this->buildPart($part, HttpRequestPart::Query);
     }
 
-    public function buildPath(PartInterface|array $part): void
+    public function buildPath(PartInterface $part): void
     {
         $this->buildPart($part, HttpRequestPart::Path);
     }
@@ -58,7 +58,7 @@ abstract class AbstractPayload implements PayloadInterface
 
     //
 
-    private function buildPart(PartInterface|array $part, HttpRequestPart $httpPart, bool $merge = false): void
+    private function buildPart(PartInterface $part, HttpRequestPart $httpPart, bool $merge = false): void
     {
         $newPart = ($part instanceof PartInterface)
             ? $part->build()

@@ -71,7 +71,7 @@ class Response implements ResponseInterface
                 return $responseClass->fromJson($this->getJson());
             }
 
-            if ($this->request?->getResponseClass() !== null) {
+            if ($this->request && $this->request->getResponseClass() !== null) {
                 $mapToClass = $this->request->getResponseClass();
             }
         }
