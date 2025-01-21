@@ -97,7 +97,7 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildPaymentMethods(PaymentMethods|array $methods)
+    public function buildPaymentMethods(PaymentMethods $methods)
     {
         if (\is_array($methods)) {
             $methods = new PaymentMethods($methods);
