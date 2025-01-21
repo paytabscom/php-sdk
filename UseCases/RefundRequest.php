@@ -45,4 +45,4 @@ if ($responseType === ResponseStage::Error) {
     $resMapped = $response->getResponse();
 }
 
-Paytabs::Logger()->debug('Refund Response', [$resMapped]);
+Paytabs::getLogger()->debug('Refund Response', [$resMapped]);

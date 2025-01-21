@@ -13,7 +13,7 @@ $response1 = BrowserCallback::initWith($getArray1);
 
 $response1->setGateway($gateway);
 
-Paytabs::Logger()->debug('Return Payload: ', [
+Paytabs::getLogger()->debug('Return Payload: ', [
     'isValid' => $response1->isValid(),
     'Response' => $response1->getResponse()
 ]);
@@ -29,7 +29,7 @@ $response2 = BrowserReturn::initWith($getArray2, ['mode', 'result']);
 
 $response2->setGateway($gateway);
 
-Paytabs::Logger()->debug('Return Payload: ', [
+Paytabs::getLogger()->debug('Return Payload: ', [
     'isValid' => $response2->isValid(),
     'Response' => $response2->getResponse()
 ]);

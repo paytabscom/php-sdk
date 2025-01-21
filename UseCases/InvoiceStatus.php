@@ -19,4 +19,4 @@ $http->setDebugMode(true);
 $response = $http->submit();
 $resClassed = $response->getResponse();
 
-Paytabs::Logger()->debug('InvoiceStatus POST response: ', [$resClassed]);
+Paytabs::getLogger()->debug('InvoiceStatus POST response: ', [$resClassed]);

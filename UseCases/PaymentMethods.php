@@ -31,7 +31,7 @@ logMethod($method);
 
 function logMethod(AbstractMethod $method)
 {
-    Paytabs::Logger()->debug('Method object', [
+    Paytabs::getLogger()->debug('Method object', [
         $method,
         $method::PT_CODE,
         $method::CODE,

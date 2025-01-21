@@ -38,7 +38,7 @@ $holder
     ->buildPluginInfo('PHP', PHP_VERSION, '')
 ;
 
-Paytabs::Logger()->debug(
+Paytabs::getLogger()->debug(
     'InvoiceNew holder Payload: ',
     $holder->getPayload()->getBody()
 );
@@ -52,4 +52,4 @@ $http->setDebugMode(true);
 $response = $http->submit();
 $resClassed = $response->getResponse();
 
-Paytabs::Logger()->debug('InvoiceNew response: ', [$resClassed]);
+Paytabs::getLogger()->debug('InvoiceNew response: ', [$resClassed]);
