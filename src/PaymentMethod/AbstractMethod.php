@@ -60,7 +60,7 @@ abstract class AbstractMethod
         return static::IS_CARD;
     }
 
-    final public static function supportCard(): bool
+    final public static function supportCardFeatures(): bool
     {
         return static::SUPPORT_CARD_FEATURES;
     }
