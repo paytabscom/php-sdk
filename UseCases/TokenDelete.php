@@ -16,7 +16,7 @@ $http->setRequest($request);
 $response = $http->submit();
 
 
-Paytabs::Logger()->debug(
+Paytabs::getLogger()->debug(
     'TokenDelete Response',
     [
         $response,

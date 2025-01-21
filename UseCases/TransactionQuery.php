@@ -16,7 +16,7 @@ $http->setRequest($request);
 
 $response = $http->submit();
 
-Paytabs::Logger()->debug('TokenQuery Response', [
+Paytabs::getLogger()->debug('TokenQuery Response', [
     'Classed' => $response->getResponse(),
     'Generic' => $response->getResponse(new Generic()),
 ]);
@@ -32,6 +32,6 @@ $http->setRequest($request2);
 
 $response2 = $http->submit();
 
-Paytabs::Logger()->debug('TokenQuery Response (Array)', [
+Paytabs::getLogger()->debug('TokenQuery Response (Array)', [
     $response2->getResponse(new CompletedArray())
 ]);

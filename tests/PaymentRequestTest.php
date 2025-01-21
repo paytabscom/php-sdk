@@ -89,7 +89,7 @@ final class PaymentRequestTest extends TestCase
         $request = new PaymentRequest($gateway, $holder);
 
         $http = new Http();
-        $http->setLogger(Paytabs::Logger());
+        $http->setLogger(Paytabs::getLogger());
         $http->setRequest($request);
         $http->setDebugMode(false);
 

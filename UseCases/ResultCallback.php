@@ -14,7 +14,7 @@ $headers = [
 $ipnResponse = Callback::initWith($payload, $headers);
 $ipnResponse->setGateway($gateway);
 
-Paytabs::Logger()->debug('IPN Payload: ', [
+Paytabs::getLogger()->debug('IPN Payload: ', [
     'isValid' => $ipnResponse->isValid(),
     'Response' => $ipnResponse->getResponse()
 ]);

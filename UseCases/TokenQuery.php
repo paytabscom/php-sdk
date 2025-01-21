@@ -10,7 +10,7 @@ $holder->buildToken($token);
 
 $request = new TokenQuery($gateway, $holder);
 
-Paytabs::Logger()->debug(
+Paytabs::getLogger()->debug(
     'TokenQuery holder Payload',
     $holder->getPayload()->getBody()
 );
@@ -22,7 +22,7 @@ $http->setRequest($request);
 $response = $http->submit();
 
 
-Paytabs::Logger()->debug(
+Paytabs::getLogger()->debug(
     'TokenQuery Response',
     [
         $response,

@@ -43,8 +43,14 @@ $holder
 
 $request = new PaymentRequest($gateway, $holder);
 
-Paytabs::Logger()->debug('PaymentRequest holder Payload', $holder->getPayload()->getBody());
-Paytabs::Logger()->debug('PaymentRequest Payload:', [$request->getPayload()]);
+Paytabs::getLogger()->debug(
+    'PaymentRequest holder Payload',
+    $holder->getPayload()->getBody()
+);
+Paytabs::getLogger()->debug(
+    'PaymentRequest Payload:',
+    [$request->getPayload()]
+);
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -75,4 +81,4 @@ switch ($responseStage) {
         break;
 }
 
-Paytabs::Logger()->debug('PaymentRequest response: ', [$resClassed]);
+Paytabs::getLogger()->debug('PaymentRequest response: ', [$resClassed]);
