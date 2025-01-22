@@ -5,7 +5,7 @@ namespace Paytabs\Sdk\Response\Responses;
 use Exception;
 use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
 
-class BrowserReturn extends AbstractResponse
+class BrowserReturn extends TransactionResult
 {
     protected array $postArray;
 

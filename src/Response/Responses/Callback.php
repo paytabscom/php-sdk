@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\Response\Responses;
 
 use Paytabs\Sdk\Response\Payloads\Callbacks\Ipn;
 
-class Callback extends AbstractResponse
+class Callback extends TransactionResult
 {
     protected array $postArray;
 

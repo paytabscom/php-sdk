@@ -5,7 +5,7 @@ namespace Paytabs\Sdk\Response\Responses;
 use Paytabs\Sdk\Gateway\Gateway;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractResponse
+abstract class TransactionResult
 {
     protected ?string $response;
 
