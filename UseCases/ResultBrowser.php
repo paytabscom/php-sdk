@@ -1,8 +1,8 @@
 <?php
 
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Response\Responses\BrowserCallback;
-use Paytabs\Sdk\Response\Responses\BrowserReturn;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserCallback;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserReturn;
 
 $urlResult = 'mode=return&cartId=c01&respCode=G53384&respStatus=A&signature=edfb82b2db4310c8632428e763b5a2b512967b9cdb94bffb9820a7dead19938e&tranRef=TST2501402204131';
 
@@ -14,7 +14,7 @@ $response1 = BrowserCallback::initWith($getArray1);
 $response1->setGateway($gateway);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
-    'isValid' => $response1->isValid(),
+    'isGenuine' => $response1->isGenuine(),
     'Response' => $response1->getResponse()
 ]);
 
@@ -30,6 +30,6 @@ $response2 = BrowserReturn::initWith($getArray2, ['mode', 'result']);
 $response2->setGateway($gateway);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
-    'isValid' => $response2->isValid(),
+    'isGenuine' => $response2->isGenuine(),
     'Response' => $response2->getResponse()
 ]);

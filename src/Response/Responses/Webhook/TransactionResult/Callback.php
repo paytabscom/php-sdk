@@ -1,8 +1,9 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Responses\Webhook;
+namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Paytabs\Sdk\Response\Payloads\Callbacks\Ipn;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 class Callback extends TransactionResult
 {

@@ -1,9 +1,10 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Responses\Webhook;
+namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Exception;
 use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 class BrowserReturn extends TransactionResult
 {
