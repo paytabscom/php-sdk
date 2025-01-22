@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Responses;
+namespace Paytabs\Sdk\Response\Responses\Webhook;
 
 use Paytabs\Sdk\Response\Payloads\Callbacks\Ipn;
 
@@ -38,16 +38,22 @@ class Callback extends TransactionResult
 
     //
 
-    final public function isValid(): bool
+    protected function isValid(): bool
     {
         if (!\array_key_exists('signature', $this->headers)) {
             return false;
         }
 
-        $signature = $this->headers['signature'];
+        return !empty($this->headers['signature']);
+    }
 
-        $serverKey = $this->gateway->getServerKey();
+    protected function prepareHashablePayload(): string
+    {
+        return $this->getRaw();
+    }
 
-        return $this->isGenuine($this->getRaw(), $signature, $serverKey);
+    protected function getServerSignature(): string
+    {
+        return $this->headers['signature'];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Responses;
+namespace Paytabs\Sdk\Response\Responses\Webhook;
 
 use Paytabs\Sdk\Gateway\Gateway;
 use Psr\Log\LoggerInterface;
@@ -56,10 +56,41 @@ abstract class TransactionResult
 
     //
 
-    abstract public function isValid(): bool;
+    /**
+     * Check if it is a valid response (contains all required fields)
+     */
+    abstract protected function isValid(): bool;
 
-    final protected function isGenuine($data, $requestSignature, $serverKey)
+    /**
+     * @return string The payload that should be hashed
+     */
+    abstract protected function prepareHashablePayload(): string;
+
+    /**
+     * @return string The hashed response came from the server
+     */
+    abstract protected function getServerSignature(): string;
+
+    protected function getServerKey(): string
     {
+        return $this->gateway->getServerKey();
+    }
+
+    /**
+     * @return bool if the response is genuine from the server
+     */
+    final public function isGenuine(): bool
+    {
+        if (!$this->isValid()) {
+            return false;
+        }
+
+        $data = $this->prepareHashablePayload();
+        $requestSignature = $this->getServerSignature();
+        $serverKey = $this->getServerKey();
+
+        //
+
         $signature = hash_hmac('sha256', $data, $serverKey);
 
         if (hash_equals($signature, $requestSignature) === true) {
@@ -67,6 +98,16 @@ abstract class TransactionResult
             return true;
         } else {
             // INVALID Redirect
+
+            if (isset($this->logger)) {
+                $hashed_key = explode('-', $serverKey ?? '')[0];
+                $this->logger->alert('Invalid signature', [
+                    $hashed_key,
+                    $signature,
+                    $requestSignature,
+                ]);
+            }
+
             return false;
         }
     }
