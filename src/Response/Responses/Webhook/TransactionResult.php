@@ -3,12 +3,11 @@
 namespace Paytabs\Sdk\Response\Responses\Webhook;
 
 use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Response\AbstractResponseWebhook;
 use Psr\Log\LoggerInterface;
 
-abstract class TransactionResult
+abstract class TransactionResult extends AbstractResponseWebhook
 {
-    protected ?string $response;
-
     protected array $headers;
 
     /** Query params those had been set with the URLs (Return/Callback) */
@@ -24,7 +23,8 @@ abstract class TransactionResult
 
     public function __construct(?string $response, array $headers = [], array $localParams = [])
     {
-        $this->response = $response;
+        parent::setResponse($response);
+
         $this->headers = $headers;
         $this->localParams = $localParams;
     }
@@ -39,19 +39,6 @@ abstract class TransactionResult
     {
         $this->gateway = $gateway;
         return $this;
-    }
-
-    public function getRaw(): ?string
-    {
-        return $this->response;
-    }
-
-    public function getJson()
-    {
-        if (!$this->getRaw()) {
-            return null;
-        }
-        return json_decode($this->getRaw());
     }
 
     //

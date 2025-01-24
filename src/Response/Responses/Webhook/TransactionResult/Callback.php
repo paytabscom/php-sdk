@@ -27,14 +27,11 @@ class Callback extends TransactionResult
         return new self($jsonPayload, $headers);
     }
 
-    //
-
-    public function getResponse(): Ipn
+    public function __construct(?string $response, array $headers = [], array $localParams = [])
     {
-        $payload = new Ipn();
-        $payload->fromJson($this->getJson());
+        $this->payload = new Ipn;
 
-        return $payload;
+        parent::__construct($response, $headers, $localParams);
     }
 
     //
@@ -50,7 +47,7 @@ class Callback extends TransactionResult
 
     protected function prepareHashablePayload(): string
     {
-        return $this->getRaw();
+        return $this->payload->getResponseData();
     }
 
     protected function getServerSignature(): string

@@ -32,17 +32,11 @@ class BrowserReturn extends TransactionResult
 
     public function __construct(string $response, array $postArray, array $localParams)
     {
+        $this->payload = new Browser;
+
         parent::__construct($response, [], $localParams);
 
         $this->postArray = $postArray;
-    }
-
-    public function getResponse(): Browser
-    {
-        $browser = new Browser();
-        $browser->fromJson($this->getJson());
-
-        return $browser;
     }
 
     //

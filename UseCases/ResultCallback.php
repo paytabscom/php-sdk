@@ -16,5 +16,5 @@ $ipnResponse->setGateway($gateway);
 
 Paytabs::getLogger()->debug('IPN Payload: ', [
     'isGenuine' => $ipnResponse->isGenuine(),
-    'Response' => $ipnResponse->getResponse()
+    'Response' => $ipnResponse->getPayload()->getMapped(),
 ]);

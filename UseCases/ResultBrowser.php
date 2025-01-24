@@ -15,7 +15,7 @@ $response1->setGateway($gateway);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
     'isGenuine' => $response1->isGenuine(),
-    'Response' => $response1->getResponse()
+    'Response' => $response1->getPayload()->getMapped(),
 ]);
 
 //
@@ -31,5 +31,5 @@ $response2->setGateway($gateway);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
     'isGenuine' => $response2->isGenuine(),
-    'Response' => $response2->getResponse()
+    'Response' => $response2->getPayload()->getMapped(),
 ]);
