@@ -1,6 +1,5 @@
 <?php
 
-use Paytabs\Sdk\Enums\ResponseStage;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Builders\HostedPage;
@@ -11,7 +10,6 @@ use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
-use Paytabs\Sdk\Response\Response;
 
 $holder = new HostedPage();
 $holder
@@ -56,29 +54,19 @@ Paytabs::getLogger()->debug(
 $http->setRequest($request);
 $http->setDebugMode(false);
 
-/** @var Response */
 $response = $http->submit();
 
-$responseStage = $response->getResponseStage();
-
-switch ($responseStage) {
-    case ResponseStage::Error:
-        $resClassed = $response->asFailure();
-        $resClassed->code;
-        $resClassed->message;
-        break;
-
-    case ResponseStage::Redirect:
-        $resClassed = $response->asRedirect();
-        $resClassed->redirect_url;
-        break;
-
-    case ResponseStage::UnKnown:
-    case ResponseStage::Completed:
-    default:
-        $resClassed = $response->getResponse();
-
-        break;
+if ($response->isFailure()) {
+    $resClassed = $response->getFailure();
+} elseif ($response->isRedirect()) {
+    $resClassed = $response->getRedirect();
+} else {
+    $resClassed = $response->getPayload()->getMapped();
 }
 
-Paytabs::getLogger()->debug('PaymentRequest response: ', [$resClassed]);
+// case ResponseStage::UnKnown:
+// case ResponseStage::Completed:
+
+Paytabs::getLogger()->debug('PaymentRequest Response: ', [
+    'Mapped Auto' => $response->getPayloadMapped(),
+]);
