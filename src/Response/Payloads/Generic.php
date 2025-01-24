@@ -2,29 +2,15 @@
 
 namespace Paytabs\Sdk\Response\Payloads;
 
-use Paytabs\Sdk\Response\PayloadInterface;
+use Paytabs\Sdk\Response\AbstractPayload;
 
-class Generic implements PayloadInterface
+class Generic extends AbstractPayload
 {
-    protected ?string $response;
+    public $payloadJson;
 
-    public $json;
-
-    //
-
-    public function __construct(?string $response = null)
+    public function getMapped(): static
     {
-        $this->response = $response;
-    }
-
-    public function init(): self
-    {
-        return new self();
-    }
-
-    public function fromJson($jsonResponse): self
-    {
-        $this->json = $jsonResponse;
+        $this->payloadJson = $this->getAsJson();
 
         return $this;
     }
