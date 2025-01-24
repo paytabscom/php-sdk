@@ -7,7 +7,7 @@ use PHPUnit\Util\InvalidJsonException;
 
 abstract class AbstractPayload implements PayloadInterface
 {
-    protected mixed $payload;
+    private mixed $payloadRaw;
 
     //
 
@@ -19,14 +19,14 @@ abstract class AbstractPayload implements PayloadInterface
             }
         }
 
-        $this->payload = $data;
+        $this->payloadRaw = $data;
 
         return $this;
     }
 
     public function getResponseData(): string|array
     {
-        return $this->payload;
+        return $this->payloadRaw;
     }
 
     //
@@ -43,10 +43,10 @@ abstract class AbstractPayload implements PayloadInterface
 
     public function getAsJson(): object|array
     {
-        $data = $this->payload;
+        $data = $this->payloadRaw;
 
-        if (\is_array($this->payload)) {
-            $data = json_encode($this->payload);
+        if (\is_array($this->payloadRaw)) {
+            $data = json_encode($this->payloadRaw);
         }
 
         return json_decode($data, false);
