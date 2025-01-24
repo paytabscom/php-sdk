@@ -25,6 +25,7 @@ $response = $http->submit();
 Paytabs::getLogger()->debug(
     'TokenQuery Response',
     [
-        $response,
+        // 'Response' => $response,
+        'Mapped Auto' => $response->getPayloadMapped(),
     ]
 );

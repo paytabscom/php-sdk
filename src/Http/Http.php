@@ -5,8 +5,9 @@ namespace Paytabs\Sdk\Http;
 use CurlHandle;
 use Exception;
 use Paytabs\Sdk\Request\RequestInterface;
-use Paytabs\Sdk\Response\Response;
-use Paytabs\Sdk\Response\ResponseInterface;
+use Paytabs\Sdk\Response\Payloads\Generic as PayloadsGeneric;
+use Paytabs\Sdk\Response\ResponseDirectInterface;
+use Paytabs\Sdk\Response\Responses\Direct\Generic;
 use Psr\Log\LoggerInterface;
 
 class Http
@@ -34,7 +35,7 @@ class Http
         $this->debugMode = $debugMode;
     }
 
-    public function submit(?ResponseInterface $response = null): ResponseInterface
+    public function submit(?ResponseDirectInterface $responseClass = null): ResponseDirectInterface
     {
         $curl_handle = $this->initRequest();
 
@@ -60,11 +61,24 @@ class Http
             // throw new Exception('Invalid Request');
         }
 
-        $response = $response ?? new Response();
+        if (!$responseClass) {
+            $responseClass = new Generic;
+        }
 
-        $response->init($curl_response, $curl_response_code, $this->request);
+        if (!$responseClass->getPayload()) {
+            if ($this->request->getResponseClass()) {
+                $responseClass->setPayload($this->request->getResponseClass());
+            } else {
+                $responseClass->setPayload(new PayloadsGeneric);
+            }
+        }
 
-        return $response;
+        $responseClass
+            ->setResponse($curl_response)
+            ->setResponseCode($curl_response_code)
+            ->setRequest($this->request);
+
+        return $responseClass;
     }
 
     //

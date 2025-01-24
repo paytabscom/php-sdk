@@ -1,11 +1,12 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Responses;
+namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Exception;
 use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
-class BrowserReturn extends AbstractResponse
+class BrowserReturn extends TransactionResult
 {
     protected array $postArray;
 
@@ -31,48 +32,52 @@ class BrowserReturn extends AbstractResponse
 
     public function __construct(string $response, array $postArray, array $localParams)
     {
+        $this->payload = new Browser;
+
         parent::__construct($response, [], $localParams);
 
         $this->postArray = $postArray;
     }
 
-    public function getResponse(): Browser
-    {
-        $browser = new Browser();
-        $browser->fromJson($this->getJson());
-
-        return $browser;
-    }
-
     //
 
-    final public function isValid(): bool
+    protected function isValid(): bool
     {
         $post_values = $this->postArray;
         if (empty($post_values) || !\array_key_exists('signature', $post_values)) {
             return false;
         }
 
-        $serverKey = $this->gateway->getServerKey();
+        return !empty($post_values['signature']);
+    }
+
+    protected function prepareHashablePayload(): string
+    {
+        $post_values = $this->postArray;
 
         // Request body include a signature post Form URL encoded field
         // 'signature' (hexadecimal encoding for hmac of sorted post form fields)
-        $requestSignature = $post_values["signature"];
-        unset($post_values["signature"]);
+        unset($post_values['signature']);
 
         // Remove any local query param sent within the generate payment page request
         foreach ($this->localParams as $localParam) {
             unset($post_values[$localParam]);
         }
 
+        // Remove any empty field
         $fields = array_filter($post_values);
 
         // Sort form fields
         ksort($fields);
 
         // Generate URL-encoded query string of Post fields except signature field.
-        $query = http_build_query($fields);
+        return http_build_query($fields);
+    }
 
-        return $this->isGenuine($query, $requestSignature, $serverKey);
+    protected function getServerSignature(): string
+    {
+        $post_values = $this->postArray;
+
+        return $post_values['signature'];
     }
 }

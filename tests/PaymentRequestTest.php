@@ -93,9 +93,11 @@ final class PaymentRequestTest extends TestCase
         $http->setRequest($request);
         $http->setDebugMode(false);
 
-        $response = $http->submit();
-        $responseStage = $response->getResponseStage();
+        $response1 = $http->submit();
 
-        self::assertSame($responseStage, ResponseStage::Redirect);
+        self::assertTrue($response1->isRedirect());
+
+        $response2 = $http->submit();
+        self::assertTrue($response2->isFailure(), 'Duplicate request');
     }
 }

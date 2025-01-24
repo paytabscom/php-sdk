@@ -50,6 +50,8 @@ $http->setRequest($request);
 $http->setDebugMode(true);
 
 $response = $http->submit();
-$resClassed = $response->getResponse();
 
-Paytabs::getLogger()->debug('InvoiceNew response: ', [$resClassed]);
+
+Paytabs::getLogger()->debug('InvoiceNew response: ', [
+    $response->getPayloadMapped(),
+]);

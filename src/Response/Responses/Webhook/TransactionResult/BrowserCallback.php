@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Responses;
+namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Exception;
 
