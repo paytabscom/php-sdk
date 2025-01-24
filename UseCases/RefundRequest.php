@@ -1,6 +1,5 @@
 <?php
 
-use Paytabs\Sdk\Enums\ResponseStage;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Builders\Followup;
@@ -37,12 +36,10 @@ $http->setRequest($request);
 
 $response = $http->submit();
 
-$responseType = $response->getResponseStage();
-
-if ($responseType === ResponseStage::Error) {
-    $resMapped = $response->asFailure();
-} elseif ($responseType === ResponseStage::Completed) {
-    $resMapped = $response->getResponse();
+if ($response->isFailure()) {
+    $resClassed = $response->getFailure();
+} else {
+    $resClassed = $response->getPayload()->getMapped();
 }
 
-Paytabs::getLogger()->debug('Refund Response', [$resMapped]);
+Paytabs::getLogger()->debug('Refund Response', [$resClassed]);

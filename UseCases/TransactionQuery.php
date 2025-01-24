@@ -4,8 +4,8 @@ use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\TransactionQuery;
-use Paytabs\Sdk\Response\Payloads\CompletedArray;
 use Paytabs\Sdk\Response\Payloads\Generic;
+use Paytabs\Sdk\Response\Payloads\Payment\CompletedArray;
 
 $holder = new BuildersTransactionQuery();
 $holder->buildTransactionRef($trxRef);
@@ -17,8 +17,8 @@ $http->setRequest($request);
 $response = $http->submit();
 
 Paytabs::getLogger()->debug('TokenQuery Response', [
-    'Classed' => $response->getResponse(),
-    'Generic' => $response->getResponse(new Generic()),
+    'Mapped Auto' => $response->getPayloadMapped(),
+    'Generic' => $response->getPayload()->getMappedAs(new Generic()),
 ]);
 
 //
@@ -33,5 +33,6 @@ $http->setRequest($request2);
 $response2 = $http->submit();
 
 Paytabs::getLogger()->debug('TokenQuery Response (Array)', [
-    $response2->getResponse(new CompletedArray())
+    $response2->getPayload()->getMappedAs(new CompletedArray())
+    // $response2->getPayloadMapped()
 ]);

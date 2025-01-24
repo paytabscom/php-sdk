@@ -17,6 +17,7 @@ $http->setRequest($request);
 $http->setDebugMode(true);
 
 $response = $http->submit();
-$resClassed = $response->getResponse();
 
-Paytabs::getLogger()->debug('InvoiceStatus GET response: ', [$resClassed]);
+Paytabs::getLogger()->debug('InvoiceStatus GET response: ', [
+    $response->getPayloadMapped(),
+]);

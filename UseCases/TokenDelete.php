@@ -19,6 +19,7 @@ $response = $http->submit();
 Paytabs::getLogger()->debug(
     'TokenDelete Response',
     [
-        $response,
+        'Response' => $response,
+        'Mapped Auto' => $response->getPayloadMapped(),
     ]
 );

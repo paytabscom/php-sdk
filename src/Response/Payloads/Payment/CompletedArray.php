@@ -1,8 +1,9 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads;
+namespace Paytabs\Sdk\Response\Payloads\Payment;
 
 use JsonMapper;
+use Paytabs\Sdk\Response\Payloads\Payment;
 use Paytabs\Sdk\Response\Payloads\Payment\Completed;
 
 class CompletedArray extends Payment
@@ -12,12 +13,12 @@ class CompletedArray extends Payment
 
     //
 
-    public function fromJson($jsonResponse): self
+    public function getMapped(): static
     {
         $jsonMapper = new JsonMapper();
 
         $this->transactions = $jsonMapper->mapArray(
-            $jsonResponse,
+            $this->getAsJson(),
             [],
             Completed::class
         );
