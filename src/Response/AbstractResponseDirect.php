@@ -17,7 +17,7 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
 
     //
 
-    public function setResponseCode(int $responseCode): static
+    public function setResponseCode(int $responseCode)
     {
         $this->responseCode = $responseCode;
 

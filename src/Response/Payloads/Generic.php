@@ -8,7 +8,7 @@ class Generic extends AbstractPayload
 {
     public $payloadJson;
 
-    public function getMapped(): static
+    public function getMapped()
     {
         $this->payloadJson = $this->getAsJson();
 

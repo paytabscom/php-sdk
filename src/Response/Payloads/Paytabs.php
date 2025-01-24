@@ -11,7 +11,7 @@ abstract class Paytabs extends AbstractPayload
 
     //
 
-    public function getMapped(): static
+    public function getMapped()
     {
         $jsonMapper = new JsonMapper();
         return $jsonMapper->map($this->getAsJson(), $this);

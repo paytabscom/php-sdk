@@ -8,7 +8,7 @@ use Paytabs\Sdk\Response\Payloads\Redirect;
 
 interface ResponseDirectInterface extends ResponseInterface
 {
-    public function setResponseCode(int $responseCode): static;
+    public function setResponseCode(int $responseCode);
 
     public function setRequest(RequestInterface $request);
 

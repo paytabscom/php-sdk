@@ -32,7 +32,7 @@ class Log extends AbstractLogger
 
     //
 
-    public function log($level, string|\Stringable $message, array $context = []): void
+    public function log($level, string $message, array $context = []): void
     {
         $logMessage = $this->buildMessage($level, $message, $context);
 
@@ -41,7 +41,7 @@ class Log extends AbstractLogger
         }
     }
 
-    private function buildMessage($level, string|\Stringable $message, array $context): string
+    private function buildMessage($level, string $message, array $context): string
     {
         $_prefix =
             date('c')

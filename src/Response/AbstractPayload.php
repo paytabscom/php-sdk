@@ -11,7 +11,7 @@ abstract class AbstractPayload implements PayloadInterface
 
     //
 
-    public function setResponseData(string|array $data): static
+    public function setResponseData(string $data): static
     {
         if (!\is_array($data)) {
             if (!Helpers::jsonValidate($data)) {
@@ -24,7 +24,7 @@ abstract class AbstractPayload implements PayloadInterface
         return $this;
     }
 
-    public function getResponseData(): string|array
+    public function getResponseData(): string
     {
         return $this->payloadRaw;
     }
@@ -41,7 +41,7 @@ abstract class AbstractPayload implements PayloadInterface
 
     //
 
-    public function getAsJson(): object|array
+    public function getAsJson(): object
     {
         $data = $this->payloadRaw;
 
