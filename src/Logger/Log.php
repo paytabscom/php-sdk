@@ -32,7 +32,7 @@ class Log extends AbstractLogger
 
     //
 
-    public function log($level, string $message, array $context = []): void
+    public function log($level, $message, array $context = array())
     {
         $logMessage = $this->buildMessage($level, $message, $context);
 

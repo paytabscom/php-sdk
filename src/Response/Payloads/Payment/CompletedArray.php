@@ -13,7 +13,7 @@ class CompletedArray extends Payment
 
     //
 
-    public function getMapped(): static
+    public function getMapped()
     {
         $jsonMapper = new JsonMapper();
 

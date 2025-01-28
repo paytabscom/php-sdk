@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Paytabs\Sdk\Enums\ResponseStage;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Gateway\Endpoints\Uae;
