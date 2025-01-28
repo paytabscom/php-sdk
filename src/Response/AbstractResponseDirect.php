@@ -38,7 +38,7 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
 
     public function isFailure(): bool
     {
-        return Helpers::responseStage($this->payload->getAsJson()) === ResponseStage::Error;
+        return Helpers::responseStage($this->payload->getAsJson())->value === ResponseStage::Error;
     }
 
     public function getFailure(): Failure
@@ -52,7 +52,7 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
 
     public function isRedirect(): bool
     {
-        return Helpers::responseStage($this->payload->getAsJson()) === ResponseStage::Redirect;
+        return Helpers::responseStage($this->payload->getAsJson())->value === ResponseStage::Redirect;
     }
 
     public function getRedirect(): Redirect

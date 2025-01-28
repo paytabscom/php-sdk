@@ -8,11 +8,11 @@ use Paytabs\Sdk\Enums\TranType;
 class Transaction extends AbstractPart
 {
     private TranType $tranType;
-    private TranClass $tranClass = TranClass::Ecom;
+    private TranClass $tranClass;
 
     public function __construct(
         TranType $tranType,
-        TranClass $tranClass = TranClass::Ecom
+        TranClass $tranClass
     ) {
         $this->tranType = $tranType;
         $this->tranClass = $tranClass;

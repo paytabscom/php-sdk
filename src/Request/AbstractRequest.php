@@ -20,7 +20,7 @@ abstract class AbstractRequest implements RequestInterface
     // Sample: secure.paytabs.com/invoice/{invoice_id}/status
     protected bool $hasPathParams = false;
 
-    protected HttpType $httpType = HttpType::POST;
+    protected HttpType $httpType;
 
     protected ?ResponsePayloadInterface $responseClass = null;
 
@@ -35,6 +35,10 @@ abstract class AbstractRequest implements RequestInterface
         $this->dataHolder = $holder;
         if ($path) {
             $this->path = $path;
+        }
+
+        if (!isset($this->httpType)) {
+            $this->httpType = HttpType::POST();
         }
     }
 
@@ -90,7 +94,7 @@ abstract class AbstractRequest implements RequestInterface
 
     public function isHttpPost(): bool
     {
-        return $this->getHttpType() === HttpType::POST;
+        return $this->getHttpType()->value === HttpType::POST;
     }
 
     //

@@ -30,21 +30,21 @@ class Helpers
     {
         // "Delete Token" request returns same structure but code=0
         if (isset($json->code) && $json->code > 0) {
-            return ResponseStage::Error;
+            return ResponseStage::Error();
         }
 
         if (
             isset($json->tran_ref, $json->redirect_url)
             && !empty($json->redirect_url)
         ) {
-            return ResponseStage::Redirect;
+            return ResponseStage::Redirect();
         }
 
         if (isset($json->payment_result)) {
-            return ResponseStage::Completed;
+            return ResponseStage::Completed();
         }
 
-        return ResponseStage::UnKnown;
+        return ResponseStage::UnKnown();
     }
 
     public static function jsonValidate($json): bool

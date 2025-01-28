@@ -13,7 +13,7 @@ class PaymentRequest extends AbstractHolder
 {
     //
 
-    public function buildTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)
+    public function buildTransaction(TranType $tran_type, TranClass $tran_class)
     {
         $this->product->buildBody(
             new Transaction($tran_type, $tran_class)

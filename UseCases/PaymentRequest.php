@@ -14,7 +14,7 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 $holder = new HostedPage();
 $holder
     ->buildCart("c01", "AED", 100.51, "Test")
-    ->buildTransaction(TranType::Sale, TranClass::Ecom)
+    ->buildTransaction(TranType::Sale(), TranClass::Ecom())
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
         (new CustomerDetails('Wajih SDK3', '0522222222', 'wajih@mail.com'))
