@@ -16,5 +16,5 @@ interface PayloadInterface
 
     //
 
-    public function getAsJson(): object;
+    public function getAsJson();
 }

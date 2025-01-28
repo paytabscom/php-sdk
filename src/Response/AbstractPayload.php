@@ -41,7 +41,7 @@ abstract class AbstractPayload implements PayloadInterface
 
     //
 
-    public function getAsJson(): object
+    public function getAsJson()
     {
         $data = $this->payloadRaw;
 
