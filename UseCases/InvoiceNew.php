@@ -27,13 +27,13 @@ $lineItems->addLineItem($item2);
 $invoicePart = new InvoicePart();
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
-    ->setDates(null, null, '2025-01-27T13:33:00+04:00')
+    ->setDates(null, null, '2025-01-29T13:33:00+04:00')
     ->setLineItems($lineItems)
 ;
 
 $holder
     ->buildInvoice($invoicePart)
-    ->buildTransaction(TranType::Sale, TranClass::Ecom)
+    ->buildTransaction(TranType::Sale(), TranClass::Ecom())
     ->buildCart('inv-01', 'AED', 20, 'Invoice test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')
 ;

@@ -12,7 +12,7 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 $holder1 = new Followup();
 $holder1
-    ->buildTransaction(TranType::Refund, TranClass::Ecom)
+    ->buildTransaction(TranType::Refund(), TranClass::Ecom())
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', 'AED', 10, 'Refund test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')

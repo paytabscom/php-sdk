@@ -13,7 +13,8 @@ class InvoiceStatusGet extends PaytabsRequest
 {
     protected string $path = 'payment/invoice/{invoice_id}/status';
 
-    protected HttpType $httpType = HttpType::GET;
+    protected HttpType $httpType;
+    protected int $httpTypeInt = HttpType::GET;
 
     protected bool $hasPathParams = true;
 

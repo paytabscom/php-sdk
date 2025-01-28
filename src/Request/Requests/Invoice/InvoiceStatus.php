@@ -13,7 +13,8 @@ class InvoiceStatus extends PaytabsRequest
 {
     protected string $path = 'payment/invoice/status';
 
-    protected HttpType $httpType = HttpType::POST;
+    protected HttpType $httpType;
+    protected int $httpTypeInt = HttpType::POST;
 
     //
 

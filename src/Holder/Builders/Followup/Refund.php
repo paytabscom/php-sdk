@@ -14,7 +14,7 @@ class Refund extends Followup
     public function __construct()
     {
         parent::__construct();
-        parent::buildTransaction(TranType::Refund, TranClass::Ecom);
+        parent::buildTransaction(TranType::Refund(), TranClass::Ecom());
     }
 
     public function buildTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)

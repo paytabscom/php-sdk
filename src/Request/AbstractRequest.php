@@ -21,6 +21,7 @@ abstract class AbstractRequest implements RequestInterface
     protected bool $hasPathParams = false;
 
     protected HttpType $httpType;
+    protected int $httpTypeInt = HttpType::POST;
 
     protected ?ResponsePayloadInterface $responseClass = null;
 
@@ -37,9 +38,7 @@ abstract class AbstractRequest implements RequestInterface
             $this->path = $path;
         }
 
-        if (!isset($this->httpType)) {
-            $this->httpType = HttpType::POST();
-        }
+        $this->httpType = HttpType::from($this->httpTypeInt);
     }
 
     //
