@@ -2,7 +2,6 @@
 
 namespace Paytabs\Sdk\Http;
 
-use CurlHandle;
 use Exception;
 use Paytabs\Sdk\Request\RequestInterface;
 use Paytabs\Sdk\Response\Payloads\Generic as PayloadsGeneric;
@@ -39,7 +38,7 @@ class Http
     {
         $curl_handle = $this->initRequest();
 
-        $this->logger->debug('Executing cURL ...', []);
+        $this->logger->debug('Executing cURL ...', [$this->request->getUrl()]);
 
         $curl_response = curl_exec($curl_handle);
         $curl_response_code = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
@@ -83,7 +82,7 @@ class Http
 
     //
 
-    private function initRequest(): CurlHandle
+    private function initRequest()
     {
         $url = $this->request->getUrl();
         $payload = $this->request->getPayload();

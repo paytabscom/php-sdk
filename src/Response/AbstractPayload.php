@@ -7,7 +7,7 @@ use Paytabs\Sdk\Helpers\Helpers;
 
 abstract class AbstractPayload implements PayloadInterface
 {
-    private mixed $payloadRaw;
+    private $payloadRaw;
 
     //
 

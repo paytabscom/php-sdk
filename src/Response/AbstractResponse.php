@@ -8,7 +8,7 @@ abstract class AbstractResponse implements ResponseInterface
 
     //
 
-    public function setResponse(mixed $raw_response)
+    public function setResponse($raw_response)
     {
         $this->payload->setResponseData($raw_response);
 
