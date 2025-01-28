@@ -8,6 +8,7 @@ use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\PaymentMethod\Methods\Fawry;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 use ReflectionClass;
+use stdClass;
 
 class PaymentMethod extends EnumString
 {
@@ -47,6 +48,18 @@ class PaymentMethod extends EnumString
     public static function getAllMethods(): array
     {
         $refl = new ReflectionClass(PaymentMethod::class);
-        return $refl->getConstants();
+        $all = $refl->getConstants();
+
+        $cases = [];
+        foreach ($all as $key => $value) {
+            $enum = new stdClass;
+
+            $enum->key = $key;
+            $enum->value = $value;
+
+            $cases[] = $enum;
+        }
+
+        return $cases;
     }
 }
