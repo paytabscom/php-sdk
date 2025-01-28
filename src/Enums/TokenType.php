@@ -2,10 +2,30 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum TokenType: string
+class TokenType extends EnumString
 {
-    case Registered = 'registered';
-    case Unscheduled = 'unscheduled';
-    case RecurringFixed = 'recurring_fixed';
-    case RecurringVariable = 'recurring_variable';
+    const Registered = 'registered';
+    const Unscheduled = 'unscheduled';
+    const RecurringFixed = 'recurring_fixed';
+    const RecurringVariable = 'recurring_variable';
+
+    public static function Registered()
+    {
+        return new self(self::Registered);
+    }
+
+    public static function Unscheduled()
+    {
+        return new self(self::Unscheduled);
+    }
+
+    public static function RecurringFixed()
+    {
+        return new self(self::RecurringFixed);
+    }
+
+    public static function RecurringVariable()
+    {
+        return new self(self::RecurringVariable);
+    }
 }

@@ -2,15 +2,50 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum TranStatus: string
+class TranStatus extends EnumString
 {
-    case Authorised = 'A';
-    case OnHold = 'H';
-    case Pending = 'P';
-    case Voided = 'V';
-    case Error = 'E';
-    case Declined = 'D';
-    case Expired = 'X';
+    const Authorised = 'A';
+    const OnHold = 'H';
+    const Pending = 'P';
+    const Voided = 'V';
+    const Error = 'E';
+    const Declined = 'D';
+    const Expired = 'X';
+
+    public static function Authorised()
+    {
+        return new self(self::Authorised);
+    }
+
+    public static function OnHold()
+    {
+        return new self(self::OnHold);
+    }
+
+    public static function Pending()
+    {
+        return new self(self::Pending);
+    }
+
+    public static function Voided()
+    {
+        return new self(self::Voided);
+    }
+
+    public static function Error()
+    {
+        return new self(self::Error);
+    }
+
+    public static function Declined()
+    {
+        return new self(self::Declined);
+    }
+
+    public static function Expired()
+    {
+        return new self(self::Expired);
+    }
 
     //
 

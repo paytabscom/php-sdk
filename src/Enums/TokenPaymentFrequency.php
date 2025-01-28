@@ -2,15 +2,15 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum TokenPaymentFrequency: string
+class TokenPaymentFrequency extends EnumString
 {
-    case Ad_Hoc = 'AD_HOC';
-    case Daily = 'DAILY';
-    case Fortnightly = 'FORTNIGHTLY';
-    case Monthly = 'MONTHLY';
-    case Quarterly = 'QUARTERLY';
-    case Twice_Yearly = 'TWICE_YEARLY';
-    case Weekly = 'WEEKLY';
-    case Yearly = 'YEARLY';
-    case Other = 'OTHER';
+    const Ad_Hoc = 'AD_HOC';
+    const Daily = 'DAILY';
+    const Fortnightly = 'FORTNIGHTLY';
+    const Monthly = 'MONTHLY';
+    const Quarterly = 'QUARTERLY';
+    const Twice_Yearly = 'TWICE_YEARLY';
+    const Weekly = 'WEEKLY';
+    const Yearly = 'YEARLY';
+    const Other = 'OTHER';
 }

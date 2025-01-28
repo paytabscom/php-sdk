@@ -2,22 +2,69 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum TranType: string
+class TranType extends EnumString
 {
-    case Auth = 'auth';
-    case Register = 'register';
-    case Sale = 'sale';
+    const Auth = 'auth';
+    const Register = 'register';
+    const Sale = 'sale';
 
-    case AuthExt = 'authext';
+    const AuthExt = 'authext';
     // Auth Extension is used to refresh the hold on the funds
     // Followup an Auth transaction
 
-    case PaymentRequest = 'payment request';
+    const PaymentRequest = 'payment request';
 
-    case Capture = 'capture';
-    case Void = 'void';
-    case Release = 'release';
-    case Refund = 'refund';
+    const Capture = 'capture';
+    const Void = 'void';
+    const Release = 'release';
+    const Refund = 'refund';
+
+    //
+
+    public static function Auth()
+    {
+        return new self(self::Auth);
+    }
+
+    public static function Register()
+    {
+        return new self(self::Register);
+    }
+
+    public static function Sale()
+    {
+        return new self(self::Sale);
+    }
+
+    public static function AuthExt()
+    {
+        return new self(self::AuthExt);
+    }
+
+    public static function PaymentRequest()
+    {
+        return new self(self::PaymentRequest);
+    }
+
+    public static function Capture()
+    {
+        return new self(self::Capture);
+    }
+
+    public static function Void()
+    {
+        return new self(self::Void);
+    }
+
+    public static function Release()
+    {
+        return new self(self::Release);
+    }
+
+    public static function Refund()
+    {
+        return new self(self::Refund);
+    }
 
     //
 

@@ -2,11 +2,32 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum ResponseStage
+class ResponseStage extends EnumInt
 {
-    case Redirect;
-    case Error;
-    case Completed;
+    const Redirect = 1;
+    const Error = 2;
+    const Completed = 3;
 
-    case UnKnown;
+    const UnKnown = 10;
+
+
+    public static function Redirect()
+    {
+        return new self(self::Redirect);
+    }
+
+    public static function Error()
+    {
+        return new self(self::Error);
+    }
+
+    public static function Completed()
+    {
+        return new self(self::Completed);
+    }
+
+    public static function UnKnown()
+    {
+        return new self(self::UnKnown);
+    }
 }

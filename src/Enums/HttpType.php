@@ -2,8 +2,18 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum HttpType
+class HttpType extends EnumInt
 {
-    case GET;
-    case POST;
+    const GET = 1;
+    const POST = 2;
+
+    public static function GET()
+    {
+        return new self(self::GET);
+    }
+
+    public static function POST()
+    {
+        return new self(self::POST);
+    }
 }

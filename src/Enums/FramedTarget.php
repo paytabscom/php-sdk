@@ -2,9 +2,26 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum FramedTarget
+use Exception;
+
+class FramedTarget extends EnumInt
 {
-    case NoReturn;
-    case ReturnParent;
-    case ReturnTop;
+    const NoReturn = 1;
+    const ReturnParent = 2;
+    const ReturnTop = 3;
+
+    public static function NoReturn()
+    {
+        return new self(self::NoReturn);
+    }
+
+    public static function ReturnParent()
+    {
+        return new self(self::ReturnParent);
+    }
+
+    public static function ReturnTop()
+    {
+        return new self(self::ReturnTop);
+    }
 }
