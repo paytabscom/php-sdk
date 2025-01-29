@@ -16,7 +16,7 @@ $http->setRequest($request);
 
 $response = $http->submit();
 
-Paytabs::getLogger()->debug('TokenQuery Response', [
+Paytabs::getLogger()->debug('TransactionQuery Response', [
     'Mapped Auto' => $response->getPayloadMapped(),
     'Generic' => $response->getPayload()->getMappedAs(new Generic()),
 ]);
@@ -32,7 +32,7 @@ $http->setRequest($request2);
 
 $response2 = $http->submit();
 
-Paytabs::getLogger()->debug('TokenQuery Response (Array)', [
+Paytabs::getLogger()->debug('TransactionQuery Response (Array)', [
     $response2->getPayload()->getMappedAs(new CompletedArray())
     // $response2->getPayloadMapped()
 ]);
