@@ -68,21 +68,22 @@ abstract class PrimaryPayment extends AirlineData
         ?int $totalCount = null,
         bool $isOptional = false
     ) {
-        $obj = (new TokeniseEnhanced(
-            $tokenType,
-            $tokenFormat,
-            $isOptional
-        ))->setPaymentInfo(
-            $paymentFrequency,
-            $minAmountPerPayment,
-            $maxAmountPerPayment,
-            $minDaysBetweenPayments,
-            $startDate,
-            $expiryDate,
-        )->setCounter(
-            $counter,
-            $totalCount,
-        );
+        $obj = TokeniseEnhanced::init()
+            ->setType(
+                $tokenType,
+                $tokenFormat,
+                $isOptional
+            )->setPaymentInfo(
+                $paymentFrequency,
+                $minAmountPerPayment,
+                $maxAmountPerPayment,
+                $minDaysBetweenPayments,
+                $startDate,
+                $expiryDate,
+            )->setCounter(
+                $counter,
+                $totalCount,
+            );
 
         return $this->buildTokeniseEnhancedObj($obj);
     }
@@ -114,7 +115,8 @@ abstract class PrimaryPayment extends AirlineData
     public function buildPaymentMethod(string $method)
     {
         $this->product->buildBody(
-            PaymentMethods::init()->includeMethod($method),
+            PaymentMethods::init()
+                ->includeMethod($method),
             true
         );
 

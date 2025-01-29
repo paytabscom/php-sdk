@@ -13,11 +13,6 @@ class PaymentMethods extends AbstractPart
         $this->paymentMethods = $paymentMethods;
     }
 
-    public static function init(?array $methods = null): self
-    {
-        return new self($methods);
-    }
-
     public function includeMethod(string $code): self
     {
         $this->add([$code]);

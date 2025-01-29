@@ -11,16 +11,26 @@ class Urls extends AbstractPart
 
     //
 
-    public function __construct(
+    public function setUrls(
         ?string $returnUrl,
         ?string $callbackUrl
     ) {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->returnUrl = $returnUrl;
         $this->callbackUrl = $callbackUrl;
+
+        return $this;
     }
 
     public function setReturnUsingGet(bool $returnUsingGet = false): self
     {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->returnUsingGet = $returnUsingGet;
 
         return $this;
