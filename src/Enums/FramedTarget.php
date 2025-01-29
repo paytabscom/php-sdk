@@ -2,8 +2,6 @@
 
 namespace Paytabs\Sdk\Enums;
 
-use Exception;
-
 class FramedTarget extends EnumInt
 {
     const NoReturn = 1;
