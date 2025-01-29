@@ -2,11 +2,27 @@
 
 namespace Paytabs\Sdk\Helpers;
 
-interface NextIf
+trait NextIf
 {
-    public function nextIf(bool $cond): static;
+    private ?bool $nextIf = null;
 
-    public function nextSkipIf(bool $cond): static;
+    public function nextIf(bool $cond): static
+    {
+        $this->nextIf = $cond;
+        return $this;
+    }
 
-    public function readNextIf(): ?bool;
+    public function nextSkipIf(bool $cond): static
+    {
+        return $this->nextIf(!$cond);
+    }
+
+    public function readNextIf(): ?bool
+    {
+        $next = $this->nextIf;
+
+        $this->nextIf = null;
+
+        return $next;
+    }
 }
