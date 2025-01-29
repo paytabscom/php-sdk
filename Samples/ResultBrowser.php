@@ -20,7 +20,7 @@ Paytabs::getLogger()->debug('Return Payload: ', [
 
 //
 
-$getResult = 'acquirerMessage=&acquirerRRN=&cartId=c01&customerEmail=wajih%40mail.com&respCode=G61298&respMessage=Authorised&respStatus=A&signature=f2f4d28d712d7af5fd971b3c06091d0e9a9f88d5fbff299b63469feda644e735&token=2C4654BD67A3ED33C6B693FF628674B0&tranRef=TST2501402204249';
+$getResult = 'acquirerMessage=&acquirerRRN=&cartId=c01&customerEmail=wajih%40mail.com&respCode=G42967&respMessage=Authorised&respStatus=A&signature=7328ebcbd1708a14ed9ec34731b017b569dec45170fd2aa6abc113018defe911&token=2C4655BE67A3E537C6B593FF60817AB9&tranRef=TST2502902213573';
 
 // $response = BrowserReturn::init();
 

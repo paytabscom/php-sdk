@@ -24,6 +24,8 @@ abstract class Payment extends Paytabs
     public CustomerDetails $customer_details;
     public ShippingDetails $shipping_details;
 
+    public string $paymentChannel;
+
     //
 
     public function setTranType(string $tran_type)
