@@ -25,6 +25,18 @@ class CustomerDetails extends AbstractPart
         ?string $phone = null,
         ?string $email = null
     ) {
+        return $this->setContact($name, $phone, $email);
+    }
+
+    public function setContact(
+        ?string $name = null,
+        ?string $phone = null,
+        ?string $email = null
+    ) {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->name = $name;
         $this->phone = $phone;
         $this->email = $email;
@@ -39,6 +51,10 @@ class CustomerDetails extends AbstractPart
         ?string $street = null,
         ?string $zip = null
     ): self {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->country = $country;
         $this->state = $state;
         $this->city = $city;
@@ -51,6 +67,10 @@ class CustomerDetails extends AbstractPart
     public function setIp(
         ?string $ip = null
     ): self {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->ip = $ip;
 
         return $this;

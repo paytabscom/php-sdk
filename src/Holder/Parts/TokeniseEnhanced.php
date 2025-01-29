@@ -24,14 +24,20 @@ class TokeniseEnhanced extends AbstractPart
 
     //
 
-    public function __construct(
+    public function setType(
         TokenType $tokenType,
         int $tokenFormat = 2,
         bool $isOptional = false
     ) {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->tokenType = $tokenType;
         $this->tokenFormat = $tokenFormat;
         $this->isOptional = $isOptional;
+
+        return $this;
     }
 
     public function setPaymentInfo(
@@ -42,6 +48,10 @@ class TokeniseEnhanced extends AbstractPart
         ?string $startDate = null,
         ?string $expiryDate = null
     ): self {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->paymentFrequency = $paymentFrequency;
         $this->minAmountPerPayment = $minAmountPerPayment;
         $this->maxAmountPerPayment = $maxAmountPerPayment;
@@ -56,6 +66,10 @@ class TokeniseEnhanced extends AbstractPart
         ?int $counter = null,
         ?int $totalCount = null
     ): self {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->counter = $counter;
         $this->totalCount = $totalCount;
 

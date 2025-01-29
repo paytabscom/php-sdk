@@ -9,6 +9,11 @@ class LineItems implements PartInterface
     /** @var LineItem[] */
     public array $lineItems;
 
+    public static function init(): static
+    {
+        return new static();
+    }
+
     public function addLineItem(LineItem $lineItem): self
     {
         $this->lineItems[] = $lineItem;

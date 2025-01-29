@@ -65,6 +65,10 @@ class Invoice extends AbstractPart
 
     public function setLang(string $lang)
     {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->invoiceLang = $lang;
 
         return $this;
@@ -76,6 +80,10 @@ class Invoice extends AbstractPart
         float $extraDiscount,
         float $total
     ) {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->shippingCharges = $shippingCharges;
         $this->extraCharges = $extraCharges;
         $this->extraDiscount = $extraDiscount;
@@ -89,6 +97,10 @@ class Invoice extends AbstractPart
         ?string $dueDate,
         ?string $expiryDate
     ) {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->activationDate = $activationDate;
         $this->dueDate = $dueDate;
         $this->expiryDate = $expiryDate;
@@ -98,6 +110,10 @@ class Invoice extends AbstractPart
 
     public function setDisableEdit(bool $disableEdit = true)
     {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->disableEdit = $disableEdit;
 
         return $this;
@@ -105,6 +121,10 @@ class Invoice extends AbstractPart
 
     public function setLineItems(LineItems $lineItems)
     {
+        if ($this->readNextIf() === false) {
+            return $this;
+        }
+
         $this->lineItems = $lineItems;
 
         return $this;

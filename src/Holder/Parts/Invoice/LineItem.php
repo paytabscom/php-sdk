@@ -24,9 +24,9 @@ class LineItem implements PartInterface
 
     //
 
-    public static function init(): self
+    public static function init(): static
     {
-        return new self();
+        return new static();
     }
 
     public function setTitle(?string $sku, ?string $description = null, ?string $url = null)

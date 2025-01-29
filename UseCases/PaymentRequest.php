@@ -17,12 +17,14 @@ $holder
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
-        (new CustomerDetails('Wajih SDK3', '0522222222', 'wajih@mail.com'))
+        CustomerDetails::init()
+            ->setContact('Name SDK3', '0522222222', 'wajih@mail.com')
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
             ->setIp('1.1.1.1')
     )
     ->buildShippingDetails(
-        new ShippingDetails('Wajih 2')
+        ShippingDetails::init()
+            ->setContact('Shipping name')
     )
     ->buildHideShipping(true)
     ->buildTokenise(true)
