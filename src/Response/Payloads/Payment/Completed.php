@@ -6,6 +6,7 @@ use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Response\Parts\ParentRequest;
 use Paytabs\Sdk\Response\Parts\PaymentInfo;
 use Paytabs\Sdk\Response\Parts\PaymentResult;
+use Paytabs\Sdk\Response\Parts\ThreeDSDetails;
 use Paytabs\Sdk\Response\Payloads\Payment;
 
 class Completed extends Payment
@@ -22,6 +23,8 @@ class Completed extends Payment
     public PaymentInfo $payment_info;
 
     public ParentRequest $parentRequest;
+
+    public ThreeDSDetails $threeDSDetails;
 
     public string $token;
 
