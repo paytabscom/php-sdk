@@ -6,6 +6,7 @@ use Paytabs\Sdk\Holder\Builders\HostedPage;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Holder\Parts\CardFilter;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
@@ -28,6 +29,7 @@ $holder
     ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
+    ->buildCardFilter('4111','only accept cards starts with 4111')
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod(Card::CODE)
