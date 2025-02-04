@@ -20,8 +20,10 @@ class CardFilter extends AbstractPart
     public function build(): array
     {
         return [
-            'cardFilter' => $this->cardFilter,
-            'cardFilterTitle' => $this->cardFilterTitle,
+            'card_filter' => [
+                'cardFilter' => $this->cardFilter,
+                'cardFilterTitle' => $this->cardFilterTitle,
+            ]
         ];
     }
 }
