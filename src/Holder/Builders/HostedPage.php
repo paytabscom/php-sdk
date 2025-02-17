@@ -42,6 +42,7 @@ class HostedPage extends PrimaryPayment
         $this->product->buildBody(
             new ConfigId($configId)
         );
+
         return $this;
     }
 }

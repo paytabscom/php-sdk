@@ -21,6 +21,4 @@ class ConfigId extends AbstractPart
             'config_id' => $this->configId,
         ];
     }
-
-    
 }
