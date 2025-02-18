@@ -1,0 +1,21 @@
+Payment request params:
+ user_defined: obj of udf[0-9]:
+ config_id: int
+ card_discounts: array of obj of [discount_cards, discount_title, discount_amount]
+ card_filter: string
+ card_filter_title: string
+ token_info:
+ payment_token: string
+ card_details: obj of [pan, cvv, expiry_year, expiry_month]
+ apple_pay_token: obj
+
+Callback & Return:
+  
+
+Discount Patterns:
+  
+
+API issues:
+  Params not consistent: card_filer is string while card_discount is array ?? similar functions
+  response codes not accurate: wrong invoice number => 500 ??, other APIs return 400 sometime if there is error, others 200 with error message
+  response params not consistent: trace & trace_code & ipn_trace ??

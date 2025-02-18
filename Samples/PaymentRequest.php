@@ -28,6 +28,7 @@ $holder
     ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
+    ->buildConfigId($configs['config_id'])
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod(Card::CODE)
@@ -38,6 +39,9 @@ $holder
     )
     ->buildPaymentMethod('test')
 ;
+
+// Add Card Filter
+$holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
 
 $request = new PaymentRequest($gateway, $holder);
 

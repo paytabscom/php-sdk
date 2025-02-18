@@ -46,6 +46,7 @@ final class PaymentRequestTest extends TestCase
             ->buildTokenise(true)
             // ->buildURLs(null, $urlCallback)
             ->buildAltCurrency('USD')
+            //->buildConfigId(11)
             ->buildPaymentMethods(
                 PaymentMethods::init()
                     ->includeMethod('card')
