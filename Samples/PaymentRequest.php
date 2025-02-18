@@ -29,6 +29,7 @@ $holder
     ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
+    ->buildConfigId($configs['config_id'])
     ->buildCardFilter('4111','only accept cards starts with 4111')
     ->buildPaymentMethods(
         PaymentMethods::init()

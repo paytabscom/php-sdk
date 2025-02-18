@@ -5,6 +5,7 @@ namespace Paytabs\Sdk\Holder\Builders;
 use Paytabs\Sdk\Holder\Parts\AltCurrency;
 use Paytabs\Sdk\Holder\Parts\Framed;
 use Paytabs\Sdk\Holder\Parts\HideShipping;
+use Paytabs\Sdk\Holder\Parts\ConfigId;
 use Paytabs\Sdk\Holder\Parts\CardFilter;
 
 class HostedPage extends PrimaryPayment
@@ -32,6 +33,15 @@ class HostedPage extends PrimaryPayment
     {
         $this->product->buildBody(
             new AltCurrency($altCurrency)
+        );
+
+        return $this;
+    }
+
+    public function buildConfigId(int $configId)
+    {
+        $this->product->buildBody(
+            new ConfigId($configId)
         );
 
         return $this;
