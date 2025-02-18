@@ -17,8 +17,6 @@ class Http
     private int $timeout = 30;
     private bool $debugMode = false;
 
-    //
-
     public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
@@ -51,7 +49,7 @@ class Http
 
             curl_close($curl_handle);
 
-            throw new Exception($errorMsg);
+            throw new \Exception($errorMsg);
         }
 
         curl_close($curl_handle);
@@ -61,26 +59,25 @@ class Http
         }
 
         if (!$responseClass) {
-            $responseClass = new Generic;
+            $responseClass = new Generic();
         }
 
         if (!$responseClass->getPayload()) {
             if ($this->request->getResponseClass()) {
                 $responseClass->setPayload($this->request->getResponseClass());
             } else {
-                $responseClass->setPayload(new PayloadsGeneric);
+                $responseClass->setPayload(new PayloadsGeneric());
             }
         }
 
         $responseClass
             ->setResponse($curl_response)
             ->setResponseCode($curl_response_code)
-            ->setRequest($this->request);
+            ->setRequest($this->request)
+        ;
 
         return $responseClass;
     }
-
-    //
 
     private function initRequest()
     {
@@ -107,7 +104,7 @@ class Http
             CURLOPT_POST => $this->request->isHttpPost(),
         ];
 
-        $curl_data =  [
+        $curl_data = [
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POSTFIELDS => $payload,
         ];

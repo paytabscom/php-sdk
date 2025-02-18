@@ -4,10 +4,10 @@ namespace Paytabs\Sdk\Enums;
 
 class TokenType extends EnumString
 {
-    const Registered = 'registered';
-    const Unscheduled = 'unscheduled';
-    const RecurringFixed = 'recurring_fixed';
-    const RecurringVariable = 'recurring_variable';
+    public const Registered = 'registered';
+    public const Unscheduled = 'unscheduled';
+    public const RecurringFixed = 'recurring_fixed';
+    public const RecurringVariable = 'recurring_variable';
 
     public static function Registered()
     {

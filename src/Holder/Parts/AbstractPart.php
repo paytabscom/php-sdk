@@ -12,6 +12,7 @@ abstract class AbstractPart implements PartInterface, NextIf
     public function nextIf(bool $cond)
     {
         $this->nextIf = $cond;
+
         return $this;
     }
 

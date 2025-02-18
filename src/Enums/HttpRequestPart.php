@@ -4,10 +4,10 @@ namespace Paytabs\Sdk\Enums;
 
 class HttpRequestPart extends EnumInt
 {
-    const Header = 1;
-    const Body = 2;
-    const Query = 3;
-    const Path = 4;
+    public const Header = 1;
+    public const Body = 2;
+    public const Query = 3;
+    public const Path = 4;
 
     public static function Header()
     {

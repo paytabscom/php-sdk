@@ -11,8 +11,6 @@ use Paytabs\Sdk\Holder\Parts\Urls;
 
 class PaymentRequest extends AbstractHolder
 {
-    //
-
     public function buildTransaction(TranType $tran_type, TranClass $tran_class)
     {
         $this->product->buildBody(

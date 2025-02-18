@@ -25,8 +25,6 @@ class Browser extends Paytabs
 
     public string $token;
 
-    //
-
     public function setRespStatus(string $respStatus)
     {
         $this->respStatus = $respStatus;

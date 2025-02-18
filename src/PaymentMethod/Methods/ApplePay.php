@@ -6,20 +6,18 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class ApplePay extends AbstractMethod
 {
-    const ID = 10;
+    public const ID = 10;
 
-    const CODE = 'applepay';
-    const PT_CODE = 'paytabs_' . self::CODE;
+    public const CODE = 'applepay';
+    public const PT_CODE = 'paytabs_'.self::CODE;
 
-    const CODE_ALIASES = [
-        'apple_pay'
+    public const CODE_ALIASES = [
+        'apple_pay',
     ];
 
-    const TITLE = 'PayTabs - ApplePay';
+    public const TITLE = 'PayTabs - ApplePay';
 
-    const ACTIVE = true;
-
-    //
+    public const ACTIVE = true;
 
     protected const SUPPORT_ANY_CURRENCY = true;
 

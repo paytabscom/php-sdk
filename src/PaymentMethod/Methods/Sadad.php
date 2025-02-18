@@ -6,21 +6,20 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Sadad extends AbstractMethod
 {
-    const ID = 50;
+    public const ID = 50;
 
-    const CODE = 'sadad';
-    const PT_CODE = 'paytabs_' . self::CODE;
+    public const CODE = 'sadad';
+    public const PT_CODE = 'paytabs_'.self::CODE;
 
-    const TITLE = 'PayTabs - Sadad';
+    public const TITLE = 'PayTabs - Sadad';
 
-    const ACTIVE = true;
+    public const ACTIVE = true;
 
-    //
+    public const CURRENCIES = [
+        'SAR',
+    ];
 
     protected const SUPPORT_ANY_CURRENCY = false;
-    const CURRENCIES = [
-        'SAR'
-    ];
 
     protected const IS_CARD = false;
     protected const SUPPORT_CARD_FEATURES = false;

@@ -47,13 +47,9 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-
     /**
-     * @param int $tokenFormat integer between 2 and 6, Set the Token format
-     * @param TokenType $tokenType
-     * @param int $counter
-     * @param int $totalCount
-     * @param bool $isOptional Display the save card option on the payment page
+     * @param int  $tokenFormat integer between 2 and 6, Set the Token format
+     * @param bool $isOptional  Display the save card option on the payment page
      */
     public function buildTokeniseEnhanced(
         TokenType $tokenType = TokenType::Registered,

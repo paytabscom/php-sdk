@@ -4,9 +4,9 @@ namespace Paytabs\Sdk\Enums;
 
 class TranClass extends EnumString
 {
-    const Ecom = 'ecom';
-    const Moto = 'moto';
-    const Recurring = 'recurring';
+    public const Ecom = 'ecom';
+    public const Moto = 'moto';
+    public const Recurring = 'recurring';
 
     public static function Ecom()
     {

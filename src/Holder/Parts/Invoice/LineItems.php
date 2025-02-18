@@ -16,8 +16,6 @@ class LineItems implements PartInterface
         return $this;
     }
 
-    //
-
     public function build(): array
     {
         $items['line_items'] = [];

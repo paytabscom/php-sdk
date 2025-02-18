@@ -13,18 +13,14 @@ class Gateway extends AbstractPayload
     protected string $serverKey;
     protected string $clientKey;
 
-    //
-
     public function __construct(Endpoint $endpoint, int $profileId, string $serverKey)
     {
         $this->endpoint = $endpoint;
         $this->profileId = $profileId;
         $this->serverKey = $serverKey;
 
-        //
-
         $this->buildHeader(new GenericPart([
-            'Authorization: ' . $this->serverKey,
+            'Authorization: '.$this->serverKey,
         ]));
 
         $this->buildBody(new GenericPart([
@@ -36,8 +32,6 @@ class Gateway extends AbstractPayload
     {
         return $this->serverKey;
     }
-
-    //
 
     public function getUrl(): string
     {

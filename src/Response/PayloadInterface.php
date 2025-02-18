@@ -8,13 +8,9 @@ interface PayloadInterface
 
     public function getResponseData(): string;
 
-    //
-
     public function getMapped();
 
     public function getMappedAs(PayloadInterface $class): PayloadInterface;
-
-    //
 
     public function getAsJson();
 }

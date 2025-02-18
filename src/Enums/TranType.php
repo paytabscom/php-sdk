@@ -4,22 +4,20 @@ namespace Paytabs\Sdk\Enums;
 
 class TranType extends EnumString
 {
-    const Auth = 'auth';
-    const Register = 'register';
-    const Sale = 'sale';
+    public const Auth = 'auth';
+    public const Register = 'register';
+    public const Sale = 'sale';
 
-    const AuthExt = 'authext';
+    public const AuthExt = 'authext';
     // Auth Extension is used to refresh the hold on the funds
     // Followup an Auth transaction
 
-    const PaymentRequest = 'payment request';
+    public const PaymentRequest = 'payment request';
 
-    const Capture = 'capture';
-    const Void = 'void';
-    const Release = 'release';
-    const Refund = 'refund';
-
-    //
+    public const Capture = 'capture';
+    public const Void = 'void';
+    public const Release = 'release';
+    public const Refund = 'refund';
 
     public static function Auth()
     {
@@ -66,8 +64,6 @@ class TranType extends EnumString
         return new self(self::Refund);
     }
 
-    //
-
     /**
      * @throws ValueError If there is no matching case defined
      */
@@ -84,13 +80,13 @@ class TranType extends EnumString
             $tran_type = $ipn_data->tran_type;
 
             // Sale && previous_tran_ref
-            if (isset($original_trx) && (TranType::get($tran_type) === TranType::Sale)) {
+            if (isset($original_trx) && (TranType::Sale === TranType::get($tran_type))) {
                 return true;
             }
 
             // Or Expired
             $tran_status = @$ipn_data->payment_result->response_status;
-            if ($tran_status === 'X') {
+            if ('X' === $tran_status) {
                 return true;
             }
         }

@@ -2,14 +2,12 @@
 
 namespace Paytabs\Sdk\Enums;
 
-use Exception;
-
 abstract class EnumString extends Enum
 {
     public function __construct(string $value)
     {
         if (!$this->isValidValue($value)) {
-            throw new Exception('Not a valid Enum value');
+            throw new \Exception('Not a valid Enum value');
         }
 
         $this->value = $value;

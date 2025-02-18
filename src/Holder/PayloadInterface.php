@@ -13,8 +13,6 @@ interface PayloadInterface
 
     public function buildPath(PartInterface $part): void;
 
-    //
-
     public function getHeaders(bool $removeNulls = true): array;
 
     public function getBody(bool $removeNulls = true): array;

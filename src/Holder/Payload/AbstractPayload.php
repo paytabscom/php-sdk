@@ -3,7 +3,6 @@
 namespace Paytabs\Sdk\Holder\Payload;
 
 use Paytabs\Sdk\Enums\HttpRequestPart;
-use Exception;
 use Paytabs\Sdk\Holder\PartInterface;
 use Paytabs\Sdk\Holder\PayloadInterface;
 
@@ -13,8 +12,6 @@ abstract class AbstractPayload implements PayloadInterface
     protected array $body = [];
     protected array $query = [];
     protected array $path = [];
-
-    //
 
     public function buildHeader(PartInterface $part): void
     {
@@ -56,8 +53,6 @@ abstract class AbstractPayload implements PayloadInterface
         return $this->get($this->headers, $removeNulls);
     }
 
-    //
-
     private function buildPart(PartInterface $part, HttpRequestPart $httpPart, bool $merge = false): void
     {
         $newPart = ($part instanceof PartInterface)
@@ -69,10 +64,12 @@ abstract class AbstractPayload implements PayloadInterface
                 $this->add($this->headers, $newPart);
 
                 break;
+
             case HttpRequestPart::Body:
                 $this->add($this->body, $newPart, $merge);
 
                 break;
+
             case HttpRequestPart::Query:
                 $this->add($this->query, $newPart);
 
@@ -84,7 +81,8 @@ abstract class AbstractPayload implements PayloadInterface
                 break;
 
             default:
-                throw new Exception('Not implemented');
+                throw new \Exception('Not implemented');
+
                 break;
         }
     }
@@ -107,18 +105,17 @@ abstract class AbstractPayload implements PayloadInterface
         return $array;
     }
 
-    //
-
     private function filterNulls(array $array): array
     {
         foreach ($array as $key => $value) {
             if (\is_array($value)) {
                 $array[$key] = $this->filterNulls($value);
             }
-            if (null === $value || $value === '') {
+            if (null === $value || '' === $value) {
                 unset($array[$key]);
             }
         }
+
         return $array;
     }
 }

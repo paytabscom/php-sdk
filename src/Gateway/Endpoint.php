@@ -8,8 +8,6 @@ abstract class Endpoint
     protected const TITLE = '';
     protected const URL = '';
 
-    //
-
     private static $instances = [];
 
     public static function getInstance(): self
@@ -21,8 +19,6 @@ abstract class Endpoint
 
         return self::$instances[$cls];
     }
-
-    //
 
     public function getCode(): string
     {

@@ -6,20 +6,18 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Card extends AbstractMethod
 {
-    const ID = 2;
+    public const ID = 2;
 
-    const CODE = 'card';
-    const PT_CODE = 'paytabs_' . self::CODE;
+    public const CODE = 'card';
+    public const PT_CODE = 'paytabs_'.self::CODE;
 
-    const CODE_ALIASES = [
+    public const CODE_ALIASES = [
         'creditcard',
     ];
 
-    const TITLE = 'PayTabs - Card Payments';
+    public const TITLE = 'PayTabs - Card Payments';
 
-    const ACTIVE = true;
-
-    //
+    public const ACTIVE = true;
 
     protected const SUPPORT_ANY_CURRENCY = true;
 

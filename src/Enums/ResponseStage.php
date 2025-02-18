@@ -4,12 +4,11 @@ namespace Paytabs\Sdk\Enums;
 
 class ResponseStage extends EnumInt
 {
-    const Redirect = 1;
-    const Error = 2;
-    const Completed = 3;
+    public const Redirect = 1;
+    public const Error = 2;
+    public const Completed = 3;
 
-    const UnKnown = 10;
-
+    public const UnKnown = 10;
 
     public static function Redirect()
     {

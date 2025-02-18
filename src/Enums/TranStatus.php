@@ -4,13 +4,13 @@ namespace Paytabs\Sdk\Enums;
 
 class TranStatus extends EnumString
 {
-    const Authorised = 'A';
-    const OnHold = 'H';
-    const Pending = 'P';
-    const Voided = 'V';
-    const Error = 'E';
-    const Declined = 'D';
-    const Expired = 'X';
+    public const Authorised = 'A';
+    public const OnHold = 'H';
+    public const Pending = 'P';
+    public const Voided = 'V';
+    public const Error = 'E';
+    public const Declined = 'D';
+    public const Expired = 'X';
 
     public static function Authorised()
     {
@@ -47,11 +47,9 @@ class TranStatus extends EnumString
         return new self(self::Expired);
     }
 
-    //
-
     public function isSuccessful(): bool
     {
-        return $this === TranStatus::Authorised;
+        return TranStatus::Authorised === $this;
     }
 
     public function isNotFinal(): bool
@@ -66,16 +64,16 @@ class TranStatus extends EnumString
 
     public function isOnHold(): bool
     {
-        return $this === TranStatus::OnHold;
+        return TranStatus::OnHold === $this;
     }
 
     public function isPending(): bool
     {
-        return $this === TranStatus::Pending;
+        return TranStatus::Pending === $this;
     }
 
     public function isExpired(): bool
     {
-        return $this === TranStatus::Expired;
+        return TranStatus::Expired === $this;
     }
 }

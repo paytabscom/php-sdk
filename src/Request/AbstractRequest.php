@@ -25,12 +25,10 @@ abstract class AbstractRequest implements RequestInterface
 
     protected ?ResponsePayloadInterface $responseClass = null;
 
-    //
-
     public function __construct(
         Gateway $environment,
         BuilderInterface $holder,
-        string $path = null
+        ?string $path = null
     ) {
         $this->environment = $environment;
         $this->dataHolder = $holder;
@@ -40,8 +38,6 @@ abstract class AbstractRequest implements RequestInterface
 
         $this->httpType = HttpType::from($this->httpTypeInt);
     }
-
-    //
 
     public function getPayload(): string
     {
@@ -61,12 +57,10 @@ abstract class AbstractRequest implements RequestInterface
         /** @var PayloadInterface */
         $dataPayload = $this->dataHolder->getPayload();
 
-        $headers = array_merge(
+        return array_merge(
             $this->environment->getHeaders(),
             $dataPayload->getHeaders(),
         );
-
-        return $headers;
     }
 
     public function getUrl(): string
@@ -93,10 +87,8 @@ abstract class AbstractRequest implements RequestInterface
 
     public function isHttpPost(): bool
     {
-        return $this->getHttpType()->value === HttpType::POST;
+        return HttpType::POST === $this->getHttpType()->value;
     }
-
-    //
 
     public function getResponseClass(): ?ResponsePayloadInterface
     {

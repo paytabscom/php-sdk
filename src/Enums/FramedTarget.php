@@ -4,9 +4,9 @@ namespace Paytabs\Sdk\Enums;
 
 class FramedTarget extends EnumInt
 {
-    const NoReturn = 1;
-    const ReturnParent = 2;
-    const ReturnTop = 3;
+    public const NoReturn = 1;
+    public const ReturnParent = 2;
+    public const ReturnTop = 3;
 
     public static function NoReturn()
     {

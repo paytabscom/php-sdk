@@ -2,17 +2,18 @@
 
 namespace Paytabs\Sdk\PaymentMethod;
 
-use Exception;
 use Paytabs\Sdk\Enums\PaymentMethod;
 
 abstract class MethodsFactory
 {
+    private static array $methodsMapper = [];
+
     public static function createMethod(string $code): AbstractMethod
     {
         $instance = static::findMethodClass($code);
 
         if (!$instance) {
-            throw new Exception("Payment Method not found for Code: $code");
+            throw new \Exception("Payment Method not found for Code: {$code}");
         }
 
         return $instance;
@@ -23,7 +24,7 @@ abstract class MethodsFactory
         $instance = static::findMethodClassById($id);
 
         if (!$instance) {
-            throw new Exception("Payment Method not found for ID: $id");
+            throw new \Exception("Payment Method not found for ID: {$id}");
         }
 
         return $instance;
@@ -34,15 +35,11 @@ abstract class MethodsFactory
         $instance = static::findMethodClassByUnique($pt_code);
 
         if (!$instance) {
-            throw new Exception("Payment Method not found for Unique Code: $pt_code");
+            throw new \Exception("Payment Method not found for Unique Code: {$pt_code}");
         }
 
         return $instance;
     }
-
-    //
-
-    private static array $methodsMapper = [];
 
     /** @return AbstractMethod[] */
     private static function getMethodsMapper(): array
@@ -51,14 +48,12 @@ abstract class MethodsFactory
             $allMethods = PaymentMethod::getAllMethods();
 
             static::$methodsMapper = array_map(static function ($enumMethod) {
-                return new $enumMethod->value;
+                return new $enumMethod->value();
             }, $allMethods);
         }
 
         return static::$methodsMapper;
     }
-
-    //
 
     private static function findMethodClass(string $code): ?AbstractMethod
     {
@@ -91,7 +86,7 @@ abstract class MethodsFactory
         $allMethods = self::getMethodsMapper();
 
         foreach ($allMethods as $method) {
-            if (strcasecmp($method::PT_CODE, $pt_code) === 0) {
+            if (0 === strcasecmp($method::PT_CODE, $pt_code)) {
                 return $method;
             }
         }

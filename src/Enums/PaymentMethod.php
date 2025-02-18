@@ -7,16 +7,14 @@ use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\PaymentMethod\Methods\Fawry;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
-use ReflectionClass;
-use stdClass;
 
 class PaymentMethod extends EnumString
 {
-    const All = All::class;
-    const ApplePay = ApplePay::class;
-    const Card = Card::class;
-    const Fawry = Fawry::class;
-    const Sadad = Sadad::class;
+    public const All = All::class;
+    public const ApplePay = ApplePay::class;
+    public const Card = Card::class;
+    public const Fawry = Fawry::class;
+    public const Sadad = Sadad::class;
 
     public static function All()
     {
@@ -43,16 +41,14 @@ class PaymentMethod extends EnumString
         return new self(self::Sadad);
     }
 
-    //
-
     public static function getAllMethods(): array
     {
-        $refl = new ReflectionClass(PaymentMethod::class);
+        $refl = new \ReflectionClass(PaymentMethod::class);
         $all = $refl->getConstants();
 
         $cases = [];
         foreach ($all as $key => $value) {
-            $enum = new stdClass;
+            $enum = new \stdClass();
 
             $enum->key = $key;
             $enum->value = $value;

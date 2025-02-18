@@ -12,14 +12,14 @@ interface ResponseDirectInterface extends ResponseInterface
 
     public function setRequest(RequestInterface $request);
 
-    //
-
     public function isSuccessful(): bool;
 
     public function isFailure(): bool;
+
     public function getFailure(): Failure;
 
     public function isRedirect(): bool;
+
     public function getRedirect(): Redirect;
 
     public function getPayloadMapped(): PayloadInterface;

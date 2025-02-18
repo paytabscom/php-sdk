@@ -24,8 +24,6 @@ class Invoice extends AbstractPart
 
     public LineItems $lineItems;
 
-    //
-
     public function build(): array
     {
         $charges = [
@@ -45,7 +43,7 @@ class Invoice extends AbstractPart
             'disable_edit' => $this->disableEdit,
         ];
 
-        $lang =  [
+        $lang = [
             'lang' => $this->invoiceLang,
         ];
 
@@ -60,8 +58,6 @@ class Invoice extends AbstractPart
             'invoice' => $invoiceObj,
         ];
     }
-
-    //
 
     public function setLang(string $lang)
     {

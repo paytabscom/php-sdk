@@ -6,8 +6,6 @@ abstract class AbstractResponse implements ResponseInterface
 {
     protected ?PayloadInterface $payload = null;
 
-    //
-
     public function setResponse($raw_response)
     {
         $this->payload->setResponseData($raw_response);
