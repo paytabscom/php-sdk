@@ -14,14 +14,10 @@ abstract class AbstractHolder implements BuilderInterface
 
     protected ?ResponsePayloadInterface $responseClass = null;
 
-    //
-
     public function __construct()
     {
         $this->product = new PaytabsPayload();
     }
-
-    //
 
     public function build(PartInterface $part)
     {

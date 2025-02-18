@@ -12,8 +12,6 @@ class NewInvoice extends PaytabsRequest
 {
     protected string $path = 'payment/invoice/new';
 
-    //
-
     public function __construct(
         Gateway $environment,
         Invoice $holder

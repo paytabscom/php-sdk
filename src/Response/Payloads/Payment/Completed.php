@@ -17,7 +17,6 @@ class Completed extends Payment
     public string $tran_currency;
 
     public string $tran_class;
-    protected TranClass $tranClass;
 
     public PaymentResult $payment_result;
     public PaymentInfo $payment_info;
@@ -27,8 +26,7 @@ class Completed extends Payment
     public ThreeDSDetails $threeDSDetails;
 
     public string $token;
-
-    //
+    protected TranClass $tranClass;
 
     public function setTranClass(string $tran_class)
     {

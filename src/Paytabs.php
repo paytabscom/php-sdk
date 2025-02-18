@@ -20,8 +20,6 @@ abstract class Paytabs
 
     protected const LOG_PREFIX = 'PayTabs';
 
-    //
-
     final public static function getVersion(): string
     {
         return self::VERSION;
@@ -33,9 +31,9 @@ abstract class Paytabs
 
         if (!$useBrowser) {
             return Log::getInstance(static::getLogFile(), static::LOG_PREFIX);
-        } else {
-            return BrowserLog::getInstance(static::getLogFile(), static::LOG_PREFIX);
         }
+
+        return BrowserLog::getInstance(static::getLogFile(), static::LOG_PREFIX);
     }
 
     public static function getLogFile(): string
@@ -44,9 +42,9 @@ abstract class Paytabs
 
         if (static::LOG_DAILY) {
             $time = date('Y-m-d');
-            $logFile .= '-' . $time;
+            $logFile .= '-'.$time;
         }
 
-        return static::LOG_PATH . $logFile . static::LOG_FILE_EXTENSION;
+        return static::LOG_PATH.$logFile.static::LOG_FILE_EXTENSION;
     }
 }

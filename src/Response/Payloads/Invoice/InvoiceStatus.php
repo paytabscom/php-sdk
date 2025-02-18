@@ -16,8 +16,6 @@ class InvoiceStatus extends Paytabs
 
     public ?string $tran_status_msg; // "Authorised"
 
-    //
-
     public function setTranStatus(string $tranStatus)
     {
         $this->tran_status = $tranStatus;

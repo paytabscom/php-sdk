@@ -15,8 +15,6 @@ class InvoiceStatus extends PaytabsRequest
 
     protected HttpType $httpType = HttpType::POST;
 
-    //
-
     public function __construct(
         Gateway $environment,
         BuilderInvoiceStatus $holder
