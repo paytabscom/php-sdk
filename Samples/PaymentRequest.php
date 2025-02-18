@@ -28,6 +28,7 @@ $holder
     ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
+    ->buildConfigId($configs['config_id'])
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod(Card::CODE)
