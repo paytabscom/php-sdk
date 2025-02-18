@@ -1,19 +1,50 @@
 Payment request params:
  user_defined: obj of udf[0-9]:
- config_id: int
- card_discounts: array of obj of [discount_cards, discount_title, discount_amount]
- card_filter: string
- card_filter_title: string
+ card_discounts: array of obj of [discount_cards, discount_title, discount_amount/discount_percent]
  token_info:
- payment_token: string
- card_details: obj of [pan, cvv, expiry_year, expiry_month]
- apple_pay_token: obj
+ donation:
+ invoice object:
+ customer_ref: string
+ BIN based card approval:
+
+
+Discount Patterns:
+
+
+Builders:
+  Own Form:
+    card_details: obj of [pan, cvv, expiry_year, expiry_month]
+  Managed Form:
+    payment_token: string
+  ApplePay:
+    apple_pay_token: obj
+  SamsungPay:
+    samsung_pay_token: obj
+
+
+Requests:
+  Invoice cancel:
+  Invoice SMS send:
+  Invoice search:
+  Invoice Mark as Read:
+  valU inquiry:
+  Sadad inquiry:
+
 
 Callback & Return:
   
 
-Discount Patterns:
-  
+PHP Scaffolding:
+  - Endpoint
+  - Part
+  - Builder
+  - Request
+  - Response
+  - Response Payload
+  - Logger
+  - PaymentMethod
+
+---
 
 API issues:
   Params not consistent: card_filer is string while card_discount is array ?? similar functions

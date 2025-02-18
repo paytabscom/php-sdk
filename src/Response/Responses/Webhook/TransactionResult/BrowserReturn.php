@@ -2,7 +2,6 @@
 
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
-use Exception;
 use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
@@ -10,7 +9,14 @@ class BrowserReturn extends TransactionResult
 {
     protected array $postArray;
 
-    //
+    public function __construct(string $response, array $postArray, array $localParams)
+    {
+        $this->payload = new Browser();
+
+        parent::__construct($response, [], $localParams);
+
+        $this->postArray = $postArray;
+    }
 
     public static function init(array $localParams = []): self
     {
@@ -22,24 +28,13 @@ class BrowserReturn extends TransactionResult
     public static function initWith(array $postArray, array $localParams = []): self
     {
         if (!$postArray) {
-            throw new Exception('Invalid init');
+            throw new \Exception('Invalid init');
         }
 
         $dataJson = json_encode($postArray);
 
         return new self($dataJson, $postArray, $localParams);
     }
-
-    public function __construct(string $response, array $postArray, array $localParams)
-    {
-        $this->payload = new Browser;
-
-        parent::__construct($response, [], $localParams);
-
-        $this->postArray = $postArray;
-    }
-
-    //
 
     protected function isValid(): bool
     {

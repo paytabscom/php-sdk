@@ -27,7 +27,7 @@ class PluginInfo extends AbstractPart
                 'cart_name' => $this->platformName,
                 'cart_version' => $this->platformVersion,
                 'plugin_version' => $this->pluginVersion,
-            ]
+            ],
         ];
     }
 }

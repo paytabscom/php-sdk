@@ -5,14 +5,12 @@ namespace Paytabs\Sdk\Request\Requests;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Holder\Builders\Token\Token;
 use Paytabs\Sdk\Request\PaytabsRequest;
-use Paytabs\Sdk\Response\Payloads\Payment\Completed;
 use Paytabs\Sdk\Response\PayloadInterface;
+use Paytabs\Sdk\Response\Payloads\Payment\Completed;
 
 class TokenQuery extends PaytabsRequest
 {
     protected string $path = 'payment/token';
-
-    //
 
     public function __construct(
         Gateway $environment,
@@ -20,8 +18,6 @@ class TokenQuery extends PaytabsRequest
     ) {
         parent::__construct($environment, $holder);
     }
-
-    //
 
     /** @return Completed */
     public function getResponseClass(): PayloadInterface

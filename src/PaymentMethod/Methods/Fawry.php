@@ -6,21 +6,20 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Fawry extends AbstractMethod
 {
-    const ID = 51;
+    public const ID = 51;
 
-    const CODE = 'fawry';
-    const PT_CODE = 'paytabs_' . self::CODE;
+    public const CODE = 'fawry';
+    public const PT_CODE = 'paytabs_'.self::CODE;
 
-    const TITLE = 'PayTabs - Fawry';
+    public const TITLE = 'PayTabs - Fawry';
 
-    const ACTIVE = false;
+    public const ACTIVE = false;
 
-    //
+    final public const CURRENCIES = [
+        'EGP',
+    ];
 
     final protected const SUPPORT_ANY_CURRENCY = false;
-    final const CURRENCIES = [
-        'EGP'
-    ];
 
     final protected const IS_CARD = false;
     final protected const SUPPORT_CARD_FEATURES = false;

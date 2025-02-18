@@ -17,8 +17,6 @@ class InvoiceStatusGet extends PaytabsRequest
 
     protected bool $hasPathParams = true;
 
-    //
-
     public function __construct(
         Gateway $environment,
         BuildersInvoiceStatusGet $holder

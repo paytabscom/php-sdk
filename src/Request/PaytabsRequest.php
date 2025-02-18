@@ -14,8 +14,6 @@ abstract class PaytabsRequest extends AbstractRequest
         parent::__construct($environment, $holder);
     }
 
-    //
-
     public function getHeaders(): array
     {
         return $this->environment->getHeaders();

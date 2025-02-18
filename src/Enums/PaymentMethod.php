@@ -16,8 +16,6 @@ enum PaymentMethod: string
     case Fawry = Fawry::class;
     case Sadad = Sadad::class;
 
-    //
-
     public static function getAllMethods(): array
     {
         return PaymentMethod::cases();

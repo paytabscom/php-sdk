@@ -18,8 +18,6 @@ class CustomerDetails extends AbstractPart
 
     public ?string $ip = null;
 
-    //
-
     public function __construct(
         ?string $name = null,
         ?string $phone = null,
@@ -69,7 +67,7 @@ class CustomerDetails extends AbstractPart
                 'street1' => $this->street,
                 'ip' => $this->ip,
                 'zip' => $this->zip,
-            ]
+            ],
         ];
     }
 }

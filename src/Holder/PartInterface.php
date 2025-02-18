@@ -4,6 +4,6 @@ namespace Paytabs\Sdk\Holder;
 
 interface PartInterface
 {
-    /** @return array<string, string|array> */
+    /** @return array<string, array|string> */
     public function build(): array;
 }

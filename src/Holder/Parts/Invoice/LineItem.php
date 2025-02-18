@@ -22,8 +22,6 @@ class LineItem implements PartInterface
 
     public ?float $total = null;
 
-    //
-
     public static function init(): self
     {
         return new self();
@@ -69,8 +67,6 @@ class LineItem implements PartInterface
 
         return $this;
     }
-
-    //
 
     public function build(): array
     {
