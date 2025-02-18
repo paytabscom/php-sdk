@@ -9,7 +9,12 @@ class Callback extends TransactionResult
 {
     protected array $postArray;
 
-    //
+    public function __construct(?string $response, array $headers = [], array $localParams = [])
+    {
+        $this->payload = new Ipn();
+
+        parent::__construct($response, $headers, $localParams);
+    }
 
     public static function init(): self
     {
@@ -26,15 +31,6 @@ class Callback extends TransactionResult
 
         return new self($jsonPayload, $headers);
     }
-
-    public function __construct(?string $response, array $headers = [], array $localParams = [])
-    {
-        $this->payload = new Ipn;
-
-        parent::__construct($response, $headers, $localParams);
-    }
-
-    //
 
     protected function isValid(): bool
     {

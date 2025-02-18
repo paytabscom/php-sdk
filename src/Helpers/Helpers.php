@@ -15,7 +15,7 @@ class Helpers
 
         $path = ltrim($path ?? '', '/');
 
-        $url = $base . '/' . $path;
+        $url = $base.'/'.$path;
 
         if ($remove_trailing_slash) {
             $url = rtrim($url, '/');
@@ -23,8 +23,6 @@ class Helpers
 
         return $url;
     }
-
-    //
 
     public static function responseStage($json): ResponseStage
     {
@@ -53,16 +51,16 @@ class Helpers
     }
 }
 
-
 // PHP < 8.3
 if (!\function_exists('json_validate')) {
     /**
      * Validates a JSON string.
-     * 
-     * @param string $json The JSON string to validate.
-     * @param int $depth Maximum depth. Must be greater than zero.
-     * @param int $flags Bitmask of JSON decode options.
-     * @return bool Returns true if the string is a valid JSON, otherwise false.
+     *
+     * @param string $json  the JSON string to validate
+     * @param int    $depth Maximum depth. Must be greater than zero.
+     * @param int    $flags bitmask of JSON decode options
+     *
+     * @return bool returns true if the string is a valid JSON, otherwise false
      */
     function json_validate($json, $depth = 512, $flags = 0)
     {
@@ -72,6 +70,7 @@ if (!\function_exists('json_validate')) {
 
         try {
             json_decode($json, false, $depth, $flags | JSON_THROW_ON_ERROR);
+
             return true;
         } catch (\JsonException $e) {
             return false;

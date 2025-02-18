@@ -2,18 +2,14 @@
 
 namespace Paytabs\Sdk\Response\Payloads;
 
-use Exception;
-
 class Failure extends Paytabs
 {
     public int $code;
     public string $message;
 
-    //
-
     public function throwException()
     {
-        throw new Exception($this->message, $this->code);
+        throw new \Exception($this->message, $this->code);
     }
 
     /*

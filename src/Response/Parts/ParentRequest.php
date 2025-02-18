@@ -4,9 +4,7 @@ namespace Paytabs\Sdk\Response\Parts;
 
 class ParentRequest
 {
-    /*
-    "parentRequest"
-    */
+    // "parentRequest"
 
     public string $tran_ref;
 

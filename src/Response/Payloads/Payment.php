@@ -26,8 +26,6 @@ abstract class Payment extends Paytabs
 
     public string $paymentChannel;
 
-    //
-
     public function setTranType(string $tran_type)
     {
         $this->tran_type = $tran_type;

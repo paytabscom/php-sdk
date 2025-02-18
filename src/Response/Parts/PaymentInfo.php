@@ -4,9 +4,7 @@ namespace Paytabs\Sdk\Response\Parts;
 
 class PaymentInfo
 {
-    /*
-    "payment_info": {
-    */
+    // "payment_info": {
     public string $payment_method; // "Visa"
     public string $card_type; // "Credit"
     public string $card_scheme; // "Visa"

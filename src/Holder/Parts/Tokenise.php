@@ -19,7 +19,7 @@ class Tokenise extends AbstractPart
     {
         return [
             'tokenise' => $this->tokenFormat,
-            'show_save_card' => $this->isOptional
+            'show_save_card' => $this->isOptional,
         ];
     }
 }

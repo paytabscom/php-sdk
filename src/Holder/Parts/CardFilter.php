@@ -7,8 +7,6 @@ class CardFilter extends AbstractPart
     private string $cardFilter;
     private string $cardFilterTitle;
 
-    //
-
     public function __construct(
         string $cardFilter,
         string $cardFilterTitle

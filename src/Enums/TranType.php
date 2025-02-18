@@ -19,8 +19,6 @@ enum TranType: string
     case Release = 'release';
     case Refund = 'refund';
 
-    //
-
     /**
      * @throws ValueError If there is no matching case defined
      */
@@ -37,13 +35,13 @@ enum TranType: string
             $tran_type = $ipn_data->tran_type;
 
             // Sale && previous_tran_ref
-            if (isset($original_trx) && (TranType::get($tran_type) === TranType::Sale)) {
+            if (isset($original_trx) && (TranType::Sale === TranType::get($tran_type))) {
                 return true;
             }
 
             // Or Expired
             $tran_status = @$ipn_data->payment_result->response_status;
-            if ($tran_status === 'X') {
+            if ('X' === $tran_status) {
                 return true;
             }
         }
