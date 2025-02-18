@@ -6,7 +6,6 @@ use Paytabs\Sdk\Holder\Builders\HostedPage;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
-use Paytabs\Sdk\Holder\Parts\CardFilter;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
@@ -30,7 +29,6 @@ $holder
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
     ->buildConfigId($configs['config_id'])
-    ->buildCardFilter('4111','only accept cards starts with 4111')
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod(Card::CODE)
@@ -41,6 +39,9 @@ $holder
     )
     ->buildPaymentMethod('test')
 ;
+
+// Add Card Filter
+$holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
 
 $request = new PaymentRequest($gateway, $holder);
 

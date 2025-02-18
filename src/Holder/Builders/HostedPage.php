@@ -47,10 +47,10 @@ class HostedPage extends PrimaryPayment
         return $this;
     }
 
-    public function buildCardFilter(string $cardfilter, string $cardfiltertitle)
+    public function buildCardFilter(string $cardFilter, string $cardFilterTitle)
     {
         $this->product->buildBody(
-            new CardFilter($cardfilter,$cardfiltertitle)
+            new CardFilter($cardFilter, $cardFilterTitle)
         );
 
         return $this;
