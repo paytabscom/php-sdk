@@ -28,6 +28,8 @@ class Completed extends Payment
     public string $token;
     protected TranClass $tranClass;
 
+    public string $customer_ref;
+
     public function setTranClass(string $tran_class)
     {
         $this->tran_class = $tran_class;
