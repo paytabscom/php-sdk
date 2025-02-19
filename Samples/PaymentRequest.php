@@ -6,6 +6,7 @@ use Paytabs\Sdk\Holder\Builders\HostedPage;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
@@ -13,16 +14,20 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 $holder = new HostedPage();
 $holder
-    ->buildCart("c01", "AED", 100.51, "Test")
+    ->buildCart("c01", "EGP", 700, "Test")
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
-        (new CustomerDetails('Wajih SDK3', '0522222222', 'wajih@mail.com'))
-            ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
+        (new CustomerDetails('walaa SDK3', '0522222222', 'walaa@mail.com'))
+            ->setAddress('egp', 'egypt', 'shrook', 'nsr st', '11111')
             ->setIp('1.1.1.1')
     )
+    ->buildUserDefined((new UserDefined())
+    ->setUDF1('walaa1')
+    ->setUDF8('walaa8')
+    ->setUDF4('walaa4'))
     ->buildShippingDetails(
-        new ShippingDetails('Wajih 2')
+        new ShippingDetails('walaa 2')
     )
     ->buildHideShipping(true)
     ->buildTokenise(true)

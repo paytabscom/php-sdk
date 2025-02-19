@@ -3,7 +3,7 @@
 // APP_ROOT points to the root directory of the library
 define("APP_ROOT", realpath(dirname(__FILE__)) . '/../');
 
-use Paytabs\Sdk\Gateway\Endpoints\Uae;
+use Paytabs\Sdk\Gateway\Endpoints\Egypt;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
@@ -11,7 +11,7 @@ use Paytabs\Sdk\Paytabs;
 require_once APP_ROOT . 'vendor/autoload.php';
 
 $configs = parse_ini_file(APP_ROOT . 'Samples/config.ini');
-$gateway = new Gateway(Uae::getInstance(), $configs['profile_id'], $configs['server_key']);
+$gateway = new Gateway(Egypt::getInstance(), $configs['profile_id'], $configs['server_key']);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {
