@@ -38,6 +38,7 @@ $holder
             ->excludeMethods(['applepay', 'samsungpay'])
     )
     ->buildPaymentMethod('test')
+    ->buildCustomerReference('customer-ref-1')
 ;
 
 // Add Card Filter
