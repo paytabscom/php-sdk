@@ -5,6 +5,7 @@ namespace Paytabs\Sdk\Holder\Builders;
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\CustomerReference;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\PaypageLang;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
@@ -112,6 +113,15 @@ abstract class PrimaryPayment extends AirlineData
         $this->product->buildBody(
             PaymentMethods::init()->includeMethod($method),
             true
+        );
+
+        return $this;
+    }
+
+    public function buildCustomerReference(string $customerReference)
+    {
+        $this->product->buildBody(
+            new CustomerReference($customerReference)
         );
 
         return $this;
