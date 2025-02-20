@@ -74,7 +74,7 @@ class UserDefined extends AbstractPart
 
     public function build(): array
     {
-        return [
+        $array = [
             static::KEY => [
                 'udf1' => $this->udf1,
                 'udf2' => $this->udf2,
@@ -87,6 +87,14 @@ class UserDefined extends AbstractPart
                 'udf9' => $this->udf9,
             ],
         ];
+
+        foreach ($array as $key => $value) {
+            if (null === $value || '' === $value) {
+                unset($array[$key]);
+            }
+        }
+        
+        return $array;
     }
 
     
