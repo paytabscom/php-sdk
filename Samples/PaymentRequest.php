@@ -13,7 +13,7 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 $holder = new HostedPage();
 $holder
-    ->buildCart("c01", "AED", 100.51, "Test")
+    ->buildCart('c01', 'EGP', 100.51, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
@@ -44,6 +44,9 @@ $holder
 // Add Card Filter
 $holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
 
+// Add Donation Mode
+$holder->buildDonation(true, 10, 1000);
+
 $request = new PaymentRequest($gateway, $holder);
 
 Paytabs::getLogger()->debug(
@@ -55,7 +58,7 @@ Paytabs::getLogger()->debug(
     [$request->getPayload()]
 );
 
-/** @var Http $http */
+// @var Http $http
 $http->setRequest($request);
 $http->setDebugMode(false);
 

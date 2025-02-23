@@ -5,6 +5,7 @@ namespace Paytabs\Sdk\Holder\Builders;
 use Paytabs\Sdk\Holder\Parts\AltCurrency;
 use Paytabs\Sdk\Holder\Parts\CardFilter;
 use Paytabs\Sdk\Holder\Parts\ConfigId;
+use Paytabs\Sdk\Holder\Parts\Donation;
 use Paytabs\Sdk\Holder\Parts\Framed;
 use Paytabs\Sdk\Holder\Parts\HideShipping;
 
@@ -48,6 +49,15 @@ class HostedPage extends PrimaryPayment
     {
         $this->product->buildBody(
             new CardFilter($cardFilter, $cardFilterTitle)
+        );
+
+        return $this;
+    }
+
+    public function buildDonation(bool $donationMode, int $cartMin, int $cartMax)
+    {
+        $this->product->buildBody(
+            new Donation($donationMode, $cartMin, $cartMax)
         );
 
         return $this;
