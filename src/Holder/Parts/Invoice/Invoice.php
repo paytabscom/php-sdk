@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Holder\Parts\Invoice;
 
-use Paytabs\Sdk\Holder\Parts\AbstractPart;
+use Paytabs\Sdk\Holder\Parts\UserDefined;
 
-class Invoice extends AbstractPart
+class Invoice extends UserDefined
 {
     // Invoice Lang
     public ?string $invoiceLang = null;

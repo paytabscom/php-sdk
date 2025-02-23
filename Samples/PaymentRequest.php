@@ -14,7 +14,7 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 $holder = new HostedPage();
 $holder
-    ->buildCart("c01", "EGP", 700, "Test")
+    ->buildCart('c01', 'EGP', 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
@@ -23,9 +23,9 @@ $holder
             ->setIp('1.1.1.1')
     )
     ->buildUserDefined((new UserDefined())
-    ->setUDF1('walaa1')
-    ->setUDF8('walaa8')
-    ->setUDF4('walaa4'))
+        ->setUDF1('walaa1')
+        ->setUDF8('walaa8')
+        ->setUDF4('walaa4'))
     ->buildShippingDetails(
         new ShippingDetails('walaa 2')
     )
@@ -59,7 +59,7 @@ Paytabs::getLogger()->debug(
     [$request->getPayload()]
 );
 
-/** @var Http $http */
+// @var Http $http
 $http->setRequest($request);
 $http->setDebugMode(false);
 

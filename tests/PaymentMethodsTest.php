@@ -8,6 +8,11 @@ use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 use Paytabs\Sdk\PaymentMethod\MethodsFactory;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class PaymentMethodsTest extends TestCase
 {
     public function testCreatePaymentMethod(): void
@@ -38,8 +43,6 @@ final class PaymentMethodsTest extends TestCase
             self::assertNull($method);
         }
     }
-
-    //
 
     public function testCreatePaymentMethodsById(): void
     {
