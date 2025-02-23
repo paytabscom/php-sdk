@@ -124,5 +124,4 @@ abstract class PrimaryPayment extends AirlineData
 
         return $this;
     }
-
 }

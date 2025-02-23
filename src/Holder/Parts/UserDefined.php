@@ -4,7 +4,6 @@ namespace Paytabs\Sdk\Holder\Parts;
 
 class UserDefined extends AbstractPart
 {
-
     protected const KEY = 'user_defined';
 
     public ?string $udf1 = null;
@@ -16,59 +15,67 @@ class UserDefined extends AbstractPart
     public ?string $udf7 = null;
     public ?string $udf8 = null;
     public ?string $udf9 = null;
-    
-    
-    public function setUDF1(?string $udf1 = null) : self
+
+    public function setUDF1(?string $udf1 = null): self
     {
         $this->udf1 = $udf1;
+
         return $this;
     }
 
-    public function setUDF2(?string $udf2 = null) : self
+    public function setUDF2(?string $udf2 = null): self
     {
         $this->udf2 = $udf2;
+
         return $this;
     }
 
-    public function setUDF3(?string $udf3 = null) : self
+    public function setUDF3(?string $udf3 = null): self
     {
         $this->udf3 = $udf3;
+
         return $this;
     }
 
-    public function setUDF4(?string $udf4 = null) : self
+    public function setUDF4(?string $udf4 = null): self
     {
         $this->udf4 = $udf4;
+
         return $this;
     }
 
-    public function setUDF5(?string $udf5 = null) : self
+    public function setUDF5(?string $udf5 = null): self
     {
         $this->udf5 = $udf5;
+
         return $this;
     }
 
-    public function setUDF6(?string $udf6 = null) : self
+    public function setUDF6(?string $udf6 = null): self
     {
         $this->udf6 = $udf6;
+
         return $this;
     }
 
-    public function setUDF7(?string $udf7 = null) : self
+    public function setUDF7(?string $udf7 = null): self
     {
         $this->udf7 = $udf7;
+
         return $this;
     }
 
-    public function setUDF8(?string $udf8 = null) : self
+    public function setUDF8(?string $udf8 = null): self
     {
         $this->udf8 = $udf8;
+
         return $this;
     }
 
-    public function setUDF9(?string $udf9 = null) : self
+    public function setUDF9(?string $udf9 = null): self
     {
         $this->udf9 = $udf9;
+
         return $this;
     }
 
@@ -89,13 +96,11 @@ class UserDefined extends AbstractPart
         ];
 
         foreach ($array as $key => $value) {
-            if (null === $value || '' === $value) {
+            if (null === $value) {
                 unset($array[$key]);
             }
         }
-        
+
         return $array;
     }
-
-    
 }
