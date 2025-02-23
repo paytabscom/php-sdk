@@ -4,8 +4,8 @@ Payment request params:
  token_info:
  donation:
  invoice object:
- customer_ref: string
- BIN based card approval:
+ customer_ref: string (done)
+ BIN based card approval: PT-5217
 
 
 Discount Patterns:
@@ -35,8 +35,8 @@ Callback & Return:
   
 
 PHP Scaffolding:
-  - Endpoint
-  - Part
+  - Endpoint (done)
+  - Part (done)
   - Builder
   - Request
   - Response
@@ -50,3 +50,4 @@ API issues:
   Params not consistent: card_filer is string while card_discount is array ?? similar functions
   response codes not accurate: wrong invoice number => 500 ??, other APIs return 400 sometime if there is error, others 200 with error message
   response params not consistent: trace & trace_code & ipn_trace ??
+  request params not consistent: Sadad payment request include `amount` which is similar to `cart_amount`, the invoice object should be similar
