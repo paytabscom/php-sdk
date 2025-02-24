@@ -40,9 +40,9 @@ $holder
     ->buildCart('inv-01', $configs['currency'], 20, 'Invoice test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildUserDefined((new UserDefined())
-        ->setUDF1('walaa1')
+        ->setUDF1('udf_1')
         ->setUDF8()
-        ->setUDF4('walaa4'))
+        ->setUDF4('udf_4'))
 ;
 
 Paytabs::getLogger()->debug(
