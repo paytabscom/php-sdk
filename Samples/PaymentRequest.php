@@ -6,6 +6,7 @@ use Paytabs\Sdk\Holder\Builders\HostedPage;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
@@ -13,16 +14,20 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 $holder = new HostedPage();
 $holder
-    ->buildCart("c01", "AED", 100.51, "Test")
+    ->buildCart('c01', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
-        (new CustomerDetails('Wajih SDK3', '0522222222', 'wajih@mail.com'))
+        (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
             ->setIp('1.1.1.1')
     )
+    ->buildUserDefined((new UserDefined())
+        ->setUDF1('udf_1')
+        ->setUDF8('udf_8')
+        ->setUDF4('udf_4'))
     ->buildShippingDetails(
-        new ShippingDetails('Wajih 2')
+        new ShippingDetails('Integrations 2')
     )
     ->buildHideShipping(true)
     ->buildTokenise(true)

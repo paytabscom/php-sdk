@@ -10,8 +10,6 @@ $holder->buildInvoiceId($invoiceId);
 
 $request = new InvoiceStatus($gateway, $holder);
 
-//
-
 /** @var Http $http */
 $http->setRequest($request);
 $http->setDebugMode(true);

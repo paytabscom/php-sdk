@@ -11,6 +11,7 @@ use Paytabs\Sdk\Holder\Parts\PaypageLang;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Holder\Parts\Tokenise;
 use Paytabs\Sdk\Holder\Parts\TokeniseEnhanced;
+use Paytabs\Sdk\Holder\Parts\UserDefined;
 
 abstract class PrimaryPayment extends AirlineData
 {
@@ -123,6 +124,13 @@ abstract class PrimaryPayment extends AirlineData
         $this->product->buildBody(
             new CustomerReference($customerReference)
         );
+
+        return $this;
+    }
+
+    public function buildUserDefined(UserDefined $userDefined)
+    {
+        $this->product->buildBody($userDefined);
 
         return $this;
     }
