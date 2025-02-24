@@ -1,5 +1,5 @@
 Payment request params:
- user_defined: obj of udf[0-9]:
+ user_defined: (done) obj of udf[0-9]:
  card_discounts: array of obj of [discount_cards, discount_title, discount_amount/discount_percent]
  token_info:
  donation:
@@ -29,6 +29,7 @@ Requests:
   Invoice Mark as Read:
   valU inquiry:
   Sadad inquiry:
+  PayLink:
 
 
 Callback & Return:
@@ -51,3 +52,4 @@ API issues:
   response codes not accurate: wrong invoice number => 500 ??, other APIs return 400 sometime if there is error, others 200 with error message
   response params not consistent: trace & trace_code & ipn_trace ??
   request params not consistent: Sadad payment request include `amount` which is similar to `cart_amount`, the invoice object should be similar
+  return_using_get: not supported in invoice URLs
