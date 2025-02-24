@@ -43,6 +43,7 @@ $holder
         ->setUDF1('udf_1')
         ->setUDF8(null)
         ->setUDF4('udf_4'))
+    ->buildURLs($urlReturn, $urlCallback)
 ;
 
 Paytabs::getLogger()->debug(
