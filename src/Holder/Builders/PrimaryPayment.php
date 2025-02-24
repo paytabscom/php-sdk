@@ -128,9 +128,9 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildUserDefined(UserDefined $UserDefined)
+    public function buildUserDefined(UserDefined $userDefined)
     {
-        $this->product->buildBody($UserDefined);
+        $this->product->buildBody($userDefined);
 
         return $this;
     }
