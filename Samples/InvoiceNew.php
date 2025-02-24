@@ -37,7 +37,7 @@ $invoicePart
 $holder
     ->buildInvoice($invoicePart)
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildCart('inv-01', 'EGP', 20, 'Invoice test')
+    ->buildCart('inv-01', $configs['currency'], 20, 'Invoice test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildUserDefined((new UserDefined())
         ->setUDF1('walaa1')
