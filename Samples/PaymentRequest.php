@@ -14,12 +14,12 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
 $holder = new HostedPage();
 $holder
-    ->buildCart('c01', 'EGP', 700, 'Test')
+    ->buildCart('c01', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
-        (new CustomerDetails('walaa SDK3', '0522222222', 'walaa@mail.com'))
-            ->setAddress('egp', 'egypt', 'shrook', 'nsr st', '11111')
+        (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
+            ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
             ->setIp('1.1.1.1')
     )
     ->buildUserDefined((new UserDefined())
