@@ -16,63 +16,63 @@ class UserDefined extends AbstractPart
     public ?string $udf8 = null;
     public ?string $udf9 = null;
 
-    public function setUDF1(?string $udf1 = null): self
+    public function setUDF1(?string $udf1): self
     {
         $this->udf1 = $udf1;
 
         return $this;
     }
 
-    public function setUDF2(?string $udf2 = null): self
+    public function setUDF2(?string $udf2): self
     {
         $this->udf2 = $udf2;
 
         return $this;
     }
 
-    public function setUDF3(?string $udf3 = null): self
+    public function setUDF3(?string $udf3): self
     {
         $this->udf3 = $udf3;
 
         return $this;
     }
 
-    public function setUDF4(?string $udf4 = null): self
+    public function setUDF4(?string $udf4): self
     {
         $this->udf4 = $udf4;
 
         return $this;
     }
 
-    public function setUDF5(?string $udf5 = null): self
+    public function setUDF5(?string $udf5): self
     {
         $this->udf5 = $udf5;
 
         return $this;
     }
 
-    public function setUDF6(?string $udf6 = null): self
+    public function setUDF6(?string $udf6): self
     {
         $this->udf6 = $udf6;
 
         return $this;
     }
 
-    public function setUDF7(?string $udf7 = null): self
+    public function setUDF7(?string $udf7): self
     {
         $this->udf7 = $udf7;
 
         return $this;
     }
 
-    public function setUDF8(?string $udf8 = null): self
+    public function setUDF8(?string $udf8): self
     {
         $this->udf8 = $udf8;
 
         return $this;
     }
 
-    public function setUDF9(?string $udf9 = null): self
+    public function setUDF9(?string $udf9): self
     {
         $this->udf9 = $udf9;
 

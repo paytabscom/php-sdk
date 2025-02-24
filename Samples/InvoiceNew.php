@@ -41,7 +41,7 @@ $holder
     ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildUserDefined((new UserDefined())
         ->setUDF1('udf_1')
-        ->setUDF8()
+        ->setUDF8(null)
         ->setUDF4('udf_4'))
 ;
 
