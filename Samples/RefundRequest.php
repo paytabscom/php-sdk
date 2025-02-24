@@ -27,7 +27,7 @@ $holder2
 
 $request = new PaymentRequest($gateway, $holder2);
 
-// @var Http $http
+/** @var Http $http */
 $http->setRequest($request);
 
 $response = $http->submit();

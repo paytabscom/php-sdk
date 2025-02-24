@@ -11,7 +11,7 @@ $holder = new BuildersTransactionQuery();
 $holder->buildTransactionRef($trxRef);
 $request = new TransactionQuery($gateway, $holder);
 
-// @var Http $http
+/** @var Http $http */
 $http->setRequest($request);
 
 $response = $http->submit();
