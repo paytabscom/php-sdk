@@ -5,15 +5,15 @@ use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserCallback;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserReturn;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
 
-$return = @$_GET['mode'] === 'return';
+$return = 'return' === @$_GET['mode'];
 
 if ($return) {
-    $returnAsGet = @$_GET['get'] === '1';
+    $returnAsGet = '1' === @$_GET['get'];
 
     $localParams = [
         'mode',
         'result',
-        'get'
+        'get',
     ];
 
     if (!$returnAsGet) {
@@ -29,7 +29,6 @@ if ($return) {
         'Response' => $response->getPayload()->getMapped(),
     ]);
 } else {
-
     $ipnResponse = Callback::init();
     $ipnResponse->setGateway($gateway);
 

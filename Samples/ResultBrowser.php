@@ -18,8 +18,6 @@ Paytabs::getLogger()->debug('Return Payload: ', [
     'Response' => $response1->getPayload()->getMapped(),
 ]);
 
-//
-
 $getResult = 'acquirerMessage=&acquirerRRN=&cartId=c01&customerEmail=wajih%40mail.com&respCode=G42967&respMessage=Authorised&respStatus=A&signature=7328ebcbd1708a14ed9ec34731b017b569dec45170fd2aa6abc113018defe911&token=2C4655BE67A3E537C6B593FF60817AB9&tranRef=TST2502902213573';
 
 // $response = BrowserReturn::init();

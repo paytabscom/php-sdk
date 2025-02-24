@@ -9,25 +9,18 @@ $method = MethodsFactory::createMethod($method_code);
 
 logMethod($method);
 
-//
-
 $method_id = 1;
 $method = MethodsFactory::createMethodById($method_id);
 
 logMethod($method);
 
-//
-
 $method_pt_code = 'paytabs_card';
 $method = MethodsFactory::createMethodByUnique($method_pt_code);
 logMethod($method);
 
-//
-
 $method_pt_code = 'paytabs_sadad';
 $method = MethodsFactory::createMethodByUnique($method_pt_code);
 logMethod($method);
-
 
 function logMethod(AbstractMethod $method)
 {

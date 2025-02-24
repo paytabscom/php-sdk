@@ -1,4 +1,4 @@
 .vscode
 vendor
 .php-cs-fixer.cache
-Samples/config.ini
+Samples/config.php
