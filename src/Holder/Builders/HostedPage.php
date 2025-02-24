@@ -54,7 +54,7 @@ class HostedPage extends PrimaryPayment
         return $this;
     }
 
-    public function buildDonation(bool $donationMode, int $cartMin, int $cartMax)
+    public function buildDonationMode(bool $donationMode, float $cartMin, float $cartMax)
     {
         $this->product->buildBody(
             new Donation($donationMode, $cartMin, $cartMax)

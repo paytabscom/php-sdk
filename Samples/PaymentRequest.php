@@ -50,7 +50,7 @@ $holder
 $holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
 
 // Add Donation Mode
-$holder->buildDonation(true, 10, 1000);
+$holder->buildDonationMode(true, 10.5, 100.8);
 
 $request = new PaymentRequest($gateway, $holder);
 
@@ -63,7 +63,7 @@ Paytabs::getLogger()->debug(
     [$request->getPayload()]
 );
 
-// @var Http $http
+/** @var Http $http */
 $http->setRequest($request);
 $http->setDebugMode(false);
 

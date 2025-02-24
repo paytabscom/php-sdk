@@ -5,13 +5,13 @@ namespace Paytabs\Sdk\Holder\Parts;
 class Donation extends AbstractPart
 {
     private bool $donationMode;
-    private int $cartMin;
-    private int $cartMax;
+    private float $cartMin;
+    private float $cartMax;
 
     public function __construct(
-        string $donationMode,
-        string $cartMin,
-        string $cartMax
+        bool $donationMode,
+        float $cartMin,
+        float $cartMax
     ) {
         $this->donationMode = $donationMode;
         $this->cartMin = $cartMin;
