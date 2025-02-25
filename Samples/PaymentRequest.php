@@ -60,6 +60,9 @@ $cardDiscounts = new CardDiscounts(
 $cardDiscounts->includeDiscount(
     new CardDiscount(CardDiscountType::Fixed, 15.0, '4111,40000', '15 Fixed Discount on Cards starting with 4111 or 40000')
 );
+/*$cardDiscounts->includeDiscount(
+    new CardDiscount(CardDiscountType::Fixed, 10, 'AA', 'Invalid Pattern')
+);*/
 
 $holder->buildCardDiscounts($cardDiscounts);
 
