@@ -12,6 +12,12 @@ class CardDiscount implements PartInterface
     private string $cardsPatterns;
     private string $discountTitle;
 
+    //
+
+    const DISCOUNT_PATTERN_REGEX = '/^[0-9]{4,10}$/';
+
+    //
+
     public function __construct(
         CardDiscountType $discountType,
         float $discountAmount,
@@ -22,6 +28,10 @@ class CardDiscount implements PartInterface
         $this->discountAmount = $discountAmount;
         $this->cardsPatterns = $cardsPatterns;
         $this->discountTitle = $discountTitle;
+
+        if (!static::isValidDiscountPatterns($cardsPatterns)) {
+            throw new \InvalidArgumentException('Invalid card discount patterns');
+        }
     }
 
     public function build(): array
@@ -35,5 +45,29 @@ class CardDiscount implements PartInterface
             'discount_cards' => $this->cardsPatterns,
             $discountKey => $this->discountAmount,
         ];
+    }
+
+    //
+
+    public static function isValidDiscountPatterns(string $cardsPatterns)
+    {
+        $patterns = explode(',', $cardsPatterns);
+
+        if (empty($patterns)) {
+            return false;
+        }
+
+        foreach ($patterns as $prefix) {
+            if (!static::isValidDiscountPattern($prefix)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static function isValidDiscountPattern(string $pattern)
+    {
+        return preg_match(static::DISCOUNT_PATTERN_REGEX, $pattern);
     }
 }

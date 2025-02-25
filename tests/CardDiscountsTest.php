@@ -58,4 +58,16 @@ final class CardDiscountsTest extends TestCase
 
         assertArrayHasKey('discount_amount', $apiBody['card_discounts'][2]);
     }
+
+    public function testInvalidPattern(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $discountInvalid = new CardDiscount(
+            CardDiscountType::Percent,
+            5.0,
+            '4,A1',
+            '5% Discount applied to Cards starting with 4000 or 5123'
+        );
+    }
 }
