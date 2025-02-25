@@ -2,16 +2,16 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
-use Paytabs\Sdk\Holder\Parts\Invoice\Invoice as InvoicePart;
-use Paytabs\Sdk\Holder\Parts\Invoice\LineItem;
-use Paytabs\Sdk\Holder\Parts\Invoice\LineItems;
+use Paytabs\Sdk\Holder\Builders\Invoice\Invoice as InvoiceBuilder;
+use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
+use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
+use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
 
-$holder = new Invoice();
+$holder = new InvoiceBuilder();
 
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
