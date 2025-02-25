@@ -11,6 +11,7 @@ enum TranStatus: string
     case Error = 'E';
     case Declined = 'D';
     case Expired = 'X';
+    case Canceled = 'C';
 
     public function isSuccessful(): bool
     {
