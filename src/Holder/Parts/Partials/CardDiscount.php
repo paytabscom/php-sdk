@@ -8,6 +8,7 @@ use Paytabs\Sdk\Holder\PartInterface;
 class CardDiscount implements PartInterface
 {
     public const DISCOUNT_PATTERN_REGEX = '/^[0-9]{4,10}$/';
+
     private CardDiscountType $discountType;
     private float $discountAmount;
     private string $cardsPatterns;
