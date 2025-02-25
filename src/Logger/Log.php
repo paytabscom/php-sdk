@@ -38,8 +38,8 @@ class Log extends AbstractLogger
 
     private function buildMessage($level, string|\Stringable $message, array $context): string
     {
-        $_prefix =
-            date('c')
+        $_prefix
+            = date('c')
             .' '
             .$this->logPrefix
             .'.'

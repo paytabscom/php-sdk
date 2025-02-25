@@ -1,9 +1,12 @@
 <?php
 
+use Paytabs\Sdk\Enums\CardDiscountType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Builders\HostedPage;
+use Paytabs\Sdk\Holder\Parts\CardDiscounts;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\Partials\CardDiscount;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
@@ -49,8 +52,22 @@ $holder
 // Add Card Filter
 $holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
 
+// Card Discounts
+$cardDiscounts = new CardDiscounts(
+    new CardDiscount(CardDiscountType::Fixed, 10.0, '4111', '10 Fixed Discount on Cards starting with 4111'),
+    new CardDiscount(CardDiscountType::Percent, 5.0, '40000,5123', '5% Discount applied to Cards starting with 4000 or 5123')
+);
+$cardDiscounts->includeDiscount(
+    new CardDiscount(CardDiscountType::Fixed, 15.0, '4111,40000', '15 Fixed Discount on Cards starting with 4111 or 40000')
+);
+/*$cardDiscounts->includeDiscount(
+    new CardDiscount(CardDiscountType::Fixed, 10, 'AA', 'Invalid Pattern')
+);*/
+
+$holder->buildCardDiscounts($cardDiscounts);
+
 // Add Donation Mode
-$holder->buildDonationMode(true, 10.5, 100.8);
+// $holder->buildDonationMode(true, 10.5, 100.8);
 
 $request = new PaymentRequest($gateway, $holder);
 

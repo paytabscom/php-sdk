@@ -3,6 +3,7 @@
 namespace Paytabs\Sdk\Holder\Builders;
 
 use Paytabs\Sdk\Holder\Parts\AltCurrency;
+use Paytabs\Sdk\Holder\Parts\CardDiscounts;
 use Paytabs\Sdk\Holder\Parts\CardFilter;
 use Paytabs\Sdk\Holder\Parts\ConfigId;
 use Paytabs\Sdk\Holder\Parts\Donation;
@@ -59,6 +60,13 @@ class HostedPage extends PrimaryPayment
         $this->product->buildBody(
             new Donation($donationMode, $cartMin, $cartMax)
         );
+
+        return $this;
+    }
+
+    public function buildCardDiscounts(CardDiscounts $cardDiscounts)
+    {
+        $this->product->buildBody($cardDiscounts);
 
         return $this;
     }
