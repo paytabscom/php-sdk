@@ -47,8 +47,8 @@ class Invoice extends AbstractPart
             'lang' => $this->invoiceLang,
         ];
 
-        $invoiceObj =
-            $lang
+        $invoiceObj
+            = $lang
             + $charges
             + $dates
             + $disableEdit

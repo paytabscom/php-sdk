@@ -7,16 +7,11 @@ use Paytabs\Sdk\Holder\PartInterface;
 
 class CardDiscount implements PartInterface
 {
+    public const DISCOUNT_PATTERN_REGEX = '/^[0-9]{4,10}$/';
     private CardDiscountType $discountType;
     private float $discountAmount;
     private string $cardsPatterns;
     private string $discountTitle;
-
-    //
-
-    const DISCOUNT_PATTERN_REGEX = '/^[0-9]{4,10}$/';
-
-    //
 
     public function __construct(
         CardDiscountType $discountType,
@@ -36,7 +31,7 @@ class CardDiscount implements PartInterface
 
     public function build(): array
     {
-        $discountKey = ($this->discountType === CardDiscountType::Fixed)
+        $discountKey = (CardDiscountType::Fixed === $this->discountType)
             ? 'discount_amount'
             : 'discount_percent';
 
@@ -46,8 +41,6 @@ class CardDiscount implements PartInterface
             $discountKey => $this->discountAmount,
         ];
     }
-
-    //
 
     public static function isValidDiscountPatterns(string $cardsPatterns)
     {
