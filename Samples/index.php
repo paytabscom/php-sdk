@@ -42,6 +42,9 @@ if ($returnUsingGet) {
 // Test Payment Request
 include APP_ROOT.'Samples/PaymentRequest.php';
 
+// Test Own Form
+// include APP_ROOT.'Samples/OwnForm.php';
+
 // Test Query Token
 // include APP_ROOT . 'Samples/TokenQuery.php';
 // Test Query Delete

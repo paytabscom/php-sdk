@@ -23,7 +23,6 @@ $holder
     ->buildCustomerDetails(
         (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
-            ->setIp('1.1.1.1')
     )
     ->buildUserDefined((new UserDefined())
         ->setUDF1('udf_1')
