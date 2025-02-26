@@ -53,11 +53,11 @@ $holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4
 
 // Card Discounts
 $cardDiscounts = new CardDiscounts(
-    new CardDiscount(CardDiscountType::Fixed, 10.0, '4111', '10 Fixed Discount on Cards starting with 4111'),
-    new CardDiscount(CardDiscountType::Percent, 5.0, '40000,5123', '5% Discount applied to Cards starting with 4000 or 5123')
+    new CardDiscount(CardDiscountType::Fixed(), 10.0, '4111', '10 Fixed Discount on Cards starting with 4111'),
+    new CardDiscount(CardDiscountType::Percent(), 5.0, '40000,5123', '5% Discount applied to Cards starting with 4000 or 5123')
 );
 $cardDiscounts->includeDiscount(
-    new CardDiscount(CardDiscountType::Fixed, 15.0, '4111,40000', '15 Fixed Discount on Cards starting with 4111 or 40000')
+    new CardDiscount(CardDiscountType::Fixed(), 15.0, '4111,40000', '15 Fixed Discount on Cards starting with 4111 or 40000')
 );
 /*$cardDiscounts->includeDiscount(
     new CardDiscount(CardDiscountType::Fixed, 10, 'AA', 'Invalid Pattern')
