@@ -54,6 +54,7 @@ API issues:
   return_using_get: not supported in invoice URLs
   card_discounts: add discount_id and return it in response
   invoice_ref: ? in add new invoice UI
+  payment channel: not visible in own form requests
 
 Later:
   payment_methods: available in HPP, Invoice, Not in Own & Managed
