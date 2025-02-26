@@ -44,6 +44,7 @@ $holder
         ->setUDF8(null)
         ->setUDF4('udf_4'))
     ->buildURLs($urlReturn, $urlCallback)
+    ->buildPaymentMethod('card')
 ;
 
 Paytabs::getLogger()->debug(

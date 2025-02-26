@@ -27,6 +27,7 @@ $holder
     ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildCustomerReference('customer-ref-2')
+    // ->buildPaymentMethod('card') // throws Exception
 ;
 
 $direct = true;
