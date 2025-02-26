@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Holder\Builders;
 
+use Paytabs\Sdk\Holder\Parts\GenericPart;
 use Paytabs\Sdk\Holder\Parts\TransactionRef;
 use Paytabs\Sdk\Response\PayloadInterface;
 use Paytabs\Sdk\Response\Payloads\Payment\Completed;
@@ -25,11 +26,11 @@ class TransactionQuery extends AbstractHolder
 
     public function buildCartId(string $cart_id)
     {
-        $this->product->buildBody(
+        $this->product->buildBody(new GenericPart(
             [
                 'cart_id' => $cart_id,
             ]
-        );
+        ));
 
         return $this;
     }
