@@ -32,7 +32,7 @@ class CardDiscount implements PartInterface
 
     public function build(): array
     {
-        $discountKey = (CardDiscountType::Fixed === $this->discountType)
+        $discountKey = (CardDiscountType::Fixed === $this->discountType->value)
             ? 'discount_amount'
             : 'discount_percent';
 
