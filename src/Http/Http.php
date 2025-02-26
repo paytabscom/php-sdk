@@ -109,8 +109,8 @@ class Http
             CURLOPT_POSTFIELDS => $payload,
         ];
 
-        $arr =
-            $curl_options_ssl
+        $arr
+            = $curl_options_ssl
             + $curl_options_response
             + $curl_http_type
             + $curl_data;
