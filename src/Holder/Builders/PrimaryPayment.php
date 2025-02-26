@@ -6,6 +6,7 @@ use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\CustomerReference;
+use Paytabs\Sdk\Holder\Parts\HideShipping;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\PaypageLang;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
@@ -25,6 +26,15 @@ abstract class PrimaryPayment extends AirlineData
     public function buildShippingDetails(ShippingDetails $shippingDetails)
     {
         $this->product->buildBody($shippingDetails);
+
+        return $this;
+    }
+
+    public function buildHideShipping(bool $hideShipping = true)
+    {
+        $this->product->buildBody(
+            new HideShipping($hideShipping)
+        );
 
         return $this;
     }
