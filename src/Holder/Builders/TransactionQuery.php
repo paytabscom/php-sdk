@@ -26,9 +26,11 @@ class TransactionQuery extends AbstractHolder
 
     public function buildCartId(string $cart_id)
     {
-        $this->product->buildBody(new GenericPart([
-            'cart_id' => $cart_id,
-        ]));
+        $this->product->buildBody(new GenericPart(
+            [
+                'cart_id' => $cart_id,
+            ]
+        ));
 
         return $this;
     }

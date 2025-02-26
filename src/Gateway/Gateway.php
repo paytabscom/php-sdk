@@ -19,13 +19,17 @@ class Gateway extends AbstractPayload
         $this->profileId = $profileId;
         $this->serverKey = $serverKey;
 
-        $this->buildHeader(new GenericPart([
-            'Authorization: '.$this->serverKey,
-        ]));
+        $this->buildHeader(new GenericPart(
+            [
+                'Authorization: '.$this->serverKey,
+            ]
+        ));
 
-        $this->buildBody(new GenericPart([
-            'profile_id' => $this->profileId,
-        ]));
+        $this->buildBody(new GenericPart(
+            [
+                'profile_id' => $this->profileId,
+            ]
+        ));
     }
 
     public function getServerKey(): string

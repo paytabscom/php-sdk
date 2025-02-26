@@ -9,9 +9,11 @@ class InvoiceStatus extends AbstractHolder
 {
     public function buildInvoiceId(string $invoiceId)
     {
-        $this->product->buildBody(new GenericPart([
-            'invoice_id' => $invoiceId,
-        ]));
+        $this->product->buildBody(new GenericPart(
+            [
+                'invoice_id' => $invoiceId,
+            ]
+        ));
 
         return $this;
     }
