@@ -2,18 +2,15 @@ Payment request params:
  user_defined: (done) obj of udf[0-9]:
  card_discounts: (done) array of obj of [discount_cards, discount_title, discount_amount/discount_percent]
  token_info:
- donation:
+ donation: (done)
  invoice object:
- customer_ref: string (done)
+ customer_ref: (done) string
  BIN based card approval: PT-5217
 
 
-Discount Patterns:
-
-
 Builders:
-  Own Form:
-    card_details: obj of [pan, cvv, expiry_year, expiry_month]
+  Own Form (done):
+    card_details: (done) obj of [pan, cvv, expiry_year, expiry_month]
   Managed Form:
     payment_token: string
   ApplePay:
@@ -32,7 +29,9 @@ Requests:
   PayLink:
 
 
-Callback & Return:
+Discount Patterns: (done)
+
+Callback & Return: (done)
   
 
 PHP Scaffolding:
@@ -54,3 +53,7 @@ API issues:
   request params not consistent: Sadad payment request include `amount` which is similar to `cart_amount`, the invoice object should be similar
   return_using_get: not supported in invoice URLs
   card_discounts: add discount_id and return it in response
+  invoice_ref: ? in add new invoice UI
+
+Later:
+  payment_methods: available in HPP, Invoice, Not in Own & Managed
