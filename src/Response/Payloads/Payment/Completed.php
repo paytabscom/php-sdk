@@ -3,6 +3,7 @@
 namespace Paytabs\Sdk\Response\Payloads\Payment;
 
 use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Response\Parts\Invoice;
 use Paytabs\Sdk\Response\Parts\ParentRequest;
 use Paytabs\Sdk\Response\Parts\PaymentInfo;
 use Paytabs\Sdk\Response\Parts\PaymentResult;
@@ -30,6 +31,10 @@ class Completed extends Payment
     public string $customer_ref;
 
     public int $invoice_id;
+
+    public string $return;
+
+    public Invoice $invoice;
 
     protected TranClass $tranClass;
 
