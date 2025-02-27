@@ -96,8 +96,6 @@ if ($addInvoiceObject) {
     $holder->buildInvoiceObject($invoicePart);
 }
 
-//
-
 $request = new PaymentRequest($gateway, $holder);
 
 Paytabs::getLogger()->debug(
