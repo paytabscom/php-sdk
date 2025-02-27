@@ -6,7 +6,10 @@ use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Builders\HostedPage;
 use Paytabs\Sdk\Holder\Parts\CardDiscounts;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
 use Paytabs\Sdk\Holder\Parts\Partials\CardDiscount;
+use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
+use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
@@ -67,6 +70,33 @@ $holder->buildCardDiscounts($cardDiscounts);
 
 // Add Donation Mode
 // $holder->buildDonationMode(true, 10.5, 100.8);
+
+// Invoice Object
+$addInvoiceObject = false;
+$lineItem1 = LineItem::init()
+    ->setTitle('sku', 'desc', 'https://test.com')
+    ->setPrice(1, 100, 100)
+;
+
+$item2 = LineItem::init()
+    ->setTitle('item-02')
+    ->setPrice(2, 300, 600)
+;
+
+$lineItems = new LineItems($lineItem1, $item2);
+
+$invoicePart = new InvoicePart();
+$invoicePart
+    // ->setCharges(0, 0, 0, 0)
+    ->setDates(null, null, '2026-01-27T13:33:00+04:00')
+    ->setLineItems($lineItems)
+;
+
+if ($addInvoiceObject) {
+    $holder->buildInvoiceObject($invoicePart);
+}
+
+//
 
 $request = new PaymentRequest($gateway, $holder);
 

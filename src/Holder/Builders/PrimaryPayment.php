@@ -7,6 +7,7 @@ use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\CustomerReference;
 use Paytabs\Sdk\Holder\Parts\HideShipping;
+use Paytabs\Sdk\Holder\Parts\Invoice;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\PaypageLang;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
@@ -141,6 +142,13 @@ abstract class PrimaryPayment extends AirlineData
     public function buildUserDefined(UserDefined $userDefined)
     {
         $this->product->buildBody($userDefined);
+
+        return $this;
+    }
+
+    public function buildInvoiceObject(Invoice $invoice)
+    {
+        $this->product->buildBody($invoice);
 
         return $this;
     }
