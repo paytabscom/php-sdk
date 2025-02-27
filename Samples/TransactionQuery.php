@@ -21,7 +21,6 @@ Paytabs::getLogger()->debug('TransactionQuery Response', [
     'Generic' => $response->getPayload()->getMappedAs(new Generic()),
 ]);
 
-//
 echo '<hr>';
 
 $holder2 = new BuildersTransactionQuery();
@@ -33,6 +32,6 @@ $http->setRequest($request2);
 $response2 = $http->submit();
 
 Paytabs::getLogger()->debug('TransactionQuery Response (Array)', [
-    $response2->getPayload()->getMappedAs(new CompletedArray())
+    $response2->getPayload()->getMappedAs(new CompletedArray()),
     // $response2->getPayloadMapped()
 ]);

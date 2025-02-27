@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Parts\Invoice;
+namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\Parts\AbstractPart;
+use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
 
 class Invoice extends AbstractPart
 {
@@ -47,8 +47,8 @@ class Invoice extends AbstractPart
             'lang' => $this->invoiceLang,
         ];
 
-        $invoiceObj =
-            $lang
+        $invoiceObj
+            = $lang
             + $charges
             + $dates
             + $disableEdit

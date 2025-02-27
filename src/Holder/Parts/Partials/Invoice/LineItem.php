@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Parts\Invoice;
+namespace Paytabs\Sdk\Holder\Parts\Partials\Invoice;
 
 use Paytabs\Sdk\Holder\PartInterface;
 
