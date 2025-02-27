@@ -6,9 +6,7 @@ use Paytabs\Sdk\Enums\TranStatus;
 
 class PaymentResult
 {
-    /*
-    "payment_result"
-    */
+    // "payment_result"
 
     public string $response_status; // "A",
     public TranStatus $tranStatus;
@@ -19,8 +17,6 @@ class PaymentResult
     public string $cvv_result; // " ",
     public string $avs_result; // " ",
     public string $transaction_time; // "2024-12-19T11:41:30Z"
-
-    //
 
     public function setResponseStatus(string $response_status)
     {

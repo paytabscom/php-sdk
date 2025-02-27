@@ -22,9 +22,7 @@ class TokeniseEnhanced extends AbstractPart
 
     private bool $isOptional = false;
 
-    //
-
-    public function setType(
+    public function __construct(
         TokenType $tokenType,
         int $tokenFormat = 2,
         bool $isOptional = false
@@ -75,8 +73,6 @@ class TokeniseEnhanced extends AbstractPart
 
         return $this;
     }
-
-    //
 
     public function build(): array
     {

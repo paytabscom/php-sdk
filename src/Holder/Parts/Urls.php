@@ -9,8 +9,6 @@ class Urls extends AbstractPart
 
     private bool $returnUsingGet = false;
 
-    //
-
     public function setUrls(
         ?string $returnUrl,
         ?string $callbackUrl

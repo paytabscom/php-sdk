@@ -41,9 +41,21 @@ class PaymentMethods extends AbstractPart
         return $this;
     }
 
+    public function build(): array
+    {
+        /** array_values used to remove the indexes */
+        $paymentMethods = array_values(
+            array_unique($this->paymentMethods)
+        );
+
+        return [
+            'payment_methods' => $paymentMethods,
+        ];
+    }
+
     private function add(array $codes, bool $isExclude = false): void
     {
-        if ($this->readNextIf() === false) {
+        if (false === $this->readNextIf()) {
             return;
         }
 
@@ -56,19 +68,5 @@ class PaymentMethods extends AbstractPart
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);
-    }
-
-    //
-
-    public function build(): array
-    {
-        /** array_values used to remove the indexes */
-        $paymentMethods = array_values(
-            array_unique($this->paymentMethods)
-        );
-
-        return [
-            'payment_methods' => $paymentMethods,
-        ];
     }
 }

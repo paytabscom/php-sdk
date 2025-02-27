@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-use Paytabs\Sdk\Enums\ResponseStage;
+define('APP_ROOT', realpath(dirname(__FILE__)) . '/../');
+include_once APP_ROOT . 'Samples/config.php';
+
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Gateway\Endpoints\Uae;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Holder\BuilderInterface;
 use Paytabs\Sdk\Holder\Builders\HostedPage;
@@ -17,49 +18,13 @@ use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class PaymentRequestTest extends TestCase
 {
-    private function generateGateway(): Gateway
-    {
-        return new Gateway(
-            Uae::getInstance(),
-            47170,
-            'SRJNLKK2Z2-HWRGM6JDZM-MGMGGNW9JZ'
-        );
-    }
-
-    private function generatePayload(): BuilderInterface
-    {
-        $holder = new HostedPage();
-        $holder
-            ->buildCart("c01", "AED", 100.51, "Test")
-            ->buildTransaction(TranType::Sale, TranClass::Ecom)
-            ->buildPluginInfo('PHP', PHP_VERSION, null)
-            ->buildCustomerDetails(
-                (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
-                    ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
-                    ->setIp('1.1.1.1')
-            )
-            ->buildShippingDetails(
-                new ShippingDetails('Wajih 2')
-            )
-            ->buildHideShipping(true)
-            ->buildTokenise(true)
-            // ->buildURLs(null, $urlCallback)
-            ->buildAltCurrency('USD')
-            ->buildPaymentMethods(
-                PaymentMethods::init()
-                    ->includeMethod('card')
-                    ->nextIf(true)
-                    ->excludeMethod('tabby')
-                    ->includeMethods(['card', 'tamara'])
-                    ->excludeMethods(['applepay', 'samsungpay'])
-            )
-        ;
-
-        return $holder;
-    }
-
     public function testGeneratedPayload(): void
     {
         $holder = $this->generatePayload();
@@ -99,5 +64,51 @@ final class PaymentRequestTest extends TestCase
 
         $response2 = $http->submit();
         self::assertTrue($response2->isFailure(), 'Duplicate request');
+    }
+
+    private function generateGateway(): Gateway
+    {
+        $configs = readConfigs();
+
+        return new Gateway(
+            $configs['gateway'],
+            $configs['profile_id'],
+            $configs['server_key']
+        );
+    }
+
+    private function generatePayload(): BuilderInterface
+    {
+        $configs = readConfigs();
+
+        $holder = new HostedPage();
+        $holder
+            ->buildCart('c01', $configs['currency'], 100.51, 'Test')
+            ->buildTransaction(TranType::Sale, TranClass::Ecom)
+            ->buildPluginInfo('PHP', PHP_VERSION, null)
+            ->buildCustomerDetails(
+                (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
+                    ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
+                    ->setIp('1.1.1.1')
+            )
+            ->buildShippingDetails(
+                new ShippingDetails('Wajih 2')
+            )
+            ->buildHideShipping(true)
+            ->buildTokenise(true)
+            // ->buildURLs(null, $urlCallback)
+            ->buildAltCurrency('USD')
+            // ->buildConfigId(11)
+            ->buildPaymentMethods(
+                PaymentMethods::init()
+                    ->includeMethod('card')
+                    ->nextIf(true)
+                    ->excludeMethod('tabby')
+                    ->includeMethods(['card', 'tamara'])
+                    ->excludeMethods(['applepay', 'samsungpay'])
+            )
+        ;
+
+        return $holder;
     }
 }

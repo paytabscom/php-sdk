@@ -2,20 +2,18 @@
 
 namespace Paytabs\Sdk\Response;
 
+use JsonException;
 use Paytabs\Sdk\Helpers\Helpers;
-use PHPUnit\Util\InvalidJsonException;
 
 abstract class AbstractPayload implements PayloadInterface
 {
     private mixed $payloadRaw;
 
-    //
-
-    public function setResponseData(string|array $data): static
+    public function setResponseData(array|string $data): static
     {
         if (!\is_array($data)) {
             if (!Helpers::jsonValidate($data)) {
-                throw new InvalidJsonException('Invalid Payload JSON data');
+                throw new JsonException('Invalid Payload JSON data');
             }
         }
 
@@ -24,24 +22,21 @@ abstract class AbstractPayload implements PayloadInterface
         return $this;
     }
 
-    public function getResponseData(): string|array
+    public function getResponseData(): array|string
     {
         return $this->payloadRaw;
     }
-
-    //
 
     abstract public function getMapped(): static;
 
     public function getMappedAs(PayloadInterface $class): PayloadInterface
     {
         $class->setResponseData($this->getResponseData());
+
         return $class->getMapped();
     }
 
-    //
-
-    public function getAsJson(): object|array
+    public function getAsJson(): array|object
     {
         $data = $this->payloadRaw;
 

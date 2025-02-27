@@ -6,7 +6,9 @@ use Paytabs\Sdk\Holder\BuilderInterface;
 use Paytabs\Sdk\Holder\PartInterface;
 use Paytabs\Sdk\Holder\Payload\PaytabsPayload;
 use Paytabs\Sdk\Holder\PayloadInterface;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class AbstractHolder implements BuilderInterface
 {
@@ -14,14 +16,14 @@ abstract class AbstractHolder implements BuilderInterface
 
     protected ?ResponsePayloadInterface $responseClass = null;
 
-    //
+    protected LoggerInterface $logger;
 
     public function __construct()
     {
         $this->product = new PaytabsPayload();
-    }
 
-    //
+        $this->logger = Paytabs::getLogger();
+    }
 
     public function build(PartInterface $part)
     {

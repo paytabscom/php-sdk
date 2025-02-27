@@ -4,18 +4,16 @@ namespace Paytabs\Sdk\PaymentMethod;
 
 abstract class AbstractMethod
 {
-    const ID = 0;
+    public const ID = 0;
 
-    const CODE = '';
-    const PT_CODE = 'paytabs_' . self::CODE;
+    public const CODE = '';
+    public const PT_CODE = 'paytabs_'.self::CODE;
 
-    const CODE_ALIASES = [];
+    public const CODE_ALIASES = [];
 
-    const TITLE = '';
+    public const TITLE = '';
 
-    const ACTIVE = true;
-
-    //
+    public const ACTIVE = true;
 
     protected const SUPPORT_ANY_CURRENCY = false;
     protected const CURRENCIES = [];
@@ -38,8 +36,6 @@ abstract class AbstractMethod
 
     protected const SUPPORT_FRAMED = false;
 
-    //
-
     final public function matchesCode(string $code): bool
     {
         $code = strtolower($code);
@@ -52,8 +48,6 @@ abstract class AbstractMethod
 
         return false;
     }
-
-    //
 
     final public static function isCard(): bool
     {

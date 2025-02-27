@@ -27,8 +27,8 @@ class Framed extends AbstractPart
     {
         return [
             'framed' => $this->framed,
-            'framed_return_parent' => $this->framedTarget === FramedTarget::ReturnParent,
-            'framed_return_top' => $this->framedTarget === FramedTarget::ReturnTop,
+            'framed_return_parent' => FramedTarget::ReturnParent === $this->framedTarget,
+            'framed_return_top' => FramedTarget::ReturnTop === $this->framedTarget,
             'force_full_ui' => $this->forceFullUi,
             'framed_message_target' => $this->messageTarget,
         ];

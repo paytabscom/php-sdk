@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Parts\Invoice;
+namespace Paytabs\Sdk\Holder\Parts\Partials\Invoice;
 
 use Paytabs\Sdk\Holder\PartInterface;
 
@@ -22,9 +22,7 @@ class LineItem implements PartInterface
 
     public ?float $total = null;
 
-    //
-
-    public static function init(): static
+    public static function init(): self
     {
         return new static();
     }
@@ -69,8 +67,6 @@ class LineItem implements PartInterface
 
         return $this;
     }
-
-    //
 
     public function build(): array
     {
