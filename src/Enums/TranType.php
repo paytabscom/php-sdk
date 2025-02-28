@@ -19,6 +19,8 @@ enum TranType: string
     case Release = 'release';
     case Refund = 'refund';
 
+    case UnKnown = 'unknown';
+
     /**
      * @throws ValueError If there is no matching case defined
      */
