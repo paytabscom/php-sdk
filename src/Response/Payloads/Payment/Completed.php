@@ -27,7 +27,10 @@ class Completed extends Payment
 
     public string $token;
 
-    public string $customer_ref;
+    public int $invoice_id;
+
+    public string $return;
+
     protected TranClass $tranClass;
 
     public function setTranClass(string $tran_class)
