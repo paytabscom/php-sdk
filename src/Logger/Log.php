@@ -36,6 +36,13 @@ class Log extends AbstractLogger
         }
     }
 
+    protected function isImportant($level): bool
+    {
+        $important = ['error', 'critical', 'emergency', 'alert'];
+
+        return in_array($level, $important);
+    }
+
     private function buildMessage($level, string|\Stringable $message, array $context): string
     {
         $_prefix
