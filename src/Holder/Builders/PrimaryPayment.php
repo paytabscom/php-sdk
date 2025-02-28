@@ -146,7 +146,7 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildInvoiceObject(Invoice $invoice)
+    public function buildInvoice(Invoice $invoice)
     {
         $this->product->buildBody($invoice);
 

@@ -93,7 +93,7 @@ $invoicePart
 ;
 
 if ($addInvoiceObject) {
-    $holder->buildInvoiceObject($invoicePart);
+    $holder->buildInvoice($invoicePart);
 }
 
 $request = new PaymentRequest($gateway, $holder);
