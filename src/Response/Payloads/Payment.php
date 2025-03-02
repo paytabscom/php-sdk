@@ -5,6 +5,8 @@ namespace Paytabs\Sdk\Response\Payloads;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Holder\Parts\UserDefined;
+use Paytabs\Sdk\Response\Parts\Invoice;
 
 abstract class Payment extends Paytabs
 {
@@ -21,8 +23,13 @@ abstract class Payment extends Paytabs
     public float $cart_amount;
     public float $tran_total;
 
+    public string $customer_ref;
+
+    public Invoice $invoice;
+
     public CustomerDetails $customer_details;
     public ShippingDetails $shipping_details;
+    public UserDefined $user_defined;
 
     public string $paymentChannel;
 

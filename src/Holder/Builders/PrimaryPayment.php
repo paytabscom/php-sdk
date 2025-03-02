@@ -5,11 +5,15 @@ namespace Paytabs\Sdk\Holder\Builders;
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\CustomerReference;
+use Paytabs\Sdk\Holder\Parts\HideShipping;
+use Paytabs\Sdk\Holder\Parts\Invoice;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\PaypageLang;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Holder\Parts\Tokenise;
 use Paytabs\Sdk\Holder\Parts\TokeniseEnhanced;
+use Paytabs\Sdk\Holder\Parts\UserDefined;
 
 abstract class PrimaryPayment extends AirlineData
 {
@@ -23,6 +27,15 @@ abstract class PrimaryPayment extends AirlineData
     public function buildShippingDetails(ShippingDetails $shippingDetails)
     {
         $this->product->buildBody($shippingDetails);
+
+        return $this;
+    }
+
+    public function buildHideShipping(bool $hideShipping = true)
+    {
+        $this->product->buildBody(
+            new HideShipping($hideShipping)
+        );
 
         return $this;
     }
@@ -113,6 +126,29 @@ abstract class PrimaryPayment extends AirlineData
             PaymentMethods::init()->includeMethod($method),
             true
         );
+
+        return $this;
+    }
+
+    public function buildCustomerReference(string $customerReference)
+    {
+        $this->product->buildBody(
+            new CustomerReference($customerReference)
+        );
+
+        return $this;
+    }
+
+    public function buildUserDefined(UserDefined $userDefined)
+    {
+        $this->product->buildBody($userDefined);
+
+        return $this;
+    }
+
+    public function buildInvoice(Invoice $invoice)
+    {
+        $this->product->buildBody($invoice);
 
         return $this;
     }

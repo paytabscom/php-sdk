@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
+<<<<<<< HEAD
+=======
+define('APP_ROOT', realpath(dirname(__FILE__)) . '/../');
+include_once APP_ROOT . 'Samples/config.php';
+
+>>>>>>> b5b532c5c0876d70d4bcc4624ac599260882f354
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Gateway\Endpoints\Uae;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Holder\BuilderInterface;
 use Paytabs\Sdk\Holder\Builders\HostedPage;
@@ -66,18 +71,35 @@ final class PaymentRequestTest extends TestCase
 
     private function generateGateway(): Gateway
     {
+<<<<<<< HEAD
         return new Gateway(
             Uae::getInstance(),
             47170,
             'SRJNLKK2Z2-HWRGM6JDZM-MGMGGNW9JZ'
+=======
+        $configs = readConfigs();
+
+        return new Gateway(
+            $configs['gateway'],
+            $configs['profile_id'],
+            $configs['server_key']
+>>>>>>> b5b532c5c0876d70d4bcc4624ac599260882f354
         );
     }
 
     private function generatePayload(): BuilderInterface
     {
+<<<<<<< HEAD
         $holder = new HostedPage();
         $holder
             ->buildCart('c01', 'AED', 100.51, 'Test')
+=======
+        $configs = readConfigs();
+
+        $holder = new HostedPage();
+        $holder
+            ->buildCart('c01', $configs['currency'], 100.51, 'Test')
+>>>>>>> b5b532c5c0876d70d4bcc4624ac599260882f354
             ->buildTransaction(TranType::Sale, TranClass::Ecom)
             ->buildPluginInfo('PHP', PHP_VERSION, null)
             ->buildCustomerDetails(

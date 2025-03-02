@@ -3,7 +3,6 @@
 namespace Paytabs\Sdk\Response;
 
 use Paytabs\Sdk\Helpers\Helpers;
-use PHPUnit\Util\InvalidJsonException;
 
 abstract class AbstractPayload implements PayloadInterface
 {
@@ -13,7 +12,7 @@ abstract class AbstractPayload implements PayloadInterface
     {
         if (!\is_array($data)) {
             if (!Helpers::jsonValidate($data)) {
-                throw new InvalidJsonException('Invalid Payload JSON data');
+                throw new \JsonException('Invalid Payload JSON data');
             }
         }
 

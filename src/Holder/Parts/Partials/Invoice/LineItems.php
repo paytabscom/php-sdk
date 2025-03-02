@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Parts\Invoice;
+namespace Paytabs\Sdk\Holder\Parts\Partials\Invoice;
 
 use Paytabs\Sdk\Holder\PartInterface;
 
@@ -8,6 +8,11 @@ class LineItems implements PartInterface
 {
     /** @var LineItem[] */
     public array $lineItems;
+
+    public function __construct(LineItem ...$lineItems)
+    {
+        $this->lineItems = $lineItems;
+    }
 
     public function addLineItem(LineItem $lineItem): self
     {

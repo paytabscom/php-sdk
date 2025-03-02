@@ -26,6 +26,11 @@ class Completed extends Payment
     public ThreeDSDetails $threeDSDetails;
 
     public string $token;
+
+    public int $invoice_id;
+
+    public string $return;
+
     protected TranClass $tranClass;
 
     public function setTranClass(string $tran_class)

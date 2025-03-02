@@ -12,7 +12,7 @@ $holder1 = new Followup();
 $holder1
     ->buildTransaction(TranType::Refund, TranClass::Ecom)
     ->buildTransactionRef($trxRef)
-    ->buildCart('refund_01', 'AED', 10, 'Refund test')
+    ->buildCart('refund_01', $configs['currency'], 10, 'Refund test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildURLs(null, $urlCallback)
 ;
@@ -20,7 +20,7 @@ $holder1
 $holder2 = new Refund();
 $holder2
     ->buildTransactionRef($trxRef)
-    ->buildCart('refund_01', 'AED', 10, 'Refund test')
+    ->buildCart('refund_01', $configs['currency'], 10, 'Refund test')
     ->buildPluginInfo('PHP', PHP_VERSION, '')
     ->buildURLs(null, $urlCallback)
 ;

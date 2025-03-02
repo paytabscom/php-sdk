@@ -3,15 +3,16 @@
 // APP_ROOT points to the root directory of the library
 define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
 
-use Paytabs\Sdk\Gateway\Endpoints\Egypt;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 
 require_once APP_ROOT.'vendor/autoload.php';
 
-$configs = parse_ini_file(APP_ROOT.'Samples/config.ini');
-$gateway = new Gateway(Egypt::getInstance(), $configs['profile_id'], $configs['server_key']);
+include_once APP_ROOT.'Samples/config.php';
+$configs = readConfigs();
+
+$gateway = new Gateway($configs['gateway'], $configs['profile_id'], $configs['server_key']);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {
@@ -40,6 +41,9 @@ if ($returnUsingGet) {
 
 // Test Payment Request
 include APP_ROOT.'Samples/PaymentRequest.php';
+
+// Test Own Form
+// include APP_ROOT.'Samples/OwnForm.php';
 
 // Test Query Token
 // include APP_ROOT . 'Samples/TokenQuery.php';

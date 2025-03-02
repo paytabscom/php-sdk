@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Gateway;
 
+use Paytabs\Sdk\Holder\Parts\GenericPart;
 use Paytabs\Sdk\Holder\Payload\AbstractPayload;
 
 class Gateway extends AbstractPayload
@@ -18,17 +19,17 @@ class Gateway extends AbstractPayload
         $this->profileId = $profileId;
         $this->serverKey = $serverKey;
 
-        $this->buildHeader(
+        $this->buildHeader(new GenericPart(
             [
                 'Authorization: '.$this->serverKey,
             ]
-        );
+        ));
 
-        $this->buildBody(
+        $this->buildBody(new GenericPart(
             [
                 'profile_id' => $this->profileId,
             ]
-        );
+        ));
     }
 
     public function getServerKey(): string
