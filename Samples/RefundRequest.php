@@ -8,8 +8,6 @@ use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
-//
-
 $holder1 = new Followup();
 $holder1
     ->buildTransaction(TranType::Refund, TranClass::Ecom)
@@ -19,7 +17,6 @@ $holder1
     ->buildURLs(null, $urlCallback)
 ;
 
-
 $holder2 = new Refund();
 $holder2
     ->buildTransactionRef($trxRef)
@@ -28,10 +25,9 @@ $holder2
     ->buildURLs(null, $urlCallback)
 ;
 
-
 $request = new PaymentRequest($gateway, $holder2);
 
-/** @var Http $http */
+// @var Http $http
 $http->setRequest($request);
 
 $response = $http->submit();

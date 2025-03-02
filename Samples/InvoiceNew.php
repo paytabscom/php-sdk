@@ -14,11 +14,13 @@ $holder = new Invoice();
 
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
-    ->setPrice(1, 10, 10);
+    ->setPrice(1, 10, 10)
+;
 
 $item2 = LineItem::init()
     ->setTitle('item-02')
-    ->setPrice(1, 10, 10);
+    ->setPrice(1, 10, 10)
+;
 
 $lineItems = new LineItems();
 $lineItems->addLineItem($lineItem1);
@@ -45,12 +47,11 @@ Paytabs::getLogger()->debug(
 
 $request = new NewInvoice($gateway, $holder);
 
-/** @var Http $http */
+// @var Http $http
 $http->setRequest($request);
 $http->setDebugMode(true);
 
 $response = $http->submit();
-
 
 Paytabs::getLogger()->debug('InvoiceNew response: ', [
     $response->getPayloadMapped(),

@@ -10,11 +10,10 @@ $holder->buildToken($token);
 
 $request = new TokenDelete($gateway, $holder);
 
-/** @var Http $http */
+// @var Http $http
 $http->setRequest($request);
 
 $response = $http->submit();
-
 
 Paytabs::getLogger()->debug(
     'TokenDelete Response',
