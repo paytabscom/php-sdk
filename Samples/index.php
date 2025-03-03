@@ -31,6 +31,7 @@ $urlCallback = $urlBase.'?result=1';
 $urlReturn = $urlBase.'?result=1&mode=return';
 
 $token = $configs['token'];
+$tokenEnhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
 

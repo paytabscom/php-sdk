@@ -1,6 +1,8 @@
 <?php
 
 use Paytabs\Sdk\Enums\CardDiscountType;
+use Paytabs\Sdk\Enums\TokenPaymentFrequency;
+use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Builders\HostedPage;
@@ -12,6 +14,7 @@ use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
 use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Holder\Parts\TokeniseEnhanced;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
@@ -35,7 +38,6 @@ $holder
         new ShippingDetails('Integrations 2')
     )
     ->buildHideShipping(true)
-    ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
     ->buildConfigId($configs['config_id'])
@@ -50,6 +52,31 @@ $holder
     ->buildPaymentMethod('test')
     ->buildCustomerReference('customer-ref-1')
 ;
+
+$tokenise = true;
+$tokeniseEnhanced = true;
+if ($tokenise) {
+    if ($tokeniseEnhanced) {
+        $holder
+            ->buildTokeniseEnhancedObj(
+                (new TokeniseEnhanced(
+                    TokenType::RecurringFixed,
+                    2,
+                    true,
+                )
+                )->setPaymentInfo(
+                    TokenPaymentFrequency::Monthly,
+                    10,
+                    null,
+                    1,
+                    '30-MAR-2025',
+                    null
+                )->setCounter(1, 10)
+            );
+    } else {
+        $holder->buildTokenise(true);
+    }
+}
 
 // Add Card Filter
 $holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
