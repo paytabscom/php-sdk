@@ -3,7 +3,6 @@
 namespace Paytabs\Sdk\Holder\Parts;
 
 use Paytabs\Sdk\Enums\TokenType;
-use Paytabs\Sdk\Holder\Parts\AbstractPart;
 
 class TokenEnhanced extends AbstractPart
 {

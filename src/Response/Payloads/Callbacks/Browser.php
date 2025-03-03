@@ -31,8 +31,8 @@ class Browser extends Paytabs
         $this->respStatus = $respStatus;
         $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus)) ?? TranStatus::UnKnown;
 
-        if ($this->tranStatus === TranStatus::UnKnown) {
-            PaytabsSDK::getLogger()->error("Unknown transaction status", [
+        if (TranStatus::UnKnown === $this->tranStatus) {
+            PaytabsSDK::getLogger()->error('Unknown transaction status', [
                 'tran_status' => $respStatus,
             ]);
         }

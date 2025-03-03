@@ -39,8 +39,8 @@ abstract class Payment extends Paytabs
         $this->tran_type = $tran_type;
         $this->tranType = TranType::tryFrom(strtolower($tran_type)) ?? TranType::UnKnown;
 
-        if ($this->tranType === TranType::UnKnown) {
-            PaytabsSDK::getLogger()->error("Unknown transaction type", [
+        if (TranType::UnKnown === $this->tranType) {
+            PaytabsSDK::getLogger()->error('Unknown transaction type', [
                 'tran_type' => $tran_type,
             ]);
         }

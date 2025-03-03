@@ -2,8 +2,6 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Holder\Parts\AbstractPart;
-
 class Token extends AbstractPart
 {
     private string $token;
