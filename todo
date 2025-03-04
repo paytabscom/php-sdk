@@ -1,7 +1,7 @@
 Payment request params:
  user_defined: (done) obj of udf[0-9]:
  card_discounts: (done) array of obj of [discount_cards, discount_title, discount_amount/discount_percent]
- token_info:
+ token_info: (done)
  donation: (done)
  invoice object: (done)
  customer_ref: (done) string
