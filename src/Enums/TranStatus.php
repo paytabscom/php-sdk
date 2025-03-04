@@ -13,6 +13,8 @@ enum TranStatus: string
     case Expired = 'X';
     case Canceled = 'C';
 
+    case UnKnown = 'unknown';
+
     public function isSuccessful(): bool
     {
         return TranStatus::Authorised === $this;

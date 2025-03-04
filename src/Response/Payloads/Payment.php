@@ -6,6 +6,7 @@ use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
+use Paytabs\Sdk\Paytabs as PaytabsSDK;
 use Paytabs\Sdk\Response\Parts\Invoice;
 
 abstract class Payment extends Paytabs
@@ -36,6 +37,12 @@ abstract class Payment extends Paytabs
     public function setTranType(string $tran_type)
     {
         $this->tran_type = $tran_type;
-        $this->tranType = TranType::tryFrom(strtolower($tran_type));
+        $this->tranType = TranType::tryFrom(strtolower($tran_type)) ?? TranType::UnKnown;
+
+        if (TranType::UnKnown === $this->tranType) {
+            PaytabsSDK::getLogger()->error('Unknown transaction type', [
+                'tran_type' => $tran_type,
+            ]);
+        }
     }
 }

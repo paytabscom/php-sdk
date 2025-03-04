@@ -1,30 +1,31 @@
 <?php
 
 use Paytabs\Sdk\Enums\CardDiscountType;
-use Paytabs\Sdk\Enums\TokenPaymentFrequency;
+use Paytabs\Sdk\Enums\FramedTarget;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\HostedPage;
+use Paytabs\Sdk\Holder\Builders\RecurringPayment;
 use Paytabs\Sdk\Holder\Parts\CardDiscounts;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
+use Paytabs\Sdk\Holder\Parts\Framed;
 use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
 use Paytabs\Sdk\Holder\Parts\Partials\CardDiscount;
 use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
 use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
-use Paytabs\Sdk\Holder\Parts\ShippingDetails;
-use Paytabs\Sdk\Holder\Parts\TokeniseEnhanced;
+use Paytabs\Sdk\Holder\Parts\Token;
+use Paytabs\Sdk\Holder\Parts\TokenEnhanced;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 
-$holder = new HostedPage();
+$holder = new RecurringPayment();
 $holder
-    ->buildCart('cart01', $configs['currency'], 700, 'Test')
-    ->buildTransaction(TranType::Sale, TranClass::Ecom)
+    ->buildCart('ca-03', $configs['currency'], 700, 'Test')
+    ->buildTransaction(TranType::Sale, TranClass::Recurring)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
         (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
@@ -34,10 +35,8 @@ $holder
         ->setUDF1('udf_1')
         ->setUDF8('udf_8')
         ->setUDF4('udf_4'))
-    ->buildShippingDetails(
-        new ShippingDetails('Integrations 2')
-    )
-    ->buildHideShipping(true)
+    // ->buildTokenise(true)
+    ->buildFramedObj(new Framed(true, FramedTarget::ReturnTop))
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildAltCurrency('USD')
     ->buildConfigId($configs['config_id'])
@@ -49,38 +48,24 @@ $holder
             ->includeMethods(['card', 'tamara'])
             ->excludeMethods(['applepay', 'samsungpay'])
     )
-    ->buildPaymentMethod('test')
-    ->buildCustomerReference('customer-ref-1')
+    ->buildCustomerReference('customer-ref-3')
+    ->buildAirlineData('pnr-code-02')
+    ->buildPaypageLang('ar')
 ;
 
-$tokenise = true;
-$tokeniseEnhanced = false;
-if ($tokenise) {
-    if ($tokeniseEnhanced) {
+$enableToken = true;
+$enableTokenEnhanced = false;
+if ($enableToken) {
+    if ($enableTokenEnhanced) {
         $holder
-            ->buildTokeniseEnhancedObj(
-                (new TokeniseEnhanced(
-                    TokenType::RecurringFixed,
-                    2,
-                    true,
-                )
-                )->setPaymentInfo(
-                    TokenPaymentFrequency::Monthly,
-                    10,
-                    null,
-                    1,
-                    '30-MAR-2025',
-                    null
-                )->setCounter(1, 10)
-            )
+            ->buildTokenEnhanced(new TokenEnhanced($token_enhanced, TokenType::RecurringFixed))
         ;
     } else {
-        $holder->buildTokenise(true);
+        $holder
+            ->buildToken(new Token($token))
+        ;
     }
 }
-
-// Add Card Filter
-$holder->buildCardFilter('4111,4000', 'only accept cards starting with 4111 or 4000');
 
 // Card Discounts
 $cardDiscounts = new CardDiscounts(
@@ -90,11 +75,8 @@ $cardDiscounts = new CardDiscounts(
 $cardDiscounts->includeDiscount(
     new CardDiscount(CardDiscountType::Fixed, 15.0, '4111,40000', '15 Fixed Discount on Cards starting with 4111 or 40000')
 );
-/*$cardDiscounts->includeDiscount(
-    new CardDiscount(CardDiscountType::Fixed, 10, 'AA', 'Invalid Pattern')
-);*/
 
-$holder->buildCardDiscounts($cardDiscounts);
+// $holder->buildCardDiscounts($cardDiscounts);
 
 // Add Donation Mode
 // $holder->buildDonationMode(true, 10.5, 100.8);
@@ -127,11 +109,11 @@ if ($addInvoiceObject) {
 $request = new PaymentRequest($gateway, $holder);
 
 Paytabs::getLogger()->debug(
-    'PaymentRequest holder Payload',
+    'RecurringPayment holder Payload',
     $holder->getPayload()->getBody()
 );
 Paytabs::getLogger()->debug(
-    'PaymentRequest Payload:',
+    'RecurringPayment Payload:',
     [$request->getPayload()]
 );
 
@@ -152,6 +134,6 @@ if ($response->isFailure()) {
 // case ResponseStage::UnKnown:
 // case ResponseStage::Completed:
 
-Paytabs::getLogger()->debug('PaymentRequest Response: ', [
+Paytabs::getLogger()->debug('RecurringPayment Response: ', [
     'Mapped Auto' => $response->getPayloadMapped(),
 ]);
