@@ -3,6 +3,7 @@
 namespace Paytabs\Sdk\Response\Payloads\Callbacks;
 
 use Paytabs\Sdk\Enums\TranStatus;
+use Paytabs\Sdk\Paytabs as PaytabsSDK;
 use Paytabs\Sdk\Response\Payloads\Paytabs;
 
 class Browser extends Paytabs
@@ -10,24 +11,30 @@ class Browser extends Paytabs
     public string $acquirerMessage;
     public string $acquirerRRN;
 
-    public string $tranRef; // TST2436002183964
-    public string $cartId; // cart_11111
+    public string $tranRef;
+    public string $cartId;
 
-    public string $customerEmail; // email%40domain.com
+    public string $customerEmail;
 
-    public string $respStatus; // H
+    public string $respStatus;
     public TranStatus $tranStatus;
 
-    public string $respMessage; // Authorised
-    public string $respCode; // G04658
+    public string $respMessage;
+    public string $respCode;
 
-    public string $signature; // 301283e2581e8b5e42c386bc2cb9df094a759cdb7cec358dcfd217bb7dda2987
+    public string $signature;
 
     public string $token;
 
     public function setRespStatus(string $respStatus)
     {
         $this->respStatus = $respStatus;
-        $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus));
+        $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus)) ?? TranStatus::UnKnown;
+
+        if (TranStatus::UnKnown === $this->tranStatus) {
+            PaytabsSDK::getLogger()->error('Unknown transaction status', [
+                'tran_status' => $respStatus,
+            ]);
+        }
     }
 }

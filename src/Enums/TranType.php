@@ -19,6 +19,8 @@ class TranType extends EnumString
     public const Release = 'release';
     public const Refund = 'refund';
 
+    public const UnKnown = 'unknown';
+
     public static function Auth()
     {
         return new self(self::Auth);
@@ -64,12 +66,27 @@ class TranType extends EnumString
         return new self(self::Refund);
     }
 
+    public static function UnKnown()
+    {
+        return new self(self::UnKnown);
+    }
+
     /**
      * @throws ValueError If there is no matching case defined
      */
     public static function get(string $value): TranType
     {
         return TranType::from(strtolower($value));
+    }
+
+    public function supportRecurring(): bool
+    {
+        $recurring = [
+            TranType::Auth,
+            TranType::Sale,
+        ];
+
+        return in_array($this->value, $recurring);
     }
 
     /** @todo */

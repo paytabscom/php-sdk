@@ -13,6 +13,8 @@ class TranStatus extends EnumString
     public const Expired = 'X';
     public const Canceled = 'C';
 
+    public const UnKnown = 'unknown';
+
     public static function Authorised()
     {
         return new self(self::Authorised);
@@ -81,5 +83,10 @@ class TranStatus extends EnumString
     public function isExpired(): bool
     {
         return TranStatus::Expired === $this;
+    }
+
+    public static function UnKnown()
+    {
+        return new self(self::UnKnown);
     }
 }

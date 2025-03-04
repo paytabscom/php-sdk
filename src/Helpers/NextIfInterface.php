@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Helpers;
 
-interface NextIf
+interface NextIfInterface
 {
     public function nextIf(bool $cond);
 

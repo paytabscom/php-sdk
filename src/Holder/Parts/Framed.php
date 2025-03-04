@@ -8,8 +8,8 @@ class Framed extends AbstractPart
 {
     private bool $framed;
     private FramedTarget $framedTarget;
-    private string $messageTarget;
-    private bool $forceFullUi;
+    private ?string $messageTarget;
+    private ?bool $forceFullUi;
 
     public function __construct(
         bool $framed,

@@ -1,8 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Parts\Token;
-
-use Paytabs\Sdk\Holder\Parts\AbstractPart;
+namespace Paytabs\Sdk\Holder\Parts;
 
 class Token extends AbstractPart
 {
