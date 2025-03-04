@@ -29,6 +29,16 @@ enum TranType: string
         return TranType::from(strtolower($value));
     }
 
+    public function supportRecurring(): bool
+    {
+        $recurring = [
+            TranType::Auth,
+            TranType::Sale,
+        ];
+
+        return in_array($this, $recurring);
+    }
+
     /** @todo */
     public function isPaymentComplete(object $ipn_data): bool
     {

@@ -31,7 +31,7 @@ $urlCallback = $urlBase.'?result=1';
 $urlReturn = $urlBase.'?result=1&mode=return';
 
 $token = $configs['token'];
-$tokenEnhanced = $configs['token_enhanced'];
+$token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
 
@@ -97,7 +97,8 @@ $samples = [
 
 $sampleId = filter_input(INPUT_GET, 'sample', FILTER_VALIDATE_INT);
 if ($sampleId) {
-    echo '<a href="?">Back</a><br><br>';
+    echo '<a href="?">Back</a><br>';
+    echo '<h2>'.$samples[$sampleId][0].'</h2><br>';
 
     include $samples[$sampleId][1];
 
