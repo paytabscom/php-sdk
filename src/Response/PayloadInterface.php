@@ -13,4 +13,6 @@ interface PayloadInterface
     public function getMappedAs(PayloadInterface $class): PayloadInterface;
 
     public function getAsJson(): array|object;
+
+    public function unMappedData(): array;
 }

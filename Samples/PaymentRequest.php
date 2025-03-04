@@ -49,7 +49,7 @@ $holder
             ->includeMethods(['card', 'tamara'])
             ->excludeMethods(['applepay', 'samsungpay'])
     )
-    ->buildPaymentMethod('test')
+    // ->buildPaymentMethod('test')
     ->buildCustomerReference('customer-ref-1')
 ;
 
@@ -100,7 +100,7 @@ $holder->buildCardDiscounts($cardDiscounts);
 // $holder->buildDonationMode(true, 10.5, 100.8);
 
 // Invoice Object
-$addInvoiceObject = false;
+$addInvoiceObject = true;
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
     ->setPrice(1, 100, 100)
@@ -152,6 +152,11 @@ if ($response->isFailure()) {
 // case ResponseStage::UnKnown:
 // case ResponseStage::Completed:
 
+$resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('PaymentRequest Response: ', [
-    'Mapped Auto' => $response->getPayloadMapped(),
+    'Mapped Auto' => $resMapped,
+]);
+
+Paytabs::getLogger()->error('Missed Data: ', [
+    $resMapped->unMappedData(),
 ]);

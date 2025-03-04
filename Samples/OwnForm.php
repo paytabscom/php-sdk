@@ -98,3 +98,6 @@ $resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('OwnForm Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
+Paytabs::getLogger()->error('OwnForm Missed Data: ', [
+    'Missed Data' => $resMapped->unMappedData(),
+]);
