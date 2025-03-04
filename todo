@@ -65,6 +65,7 @@ API issues:
     recurring_fixed: fixes the discounted amount, not the original amount
     recurring_fixed: if class=ecomtoken, and donation mode is active, any amount can be entered
     udf: not working if class=recurring but working if class=ecomtoken
+    enhanced tokenise: date format is different than the system formats
   alt_currency: not visible with card_discounts
 
 Later:
