@@ -72,7 +72,8 @@ if ($tokenise) {
                     '30-MAR-2025',
                     null
                 )->setCounter(1, 10)
-            );
+            )
+        ;
     } else {
         $holder->buildTokenise(true);
     }

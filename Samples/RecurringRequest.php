@@ -58,10 +58,12 @@ $enableTokenEnhanced = false;
 if ($enableToken) {
     if ($enableTokenEnhanced) {
         $holder
-            ->buildTokenEnhanced(new TokenEnhanced($token_enhanced, TokenType::RecurringFixed));
+            ->buildTokenEnhanced(new TokenEnhanced($token_enhanced, TokenType::RecurringFixed))
+        ;
     } else {
         $holder
-            ->buildToken(new Token($token));
+            ->buildToken(new Token($token))
+        ;
     }
 }
 
@@ -83,11 +85,13 @@ $cardDiscounts->includeDiscount(
 $addInvoiceObject = false;
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
-    ->setPrice(1, 100, 100);
+    ->setPrice(1, 100, 100)
+;
 
 $item2 = LineItem::init()
     ->setTitle('item-02')
-    ->setPrice(2, 300, 600);
+    ->setPrice(2, 300, 600)
+;
 
 $lineItems = new LineItems($lineItem1, $item2);
 

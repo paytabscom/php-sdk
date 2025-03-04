@@ -56,6 +56,16 @@ API issues:
   invoice_ref: ? in add new invoice UI
   payment channel: not visible in own form requests
   payment_methods: PT2 accepts invalid codes in payment page, but if there is invoice object PT2 rejects the request
+  recurring_payments:
+    customer details: are not taking from the request if class=recurring, but it is taking if class=ecomtoken
+    invoice object: are not taking from the request if class=recurring, but it is taking if class=ecomtoken
+    shipping details: ignored
+    card filter: ignored
+    card discounts: worked in ecomToken, but there is a UI bug
+    recurring_fixed: fixes the discounted amount, not the original amount
+    recurring_fixed: if class=ecomtoken, and donation mode is active, any amount can be entered
+    udf: not working if class=recurring but working if class=ecomtoken
+  alt_currency: not visible with card_discounts
 
 Later:
   payment_methods: available in HPP, Invoice, Not in Own & Managed
