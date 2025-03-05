@@ -24,16 +24,24 @@ if ($return) {
         $response->setGateway($gateway);
     }
 
+    $resMapped = $response->getPayload()->getMapped();
     Paytabs::getLogger()->debug('Return Payload: ', [
         'isGenuine' => $response->isGenuine(),
-        'Response' => $response->getPayload()->getMapped(),
+        'Response' => $resMapped,
+    ]);
+    Paytabs::getLogger()->error('Missed Data: ', [
+        $resMapped->unMappedData(),
     ]);
 } else {
     $ipnResponse = Callback::init();
     $ipnResponse->setGateway($gateway);
 
+    $resMapped = $ipnResponse->getPayload()->getMapped();
     Paytabs::getLogger()->debug('IPN Payload: ', [
         'isGenuine' => $ipnResponse->isGenuine(),
-        'Response' => $ipnResponse->getPayload()->getMapped(),
+        'Response' => $resMapped,
+    ]);
+    Paytabs::getLogger()->error('Missed Data: ', [
+        $resMapped->unMappedData(),
     ]);
 }
