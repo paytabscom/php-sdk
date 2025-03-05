@@ -2,10 +2,10 @@
 
 namespace Paytabs\Sdk\Holder\Parts;
 
-use Paytabs\Sdk\Helpers\NextIf;
+use Paytabs\Sdk\Helpers\NextIfInterface;
 use Paytabs\Sdk\Holder\PartInterface;
 
-abstract class AbstractPart implements PartInterface, NextIf
+abstract class AbstractPart implements PartInterface, NextIfInterface
 {
     private ?bool $nextIf = null;
 

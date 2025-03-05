@@ -10,12 +10,12 @@ class TokeniseEnhanced extends AbstractPart
     private TokenType $tokenType;
     private int $tokenFormat = 2;
 
-    private TokenPaymentFrequency $paymentFrequency;
-    private float $minAmountPerPayment;
-    private float $maxAmountPerPayment;
-    private int $minDaysBetweenPayments;
-    private string $startDate;
-    private string $expiryDate;
+    private ?TokenPaymentFrequency $paymentFrequency;
+    private ?float $minAmountPerPayment;
+    private ?float $maxAmountPerPayment;
+    private ?int $minDaysBetweenPayments;
+    private ?string $startDate;
+    private ?string $expiryDate;
 
     private ?int $counter = null;
     private ?int $totalCount = null;

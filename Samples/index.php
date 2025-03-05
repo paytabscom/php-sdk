@@ -31,6 +31,7 @@ $urlCallback = $urlBase.'?result=1';
 $urlReturn = $urlBase.'?result=1&mode=return';
 
 $token = $configs['token'];
+$token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
 
@@ -39,33 +40,92 @@ if ($returnUsingGet) {
     $urlReturn .= '&get=1';
 }
 
-// Test Payment Request
-include APP_ROOT.'Samples/PaymentRequest.php';
+$samples = [
+    1 => [
+        'Payment Request',
+        APP_ROOT.'Samples/PaymentRequest.php',
+    ],
+    2 => [
+        'Own Form',
+        APP_ROOT.'Samples/OwnForm.php',
+    ],
+    3 => [
+        'Recurring Payment',
+        APP_ROOT.'Samples/RecurringRequest.php',
+    ],
+    10 => [
+        'Query Token',
+        APP_ROOT.'Samples/TokenQuery.php',
+    ],
+    11 => [
+        'Token Delete',
+        APP_ROOT.'Samples/TokenDelete.php',
+    ],
+    12 => [
+        'Transaction Query',
+        APP_ROOT.'Samples/TransactionQuery.php',
+    ],
+    20 => [
+        'Refund',
+        APP_ROOT.'Samples/RefundRequest.php',
+    ],
+    30 => [
+        'Result Browser',
+        APP_ROOT.'Samples/ResultBrowser.php',
+    ],
+    31 => [
+        'Result CallBack',
+        APP_ROOT.'Samples/ResultCallback.php',
+    ],
+    40 => [
+        'Invoice New',
+        APP_ROOT.'Samples/InvoiceNew.php',
+    ],
+    41 => [
+        'Invoice Status GET',
+        APP_ROOT.'Samples/InvoiceStatusGet.php',
+    ],
+    42 => [
+        'Invoice Status POST',
+        APP_ROOT.'Samples/InvoiceStatus.php',
+    ],
+    50 => [
+        'Payment Methods',
+        APP_ROOT.'Samples/PaymentMethods.php',
+    ],
+];
 
-// Test Own Form
-// include APP_ROOT.'Samples/OwnForm.php';
+$sampleId = filter_input(INPUT_GET, 'sample', FILTER_VALIDATE_INT);
+if ($sampleId) {
+    echo '<a href="?">Back</a><br>';
+    echo '<h2>'.$samples[$sampleId][0].'</h2><br>';
 
-// Test Query Token
-// include APP_ROOT . 'Samples/TokenQuery.php';
-// Test Query Delete
-// include APP_ROOT . 'Samples/TokenDelete.php';
+    include $samples[$sampleId][1];
 
-// Test Transaction Query
-// include APP_ROOT . 'Samples/TransactionQuery.php';
+    exit;
+}
 
-// Test Refund
-// include APP_ROOT . 'Samples/RefundRequest.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-// include APP_ROOT . 'Samples/ResultBrowser.php';
-// include APP_ROOT . 'Samples/ResultCallback.php';
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP SDK | Samples</title>
+</head>
 
-// Invoice New
-// include APP_ROOT . 'Samples/InvoiceNew.php';
+<body>
+    <h1>PHP SDK Samples</h1>
+    <div style="padding: 30px;">
+        <ol>
+            <?php foreach ($samples as $id => $sample) { ?>
+                <li style="padding-bottom: 5px;">
+                    <a href="?sample=<?php echo $id; ?>"><?php echo $sample[0]; ?></a>
+                </li>
+            <?php } ?>
+        </ol>
+    </div>
+</body>
 
-// InvoiceStatus GET
-// include APP_ROOT . 'Samples/InvoiceStatusGet.php';
-// POST
-// include APP_ROOT . 'Samples/InvoiceStatus.php';
-
-// Payment methods:
-// include APP_ROOT . 'Samples/PaymentMethods.php';
+</html>

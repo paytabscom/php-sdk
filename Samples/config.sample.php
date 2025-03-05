@@ -14,6 +14,7 @@ function readConfigs(): array
         'trx_ref' => 'TST2502902213426',
 
         'token' => '2C4654BD67Axxxx93FF628674B0',
+        'token_enhanced' => '2C4655BE67A3Exxxx3F465837EBB',
 
         'invoice_id' => 1234,
 
