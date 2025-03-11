@@ -10,6 +10,7 @@ use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Holder\Builders\OwnForm;
 use Paytabs\Sdk\Holder\Builders\RecurringPayment;
+use Paytabs\Sdk\Holder\Builders\Token\Token;
 use Paytabs\Sdk\Holder\Builders\TransactionQuery;
 
 class PayloadsFactory
@@ -54,6 +55,12 @@ class PayloadsFactory
         if ($asGet) {
             return new InvoiceStatusGet();
         }
+
         return new InvoiceStatus();
+    }
+
+    public static function token()
+    {
+        return new Token();
     }
 }

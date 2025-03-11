@@ -4,18 +4,18 @@ namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
+use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus as BuilderInvoiceStatus;
+use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet as BuildersInvoiceStatusGet;
 use Paytabs\Sdk\Holder\Builders\PaymentRequest as BuildersPaymentRequest;
 use Paytabs\Sdk\Holder\Builders\Token\Token;
 use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
-use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
-use Paytabs\Sdk\Request\Requests\PaymentRequest;
-use Paytabs\Sdk\Request\Requests\TokenQuery;
-use Paytabs\Sdk\Request\Requests\TransactionQuery;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus as BuilderInvoiceStatus;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet as BuildersInvoiceStatusGet;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
+use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
+use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use Paytabs\Sdk\Request\Requests\TokenDelete;
+use Paytabs\Sdk\Request\Requests\TokenQuery;
+use Paytabs\Sdk\Request\Requests\TransactionQuery;
 
 class RequestsFactory
 {
