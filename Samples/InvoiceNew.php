@@ -2,16 +2,16 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\Invoice\Invoice as InvoiceBuilder;
 use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
 use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
 use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
 use Paytabs\Sdk\Holder\Parts\UserDefined;
+use Paytabs\Sdk\Holder\PayloadsFactory;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new InvoiceBuilder();
+$holder = PayloadsFactory::invoiceCreate();
 
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
@@ -52,7 +52,7 @@ Paytabs::getLogger()->debug(
     $holder->getPayload()->getBody()
 );
 
-$request = new NewInvoice($gateway, $holder);
+$request = RequestsFactory::invoiceNew($gateway, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);

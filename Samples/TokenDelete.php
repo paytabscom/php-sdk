@@ -1,14 +1,14 @@
 <?php
 
-use Paytabs\Sdk\Holder\Builders\Token\Token;
+use Paytabs\Sdk\Holder\PayloadsFactory;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\TokenDelete;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new Token();
+$holder = PayloadsFactory::token();
 $holder->buildToken($token);
 
-$request = new TokenDelete($gateway, $holder);
+$request = RequestsFactory::tokenDelete($gateway, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);
