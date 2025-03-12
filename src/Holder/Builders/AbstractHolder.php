@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\Holder\Builders;
 
 use Paytabs\Sdk\Holder\BuilderInterface;
 use Paytabs\Sdk\Holder\PartInterface;
-use Paytabs\Sdk\Holder\Payload\PaytabsPayload;
+use Paytabs\Sdk\Holder\Paytabs\PaytabsPayload;
 use Paytabs\Sdk\Holder\PayloadInterface;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;

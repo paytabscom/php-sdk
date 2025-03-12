@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Payload;
+namespace Paytabs\Sdk\Holder;
 
 use Paytabs\Sdk\Enums\HttpRequestPart;
 use Paytabs\Sdk\Holder\PartInterface;
