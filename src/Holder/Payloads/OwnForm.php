@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Builders;
+namespace Paytabs\Sdk\Holder\Payloads;
 
 use Paytabs\Sdk\Holder\Parts\CardDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Builders\Invoice;
+namespace Paytabs\Sdk\Holder\Payloads\Invoice;
 
-use Paytabs\Sdk\Holder\Builders\AbstractHolder;
+use Paytabs\Sdk\Holder\Payloads\AbstractHolder;
 use Paytabs\Sdk\Holder\Parts\GenericPart;
 
 class InvoiceStatusGet extends AbstractHolder

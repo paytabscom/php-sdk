@@ -1,10 +1,10 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Builders\Followup;
+namespace Paytabs\Sdk\Holder\Payloads\Followup;
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\Followup;
+use Paytabs\Sdk\Holder\Payloads\Followup;
 
 class Refund extends Followup
 {

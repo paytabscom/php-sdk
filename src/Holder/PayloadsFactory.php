@@ -2,16 +2,16 @@
 
 namespace Paytabs\Sdk\Holder;
 
-use Paytabs\Sdk\Holder\Builders\Followup;
-use Paytabs\Sdk\Holder\Builders\Followup\Refund;
-use Paytabs\Sdk\Holder\Builders\HostedPage;
-use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet;
-use Paytabs\Sdk\Holder\Builders\OwnForm;
-use Paytabs\Sdk\Holder\Builders\RecurringPayment;
-use Paytabs\Sdk\Holder\Builders\Token\Token;
-use Paytabs\Sdk\Holder\Builders\TransactionQuery;
+use Paytabs\Sdk\Holder\Payloads\Followup;
+use Paytabs\Sdk\Holder\Payloads\Followup\Refund;
+use Paytabs\Sdk\Holder\Payloads\HostedPage;
+use Paytabs\Sdk\Holder\Payloads\Invoice\Invoice;
+use Paytabs\Sdk\Holder\Payloads\Invoice\InvoiceStatus;
+use Paytabs\Sdk\Holder\Payloads\Invoice\InvoiceStatusGet;
+use Paytabs\Sdk\Holder\Payloads\OwnForm;
+use Paytabs\Sdk\Holder\Payloads\RecurringPayment;
+use Paytabs\Sdk\Holder\Payloads\Token\Token;
+use Paytabs\Sdk\Holder\Payloads\TransactionQuery;
 
 class PayloadsFactory
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Builders;
+namespace Paytabs\Sdk\Holder\Payloads;
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;

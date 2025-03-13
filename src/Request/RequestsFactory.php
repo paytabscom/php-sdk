@@ -3,12 +3,12 @@
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus as BuilderInvoiceStatus;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet as BuildersInvoiceStatusGet;
-use Paytabs\Sdk\Holder\Builders\PaymentRequest as BuildersPaymentRequest;
-use Paytabs\Sdk\Holder\Builders\Token\Token;
-use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
+use Paytabs\Sdk\Holder\Payloads\Invoice\Invoice;
+use Paytabs\Sdk\Holder\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
+use Paytabs\Sdk\Holder\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
+use Paytabs\Sdk\Holder\Payloads\PaymentRequest as PayloadsPaymentRequest;
+use Paytabs\Sdk\Holder\Payloads\Token\Token;
+use Paytabs\Sdk\Holder\Payloads\TransactionQuery as PayloadsTransactionQuery;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
@@ -21,7 +21,7 @@ class RequestsFactory
 {
     public static function paymentRequest(
         Gateway $gateway,
-        BuildersPaymentRequest $holder
+        PayloadsPaymentRequest $holder
     ): PaymentRequest {
         return new PaymentRequest($gateway, $holder);
     }
@@ -42,7 +42,7 @@ class RequestsFactory
 
     public static function transactionQuery(
         Gateway $gateway,
-        BuildersTransactionQuery $holder
+        PayloadsTransactionQuery $holder
     ) {
         return new TransactionQuery($gateway, $holder);
     }
@@ -63,7 +63,7 @@ class RequestsFactory
 
     public static function invoiceStatusAsGet(
         Gateway $gateway,
-        BuildersInvoiceStatusGet $holder
+        PayloadsInvoiceStatusGet $holder
     ) {
         return new InvoiceStatusGet($gateway, $holder);
     }

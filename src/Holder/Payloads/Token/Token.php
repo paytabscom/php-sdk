@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Holder\Builders\Token;
+namespace Paytabs\Sdk\Holder\Payloads\Token;
 
-use Paytabs\Sdk\Holder\Builders\AbstractHolder;
+use Paytabs\Sdk\Holder\Payloads\AbstractHolder;
 use Paytabs\Sdk\Holder\Parts\Token as TokenPart;
 
 class Token extends AbstractHolder

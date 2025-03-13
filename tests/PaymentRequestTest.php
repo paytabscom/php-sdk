@@ -9,7 +9,7 @@ use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Holder\BuilderInterface;
-use Paytabs\Sdk\Holder\Builders\HostedPage;
+use Paytabs\Sdk\Holder\Payloads\HostedPage;
 use Paytabs\Sdk\Holder\Parts\CustomerDetails;
 use Paytabs\Sdk\Holder\Parts\PaymentMethods;
 use Paytabs\Sdk\Holder\Parts\ShippingDetails;
