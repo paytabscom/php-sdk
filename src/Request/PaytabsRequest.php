@@ -3,7 +3,7 @@
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\BuilderInterface;
+use Paytabs\Sdk\Request\Payload\BuilderInterface;
 
 abstract class PaytabsRequest extends AbstractRequest
 {

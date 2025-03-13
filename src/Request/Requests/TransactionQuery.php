@@ -3,7 +3,7 @@
 namespace Paytabs\Sdk\Request\Requests;
 
 use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\Payloads\TransactionQuery as PayloadsTransactionQuery;
+use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransactionQuery;
 use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\PayloadInterface;
 use Paytabs\Sdk\Response\Payloads\Payment\Completed;

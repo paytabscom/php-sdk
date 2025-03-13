@@ -3,12 +3,12 @@
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\Payloads\Invoice\Invoice;
-use Paytabs\Sdk\Holder\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
-use Paytabs\Sdk\Holder\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
-use Paytabs\Sdk\Holder\Payloads\PaymentRequest as PayloadsPaymentRequest;
-use Paytabs\Sdk\Holder\Payloads\Token\Token;
-use Paytabs\Sdk\Holder\Payloads\TransactionQuery as PayloadsTransactionQuery;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
+use Paytabs\Sdk\Request\Payload\Payloads\PaymentRequest as PayloadsPaymentRequest;
+use Paytabs\Sdk\Request\Payload\Payloads\Token\Token;
+use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransactionQuery;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;

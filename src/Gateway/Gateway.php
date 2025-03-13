@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Gateway;
 
-use Paytabs\Sdk\Holder\Parts\GenericPart;
-use Paytabs\Sdk\Holder\AbstractPayload;
+use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
+use Paytabs\Sdk\Request\Payload\AbstractPayload;
 
 class Gateway extends AbstractPayload
 {

@@ -3,9 +3,9 @@
 namespace Paytabs\Sdk\Response\Payloads;
 
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Parts\CustomerDetails;
-use Paytabs\Sdk\Holder\Parts\ShippingDetails;
-use Paytabs\Sdk\Holder\Parts\UserDefined;
+use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
+use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
+use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Paytabs as PaytabsSDK;
 use Paytabs\Sdk\Response\Parts\Invoice;
 

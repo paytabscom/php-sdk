@@ -2,7 +2,7 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\PayloadsFactory;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\RequestsFactory;

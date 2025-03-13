@@ -5,8 +5,8 @@ namespace Paytabs\Sdk\Request;
 use Paytabs\Sdk\Enums\HttpType;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Helpers\Helpers;
-use Paytabs\Sdk\Holder\BuilderInterface;
-use Paytabs\Sdk\Holder\PayloadInterface;
+use Paytabs\Sdk\Request\Payload\BuilderInterface;
+use Paytabs\Sdk\Request\Payload\PayloadInterface;
 use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractRequest implements RequestInterface
