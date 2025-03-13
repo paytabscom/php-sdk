@@ -1,13 +1,13 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads;
+namespace Paytabs\Sdk\Response\Payload\Payloads;
 
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
 use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Paytabs as PaytabsSDK;
-use Paytabs\Sdk\Response\Parts\Invoice;
+use Paytabs\Sdk\Response\Payload\Parts\Invoice;
 
 abstract class Payment extends Paytabs
 {

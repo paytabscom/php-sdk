@@ -6,8 +6,8 @@ use Paytabs\Sdk\Enums\HttpType;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
 use Paytabs\Sdk\Request\PaytabsRequest;
-use Paytabs\Sdk\Response\PayloadInterface;
-use Paytabs\Sdk\Response\Payloads\Invoice\InvoiceStatus;
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus;
 
 class InvoiceStatusGet extends PaytabsRequest
 {

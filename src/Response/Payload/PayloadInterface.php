@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Response;
+namespace Paytabs\Sdk\Response\Payload;
 
 interface PayloadInterface
 {

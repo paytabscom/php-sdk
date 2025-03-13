@@ -5,8 +5,8 @@ namespace Paytabs\Sdk\Request\Requests;
 use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Request\Payload\Payloads\PaymentRequest as PayloadsPaymentRequest;
 use Paytabs\Sdk\Request\PaytabsRequest;
-use Paytabs\Sdk\Response\PayloadInterface;
-use Paytabs\Sdk\Response\Payloads\Payment\Completed;
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment\Completed;
 
 class PaymentRequest extends PaytabsRequest
 {

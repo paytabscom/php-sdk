@@ -1,14 +1,14 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads\Payment;
+namespace Paytabs\Sdk\Response\Payload\Payloads\Payment;
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Paytabs as PaytabsSDK;
-use Paytabs\Sdk\Response\Parts\ParentRequest;
-use Paytabs\Sdk\Response\Parts\PaymentInfo;
-use Paytabs\Sdk\Response\Parts\PaymentResult;
-use Paytabs\Sdk\Response\Parts\ThreeDSDetails;
-use Paytabs\Sdk\Response\Payloads\Payment;
+use Paytabs\Sdk\Response\Payload\Parts\ParentRequest;
+use Paytabs\Sdk\Response\Payload\Parts\PaymentInfo;
+use Paytabs\Sdk\Response\Payload\Parts\PaymentResult;
+use Paytabs\Sdk\Response\Payload\Parts\ThreeDSDetails;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment;
 
 class Completed extends Payment
 {

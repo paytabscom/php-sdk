@@ -1,10 +1,10 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads\Callbacks;
+namespace Paytabs\Sdk\Response\Payload\Payloads\Callbacks;
 
 use Paytabs\Sdk\Enums\TranStatus;
 use Paytabs\Sdk\Paytabs as PaytabsSDK;
-use Paytabs\Sdk\Response\Payloads\Paytabs;
+use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class Browser extends Paytabs
 {

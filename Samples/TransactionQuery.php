@@ -4,8 +4,8 @@ use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\RequestsFactory;
-use Paytabs\Sdk\Response\Payloads\Generic;
-use Paytabs\Sdk\Response\Payloads\Payment\CompletedArray;
+use Paytabs\Sdk\Response\Payload\Payloads\Generic;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment\CompletedArray;
 
 $holder = PayloadsFactory::transactionQuery();
 $holder->buildTransactionRef($trxRef);

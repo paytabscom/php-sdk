@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads;
+namespace Paytabs\Sdk\Response\Payload\Payloads;
 
-use Paytabs\Sdk\Response\AbstractPayload;
+use Paytabs\Sdk\Response\Payload\AbstractPayload;
 
 class Generic extends AbstractPayload
 {

@@ -7,7 +7,7 @@ use Paytabs\Sdk\Request\Payload\PartInterface;
 use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsPayload;
 use Paytabs\Sdk\Request\Payload\PayloadInterface;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;
+use Paytabs\Sdk\Response\Payload\PayloadInterface as ResponsePayloadInterface;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractHolder implements BuilderInterface

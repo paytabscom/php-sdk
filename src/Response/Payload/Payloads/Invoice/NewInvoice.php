@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads\Invoice;
+namespace Paytabs\Sdk\Response\Payload\Payloads\Invoice;
 
-use Paytabs\Sdk\Response\Payloads\Paytabs;
+use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class NewInvoice extends Paytabs
 {

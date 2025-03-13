@@ -7,7 +7,7 @@ use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Helpers\Helpers;
 use Paytabs\Sdk\Request\Payload\BuilderInterface;
 use Paytabs\Sdk\Request\Payload\PayloadInterface;
-use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;
+use Paytabs\Sdk\Response\Payload\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractRequest implements RequestInterface
 {

@@ -4,8 +4,8 @@ namespace Paytabs\Sdk\Request\Payload\Payloads;
 
 use Paytabs\Sdk\Request\Payload\Parts\CardDetails;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
-use Paytabs\Sdk\Response\PayloadInterface;
-use Paytabs\Sdk\Response\Payloads\Payment\Completed;
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment\Completed;
 
 class OwnForm extends PrimaryPayment
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Parts;
+namespace Paytabs\Sdk\Response\Payload\Parts;
 
 class UserDefined
 {

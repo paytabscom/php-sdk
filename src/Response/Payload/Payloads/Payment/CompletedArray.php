@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Response\Payloads\Payment;
+namespace Paytabs\Sdk\Response\Payload\Payloads\Payment;
 
-use Paytabs\Sdk\Response\Payloads\Payment;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment;
 
 class CompletedArray extends Payment
 {
