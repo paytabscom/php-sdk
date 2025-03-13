@@ -8,7 +8,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
 $holder = PayloadsFactory::token();
 $holder->buildToken($token);
 
-$request = RequestsFactory::tokenQuery($gateway, $holder);
+$request = RequestsFactory::tokenQuery($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'TokenQuery holder Payload',

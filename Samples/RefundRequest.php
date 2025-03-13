@@ -24,7 +24,7 @@ $holder2
     ->buildURLs(null, $urlCallback)
 ;
 
-$request = RequestsFactory::paymentRequest($gateway, $holder2);
+$request = RequestsFactory::paymentRequest($profile, $holder2);
 
 /** @var Http $http */
 $http->setRequest($request);

@@ -8,7 +8,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
 $holder = PayloadsFactory::invoiceStatus(true);
 $holder->buildInvoiceId($invoiceId);
 
-$request = RequestsFactory::invoiceStatusAsGet($gateway, $holder);
+$request = RequestsFactory::invoiceStatusAsGet($profile, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);

@@ -5,7 +5,7 @@ use Paytabs\Sdk\Profile\Endpoints\Uae;
 function readConfigs(): array
 {
     return [
-        'gateway' => Uae::getInstance(),
+        'endpoint' => Uae::getInstance(),
         'profile_id' => 47170,
         'server_key' => 'SRJNLKK2Z2-xxxx-MGMGGNW9JZ',
 

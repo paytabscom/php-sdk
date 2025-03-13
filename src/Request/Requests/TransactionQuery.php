@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Request\Requests;
 
-use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransactionQuery;
 use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
@@ -13,10 +13,10 @@ class TransactionQuery extends PaytabsRequest
     protected string $path = 'payment/query';
 
     public function __construct(
-        Gateway $environment,
+        Profile $profile,
         PayloadsTransactionQuery $holder
     ) {
-        parent::__construct($environment, $holder);
+        parent::__construct($profile, $holder);
     }
 
     /** @return Completed */

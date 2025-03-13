@@ -3,7 +3,7 @@
 // APP_ROOT points to the root directory of the library
 define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
 
-use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 
@@ -12,7 +12,7 @@ require_once APP_ROOT.'vendor/autoload.php';
 include_once APP_ROOT.'Samples/config.php';
 $configs = readConfigs();
 
-$gateway = new Gateway($configs['gateway'], $configs['profile_id'], $configs['server_key']);
+$profile = new Profile($configs['endpoint'], $configs['profile_id'], $configs['server_key']);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {

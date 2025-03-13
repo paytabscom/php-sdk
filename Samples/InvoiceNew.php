@@ -52,7 +52,7 @@ Paytabs::getLogger()->debug(
     $holder->getPayload()->getBody()
 );
 
-$request = RequestsFactory::invoiceNew($gateway, $holder);
+$request = RequestsFactory::invoiceNew($profile, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);

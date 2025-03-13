@@ -10,7 +10,7 @@ use Paytabs\Sdk\Response\Payload\Payloads\Payment\CompletedArray;
 $holder = PayloadsFactory::transactionQuery();
 $holder->buildTransactionRef($trxRef);
 
-$request = RequestsFactory::transactionQuery($gateway, $holder);
+$request = RequestsFactory::transactionQuery($profile, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -26,7 +26,7 @@ echo '<hr>';
 
 $holder2 = PayloadsFactory::transactionQuery();
 $holder2->buildCartId('c01');
-$request2 = RequestsFactory::transactionQuery($gateway, $holder2);
+$request2 = RequestsFactory::transactionQuery($profile, $holder2);
 
 $http->setRequest($request2);
 

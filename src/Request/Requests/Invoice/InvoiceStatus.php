@@ -3,7 +3,7 @@
 namespace Paytabs\Sdk\Request\Requests\Invoice;
 
 use Paytabs\Sdk\Enums\HttpType;
-use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
 use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
@@ -16,10 +16,10 @@ class InvoiceStatus extends PaytabsRequest
     protected HttpType $httpType = HttpType::POST;
 
     public function __construct(
-        Gateway $environment,
+        Profile $profile,
         BuilderInvoiceStatus $holder
     ) {
-        parent::__construct($environment, $holder);
+        parent::__construct($profile, $holder);
     }
 
     /** @return InvoiceStatus */
