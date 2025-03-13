@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytabs\Sdk\Gateway;
+namespace Paytabs\Sdk\Profile;
 
 abstract class Endpoint
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Gateway\Endpoints;
+namespace Paytabs\Sdk\Profile\Endpoints;
 
-use Paytabs\Sdk\Gateway\Endpoint;
+use Paytabs\Sdk\Profile\Endpoint;
 
 final class Uae extends Endpoint
 {

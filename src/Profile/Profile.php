@@ -1,11 +1,11 @@
 <?php
 
-namespace Paytabs\Sdk\Gateway;
+namespace Paytabs\Sdk\Profile;
 
 use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
 use Paytabs\Sdk\Request\Payload\AbstractPayload;
 
-class Gateway extends AbstractPayload
+class Profile extends AbstractPayload
 {
     protected Endpoint $endpoint;
 

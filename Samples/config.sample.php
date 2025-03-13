@@ -1,6 +1,6 @@
 <?php
 
-use Paytabs\Sdk\Gateway\Endpoints\Uae;
+use Paytabs\Sdk\Profile\Endpoints\Uae;
 
 function readConfigs(): array
 {
