@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Request\Payload\Payloads\Token;
 
-use Paytabs\Sdk\Request\Payload\Payloads\AbstractHolder;
 use Paytabs\Sdk\Request\Payload\Parts\Token as TokenPart;
+use Paytabs\Sdk\Request\Payload\Payloads\AbstractHolder;
 
 class Token extends AbstractHolder
 {

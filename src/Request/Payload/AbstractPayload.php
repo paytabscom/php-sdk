@@ -3,8 +3,6 @@
 namespace Paytabs\Sdk\Request\Payload;
 
 use Paytabs\Sdk\Enums\HttpRequestPart;
-use Paytabs\Sdk\Request\Payload\PartInterface;
-use Paytabs\Sdk\Request\Payload\PayloadInterface;
 
 abstract class AbstractPayload implements PayloadInterface
 {

@@ -2,8 +2,8 @@
 
 namespace Paytabs\Sdk\Profile;
 
-use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
 use Paytabs\Sdk\Request\Payload\AbstractPayload;
+use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
 
 class Profile extends AbstractPayload
 {

@@ -2,11 +2,11 @@
 
 namespace Paytabs\Sdk\Request\Payload\Payloads;
 
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\BuilderInterface;
 use Paytabs\Sdk\Request\Payload\PartInterface;
-use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsPayload;
 use Paytabs\Sdk\Request\Payload\PayloadInterface;
-use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsPayload;
 use Paytabs\Sdk\Response\Payload\PayloadInterface as ResponsePayloadInterface;
 use Psr\Log\LoggerInterface;
 

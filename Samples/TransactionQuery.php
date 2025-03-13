@@ -1,8 +1,8 @@
 <?php
 
-use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 use Paytabs\Sdk\Response\Payload\Payloads\Generic;
 use Paytabs\Sdk\Response\Payload\Payloads\Payment\CompletedArray;

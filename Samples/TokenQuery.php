@@ -1,8 +1,8 @@
 <?php
 
-use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
 $holder = PayloadsFactory::token();

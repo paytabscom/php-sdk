@@ -3,9 +3,9 @@
 // APP_ROOT points to the root directory of the library
 define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
 
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Profile\Profile;
 
 require_once APP_ROOT.'vendor/autoload.php';
 

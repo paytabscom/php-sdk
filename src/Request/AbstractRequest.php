@@ -3,8 +3,8 @@
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Enums\HttpType;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Helpers\Helpers;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\BuilderInterface;
 use Paytabs\Sdk\Request\Payload\PayloadInterface;
 use Paytabs\Sdk\Response\Payload\PayloadInterface as ResponsePayloadInterface;
