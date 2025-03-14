@@ -1,14 +1,14 @@
 <?php
 
-use Paytabs\Sdk\Holder\Builders\Token\Token;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\TokenQuery;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new Token();
+$holder = PayloadsFactory::token();
 $holder->buildToken($token);
 
-$request = new TokenQuery($gateway, $holder);
+$request = RequestsFactory::tokenQuery($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'TokenQuery holder Payload',

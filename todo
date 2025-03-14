@@ -8,7 +8,7 @@ Payment request params:
  BIN based card approval: PT-5217
 
 
-Builders:
+Builders (Payload):
   Own Form (done):
     card_details: (done) obj of [pan, cvv, expiry_year, expiry_month]
   Managed Form:
@@ -47,7 +47,7 @@ PHP Scaffolding:
 ---
 
 API issues:
-  Params not consistent: card_filer is string while card_discount is array ?? similar functions
+  Params not consistent: card_filter is string while card_discount is array ?? similar functions
   response codes not accurate: wrong invoice number => 500 ??, other APIs return 400 sometime if there is error, others 200 with error message
   response params not consistent: trace & trace_code & ipn_trace ??
   request params not consistent: Sadad payment request include `amount` which is similar to `cart_amount`, the invoice object should be similar

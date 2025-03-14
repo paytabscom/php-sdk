@@ -1,15 +1,16 @@
 <?php
 
-use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\TransactionQuery;
-use Paytabs\Sdk\Response\Payloads\Generic;
-use Paytabs\Sdk\Response\Payloads\Payment\CompletedArray;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
+use Paytabs\Sdk\Response\Payload\Payloads\Generic;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment\CompletedArray;
 
-$holder = new BuildersTransactionQuery();
+$holder = PayloadsFactory::transactionQuery();
 $holder->buildTransactionRef($trxRef);
-$request = new TransactionQuery($gateway, $holder);
+
+$request = RequestsFactory::transactionQuery($profile, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -23,9 +24,9 @@ Paytabs::getLogger()->debug('TransactionQuery Response', [
 
 echo '<hr>';
 
-$holder2 = new BuildersTransactionQuery();
+$holder2 = PayloadsFactory::transactionQuery();
 $holder2->buildCartId('c01');
-$request2 = new TransactionQuery($gateway, $holder2);
+$request2 = RequestsFactory::transactionQuery($profile, $holder2);
 
 $http->setRequest($request2);
 

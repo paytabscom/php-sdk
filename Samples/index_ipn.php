@@ -18,10 +18,10 @@ if ($return) {
 
     if (!$returnAsGet) {
         $response = BrowserReturn::init();
-        $response->setGateway($gateway);
+        $response->setProfile($profile);
     } else {
         $response = BrowserCallback::init($localParams);
-        $response->setGateway($gateway);
+        $response->setProfile($profile);
     }
 
     $resMapped = $response->getPayload()->getMapped();
@@ -34,7 +34,7 @@ if ($return) {
     ]);
 } else {
     $ipnResponse = Callback::init();
-    $ipnResponse->setGateway($gateway);
+    $ipnResponse->setProfile($profile);
 
     $resMapped = $ipnResponse->getPayload()->getMapped();
     Paytabs::getLogger()->debug('IPN Payload: ', [

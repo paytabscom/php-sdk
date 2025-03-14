@@ -5,24 +5,24 @@ use Paytabs\Sdk\Enums\FramedTarget;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\RecurringPayment;
-use Paytabs\Sdk\Holder\Parts\CardDiscounts;
-use Paytabs\Sdk\Holder\Parts\CustomerDetails;
-use Paytabs\Sdk\Holder\Parts\Framed;
-use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
-use Paytabs\Sdk\Holder\Parts\Partials\CardDiscount;
-use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
-use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
-use Paytabs\Sdk\Holder\Parts\PaymentMethods;
-use Paytabs\Sdk\Holder\Parts\Token;
-use Paytabs\Sdk\Holder\Parts\TokenEnhanced;
-use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\PaymentRequest;
+use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
+use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
+use Paytabs\Sdk\Request\Payload\Parts\Framed;
+use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\CardDiscount;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItem;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
+use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
+use Paytabs\Sdk\Request\Payload\Parts\Token;
+use Paytabs\Sdk\Request\Payload\Parts\TokenEnhanced;
+use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new RecurringPayment();
+$holder = PayloadsFactory::recurringPayment();
 $holder
     ->buildCart('ca-03', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Recurring)
@@ -106,7 +106,7 @@ if ($addInvoiceObject) {
     $holder->buildInvoice($invoicePart);
 }
 
-$request = new PaymentRequest($gateway, $holder);
+$request = RequestsFactory::paymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'RecurringPayment holder Payload',
