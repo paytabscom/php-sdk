@@ -2,13 +2,13 @@
 
 namespace Paytabs\Sdk\Request;
 
-use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\Builders\Invoice\Invoice;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus as BuilderInvoiceStatus;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet as BuildersInvoiceStatusGet;
-use Paytabs\Sdk\Holder\Builders\PaymentRequest as BuildersPaymentRequest;
-use Paytabs\Sdk\Holder\Builders\Token\Token;
-use Paytabs\Sdk\Holder\Builders\TransactionQuery as BuildersTransactionQuery;
+use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
+use Paytabs\Sdk\Request\Payload\Payloads\PaymentRequest as PayloadsPaymentRequest;
+use Paytabs\Sdk\Request\Payload\Payloads\Token\Token;
+use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransactionQuery;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
@@ -20,51 +20,51 @@ use Paytabs\Sdk\Request\Requests\TransactionQuery;
 class RequestsFactory
 {
     public static function paymentRequest(
-        Gateway $gateway,
-        BuildersPaymentRequest $holder
+        Profile $profile,
+        PayloadsPaymentRequest $holder
     ): PaymentRequest {
-        return new PaymentRequest($gateway, $holder);
+        return new PaymentRequest($profile, $holder);
     }
 
     public static function tokenQuery(
-        Gateway $gateway,
+        Profile $profile,
         Token $holder
     ): TokenQuery {
-        return new TokenQuery($gateway, $holder);
+        return new TokenQuery($profile, $holder);
     }
 
     public static function tokenDelete(
-        Gateway $gateway,
+        Profile $profile,
         Token $holder
     ): TokenQuery {
-        return new TokenDelete($gateway, $holder);
+        return new TokenDelete($profile, $holder);
     }
 
     public static function transactionQuery(
-        Gateway $gateway,
-        BuildersTransactionQuery $holder
+        Profile $profile,
+        PayloadsTransactionQuery $holder
     ) {
-        return new TransactionQuery($gateway, $holder);
+        return new TransactionQuery($profile, $holder);
     }
 
     public static function invoiceNew(
-        Gateway $gateway,
+        Profile $profile,
         Invoice $holder
     ) {
-        return new NewInvoice($gateway, $holder);
+        return new NewInvoice($profile, $holder);
     }
 
     public static function invoiceStatus(
-        Gateway $gateway,
+        Profile $profile,
         BuilderInvoiceStatus $holder
     ) {
-        return new InvoiceStatus($gateway, $holder);
+        return new InvoiceStatus($profile, $holder);
     }
 
     public static function invoiceStatusAsGet(
-        Gateway $gateway,
-        BuildersInvoiceStatusGet $holder
+        Profile $profile,
+        PayloadsInvoiceStatusGet $holder
     ) {
-        return new InvoiceStatusGet($gateway, $holder);
+        return new InvoiceStatusGet($profile, $holder);
     }
 }

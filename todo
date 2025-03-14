@@ -8,7 +8,7 @@ Payment request params:
  BIN based card approval: PT-5217
 
 
-Builders:
+Builders (Payload):
   Own Form (done):
     card_details: (done) obj of [pan, cvv, expiry_year, expiry_month]
   Managed Form:

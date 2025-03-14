@@ -3,8 +3,9 @@
 namespace Paytabs\Sdk\Response;
 
 use Paytabs\Sdk\Request\RequestInterface;
-use Paytabs\Sdk\Response\Payloads\Failure;
-use Paytabs\Sdk\Response\Payloads\Redirect;
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\Payloads\Failure;
+use Paytabs\Sdk\Response\Payload\Payloads\Redirect;
 
 interface ResponseDirectInterface extends ResponseInterface
 {
