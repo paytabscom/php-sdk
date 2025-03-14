@@ -11,7 +11,7 @@ $urlResult = 'mode=return&cartId=c01&respCode=G53384&respStatus=A&signature=edfb
 parse_str($urlResult, $getArray1);
 $response1 = BrowserCallback::initWith($getArray1);
 
-$response1->setGateway($gateway);
+$response1->setProfile($profile);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
     'isGenuine' => $response1->isGenuine(),
@@ -25,7 +25,7 @@ $getResult = 'acquirerMessage=&acquirerRRN=&cartId=c01&customerEmail=wajih%40mai
 parse_str($getResult, $getArray2);
 $response2 = BrowserReturn::initWith($getArray2, ['mode', 'result']);
 
-$response2->setGateway($gateway);
+$response2->setProfile($profile);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
     'isGenuine' => $response2->isGenuine(),

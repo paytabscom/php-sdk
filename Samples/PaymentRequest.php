@@ -5,23 +5,23 @@ use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\HostedPage;
-use Paytabs\Sdk\Holder\Parts\CardDiscounts;
-use Paytabs\Sdk\Holder\Parts\CustomerDetails;
-use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
-use Paytabs\Sdk\Holder\Parts\Partials\CardDiscount;
-use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
-use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
-use Paytabs\Sdk\Holder\Parts\PaymentMethods;
-use Paytabs\Sdk\Holder\Parts\ShippingDetails;
-use Paytabs\Sdk\Holder\Parts\TokeniseEnhanced;
-use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\PaymentRequest;
+use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
+use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
+use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\CardDiscount;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItem;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
+use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
+use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
+use Paytabs\Sdk\Request\Payload\Parts\TokeniseEnhanced;
+use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new HostedPage();
+$holder = PayloadsFactory::hostedPage();
 $holder
     ->buildCart('cart01', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale(), TranClass::Ecom())
@@ -49,7 +49,7 @@ $holder
             ->includeMethods(['card', 'tamara'])
             ->excludeMethods(['applepay', 'samsungpay'])
     )
-    ->buildPaymentMethod('test')
+    // ->buildPaymentMethod('test')
     ->buildCustomerReference('customer-ref-1')
 ;
 
@@ -100,7 +100,7 @@ $holder->buildCardDiscounts($cardDiscounts);
 // $holder->buildDonationMode(true, 10.5, 100.8);
 
 // Invoice Object
-$addInvoiceObject = false;
+$addInvoiceObject = true;
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
     ->setPrice(1, 100, 100)
@@ -124,7 +124,7 @@ if ($addInvoiceObject) {
     $holder->buildInvoice($invoicePart);
 }
 
-$request = new PaymentRequest($gateway, $holder);
+$request = RequestsFactory::paymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'PaymentRequest holder Payload',
@@ -152,6 +152,11 @@ if ($response->isFailure()) {
 // case ResponseStage::UnKnown:
 // case ResponseStage::Completed:
 
+$resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('PaymentRequest Response: ', [
-    'Mapped Auto' => $response->getPayloadMapped(),
+    'Mapped Auto' => $resMapped,
+]);
+
+Paytabs::getLogger()->error('Missed Data: ', [
+    $resMapped->unMappedData(),
 ]);

@@ -7,12 +7,12 @@ include_once APP_ROOT . 'Samples/config.php';
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\BuilderInterface;
-use Paytabs\Sdk\Holder\Builders\HostedPage;
-use Paytabs\Sdk\Holder\Parts\CustomerDetails;
-use Paytabs\Sdk\Holder\Parts\PaymentMethods;
-use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Request\Payload\BuilderInterface;
+use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
+use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
+use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
+use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
@@ -25,12 +25,53 @@ use PHPUnit\Framework\TestCase;
  */
 final class PaymentRequestTest extends TestCase
 {
-    private function generateGateway(): Gateway
+    public function testGeneratedPayload(): void
+    {
+        $holder = $this->generatePayload();
+        $payload = $holder->getPayload()->getBody();
+
+        self::assertIsArray($payload);
+        self::assertArrayHasKey('cart_id', $payload);
+        self::assertArrayHasKey('payment_methods', $payload);
+        self::assertIsArray($payload['payment_methods']);
+    }
+
+    public function testGenerateProfile(): void
+    {
+        $profile = $this->generateProfile();
+
+        $payload = $profile->getBody();
+
+        self::assertIsArray($payload);
+        self::assertArrayHasKey('profile_id', $payload);
+    }
+
+    public function testRequest(): void
+    {
+        $profile = $this->generateProfile();
+        $holder = $this->generatePayload();
+
+        $request = new PaymentRequest($profile, $holder);
+
+        $http = new Http();
+        $http->setLogger(Paytabs::getLogger());
+        $http->setRequest($request);
+        $http->setDebugMode(false);
+
+        $response1 = $http->submit();
+
+        self::assertTrue($response1->isRedirect());
+
+        $response2 = $http->submit();
+        self::assertTrue($response2->isFailure(), 'Duplicate request');
+    }
+
+    private function generateProfile(): Profile
     {
         $configs = readConfigs();
 
-        return new Gateway(
-            $configs['gateway'],
+        return new Profile(
+            $configs['endpoint'],
             $configs['profile_id'],
             $configs['server_key']
         );
@@ -69,46 +110,5 @@ final class PaymentRequestTest extends TestCase
         ;
 
         return $holder;
-    }
-
-    public function testGeneratedPayload(): void
-    {
-        $holder = $this->generatePayload();
-        $payload = $holder->getPayload()->getBody();
-
-        self::assertIsArray($payload);
-        self::assertArrayHasKey('cart_id', $payload);
-        self::assertArrayHasKey('payment_methods', $payload);
-        self::assertIsArray($payload['payment_methods']);
-    }
-
-    public function testGenerateGateway(): void
-    {
-        $gateway = $this->generateGateway();
-
-        $payload = $gateway->getBody();
-
-        self::assertIsArray($payload);
-        self::assertArrayHasKey('profile_id', $payload);
-    }
-
-    public function testRequest(): void
-    {
-        $gateway = $this->generateGateway();
-        $holder = $this->generatePayload();
-
-        $request = new PaymentRequest($gateway, $holder);
-
-        $http = new Http();
-        $http->setLogger(Paytabs::getLogger());
-        $http->setRequest($request);
-        $http->setDebugMode(false);
-
-        $response1 = $http->submit();
-
-        self::assertTrue($response1->isRedirect());
-
-        $response2 = $http->submit();
-        self::assertTrue($response2->isFailure(), 'Duplicate request');
     }
 }

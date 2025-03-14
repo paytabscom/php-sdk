@@ -1,14 +1,14 @@
 <?php
 
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatusGet as PartInvoiceStatusGet;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new PartInvoiceStatusGet();
+$holder = PayloadsFactory::invoiceStatus(true);
 $holder->buildInvoiceId($invoiceId);
 
-$request = new InvoiceStatusGet($gateway, $holder);
+$request = RequestsFactory::invoiceStatusAsGet($profile, $holder);
 
 /** @var Http $http */
 $http->setRequest($request);

@@ -3,11 +3,11 @@
 namespace Paytabs\Sdk\Request\Requests\Invoice;
 
 use Paytabs\Sdk\Enums\HttpType;
-use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\Builders\Invoice\InvoiceStatus as BuilderInvoiceStatus;
+use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
 use Paytabs\Sdk\Request\PaytabsRequest;
-use Paytabs\Sdk\Response\PayloadInterface;
-use Paytabs\Sdk\Response\Payloads\Invoice\InvoiceStatus as ResponseInvoiceStatus;
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus as ResponseInvoiceStatus;
 
 class InvoiceStatus extends PaytabsRequest
 {
@@ -17,10 +17,10 @@ class InvoiceStatus extends PaytabsRequest
     protected int $httpTypeInt = HttpType::POST;
 
     public function __construct(
-        Gateway $environment,
+        Profile $profile,
         BuilderInvoiceStatus $holder
     ) {
-        parent::__construct($environment, $holder);
+        parent::__construct($profile, $holder);
     }
 
     /** @return InvoiceStatus */
