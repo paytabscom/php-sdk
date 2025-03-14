@@ -31,7 +31,7 @@ class CustomerDetails extends AbstractPart
     }
 
     public function copyFrom(
-        ShippingDetails|CustomerDetails $details
+        CustomerDetails|ShippingDetails $details
     ): self {
         $this->name = $details->name;
         $this->phone = $details->phone;
@@ -49,7 +49,7 @@ class CustomerDetails extends AbstractPart
     }
 
     public function mergeWith(
-        ShippingDetails|CustomerDetails $details,
+        CustomerDetails|ShippingDetails $details,
         bool $override = true
     ): self {
         if (!$override) {
