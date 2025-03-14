@@ -30,6 +30,50 @@ class CustomerDetails extends AbstractPart
         return $this;
     }
 
+    public function copyFrom(
+        ShippingDetails|CustomerDetails $details
+    ): self {
+        $this->name = $details->name;
+        $this->phone = $details->phone;
+        $this->email = $details->email;
+
+        $this->country = $details->country;
+        $this->state = $details->state;
+        $this->city = $details->city;
+        $this->street = $details->street;
+        $this->zip = $details->zip;
+
+        $this->ip = $details->ip;
+
+        return $this;
+    }
+
+    public function mergeWith(
+        ShippingDetails|CustomerDetails $details,
+        bool $override = true
+    ): self {
+        if (!$override) {
+            $first = $this;
+            $second = $details;
+        } else {
+            $first = $details;
+            $second = $this;
+        }
+        $this->name = $first->name ?? $second->name;
+        $this->phone = $first->phone ?? $second->phone;
+        $this->email = $first->email ?? $second->email;
+
+        $this->country = $first->country ?? $second->country;
+        $this->state = $first->state ?? $second->state;
+        $this->city = $first->city ?? $second->city;
+        $this->street = $first->street ?? $second->street;
+        $this->zip = $first->zip ?? $second->zip;
+
+        $this->ip = $first->ip ?? $second->ip;
+
+        return $this;
+    }
+
     public function setAddress(
         ?string $country = null,
         ?string $state = null,
