@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Paytabs\Sdk\Enums\CardDiscountType;
-use Paytabs\Sdk\Holder\Parts\CardDiscounts;
-use Paytabs\Sdk\Holder\Parts\Partials\CardDiscount;
+use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\CardDiscount;
 use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertArrayHasKey;

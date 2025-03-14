@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\Http;
 
 use Exception;
 use Paytabs\Sdk\Request\RequestInterface;
-use Paytabs\Sdk\Response\Payloads\Generic as PayloadsGeneric;
+use Paytabs\Sdk\Response\Payload\Payloads\Generic as PayloadsGeneric;
 use Paytabs\Sdk\Response\ResponseDirectInterface;
 use Paytabs\Sdk\Response\Responses\Direct\Generic;
 use Psr\Log\LoggerInterface;

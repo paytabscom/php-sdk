@@ -2,17 +2,17 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\OwnForm;
-use Paytabs\Sdk\Holder\Parts\CustomerDetails;
-use Paytabs\Sdk\Holder\Parts\Invoice as InvoicePart;
-use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItem;
-use Paytabs\Sdk\Holder\Parts\Partials\Invoice\LineItems;
-use Paytabs\Sdk\Holder\Parts\UserDefined;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\PaymentRequest;
+use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
+use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItem;
+use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
+use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = new OwnForm();
+$holder = PayloadsFactory::ownForm();
 $holder
     ->buildCart('own-form', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
@@ -66,7 +66,7 @@ if ($addInvoiceObject) {
     $holder->buildInvoice($invoicePart);
 }
 
-$request = new PaymentRequest($gateway, $holder);
+$request = RequestsFactory::paymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'OwnForm holder Payload',

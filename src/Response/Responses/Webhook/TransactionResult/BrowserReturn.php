@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
-use Paytabs\Sdk\Response\Payloads\Callbacks\Browser;
+use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Browser;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 class BrowserReturn extends TransactionResult

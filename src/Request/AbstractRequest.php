@@ -3,15 +3,15 @@
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Enums\HttpType;
-use Paytabs\Sdk\Gateway\Gateway;
 use Paytabs\Sdk\Helpers\Helpers;
-use Paytabs\Sdk\Holder\BuilderInterface;
-use Paytabs\Sdk\Holder\PayloadInterface;
-use Paytabs\Sdk\Response\PayloadInterface as ResponsePayloadInterface;
+use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Request\Payload\BuilderInterface;
+use Paytabs\Sdk\Request\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\PayloadInterface as ResponsePayloadInterface;
 
 abstract class AbstractRequest implements RequestInterface
 {
-    protected Gateway $environment;
+    protected Profile $profile;
     protected BuilderInterface $dataHolder;
 
     protected string $path;
@@ -25,11 +25,11 @@ abstract class AbstractRequest implements RequestInterface
     protected ?ResponsePayloadInterface $responseClass = null;
 
     public function __construct(
-        Gateway $environment,
+        Profile $profile,
         BuilderInterface $holder,
         ?string $path = null
     ) {
-        $this->environment = $environment;
+        $this->profile = $profile;
         $this->dataHolder = $holder;
         if ($path) {
             $this->path = $path;
@@ -42,7 +42,7 @@ abstract class AbstractRequest implements RequestInterface
         $dataPayload = $this->dataHolder->getPayload();
 
         $payload = array_merge(
-            $this->environment->getBody(),
+            $this->profile->getBody(),
             $dataPayload->getBody(),
         );
 
@@ -55,7 +55,7 @@ abstract class AbstractRequest implements RequestInterface
         $dataPayload = $this->dataHolder->getPayload();
 
         return array_merge(
-            $this->environment->getHeaders(),
+            $this->profile->getHeaders(),
             $dataPayload->getHeaders(),
         );
     }
@@ -63,7 +63,7 @@ abstract class AbstractRequest implements RequestInterface
     public function getUrl(): string
     {
         $fullUrl = Helpers::urlBuild(
-            $this->environment->getUrl(),
+            $this->profile->getUrl(),
             $this->path
         );
 

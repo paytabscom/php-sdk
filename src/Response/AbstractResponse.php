@@ -2,6 +2,8 @@
 
 namespace Paytabs\Sdk\Response;
 
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
+
 abstract class AbstractResponse implements ResponseInterface
 {
     protected ?PayloadInterface $payload = null;
