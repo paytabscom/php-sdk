@@ -27,7 +27,7 @@ class TranClass extends EnumString
     {
         return new self(self::Recurring);
     }
-    
+
     public static function EcomToken()
     {
         return new self(self::EcomToken);
