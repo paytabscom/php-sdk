@@ -8,8 +8,9 @@ use Paytabs\Sdk\Request\Payload\Parts\Cart;
 use Paytabs\Sdk\Request\Payload\Parts\PluginInfo;
 use Paytabs\Sdk\Request\Payload\Parts\Transaction;
 use Paytabs\Sdk\Request\Payload\Parts\Urls;
+use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 
-abstract class PaymentRequest extends AbstractHolder
+abstract class PaymentRequest extends PaytabsBuilder
 {
     public function buildTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)
     {

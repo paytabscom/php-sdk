@@ -3,9 +3,9 @@
 namespace Paytabs\Sdk\Request\Payload\Payloads\Invoice;
 
 use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
-use Paytabs\Sdk\Request\Payload\Payloads\AbstractHolder;
+use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 
-class InvoiceStatus extends AbstractHolder
+class InvoiceStatus extends PaytabsBuilder
 {
     public function buildInvoiceId(string $invoiceId)
     {

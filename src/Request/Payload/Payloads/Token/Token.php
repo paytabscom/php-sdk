@@ -3,9 +3,9 @@
 namespace Paytabs\Sdk\Request\Payload\Payloads\Token;
 
 use Paytabs\Sdk\Request\Payload\Parts\Token as TokenPart;
-use Paytabs\Sdk\Request\Payload\Payloads\AbstractHolder;
+use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 
-class Token extends AbstractHolder
+class Token extends PaytabsBuilder
 {
     public function buildToken(string $token)
     {
