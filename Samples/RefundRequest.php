@@ -2,13 +2,12 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Holder\Builders\Followup;
-use Paytabs\Sdk\Holder\Builders\Followup\Refund;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Request\Requests\PaymentRequest;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
+use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder1 = new Followup();
+$holder1 = PayloadsFactory::followup();
 $holder1
     ->buildTransaction(TranType::Refund, TranClass::Ecom)
     ->buildTransactionRef($trxRef)
@@ -17,7 +16,7 @@ $holder1
     ->buildURLs(null, $urlCallback)
 ;
 
-$holder2 = new Refund();
+$holder2 = PayloadsFactory::refund();
 $holder2
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', $configs['currency'], 10, 'Refund test')
@@ -25,7 +24,7 @@ $holder2
     ->buildURLs(null, $urlCallback)
 ;
 
-$request = new PaymentRequest($gateway, $holder2);
+$request = RequestsFactory::paymentRequest($profile, $holder2);
 
 // @var Http $http
 $http->setRequest($request);

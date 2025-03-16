@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Responses\Webhook;
 
-use Paytabs\Sdk\Gateway\Gateway;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\AbstractResponseWebhook;
 use Psr\Log\LoggerInterface;
 
@@ -13,7 +13,7 @@ abstract class TransactionResult extends AbstractResponseWebhook
     /** Query params those had been set with the URLs (Return/Callback) */
     protected array $localParams;
 
-    protected Gateway $gateway;
+    protected Profile $profile;
 
     protected LoggerInterface $logger;
 
@@ -34,9 +34,9 @@ abstract class TransactionResult extends AbstractResponseWebhook
         return $this;
     }
 
-    public function setGateway(Gateway $gateway): self
+    public function setProfile(Profile $profile): self
     {
-        $this->gateway = $gateway;
+        $this->profile = $profile;
 
         return $this;
     }
@@ -91,6 +91,6 @@ abstract class TransactionResult extends AbstractResponseWebhook
 
     protected function getServerKey(): string
     {
-        return $this->gateway->getServerKey();
+        return $this->profile->getServerKey();
     }
 }

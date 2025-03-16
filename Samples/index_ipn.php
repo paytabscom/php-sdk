@@ -18,22 +18,30 @@ if ($return) {
 
     if (!$returnAsGet) {
         $response = BrowserReturn::init();
-        $response->setGateway($gateway);
+        $response->setProfile($profile);
     } else {
         $response = BrowserCallback::init($localParams);
-        $response->setGateway($gateway);
+        $response->setProfile($profile);
     }
 
+    $resMapped = $response->getPayload()->getMapped();
     Paytabs::getLogger()->debug('Return Payload: ', [
         'isGenuine' => $response->isGenuine(),
-        'Response' => $response->getPayload()->getMapped(),
+        'Response' => $resMapped,
+    ]);
+    Paytabs::getLogger()->error('Missed Data: ', [
+        $resMapped->unMappedData(),
     ]);
 } else {
     $ipnResponse = Callback::init();
-    $ipnResponse->setGateway($gateway);
+    $ipnResponse->setProfile($profile);
 
+    $resMapped = $ipnResponse->getPayload()->getMapped();
     Paytabs::getLogger()->debug('IPN Payload: ', [
         'isGenuine' => $ipnResponse->isGenuine(),
-        'Response' => $ipnResponse->getPayload()->getMapped(),
+        'Response' => $resMapped,
+    ]);
+    Paytabs::getLogger()->error('Missed Data: ', [
+        $resMapped->unMappedData(),
     ]);
 }

@@ -10,12 +10,12 @@ include_once APP_ROOT . 'Samples/config.php';
 >>>>>>> b5b532c5c0876d70d4bcc4624ac599260882f354
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Gateway\Gateway;
-use Paytabs\Sdk\Holder\BuilderInterface;
-use Paytabs\Sdk\Holder\Builders\HostedPage;
-use Paytabs\Sdk\Holder\Parts\CustomerDetails;
-use Paytabs\Sdk\Holder\Parts\PaymentMethods;
-use Paytabs\Sdk\Holder\Parts\ShippingDetails;
+use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Request\Payload\BuilderInterface;
+use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
+use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
+use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
+use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
@@ -39,11 +39,11 @@ final class PaymentRequestTest extends TestCase
         self::assertIsArray($payload['payment_methods']);
     }
 
-    public function testGenerateGateway(): void
+    public function testGenerateProfile(): void
     {
-        $gateway = $this->generateGateway();
+        $profile = $this->generateProfile();
 
-        $payload = $gateway->getBody();
+        $payload = $profile->getBody();
 
         self::assertIsArray($payload);
         self::assertArrayHasKey('profile_id', $payload);
@@ -51,10 +51,10 @@ final class PaymentRequestTest extends TestCase
 
     public function testRequest(): void
     {
-        $gateway = $this->generateGateway();
+        $profile = $this->generateProfile();
         $holder = $this->generatePayload();
 
-        $request = new PaymentRequest($gateway, $holder);
+        $request = new PaymentRequest($profile, $holder);
 
         $http = new Http();
         $http->setLogger(Paytabs::getLogger());
@@ -69,7 +69,7 @@ final class PaymentRequestTest extends TestCase
         self::assertTrue($response2->isFailure(), 'Duplicate request');
     }
 
-    private function generateGateway(): Gateway
+    private function generateProfile(): Profile
     {
 <<<<<<< HEAD
         return new Gateway(
@@ -79,8 +79,8 @@ final class PaymentRequestTest extends TestCase
 =======
         $configs = readConfigs();
 
-        return new Gateway(
-            $configs['gateway'],
+        return new Profile(
+            $configs['endpoint'],
             $configs['profile_id'],
             $configs['server_key']
 >>>>>>> b5b532c5c0876d70d4bcc4624ac599260882f354
