@@ -6,4 +6,5 @@ enum HttpType
 {
     case GET;
     case POST;
+    case PUT;
 }
