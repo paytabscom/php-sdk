@@ -2,7 +2,6 @@
 
 namespace Paytabs\Sdk\Response\Payload\Payloads\Invoice;
 
-use Paytabs\Sdk\Enums\TranStatus;
 use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class InvoiceCancel extends Paytabs
