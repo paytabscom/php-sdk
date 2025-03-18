@@ -14,7 +14,7 @@ class InvoiceCancel extends PaytabsRequest
 {
     protected string $path = 'payment/invoice/cancel';
 
-    protected HttpType $httpType = HttpType::PUT;
+    protected HttpType $httpType = HttpType::POST;
 
     public function __construct(
         Profile $profile,
