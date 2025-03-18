@@ -7,6 +7,8 @@ use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceCancel as BuilderInvoiceCancel;
 use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
+use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceCancel as ResponseInvoiceCancel;
+
 
 class InvoiceCancel extends PaytabsRequest
 {

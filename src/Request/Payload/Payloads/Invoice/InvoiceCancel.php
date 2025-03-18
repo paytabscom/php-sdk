@@ -9,9 +9,9 @@ class InvoiceCancel extends PaytabsBuilder
 {
     public function buildInvoiceId(string $invoiceId)
     {
-        $this->product->buildBody(new GenericPart(
+        $this->product->buildPath(new GenericPart(
             [
-                'invoice_id' => $invoiceId,
+                '{invoice_id}' => $invoiceId,
             ]
         ));
 
