@@ -15,7 +15,7 @@ class ManagedFormToken extends AbstractPart
     public function build(): array
     {
         return [
-            'payment_token' => $this->paymentToken
+            'payment_token' => $this->paymentToken,
         ];
     }
 }
