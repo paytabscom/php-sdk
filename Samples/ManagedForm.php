@@ -25,7 +25,7 @@ $holder
         ->setUDF4('udf_4'))
     ->buildHideShipping(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
-    ->buildPaymentToken('vdcbijwdskmjxn')
+    ->buildPaymentToken($configs['payment_token'])
 
 ;
 
