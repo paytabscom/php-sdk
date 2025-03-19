@@ -2,3 +2,4 @@
 vendor
 .php-cs-fixer.cache
 Samples/config.php
+Samples/config.ini
