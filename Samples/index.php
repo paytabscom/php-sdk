@@ -93,6 +93,10 @@ $samples = [
         'Invoice Status POST',
         APP_ROOT.'Samples/InvoiceStatus.php',
     ],
+    43 => [
+        'Invoice Cancel',
+        APP_ROOT.'Samples/InvoiceCancel.php',
+    ],
     50 => [
         'Payment Methods',
         APP_ROOT.'Samples/PaymentMethods.php',

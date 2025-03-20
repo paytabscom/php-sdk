@@ -6,6 +6,7 @@ use Paytabs\Sdk\Request\Payload\Payloads\Followup;
 use Paytabs\Sdk\Request\Payload\Payloads\Followup\Refund;
 use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceCancel;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
@@ -63,6 +64,11 @@ class PayloadsFactory
         }
 
         return new InvoiceStatus();
+    }
+
+    public static function invoiceCancel()
+    {
+        return new InvoiceCancel();
     }
 
     public static function token()
