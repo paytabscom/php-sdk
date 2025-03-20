@@ -9,7 +9,7 @@ use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = PayloadsFactory::ManagedForm();
+$holder = PayloadsFactory::managedForm();
 $holder
     ->buildCart('managed-form', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
@@ -26,7 +26,6 @@ $holder
     ->buildHideShipping(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
     ->buildPaymentToken($configs['payment_token'])
-
 ;
 
 $request = RequestsFactory::paymentRequest($profile, $holder);
@@ -64,4 +63,3 @@ Paytabs::getLogger()->debug('ManagedForm Response: ', [
 Paytabs::getLogger()->error('ManagedForm Missed Data: ', [
     'Missed Data' => $resMapped->unMappedData(),
 ]);
-
