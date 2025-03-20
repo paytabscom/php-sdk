@@ -53,6 +53,10 @@ $samples = [
         'Recurring Payment',
         APP_ROOT.'Samples/RecurringRequest.php',
     ],
+    4 => [
+        'Managed Form',
+        APP_ROOT.'Samples/ManagedForm.php',
+    ],
     10 => [
         'Query Token',
         APP_ROOT.'Samples/TokenQuery.php',
