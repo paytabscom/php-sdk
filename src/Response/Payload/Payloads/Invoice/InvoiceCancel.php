@@ -6,9 +6,7 @@ use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class InvoiceCancel extends Paytabs
 {
+    public ?string $code;
 
-    public ?string $code; // "TST2104500076067"
-
-    public string $message; // "A"
-
+    public string $message;
 }

@@ -9,7 +9,6 @@ use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
 use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceCancel as ResponseInvoiceCancel;
 
-
 class InvoiceCancel extends PaytabsRequest
 {
     protected string $path = 'payment/invoice/cancel';
