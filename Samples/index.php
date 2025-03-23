@@ -97,6 +97,10 @@ $samples = [
         'Invoice Cancel',
         APP_ROOT.'Samples/InvoiceCancel.php',
     ],
+    44 => [
+        'Invoice Sms',
+        APP_ROOT.'Samples/InvoiceSms.php',
+    ],
     50 => [
         'Payment Methods',
         APP_ROOT.'Samples/PaymentMethods.php',
