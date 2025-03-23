@@ -6,6 +6,7 @@ use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceCancel as BuilderInvoiceCancel;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceSms as BuilderInvoiceSms;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
 use Paytabs\Sdk\Request\Payload\Payloads\PaymentRequest as PayloadsPaymentRequest;
 use Paytabs\Sdk\Request\Payload\Payloads\Token\Token;
@@ -13,6 +14,7 @@ use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransaction
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceCancel;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
+use Paytabs\Sdk\Request\Requests\Invoice\InvoiceSms;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use Paytabs\Sdk\Request\Requests\TokenDelete;
@@ -68,6 +70,13 @@ class RequestsFactory
         BuilderInvoiceCancel $holder
     ) {
         return new InvoiceCancel($profile, $holder);
+    }
+
+    public static function invoiceSms(
+        Profile $profile,
+        BuilderInvoiceSms $holder
+    ) {
+        return new InvoiceSms($profile, $holder);
     }
 
     public static function invoiceStatusAsGet(
