@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Request\Payload;
 
+use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\Payloads\Followup;
 use Paytabs\Sdk\Request\Payload\Payloads\Followup\Refund;
 use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
