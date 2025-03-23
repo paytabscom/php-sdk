@@ -6,8 +6,10 @@ use Paytabs\Sdk\Request\Payload\Payloads\Followup;
 use Paytabs\Sdk\Request\Payload\Payloads\Followup\Refund;
 use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceCancel;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet;
+use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
 use Paytabs\Sdk\Request\Payload\Payloads\OwnForm;
 use Paytabs\Sdk\Request\Payload\Payloads\RecurringPayment;
 use Paytabs\Sdk\Request\Payload\Payloads\Token\Token;
@@ -23,6 +25,11 @@ class PayloadsFactory
     public static function ownForm(): OwnForm
     {
         return new OwnForm();
+    }
+
+    public static function managedForm(): ManagedForm
+    {
+        return new ManagedForm();
     }
 
     public static function transactionQuery(): TransactionQuery
@@ -57,6 +64,11 @@ class PayloadsFactory
         }
 
         return new InvoiceStatus();
+    }
+
+    public static function invoiceCancel()
+    {
+        return new InvoiceCancel();
     }
 
     public static function token()

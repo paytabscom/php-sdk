@@ -53,6 +53,10 @@ $samples = [
         'Recurring Payment',
         APP_ROOT.'Samples/RecurringRequest.php',
     ],
+    4 => [
+        'Managed Form',
+        APP_ROOT.'Samples/ManagedForm.php',
+    ],
     10 => [
         'Query Token',
         APP_ROOT.'Samples/TokenQuery.php',
@@ -88,6 +92,10 @@ $samples = [
     42 => [
         'Invoice Status POST',
         APP_ROOT.'Samples/InvoiceStatus.php',
+    ],
+    43 => [
+        'Invoice Cancel',
+        APP_ROOT.'Samples/InvoiceCancel.php',
     ],
     50 => [
         'Payment Methods',
