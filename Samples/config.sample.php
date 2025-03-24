@@ -16,7 +16,11 @@ function readConfigs(): array
         'token' => '2C4654BD67Axxxx93FF628674B0',
         'token_enhanced' => '2C4655BE67A3Exxxx3F465837EBB',
 
-        'invoice_id' => 1234,
+        'invoice_id' => 1394476,
+        'invoice_currency' => "SAR",
+        'invoice_total' =>  20.00,
+        'invoice_pay_method' => "cheque",
+        'invoice_pay_description' => "test description",
 
         'config_id' => 2188,
 

@@ -3,7 +3,7 @@
 namespace Paytabs\Sdk\Request\Requests\Invoice;
 
 use Paytabs\Sdk\Profile\Profile;
-use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid as InvoiceMarkPaidPart;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceMarkPaid as PayloadsInvoiceMarkPaid;
 use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
 use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceMarkPaid as InvoiceMarkPaidResponse;
@@ -14,7 +14,7 @@ class InvoiceMarkPaid extends PaytabsRequest
 
     public function __construct(
         Profile $profile,
-        InvoiceMarkPaidPart $holder
+        PayloadsInvoiceMarkPaid $holder
     ) {
         parent::__construct($profile, $holder);
     }

@@ -34,6 +34,10 @@ $token = $configs['token'];
 $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
+$invoiceCurrency = $configs['invoice_currency'];
+$invoiceTotal = $configs['invoice_total'];
+$payMethod = $configs['invoice_pay_method'];
+$payDescription = $configs['invoice_pay_description'];
 
 $returnUsingGet = false;
 if ($returnUsingGet) {
@@ -96,6 +100,10 @@ $samples = [
     43 => [
         'Invoice Cancel',
         APP_ROOT.'Samples/InvoiceCancel.php',
+    ],
+    45 => [
+        'Invoice Mark Paid',
+        APP_ROOT.'Samples/InvoiceMarkPaid.php',
     ],
     50 => [
         'Payment Methods',

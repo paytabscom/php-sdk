@@ -6,7 +6,7 @@ use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
 $holder = PayloadsFactory::InvoiceMarkPaid();
-$holder->buildInvoiceMarkPaid($invoiceId);
+$holder->buildInvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription);
 
 $request = RequestsFactory::InvoiceMarkPaid($profile, $holder);
 

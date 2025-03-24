@@ -1,17 +1,16 @@
 <?php
 
-namespace Paytabs\Sdk\Request\Payload\Payloads;
+namespace Paytabs\Sdk\Request\Payload\Payloads\Invoice;
 
-use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid as InvoiceMarkPaidPart;
+use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 
 class InvoiceMarkPaid extends PaytabsBuilder
 {
-    public function buildInvoiceMarkPaid(string $profileId, string $invoiceId, string $invoiceCurrency, float $invoiceTotal, string $payMethod, string $payDescription)
+    public function buildInvoiceMarkPaid(string $invoiceId, string $invoiceCurrency, float $invoiceTotal, string $payMethod, string $payDescription)
     {
         $this->product->buildBody(
             new InvoiceMarkPaidPart(
-                $profileId,
                 $invoiceId,
                 $invoiceCurrency,
                 $invoiceTotal,
