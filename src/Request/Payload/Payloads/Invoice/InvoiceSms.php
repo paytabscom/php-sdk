@@ -18,17 +18,14 @@ class InvoiceSms extends PaytabsBuilder
         return $this;
     }
 
-    public function buildInvoiceSmsBody(string $profileId, string $phone)
+    public function buildInvoiceSmsBody(string $phone)
     {
         $this->product->buildBody(new GenericPart(
             [
-                '{profile_id}' => $profileId,
                 "customer_details" => [
                     "phone" => $phone
                 ]
             ]
         ));
-
-        return $this;
     }
 }
