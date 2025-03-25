@@ -72,6 +72,13 @@ class RequestsFactory
         return new InvoiceCancel($profile, $holder);
     }
 
+    public static function invoiceCancel(
+        Profile $profile,
+        BuilderInvoiceCancel $holder
+    ) {
+        return new InvoiceCancel($profile, $holder);
+    }
+
     public static function invoiceStatusAsGet(
         Profile $profile,
         PayloadsInvoiceStatusGet $holder
