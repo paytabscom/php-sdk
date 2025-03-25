@@ -15,7 +15,9 @@ Paytabs::getLogger()->debug('InvoiceSms POST Request: ', [
     $request,
 ]);
 
-/** @var Http $http */
+/** 
+ * @var Http $http 
+ * */
 $http->setRequest($request);
 $http->setDebugMode(true);
 

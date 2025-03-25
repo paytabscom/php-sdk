@@ -22,9 +22,9 @@ class InvoiceSms extends PaytabsBuilder
     {
         $this->product->buildBody(new GenericPart(
             [
-                "customer_details" => [
-                    "phone" => $phone
-                ]
+                'customer_details' => [
+                    'phone' => $phone,
+                ],
             ]
         ));
     }

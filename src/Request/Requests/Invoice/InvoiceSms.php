@@ -17,7 +17,6 @@ class InvoiceSms extends PaytabsRequest
 
     protected bool $hasPathParams = true;
 
-
     public function __construct(
         Profile $profile,
         BuilderInvoiceSms $holder

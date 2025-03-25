@@ -10,7 +10,9 @@ $holder->buildInvoiceId($invoiceId);
 
 $request = RequestsFactory::invoiceStatusAsGet($profile, $holder);
 
-/** @var Http $http */
+/** 
+ * @var Http $http 
+ * */
 $http->setRequest($request);
 $http->setDebugMode(true);
 
