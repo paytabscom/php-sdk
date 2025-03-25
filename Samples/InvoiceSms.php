@@ -11,6 +11,9 @@ $holder->buildInvoiceId($invoiceId)
 
 $request = RequestsFactory::invoiceSms($profile, $holder);
 
+Paytabs::getLogger()->debug('InvoiceSms POST Request: ', [
+    $request,
+]);
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -20,5 +23,15 @@ $response = $http->submit();
 
 
 Paytabs::getLogger()->debug('InvoiceSms POST response: ', [
-    $response->getPayloadMapped(),
+    $response,
 ]);
+
+$resMapped = $response->getPayloadMapped();
+Paytabs::getLogger()->debug('InvoiceSms POST response Mapped Data: ', [
+    $resMapped
+]);
+
+Paytabs::getLogger()->error('Missed Data: ', [
+    $resMapped->unMappedData(),
+]);
+

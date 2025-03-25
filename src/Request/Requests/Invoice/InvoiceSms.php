@@ -15,6 +15,9 @@ class InvoiceSms extends PaytabsRequest
 
     protected HttpType $httpType = HttpType::POST;
 
+    protected bool $hasPathParams = true;
+
+
     public function __construct(
         Profile $profile,
         BuilderInvoiceSms $holder
