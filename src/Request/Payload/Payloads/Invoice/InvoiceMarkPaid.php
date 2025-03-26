@@ -7,16 +7,10 @@ use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 
 class InvoiceMarkPaid extends PaytabsBuilder
 {
-    public function buildInvoiceMarkPaid(string $invoiceId, string $invoiceCurrency, float $invoiceTotal, string $payMethod, string $payDescription)
+    public function buildInvoiceMarkPaid(InvoiceMarkPaidPart $invoiceMarkPaidPart)
     {
         $this->product->buildBody(
-            new InvoiceMarkPaidPart(
-                $invoiceId,
-                $invoiceCurrency,
-                $invoiceTotal,
-                $payMethod,
-                $payDescription
-            )
+            $invoiceMarkPaidPart
         );
 
         return $this;

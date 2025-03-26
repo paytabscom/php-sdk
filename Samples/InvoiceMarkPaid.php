@@ -2,11 +2,12 @@
 
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
 $holder = PayloadsFactory::InvoiceMarkPaid();
-$holder->buildInvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription);
+$holder->buildInvoiceMarkPaid(new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription));
 
 $request = RequestsFactory::InvoiceMarkPaid($profile, $holder);
 
