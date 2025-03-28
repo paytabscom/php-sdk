@@ -8,6 +8,7 @@ use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceCancel;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceMarkPaid;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceSms;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
@@ -75,6 +76,11 @@ class PayloadsFactory
     public static function invoiceMarkPaid(): InvoiceMarkPaid
     {
         return new InvoiceMarkPaid();
+    }
+
+    public static function invoiceSms()
+    {
+        return new InvoiceSms();
     }
 
     public static function token()

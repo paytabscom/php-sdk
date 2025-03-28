@@ -34,6 +34,7 @@ $token = $configs['token'];
 $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
+$phoneNumber = $configs['phone_number'];
 
 $returnUsingGet = false;
 if ($returnUsingGet) {
@@ -96,6 +97,10 @@ $samples = [
     43 => [
         'Invoice Cancel',
         APP_ROOT.'Samples/InvoiceCancel.php',
+    ],
+    44 => [
+        'Invoice Send SMS',
+        APP_ROOT.'Samples/InvoiceSms.php',
     ],
     45 => [
         'Invoice Mark as Paid',
