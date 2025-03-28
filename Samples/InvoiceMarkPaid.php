@@ -1,13 +1,21 @@
 <?php
 
+use Paytabs\Sdk\Enums\InvoicePaidPayMethods;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
+$invoiceCurrency = "SAR";
+$invoiceTotal =  20.00;
+$payMethod = InvoicePaidPayMethods::Bank;
+$payDescription = "test description";
+
 $holder = PayloadsFactory::invoiceMarkPaid();
-$holder->buildInvoiceMarkPaid(new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription));
+$holder->buildInvoiceMarkPaid(
+    new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription)
+);
 
 $request = RequestsFactory::invoiceMarkPaid($profile, $holder);
 

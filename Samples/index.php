@@ -3,7 +3,6 @@
 // APP_ROOT points to the root directory of the library
 define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
 
-use Paytabs\Sdk\Enums\InvoicePaidPayMethods;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
@@ -35,10 +34,6 @@ $token = $configs['token'];
 $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
-$invoiceCurrency = "SAR";
-$invoiceTotal =  20.00;
-$payMethod = InvoicePaidPayMethods::Bank;
-$payDescription = "test description";
 
 
 $returnUsingGet = false;
