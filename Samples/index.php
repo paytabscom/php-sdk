@@ -36,8 +36,8 @@ $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
 $invoiceCurrency = "SAR";
-$invoiceTotal =  300.00;
-$payMethod = InvoicePaidPayMethods::bank;
+$invoiceTotal =  20.00;
+$payMethod = InvoicePaidPayMethods::Bank;
 $payDescription = "test description";
 
 

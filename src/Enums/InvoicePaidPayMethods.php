@@ -6,5 +6,6 @@ enum InvoicePaidPayMethods: string
 {
     case Cash = 'cash';
     case Cheque = 'cheque';
-    case bank = 'bank';
+    case Bank = 'bank';
+    case POS = 'pos';
 }

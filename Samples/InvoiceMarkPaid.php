@@ -6,10 +6,10 @@ use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$holder = PayloadsFactory::InvoiceMarkPaid();
+$holder = PayloadsFactory::invoiceMarkPaid();
 $holder->buildInvoiceMarkPaid(new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription));
 
-$request = RequestsFactory::InvoiceMarkPaid($profile, $holder);
+$request = RequestsFactory::invoiceMarkPaid($profile, $holder);
 
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
     $request,
