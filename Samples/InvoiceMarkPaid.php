@@ -1,6 +1,6 @@
 <?php
 
-use Paytabs\Sdk\Enums\InvoicePaidPayMethods;
+use Paytabs\Sdk\Enums\InvoiceExternalPayMethod;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
@@ -9,7 +9,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 $invoiceCurrency = "SAR";
 $invoiceTotal =  20.00;
-$payMethod = InvoicePaidPayMethods::Bank;
+$payMethod = InvoiceExternalPayMethod::Bank;
 $payDescription = "test description";
 
 $holder = PayloadsFactory::invoiceMarkPaid();

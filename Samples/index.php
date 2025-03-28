@@ -35,7 +35,6 @@ $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
 
-
 $returnUsingGet = false;
 if ($returnUsingGet) {
     $urlReturn .= '&get=1';
@@ -99,7 +98,7 @@ $samples = [
         APP_ROOT.'Samples/InvoiceCancel.php',
     ],
     45 => [
-        'Invoice Mark Paid',
+        'Invoice Mark as Paid',
         APP_ROOT.'Samples/InvoiceMarkPaid.php',
     ],
     50 => [

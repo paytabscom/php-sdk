@@ -2,21 +2,21 @@
 
 namespace Paytabs\Sdk\Request\Payload\Parts;
 
-use Paytabs\Sdk\Enums\InvoicePaidPayMethods;
+use Paytabs\Sdk\Enums\InvoiceExternalPayMethod;
 
 class InvoiceMarkPaid extends AbstractPart
 {
     private string $invoiceId;
     private string $invoiceCurrency;
     private float $invoiceTotal;
-    private InvoicePaidPayMethods $payMethod;
+    private InvoiceExternalPayMethod $payMethod;
     private string $payDescription;
 
     public function __construct(
         string $invoiceId,
         string $invoiceCurrency,
         float $invoiceTotal,
-        InvoicePaidPayMethods $payMethod,
+        InvoiceExternalPayMethod $payMethod,
         string $payDescription
     ) {
         $this->invoiceId = $invoiceId;
@@ -32,7 +32,7 @@ class InvoiceMarkPaid extends AbstractPart
             'invoice_id' => $this->invoiceId,
             'invoice_currency' => $this->invoiceCurrency,
             'invoice_total' => $this->invoiceTotal,
-            'pay_method' => $this->payMethod,
+            'pay_method' => $this->payMethod->value,
             'pay_description' => $this->payDescription,
         ];
     }

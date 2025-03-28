@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Enums;
 
-enum InvoicePaidPayMethods: string
+enum InvoiceExternalPayMethod: string
 {
     case Cash = 'cash';
     case Cheque = 'cheque';
