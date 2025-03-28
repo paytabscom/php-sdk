@@ -7,10 +7,10 @@ use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$invoiceCurrency = "SAR";
-$invoiceTotal =  20.00;
+$invoiceCurrency = 'SAR';
+$invoiceTotal = 20.00;
 $payMethod = InvoiceExternalPayMethod::Bank;
-$payDescription = "test description";
+$payDescription = 'test description';
 
 $holder = PayloadsFactory::invoiceMarkPaid();
 $holder->buildInvoiceMarkPaid(
@@ -23,7 +23,8 @@ Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
     $holder,
 ]);
 
-/**
+/*
+ * HTTP manager
  * @var Http $http
  * */
 $http->setRequest($request);
@@ -42,7 +43,7 @@ if ($response->isFailure()) {
 
 $resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST response Mapped Data: ', [
-    $resMapped
+    $resMapped,
 ]);
 
 Paytabs::getLogger()->error('InvoiceMarkPaid Missed Data: ', [
