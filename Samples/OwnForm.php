@@ -77,8 +77,9 @@ Paytabs::getLogger()->debug(
     [$request->getPayload()]
 );
 
-/** 
- * @var Http $http 
+/*
+ * HTTP manager
+ * @var Http $http
  * */
 $http->setRequest($request);
 $http->setDebugMode(false);

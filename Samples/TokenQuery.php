@@ -15,8 +15,9 @@ Paytabs::getLogger()->debug(
     $holder->getPayload()->getBody()
 );
 
-/** 
- * @var Http $http 
+/*
+ * HTTP manager
+ * @var Http $http
  * */
 $http->setRequest($request);
 
