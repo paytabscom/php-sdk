@@ -5,12 +5,14 @@ namespace Paytabs\Sdk\Request;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\Invoice;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceCancel as BuilderInvoiceCancel;
+use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceMarkPaid as PayloadsInvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatus as BuilderInvoiceStatus;
 use Paytabs\Sdk\Request\Payload\Payloads\Invoice\InvoiceStatusGet as PayloadsInvoiceStatusGet;
 use Paytabs\Sdk\Request\Payload\Payloads\PaymentRequest as PayloadsPaymentRequest;
 use Paytabs\Sdk\Request\Payload\Payloads\Token\Token;
 use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransactionQuery;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceCancel;
+use Paytabs\Sdk\Request\Requests\Invoice\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatus;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceStatusGet;
 use Paytabs\Sdk\Request\Requests\Invoice\NewInvoice;
@@ -75,5 +77,12 @@ class RequestsFactory
         PayloadsInvoiceStatusGet $holder
     ) {
         return new InvoiceStatusGet($profile, $holder);
+    }
+
+    public static function invoiceMarkPaid(
+        Profile $profile,
+        PayloadsInvoiceMarkPaid $holder
+    ): InvoiceMarkPaid {
+        return new InvoiceMarkPaid($profile, $holder);
     }
 }

@@ -20,10 +20,10 @@ Builders (Payload):
 
 
 Requests:
-  Invoice cancel:
+  Invoice cancel: (done)
   Invoice SMS send:
   Invoice search:
-  Invoice Mark as Read:
+  Invoice Mark as Read: (done)
   valU inquiry:
   Sadad inquiry:
   PayLink:
@@ -68,6 +68,7 @@ API issues:
     enhanced tokenise (PT-6035): date format is different than the system formats
   alt_currency: not visible with card_discounts
   managed form (PT-6033): payment_token can be used to generate multiple payments
+  invoice mark as paid: must return the pay method code not the title
 
 Later:
   payment_methods: available in HPP, Invoice, Not in Own & Managed
