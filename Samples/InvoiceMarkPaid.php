@@ -20,11 +20,11 @@ $holder->buildInvoiceMarkPaid(
 $request = RequestsFactory::invoiceMarkPaid($profile, $holder);
 
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
-    $request,
+    $holder,
 ]);
 
-/** 
- * @var Http $http 
+/**
+ * @var Http $http
  * */
 $http->setRequest($request);
 $http->setDebugMode(true);
@@ -34,6 +34,11 @@ $response = $http->submit();
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST response: ', [
     $response,
 ]);
+
+if ($response->isFailure()) {
+    // Handle the Failure response
+    $resClassed = $response->getFailure();
+}
 
 $resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST response Mapped Data: ', [
