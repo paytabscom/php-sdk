@@ -34,6 +34,7 @@ $token = $configs['token'];
 $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
+$phoneNumber = $configs['phone_number'];
 
 $returnUsingGet = false;
 if ($returnUsingGet) {

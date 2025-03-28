@@ -7,7 +7,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 $holder = PayloadsFactory::invoiceSms();
 $holder->buildInvoiceId($invoiceId)
-    ->buildInvoiceSmsBody('+201072580224')
+    ->buildInvoiceSmsBody($phoneNumber)
 ;
 
 $request = RequestsFactory::invoiceSms($profile, $holder);
