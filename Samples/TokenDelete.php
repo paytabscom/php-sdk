@@ -10,10 +10,7 @@ $holder->buildToken($token);
 
 $request = RequestsFactory::tokenDelete($profile, $holder);
 
-/*
- * HTTP manager
- * @var Http $http
- * */
+/** @var Http $http */
 $http->setRequest($request);
 
 $response = $http->submit();

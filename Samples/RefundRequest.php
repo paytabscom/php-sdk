@@ -26,10 +26,7 @@ $holder2
 
 $request = RequestsFactory::paymentRequest($profile, $holder2);
 
-/*
- * HTTP manager
- * @var Http $http
- * */
+/** @var Http $http */
 $http->setRequest($request);
 
 $response = $http->submit();

@@ -12,10 +12,7 @@ $holder->buildTransactionRef($trxRef);
 
 $request = RequestsFactory::transactionQuery($profile, $holder);
 
-/*
- * HTTP manager
- * @var Http $http
- * */
+/** @var Http $http */
 $http->setRequest($request);
 
 $response = $http->submit();

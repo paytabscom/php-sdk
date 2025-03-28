@@ -52,10 +52,7 @@ Paytabs::getLogger()->debug(
 
 $request = RequestsFactory::invoiceNew($profile, $holder);
 
-/*
- * HTTP manager
- * @var Http $http
- * */
+/** @var Http $http */
 $http->setRequest($request);
 $http->setDebugMode(true);
 
