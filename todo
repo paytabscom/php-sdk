@@ -21,7 +21,7 @@ Builders (Payload):
 
 Requests:
   Invoice cancel: (done)
-  Invoice SMS send:
+  Invoice SMS send: (done)
   Invoice search:
   Invoice Mark as Read: (done)
   valU inquiry:
