@@ -5,6 +5,7 @@ use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
@@ -51,6 +52,7 @@ $holder
     )
     // ->buildPaymentMethod('test')
     ->buildCustomerReference('customer-ref-1')
+    ->buildPaypageLang(Language::English)
 ;
 
 $tokenise = true;

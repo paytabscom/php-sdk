@@ -4,6 +4,7 @@ namespace Paytabs\Sdk\Request\Payload\Payloads;
 
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
+use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerReference;
 use Paytabs\Sdk\Request\Payload\Parts\HideShipping;
@@ -40,8 +41,12 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildPaypageLang(string $lang)
+    public function buildPaypageLang(string|Language $lang)
     {
+        if ($lang instanceof Language) {
+            $lang = $lang->value;
+        }
+
         $this->product->buildBody(
             new PaypageLang($lang)
         );
