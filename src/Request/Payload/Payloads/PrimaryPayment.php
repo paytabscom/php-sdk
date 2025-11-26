@@ -5,6 +5,7 @@ namespace Paytabs\Sdk\Request\Payload\Payloads;
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\Language;
+use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerReference;
 use Paytabs\Sdk\Request\Payload\Parts\HideShipping;
@@ -125,10 +126,10 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildPaymentMethod(string $method)
+    public function buildPaymentMethod(string|AbstractMethod $method)
     {
         $this->product->buildBody(
-            PaymentMethods::init()->includeMethod($method),
+            PaymentMethods::init([$method]),
             true
         );
 
