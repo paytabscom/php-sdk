@@ -12,7 +12,9 @@ class PaymentMethods extends AbstractPart
     protected function __construct(
         ?array $paymentMethods = null
     ) {
-        $this->add($paymentMethods);
+        if ($paymentMethods) {
+            $this->add($paymentMethods);
+        }
     }
 
     public static function init(?array $methods = null): self
