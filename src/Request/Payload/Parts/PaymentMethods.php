@@ -2,6 +2,8 @@
 
 namespace Paytabs\Sdk\Request\Payload\Parts;
 
+use Paytabs\Sdk\PaymentMethod\AbstractMethod;
+
 class PaymentMethods extends AbstractPart
 {
     /** @var string[] */
@@ -10,7 +12,7 @@ class PaymentMethods extends AbstractPart
     protected function __construct(
         ?array $paymentMethods = null
     ) {
-        $this->paymentMethods = $paymentMethods;
+        $this->add($paymentMethods);
     }
 
     public static function init(?array $methods = null): self
@@ -18,13 +20,16 @@ class PaymentMethods extends AbstractPart
         return new self($methods);
     }
 
-    public function includeMethod(string $code): self
+    public function includeMethod(string|AbstractMethod $code): self
     {
         $this->add([$code]);
 
         return $this;
     }
 
+    /**
+     * @param string[]|AbstractMethod[] $codes
+     */
     public function includeMethods(array $codes): self
     {
         $this->add($codes);
@@ -32,13 +37,16 @@ class PaymentMethods extends AbstractPart
         return $this;
     }
 
-    public function excludeMethod(string $code): self
+    public function excludeMethod(string|AbstractMethod $code): self
     {
         $this->add([$code], true);
 
         return $this;
     }
 
+    /**
+     * @param string[]|AbstractMethod[] $codes
+     */
     public function excludeMethods(array $codes): self
     {
         $this->add($codes, true);
@@ -58,6 +66,10 @@ class PaymentMethods extends AbstractPart
         ];
     }
 
+    /**
+     * @param string[]|AbstractMethod[] $codes
+     * @param bool $isExclude
+     */
     private function add(array $codes, bool $isExclude = false): void
     {
         if (false === $this->readNextIf()) {
@@ -66,12 +78,27 @@ class PaymentMethods extends AbstractPart
 
         $this->paymentMethods ??= [];
 
-        $codesArray = $codes;
+        // Convert AbstractMethod to code string
+        $codesArray = $this->convertToCodes($codes);
 
         if ($isExclude) {
             $codesArray = array_map(static fn ($code): string => "-{$code}", $codesArray);
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);
+    }
+
+    /**
+     * @param string[]|AbstractMethod[] $methods
+     */
+    private function convertToCodes(array $methods): array
+    {
+        // Convert AbstractMethod to code string
+        $codesArray = array_map(
+            static fn ($code): string => ($code instanceof AbstractMethod) ? $code::CODE : $code,
+            $methods
+        );
+
+        return $codesArray;
     }
 }

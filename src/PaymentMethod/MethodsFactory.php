@@ -3,6 +3,11 @@
 namespace Paytabs\Sdk\PaymentMethod;
 
 use Paytabs\Sdk\Enums\PaymentMethod;
+use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
+use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
+use Paytabs\Sdk\PaymentMethod\Methods\Card;
+use Paytabs\Sdk\PaymentMethod\Methods\Fawry;
+use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 
 abstract class MethodsFactory
 {
@@ -92,5 +97,32 @@ abstract class MethodsFactory
         }
 
         return null;
+    }
+
+    //
+
+    public static function createPayTabsAllMethod(): PayTabsAll
+    {
+        return new PayTabsAll();
+    }
+
+    public static function createCardMethod(): Card
+    {
+        return new Card();
+    }
+
+    public static function createApplePayMethod(): ApplePay
+    {
+        return new ApplePay();
+    }
+
+    public static function createSadadMethod(): Sadad
+    {
+        return new Sadad();
+    }
+
+    public static function createFawryMethod(): Fawry
+    {
+        return new Fawry();
     }
 }
