@@ -6,7 +6,7 @@
  * PHP >= 7.0.0
  */
 
-define('PAYTABS_SDK_VERSION', '2.27.3');
+define('PAYTABS_SDK_VERSION', '2.28.0');
 
 define('PAYTABS_DEBUG_FILE_NAME', 'debug_paytabs.log');
 define('PAYTABS_DEBUG_SEVERITY', ['Info', 'Warning', 'Error']);
@@ -1466,6 +1466,14 @@ class PaytabsApi
         'KWT' => [
             'title' => 'Kuwait',
             'endpoint' => 'https://secure-kuwait.paytabs.com/'
+        ],
+        'QAT' => [
+            'title' => 'Qatar',
+            'endpoint' => 'https://secure-doha.paytabs.com/'
+        ],
+        'MAR' => [
+            'title' => 'Morocco',
+            'endpoint' => 'https://secure-morocco.paytabs.com/'
         ],
         'GLOBAL' => [
             'title' => 'Global',
