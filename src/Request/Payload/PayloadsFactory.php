@@ -59,7 +59,7 @@ class PayloadsFactory
         return new Invoice();
     }
 
-    public static function invoiceStatus(bool $asGet = false)
+    public static function invoiceStatus(bool $asGet = false): InvoiceStatus|InvoiceStatusGet
     {
         if ($asGet) {
             return new InvoiceStatusGet();
@@ -68,7 +68,7 @@ class PayloadsFactory
         return new InvoiceStatus();
     }
 
-    public static function invoiceCancel()
+    public static function invoiceCancel(): InvoiceCancel
     {
         return new InvoiceCancel();
     }
@@ -78,12 +78,12 @@ class PayloadsFactory
         return new InvoiceMarkPaid();
     }
 
-    public static function invoiceSms()
+    public static function invoiceSms(): InvoiceSms
     {
         return new InvoiceSms();
     }
 
-    public static function token()
+    public static function token(): Token
     {
         return new Token();
     }
