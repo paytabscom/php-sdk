@@ -13,7 +13,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 $holder = PayloadsFactory::invoiceCreate();
 
-$lineItem1 = LineItem::init()
+$item1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
     ->setPrice(1, 10, 10)
 ;
@@ -23,9 +23,7 @@ $item2 = LineItem::init()
     ->setPrice(1, 10, 10)
 ;
 
-$lineItems = new LineItems();
-$lineItems->addLineItem($lineItem1);
-$lineItems->addLineItem($item2);
+$lineItems = new LineItems($item1, $item2);
 
 $invoicePart = new InvoicePart();
 $invoicePart
