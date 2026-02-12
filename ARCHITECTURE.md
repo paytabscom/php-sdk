@@ -65,10 +65,6 @@ flowchart TD
   E --> H[Success]
 ```
 
-## PlantUML Source
-
-See `docs/diagrams/flow.puml` for PlantUML source to generate PNG/SVG.
-
 ## Quick Example
 
 1. Create a profile: `ProfilesFactory::createUaeProfile(123, 'server_key')`
@@ -77,7 +73,7 @@ See `docs/diagrams/flow.puml` for PlantUML source to generate PNG/SVG.
 4. Compose request: `RequestsFactory::paymentRequest($profile, $builder)`
 5. Print `getUrl()`, `getHeaders()`, `getPayload()` (sample prints them - it does not make a network call)
 
-See `Samples/IntegrationExample.php` for a runnable sample.
+See `Samples/` folder for a runnable samples.
 
 ---
 
@@ -192,10 +188,8 @@ flowchart TD
     HTTP --> Response["Response Object<br/>isFailure, isRedirect, getPayload"]
 ```
 
-See `docs/diagrams/payment-request-flow.puml` for the full PlantUML sequence diagram.
-
 ## Maintainer Notes
 
-- Diagrams: update `docs/diagrams/flow.mmd` (Mermaid) and `docs/diagrams/flow.puml` (PlantUML) when the flow changes.
+- Diagrams: update `docs/diagrams/flow.mmd` (Mermaid) when the flow changes.
 - Add new PaymentRequest diagrams in `docs/diagrams/` when adding new Features.
 - Samples: put quick integration examples in `Samples/` and heavy, interactive examples in `examples/`.

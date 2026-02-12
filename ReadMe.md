@@ -6,10 +6,4 @@ See the architecture guide: [ARCHITECTURE.md](ARCHITECTURE.md)
 
 Diagrams are in: `docs/diagrams/`
 
-Try the quick sample:
-
-```bash
-php Samples/IntegrationExample.php
-```
-
-This sample only composes and prints the request data (no network call).
+Try the quick samples: `Samples/`
