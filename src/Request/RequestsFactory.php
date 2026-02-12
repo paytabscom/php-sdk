@@ -49,42 +49,42 @@ class RequestsFactory
     public static function transactionQuery(
         Profile $profile,
         PayloadsTransactionQuery $holder
-    ) {
+    ): TransactionQuery {
         return new TransactionQuery($profile, $holder);
     }
 
     public static function invoiceNew(
         Profile $profile,
         Invoice $holder
-    ) {
+    ): NewInvoice {
         return new NewInvoice($profile, $holder);
     }
 
     public static function invoiceStatus(
         Profile $profile,
         BuilderInvoiceStatus $holder
-    ) {
+    ): InvoiceStatus {
         return new InvoiceStatus($profile, $holder);
     }
 
     public static function invoiceCancel(
         Profile $profile,
         BuilderInvoiceCancel $holder
-    ) {
+    ): InvoiceCancel {
         return new InvoiceCancel($profile, $holder);
     }
 
     public static function invoiceSms(
         Profile $profile,
         BuilderInvoiceSms $holder
-    ) {
+    ): InvoiceSms {
         return new InvoiceSms($profile, $holder);
     }
 
     public static function invoiceStatusAsGet(
         Profile $profile,
         PayloadsInvoiceStatusGet $holder
-    ) {
+    ): InvoiceStatusGet {
         return new InvoiceStatusGet($profile, $holder);
     }
 

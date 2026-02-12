@@ -6,13 +6,20 @@ define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Profile\ProfilesFactory;
+use Paytabs\Sdk\Profile\EndpointsFactory;
 
 require_once APP_ROOT.'vendor/autoload.php';
 
 include_once APP_ROOT.'Samples/config.php';
 $configs = readConfigs();
+$_endpoint = $configs['endpoint'];
+$_profileId = $configs['profile_id'];
+$_serverKey = $configs['server_key'];
 
-$profile = new Profile($configs['endpoint'], $configs['profile_id'], $configs['server_key']);
+$profile = new Profile($_endpoint, $_profileId, $_serverKey);
+$profile = ProfilesFactory::createProfile(EndpointsFactory::getJordanEndpoint(), $_profileId, $_serverKey);
+$profile = ProfilesFactory::createUaeProfile($_profileId, $_serverKey);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {

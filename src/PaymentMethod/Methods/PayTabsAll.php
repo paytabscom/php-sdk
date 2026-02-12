@@ -4,7 +4,7 @@ namespace Paytabs\Sdk\PaymentMethod\Methods;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
-final class All extends AbstractMethod
+final class PayTabsAll extends AbstractMethod
 {
     public const ID = 1;
 
