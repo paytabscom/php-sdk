@@ -1,0 +1,9 @@
+%% Mermaid flow diagram for PayTabs SDK
+flowchart TD
+  Profile["Profile<br/>(endpoint + creds)"] --> Request[Request]
+  Payload["Payload Builder<br/>(Parts)"] --> Request
+  Request --> HTTP["HTTP Call"]
+  HTTP --> Response[Response]
+  Response --> Failure[Failure]
+  Response --> Redirect[Redirect]
+  Response --> Success[Success]
