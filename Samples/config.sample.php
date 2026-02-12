@@ -21,5 +21,9 @@ function readConfigs(): array
         'config_id' => 2188,
 
         'currency' => 'AED',
+
+        'payment_token' => '',
+
+        'phone_number' => '+971000000000',
     ];
 }

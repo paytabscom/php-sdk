@@ -5,6 +5,7 @@ use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
@@ -53,6 +54,7 @@ $holder
     )
     // ->buildPaymentMethod('test')
     ->buildCustomerReference('customer-ref-1')
+    ->buildPaypageLang(Language::English)
 ;
 
 $tokenise = true;
@@ -132,10 +134,15 @@ Paytabs::getLogger()->debug(
     'PaymentRequest holder Payload',
     $holder->getPayload()->getBody()
 );
+
+echo '<hr>';
+
 Paytabs::getLogger()->debug(
     'PaymentRequest Payload:',
     [$request->getPayload()]
 );
+
+echo '<hr>';
 
 /** @var Http $http */
 $http->setRequest($request);
@@ -154,10 +161,14 @@ if ($response->isFailure()) {
 // case ResponseStage::UnKnown:
 // case ResponseStage::Completed:
 
+echo '<hr>';
+
 $resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('PaymentRequest Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
+
+echo '<hr>';
 
 Paytabs::getLogger()->error('Missed Data: ', [
     $resMapped->unMappedData(),

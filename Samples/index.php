@@ -6,13 +6,20 @@ define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Profile\ProfilesFactory;
+use Paytabs\Sdk\Profile\EndpointsFactory;
 
 require_once APP_ROOT.'vendor/autoload.php';
 
 include_once APP_ROOT.'Samples/config.php';
 $configs = readConfigs();
+$_endpoint = $configs['endpoint'];
+$_profileId = $configs['profile_id'];
+$_serverKey = $configs['server_key'];
 
-$profile = new Profile($configs['endpoint'], $configs['profile_id'], $configs['server_key']);
+$profile = new Profile($_endpoint, $_profileId, $_serverKey);
+$profile = ProfilesFactory::createProfile(EndpointsFactory::getJordanEndpoint(), $_profileId, $_serverKey);
+$profile = ProfilesFactory::createUaeProfile($_profileId, $_serverKey);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {
@@ -34,6 +41,7 @@ $token = $configs['token'];
 $token_enhanced = $configs['token_enhanced'];
 
 $invoiceId = $configs['invoice_id'];
+$phoneNumber = $configs['phone_number'];
 
 $returnUsingGet = false;
 if ($returnUsingGet) {
@@ -52,6 +60,10 @@ $samples = [
     3 => [
         'Recurring Payment',
         APP_ROOT.'Samples/RecurringRequest.php',
+    ],
+    4 => [
+        'Managed Form',
+        APP_ROOT.'Samples/ManagedForm.php',
     ],
     10 => [
         'Query Token',
@@ -88,6 +100,18 @@ $samples = [
     42 => [
         'Invoice Status POST',
         APP_ROOT.'Samples/InvoiceStatus.php',
+    ],
+    43 => [
+        'Invoice Cancel',
+        APP_ROOT.'Samples/InvoiceCancel.php',
+    ],
+    44 => [
+        'Invoice Send SMS',
+        APP_ROOT.'Samples/InvoiceSms.php',
+    ],
+    45 => [
+        'Invoice Mark as Paid',
+        APP_ROOT.'Samples/InvoiceMarkPaid.php',
     ],
     50 => [
         'Payment Methods',

@@ -1,0 +1,62 @@
+%% PayTabs Payment Parts Reference
+%% Shows all available parts and their purpose
+
+mindmap
+  root((PaymentRequest<br/>Parts))
+    Transaction Details
+      TranType
+        Sale
+        Auth
+        Capture
+      TranClass
+        Ecom
+        Moto
+        Recurring
+        Token
+    Amounts & Items
+      Cart
+        cart_id
+        currency
+        amount
+        description
+      Invoice
+        line items
+        charges
+        dates
+    Customer Info
+      CustomerDetails
+        name
+        phone
+        email
+        address
+      ShippingDetails
+        name
+        phone
+        address
+    Payment Configuration
+      URLs
+        return_url
+        callback_url
+      ConfigId
+        profile_config
+      PaymentMethods
+        include methods
+        exclude methods
+    Security & Tokens
+      Tokenise
+        type
+        frequency
+      TokeniseEnhanced
+        more options
+      CardFilter
+        patterns
+    Discounts & Special
+      CardDiscounts
+        fixed/percent
+        by card pattern
+      UserDefined
+        UDF1-UDF9
+    Metadata
+      PluginInfo
+        platform
+        version
