@@ -1,4 +1,6 @@
 # Payment Request: Hosted Payment Page
+- Version: `1.0.0`
+- SDK version: `1.0.0`
 
 Here is a basic example of how to use the PayTabs SDK:
 
@@ -66,12 +68,12 @@ Response may have 3 formats:
 * Redirect: If the Payment gateway returned a redirect URL.
     ```php
     if ($response->isRedirect()) {
-    // Map the response to Redirect class
-    // Paytabs\Sdk\Response\Payload\Payloads\Redirect
-    $redirect = $response->getRedirect();
-    echo $redirect->redirect_url;
+        // Map the response to Redirect class
+        // Paytabs\Sdk\Response\Payload\Payloads\Redirect
+        $redirect = $response->getRedirect();
+        echo $redirect->redirect_url;
 
-    exit;
+        exit;
     }
     ```
 * Completed: if it is a completed successful response
