@@ -1474,7 +1474,7 @@ class PaytabsApi
             'endpoint' => 'https://secure-morocco.paytabs.com/'
         ],
         'MADFOAT' => [
-            'title' => 'Madfooat',
+            'title' => 'Madfoat',
             'endpoint' => 'https://madfoat-secure.paytabs.com/'
         ],
         'GLOBAL' => [
@@ -1725,7 +1725,7 @@ class PaytabsApi
 
         if (!$is_valid) {
             $hashed_key = explode('-', @$this->server_key ?? '')[0];
-            PaytabsHelper::log("Paytabs Admin: Invalid Signature ({$hashed_key}, {$signature})", 3);
+            PaytabsHelper::log("Paytabs Admin: Invalid Signature ({$hashed_key}, {$signature}, {$is_ipn})", 3);
             return false;
         }
 
