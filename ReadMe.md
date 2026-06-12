@@ -7,3 +7,5 @@ See the architecture guide: [ARCHITECTURE.md](ARCHITECTURE.md)
 Diagrams are in: `docs/diagrams/`
 
 Try the quick samples: `Samples/`
+
+Guides of popular usage: `docs/usage`

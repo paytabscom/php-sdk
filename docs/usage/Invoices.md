@@ -1,4 +1,6 @@
 # Invoices
+- Version: `1.0.0`
+- SDK version: `1.0.0`
 
 ## Create new Invoice
 
