@@ -17,19 +17,25 @@ class Http
     private int $timeout = 30;
     private bool $debugMode = false;
 
-    public function setLogger(LoggerInterface $logger): void
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+
+        return $this;
     }
 
     public function setRequest(RequestInterface $request)
     {
         $this->request = $request;
+
+        return $this;
     }
 
     public function setDebugMode(bool $debugMode)
     {
         $this->debugMode = $debugMode;
+
+        return $this;
     }
 
     public function submit(?ResponseDirectInterface $responseClass = null): ResponseDirectInterface

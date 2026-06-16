@@ -1,8 +1,8 @@
 <?php
 
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserCallback;
-use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserReturn;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsGet;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
 
 $return = 'return' === @$_GET['mode'];
@@ -17,10 +17,10 @@ if ($return) {
     ];
 
     if (!$returnAsGet) {
-        $response = BrowserReturn::init();
+        $response = BrowserAsPost::init();
         $response->setProfile($profile);
     } else {
-        $response = BrowserCallback::init($localParams);
+        $response = BrowserAsGet::init($localParams);
         $response->setProfile($profile);
     }
 
