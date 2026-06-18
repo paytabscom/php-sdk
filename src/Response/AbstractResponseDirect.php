@@ -27,7 +27,7 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
         $this->request = $request;
     }
 
-    public function isSuccessful(): bool
+    public function isProcessed(): bool
     {
         return $this->responseCode >= 200 && $this->responseCode < 300;
     }

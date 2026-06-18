@@ -1,17 +1,16 @@
 # Payment Request: Hosted Payment Page
 - Version: `1.0.0`
-- SDK version: `1.0.0`
+- SDK version: `3.0.0`
 
 Here is a basic example of how to use the PayTabs SDK:
 
 1. Prepare the Authentication (Profile):
 ```php
-use Paytabs\Sdk\Profile\Profile;
-use Paytabs\Sdk\Profile\Endpoints\Uae;
+use Paytabs\Sdk\Profile\ProfilesFactory;
 
 $profileId = 123; // your profile id
-$serverKey = 'SRxxxx-xxxx-xxx' // the server key
-$profile = new Profile(Uae::getInstance(), $profileId, $serverKey);
+$serverKey = 'SRxxxx-xxxx-xxx'; // the server key
+$profile = ProfilesFactory::createUaeProfile($profileId, $serverKey);
 ```
 
 2. Build the Payload:
@@ -25,7 +24,7 @@ use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 $hostedPage = PayloadsFactory::hostedPage();
 $hostedPage
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildCart('order-01', 'AED', 100, 'Oder 01 description')
+    ->buildCart('order-01', 'AED', 100, 'Order 01 description')
     ->buildCustomerDetails(
         (new CustomerDetails('John Doe', null, 'john@email-domain.com'))
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st')
@@ -79,5 +78,5 @@ Response may have 3 formats:
 * Completed: if it is a completed successful response
     Response has a Payload object which is the data returned from the Server.
     ```php
-    $response->getPayload();
+    $completed = $response->getPayloadMapped();
     ```

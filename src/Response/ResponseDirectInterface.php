@@ -13,7 +13,7 @@ interface ResponseDirectInterface extends ResponseInterface
 
     public function setRequest(RequestInterface $request);
 
-    public function isSuccessful(): bool;
+    public function isProcessed(): bool;
 
     public function isFailure(): bool;
 

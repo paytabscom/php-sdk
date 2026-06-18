@@ -1,195 +1,130 @@
-# PayTabs PHP SDK - Architecture Overview
+# PayTabs PHP SDK Architecture
 
-This document explains the SDK architecture for developers integrating with the PayTabs payment gateway. Think of the SDK as Lego blocks:
+This document reflects the current architecture of the SDK in version 3.x.
+Think of the SDK as LEGO blocks.
 
-- Small Parts (atomic pieces) form Payloads (assembled components).
-- Profiles are another group of Parts that represent authentication & endpoint context.
-- Profile + Payload + destination path/type = Request (a constructed Lego model ready to send).
-- Responses are mapped back into typed Payload objects (direct or webhook), and are classified as Failure, Redirect, or Known success payloads.
+## Building Blocks
 
-This file covers the main building blocks and provides diagrams and a quick runnable sample.
+1. **Parts:**
+Atomic request fragments that implement [src/Request/Payload/PartInterface.php](src/Request/Payload/PartInterface.php). A part contributes body, headers, query, or path fields through build logic.
 
-## Main Concepts
+2. **Payloads and Builders:**
+Payload builders compose many parts into final request payload objects.
+- Builder contracts and base classes are in [src/Request/Payload](src/Request/Payload).
+- Concrete payload builders are created by [src/Request/Payload/PayloadsFactory.php](src/Request/Payload/PayloadsFactory.php).
 
-- `PartInterface` - the atomic building block. Each part implements `build(): array` and returns a fragment that fits into headers, body, query or path.
-- `Payload` (`AbstractPayload`) - collects Parts and exposes `getBody()`, `getHeaders()`, `getQuery()`, `getPath()`; used to compose the HTTP request body and other sections.
-- `Profile` - a specialized payload containing endpoint, credentials, and server-level headers/body.
-- `Request` (`AbstractRequest`) - combines a `Profile` and a `Payload` (via a builder) into a ready-to-send HTTP request with `getUrl()`, `getHeaders()`, `getPayload()`.
-- `Response` - two main branches: Direct (synchronous HTTP responses) and Webhook (asynchronous IPN/callbacks). Responses are mapped into typed payload objects.
+3. **Profile:**
+Profile carries endpoint context and credentials, and contributes request-level defaults.
+- Profile model: [src/Profile/Profile.php](src/Profile/Profile.php)
+- Region-aware profile factory: [src/Profile/ProfilesFactory.php](src/Profile/ProfilesFactory.php)
 
-## Files of Interest
+4. **Request:**
+Request combines Profile + Payload builder + endpoint path into a transport-ready shape.
+- Base request behavior: [src/Request/AbstractRequest.php](src/Request/AbstractRequest.php)
+- Request factory: [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 
-- `src/Request/Payload/PartInterface.php`
-- `src/Request/Payload/AbstractPayload.php`
-- `src/Profile/Profile.php`
-- `src/Request/RequestsFactory.php`
-- `src/Request/Payload/PayloadsFactory.php`
+5. **Response:**
+Responses are handled through two branches.
+- Direct responses: [src/Response/AbstractResponseDirect.php](src/Response/AbstractResponseDirect.php)
+- Webhook responses: [src/Response/AbstractResponseWebhook.php](src/Response/AbstractResponseWebhook.php)
 
-## Quick Flow (Text)
+## High-Level Flow
 
-1. Developer builds a `Profile` with `ProfilesFactory::createUaeProfile(...)` (endpoint + credentials).
-2. Developer creates a request builder via `PayloadsFactory::ownForm()` (or `managedForm()`, `hostedPage()`, ...).
-3. The builder adds Parts: transaction, cart, customer details, URLs, etc.
-4. Developer creates a request via `RequestsFactory::paymentRequest($profile, $builder)`.
-5. Call `getUrl()`, `getHeaders()`, `getPayload()` to send the HTTP call using any HTTP client.
-6. Map the raw HTTP response into a `Response` object and inspect `isFailure()`, `isRedirect()`, or mapped payload values.
-
-## ASCII Diagram
-
-```
-Profile + Payload -> Request -> HTTP -> Response
-
-  [Profile]      [Payload Builder]
-     |                |
-     +------(merge)---+
-              |
-          [Request]
-              |
-           HTTP CALL
-              |
-          [Response]
-             / \
-         Failure Redirect/Success
-```
-
-## Mermaid Diagram (Rendered on GitHub)
+1. Create a profile with `ProfilesFactory`.
+2. Create a payload builder with `PayloadsFactory`.
+3. Add relevant parts through `builder` methods.
+4. Create a request with `RequestsFactory`.
+5. Send request using URL, headers, payload, and HTTP type from the request object.
+6. Map and inspect response as `direct` or `webhook`.
 
 ```mermaid
 flowchart TD
-  A[Profile] --> C[Request]
-  B[Payload Builder] --> C
-  C --> D[HTTP]
-  D --> E[Response]
-  E --> F[Failure]
-  E --> G[Redirect]
-  E --> H[Success]
+    PartsPool[("Parts Pool")] -. builds .-> PayloadBuilder["Payload Builder"]
+    Profile["Profile"] --> Request["Request"]
+    PartsPool -. builds .-> Profile
+    PayloadBuilder --> Request
+    Request --> Http["HTTP Call"]
+    Http --> Response["Response"]
+    Response --> Direct("Direct Response")
+    Response -.-> Webhook("Webhook")
+    Direct --> Failure["Failure"]
+    Direct --> Redirect["Redirect"]
+    Direct --> Processed["Processed"]
+    Webhook --> Browser["Browser"]
+    Webhook --> Callback["Callback / IPN"]
 ```
 
-## Quick Example
+## Request-Side Structure
 
-1. Create a profile: `ProfilesFactory::createUaeProfile(123, 'server_key')`
-2. Create builder: `PayloadsFactory::ownForm()`
-3. Add parts: `buildTransaction()`, `buildCart()`, `buildURLs()`
-4. Compose request: `RequestsFactory::paymentRequest($profile, $builder)`
-5. Print `getUrl()`, `getHeaders()`, `getPayload()` (sample prints them - it does not make a network call)
+Core request area is organized as:
 
-See `Samples/` folder for a runnable samples.
+- Request contracts and orchestration:
+    - [src/Request/RequestInterface.php](src/Request/RequestInterface.php)
+    - [src/Request/AbstractRequest.php](src/Request/AbstractRequest.php)
+    - [src/Request/PaytabsRequest.php](src/Request/PaytabsRequest.php)
+    - [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 
----
+- Payload system:
+    - [src/Request/Payload/BuilderInterface.php](src/Request/Payload/BuilderInterface.php)
+    - [src/Request/Payload/AbstractBuilder.php](src/Request/Payload/AbstractBuilder.php)
+    - [src/Request/Payload/PayloadInterface.php](src/Request/Payload/PayloadInterface.php)
+    - [src/Request/Payload/AbstractPayload.php](src/Request/Payload/AbstractPayload.php)
+    - [src/Request/Payload/PayloadsFactory.php](src/Request/Payload/PayloadsFactory.php)
 
-## PaymentRequest in Detail
+- Parts catalog:
+    - [src/Request/Payload/Parts](src/Request/Payload/Parts)
+    - [src/Request/Payload/Parts/Partials](src/Request/Payload/Parts/Partials)
 
-The `PaymentRequest` is the most common request type. It uses a `HostedPage` (or `OwnForm`, `ManagedForm`) payload, which accepts many optional `Part` objects.
+The current parts map is maintained in [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd).
 
-### Available Parts for PaymentRequest
+## Response-Side Structure
 
-- **Cart** - transaction amount, currency, cart ID, description
-- **Transaction** - transaction type (Sale, Auth, Capture) and class (Ecom, Moto, Recurring)
-- **CustomerDetails** - buyer name, phone, email, full address
-- **ShippingDetails** - shipping recipient name and address
-- **URLs** - return and callback URLs for post-payment flow
-- **ConfigId** - profile configuration override
-- **PaymentMethods** - include/exclude payment options (card, e-wallet, etc.)
-- **CardFilter** - restrict by card BIN patterns
-- **CardDiscounts** - apply discounts per card range
-- **Tokenise** / **TokeniseEnhanced** - enable recurring payments and token storage
-- **UserDefined** - custom fields (UDF1-UDF9)
-- **Invoice** - line items, charges, invoice dates (for hosted invoices)
-- **PluginInfo** - platform and plugin version metadata
+Response entry contracts:
 
-Diagram: See `docs/diagrams/payment-request-composition.mmd` for composition flow.
+- [src/Response/ResponseInterface.php](src/Response/ResponseInterface.php)
+- [src/Response/ResponseDirectInterface.php](src/Response/ResponseDirectInterface.php)
+- [src/Response/ResponseWebhookInterface.php](src/Response/ResponseWebhookInterface.php)
 
-See `docs/diagrams/payment-parts-reference.mmd` for a parts reference map.
+Direct response mapping:
 
-### Code Example: Full PaymentRequest
+- Base logic and stage detection in [src/Response/AbstractResponseDirect.php](src/Response/AbstractResponseDirect.php).
+- Stages include error, redirect, and completed payload mapping.
 
-```php
-use Paytabs\Sdk\Profile\ProfilesFactory;
-use Paytabs\Sdk\Request\Payload\PayloadsFactory;
-use Paytabs\Sdk\Request\RequestsFactory;
-use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Enums\TranClass;
-use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
-use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
-use Paytabs\Sdk\Request\Payload\Parts\Partials\CardDiscount;
-use Paytabs\Sdk\Enums\CardDiscountType;
+Webhook response mapping:
 
-// 1) Create profile for UAE
-$profile = ProfilesFactory::createUaeProfile(123, 'server_key');
+- Webhook base verification in [src/Response/Responses/Webhook/TransactionResult.php](src/Response/Responses/Webhook/TransactionResult.php).
+- IPN callback handler: [src/Response/Responses/Webhook/TransactionResult/Callback.php](src/Response/Responses/Webhook/TransactionResult/Callback.php).
+- Browser callback/return handlers now use:
+    - [src/Response/Responses/Webhook/TransactionResult/Browser.php](src/Response/Responses/Webhook/TransactionResult/Browser.php) (abstract)
+    - [src/Response/Responses/Webhook/TransactionResult/BrowserAsGet.php](src/Response/Responses/Webhook/TransactionResult/BrowserAsGet.php)
+    - [src/Response/Responses/Webhook/TransactionResult/BrowserAsPost.php](src/Response/Responses/Webhook/TransactionResult/BrowserAsPost.php)
 
-// 2) Create builder (HostedPage, OwnForm, ManagedForm, etc.)
-$builder = PayloadsFactory::hostedPage();
+## Factory Entry Points
 
-// 3) Add parts (builder methods return $this for chaining)
-$builder
-    ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildCart('cart-001', 'USD', 99.99, 'Purchase Order')
-    ->buildCustomerDetails(
-        (new CustomerDetails('John Doe', '1234567890', 'john@example.com'))
-            ->setAddress('AE', 'Dubai', 'Dubai', 'Main St', '12345')
-    )
-    ->buildShippingDetails(new ShippingDetails('John Doe'))
-    ->buildURLs('https://example.com/return', 'https://example.com/callback')
-    ->buildCardDiscounts(
-        new CardDiscounts(
-            new CardDiscount(CardDiscountType::Fixed, 10.0, '4111', '10 AED off on Visa')
-        )
-    )
-    ->buildUserDefined(
-        (new UserDefined())->setUDF1('custom_field_1')->setUDF2('custom_field_2')
-    )
-    ->buildTokenise(true) // Enable token storage
-;
+Profiles:
+- createProfile(endpoint, profileId, serverKey)
+- regional helpers such as createUaeProfile, createKsaProfile, createEgyptProfile, and others in [src/Profile/ProfilesFactory.php](src/Profile/ProfilesFactory.php)
 
-// 4) Create request
-$request = RequestsFactory::paymentRequest($profile, $builder);
+Payload builders:
+- hostedPage, ownForm, managedForm, recurringPayment
+- invoiceCreate, invoiceStatus, invoiceCancel, invoiceMarkPaid, invoiceSms
+- transactionQuery, followup, refund, token
+Defined in [src/Request/Payload/PayloadsFactory.php](src/Request/Payload/PayloadsFactory.php)
 
-// 5) Send (example with GuzzleHttp or any HTTP client)
-$httpClient = new GuzzleHttp\Client();
-$httpResponse = $httpClient->request(
-    $request->getHttpType()->value,
-    $request->getUrl(),
-    [
-        'headers' => $request->getHeaders(),
-        'body'    => $request->getPayload(),
-    ]
-);
+Requests:
+- paymentRequest, tokenQuery, tokenDelete, transactionQuery
+- invoiceNew, invoiceStatus, invoiceCancel, invoiceSms, invoiceStatusAsGet, invoiceMarkPaid
+Defined in [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 
-// 6) Handle response
-$payloadClass = $request->getResponseClass();
-$response = /* map raw response to Response object */;
+## Architecture Diagrams
 
-if ($response->isFailure()) {
-    echo 'Error: ' . $response->getFailure()->getMessage();
-} elseif ($response->isRedirect()) {
-    header('Location: ' . $response->getRedirect()->getRedirectUrl());
-} else {
-    $payload = $response->getPayload()->getMapped();
-    echo 'Success: ' . $payload->getTransactionRef();
-}
-```
-
-See `Samples/PaymentRequest.php` for a complete working example with all features.
-
-### Request Flow Diagram
-
-Sequence from creating the builder to sending the HTTP request:
-
-```mermaid
-flowchart TD
-    Factory["PayloadsFactory::hostedPage()"] --> Builder["HostedPage Builder"]
-    Builder --> AddParts["builder->build*<br/>(Transaction, Cart, Customer, ...)"]
-    AddParts --> GetPayload["builder->getPayload()"]
-    GetPayload --> Payload["Payload Object<br/>getBody, getHeaders, getPath"]
-    Profile["ProfilesFactory::createUaeProfile"] --> RequestFactory["RequestsFactory::paymentRequest"]
-    Payload --> RequestFactory
-    RequestFactory --> Request["PaymentRequest<br/>getUrl, getHeaders, getPayload"]
-    Request --> HTTP["HTTP Client<br/>POST to URL with headers+body"]
-    HTTP --> Response["Response Object<br/>isFailure, isRedirect, getPayload"]
-```
+- Main flow: [docs/diagrams/flow.mmd](docs/diagrams/flow.mmd)
+- Payment request composition: [docs/diagrams/payment-request-composition.mmd](docs/diagrams/payment-request-composition.mmd)
+- Parts reference: [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd)
 
 ## Maintainer Notes
 
-- Diagrams: update `docs/diagrams/flow.mmd` (Mermaid) when the flow changes.
-- Add new PaymentRequest diagrams in `docs/diagrams/` when adding new Features.
-- Samples: put quick integration examples in `Samples/` and heavy, interactive examples in `examples/`.
+1. Keep this file aligned with any class or naming changes in factories and response handlers.
+2. Update [docs/diagrams/flow.mmd](docs/diagrams/flow.mmd) whenever webhook or direct-flow naming changes.
+3. Update [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd) when new concrete part classes are added.
+4. Validate Mermaid diagrams after edits.

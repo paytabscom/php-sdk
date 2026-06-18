@@ -22,7 +22,7 @@ class InvoiceCancel extends PaytabsRequest
         parent::__construct($profile, $holder);
     }
 
-    /** @return InvoiceCancel */
+    /** @return ResponseInvoiceCancel */
     public function getResponseClass(): PayloadInterface
     {
         return new ResponseInvoiceCancel();
