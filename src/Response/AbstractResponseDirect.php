@@ -22,7 +22,7 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
         return $this;
     }
 
-    public function setRequest(RequestInterface $request)
+    public function setRequest(RequestInterface $request): void
     {
         $this->request = $request;
     }

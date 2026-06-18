@@ -33,12 +33,12 @@ class RecurringPayment extends HostedPage
         return parent::buildTransaction($tran_type, $tran_class);
     }
 
-    public function buildShippingDetails(ShippingDetails $shippingDetails)
+    public function buildShippingDetails(ShippingDetails $shippingDetails): void
     {
         throw new \Exception('Shipping details are not allowed in Recurring Payment');
     }
 
-    public function buildCardFilter(string $cardFilter, string $cardFilterTitle)
+    public function buildCardFilter(string $cardFilter, string $cardFilterTitle): void
     {
         throw new \Exception('Card filter is not allowed in Recurring Payment');
     }
