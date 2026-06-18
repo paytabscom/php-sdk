@@ -35,7 +35,7 @@ Paytabs::getLogger()->info('Payment Methods:', [
     $methods->build(),
 ]);
 
-function logMethod(AbstractMethod $method)
+function logMethod(AbstractMethod $method): void
 {
     Paytabs::getLogger()->debug('Method object', [
         $method,

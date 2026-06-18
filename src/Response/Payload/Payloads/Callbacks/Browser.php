@@ -26,7 +26,7 @@ class Browser extends Paytabs
 
     public string $token;
 
-    public function setRespStatus(string $respStatus)
+    public function setRespStatus(string $respStatus): void
     {
         $this->respStatus = $respStatus;
         $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus)) ?? TranStatus::UnKnown;

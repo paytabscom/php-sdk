@@ -52,9 +52,7 @@ abstract class MethodsFactory
         if (empty(static::$methodsMapper)) {
             $allMethods = PaymentMethod::getAllMethods();
 
-            static::$methodsMapper = array_map(static function ($enumMethod) {
-                return new $enumMethod->value();
-            }, $allMethods);
+            static::$methodsMapper = array_map(static fn($enumMethod) => new $enumMethod->value(), $allMethods);
         }
 
         return static::$methodsMapper;

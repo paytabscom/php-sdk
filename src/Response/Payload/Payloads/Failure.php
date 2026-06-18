@@ -7,7 +7,7 @@ class Failure extends Paytabs
     public int $code;
     public string $message;
 
-    public function throwException()
+    public function throwException(): void
     {
         throw new \Exception($this->message, $this->code);
     }

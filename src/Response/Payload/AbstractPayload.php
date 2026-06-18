@@ -58,7 +58,7 @@ abstract class AbstractPayload implements PayloadInterface
         foreach ($json as $key => $value) {
             if (!isset($this->{$key})) {
                 $arr[] = $key;
-            } elseif (is_object($this->{$key})) {
+            } elseif (\is_object($this->{$key})) {
                 // check missing nested data
             }
         }

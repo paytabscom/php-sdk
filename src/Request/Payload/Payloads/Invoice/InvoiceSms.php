@@ -18,7 +18,7 @@ class InvoiceSms extends PaytabsBuilder
         return $this;
     }
 
-    public function buildInvoiceSmsBody(string $phone)
+    public function buildInvoiceSmsBody(string $phone): void
     {
         $this->product->buildBody(new GenericPart(
             [

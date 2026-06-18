@@ -20,7 +20,7 @@ final class ManagedFormTest extends TestCase
         $result = $managedForm->buildPaymentToken($paymentToken);
 
         // Assert
-        $this->assertSame($managedForm, $result); // Ensure the method returns $this
+        self::assertSame($managedForm, $result); // Ensure the method returns $this
     }
 
 }
