@@ -48,6 +48,10 @@ final class PaymentRequestTest extends TestCase
 
     public function testRequest(): void
     {
+        if ('1' !== getenv('PAYTABS_RUN_LIVE_TESTS')) {
+            $this->markTestSkipped('Live payment request test skipped. Set PAYTABS_RUN_LIVE_TESTS=1 to run it.');
+        }
+
         $profile = $this->generateProfile();
         $holder = $this->generatePayload();
 

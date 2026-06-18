@@ -2,12 +2,12 @@
 
 namespace Paytabs\Sdk\Http;
 
-use Exception;
 use Paytabs\Sdk\Request\RequestInterface;
 use Paytabs\Sdk\Response\Payload\Payloads\Generic as PayloadsGeneric;
 use Paytabs\Sdk\Response\ResponseDirectInterface;
 use Paytabs\Sdk\Response\Responses\Direct\Generic;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class Http
 {
@@ -16,6 +16,11 @@ class Http
 
     private int $timeout = 30;
     private bool $debugMode = false;
+
+    public function __construct()
+    {
+        $this->logger = new NullLogger();
+    }
 
     public function setLogger(LoggerInterface $logger)
     {
@@ -44,24 +49,26 @@ class Http
 
         $this->logger->debug('Executing cURL ...', []);
 
-        $curl_response = curl_exec($curl_handle);
-        $curl_response_code = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+        $requestResult = $this->executeRequest($curl_handle);
 
-        $errorNo = curl_errno($curl_handle);
+        $curl_response = $requestResult['response'];
+        $curl_response_code = $requestResult['statusCode'];
+        $errorNo = $requestResult['errorNo'];
+
         if ($errorNo) {
-            $errorMsg = curl_error($curl_handle);
+            $errorMsg = $requestResult['errorMessage'];
 
             $this->logger->error('cURL failed: ', [$errorMsg]);
 
-            curl_close($curl_handle);
-
-            throw new \Exception($errorMsg);
+            throw HttpRequestException::transport($errorMsg, $errorNo);
         }
 
-        curl_close($curl_handle);
-
-        if (!($curl_response_code >= 200 && $curl_response_code < 300)) {
-            // throw new Exception('Invalid Request');
+        // Keep non-2xx payloads available for response-layer classification.
+        // Throw only when status is non-2xx and there is no response body to parse.
+        if (!($curl_response_code >= 200 && $curl_response_code < 300)
+            && ($curl_response === false || $curl_response === '')
+        ) {
+            throw HttpRequestException::invalidStatusCode($curl_response_code);
         }
 
         if (!$responseClass) {
@@ -83,6 +90,19 @@ class Http
         ;
 
         return $responseClass;
+    }
+
+    /**
+     * @return array{response: array|string|false, statusCode: int, errorNo: int, errorMessage: string}
+     */
+    protected function executeRequest(\CurlHandle $curl_handle): array
+    {
+        return [
+            'response' => curl_exec($curl_handle),
+            'statusCode' => (int) curl_getinfo($curl_handle, CURLINFO_HTTP_CODE),
+            'errorNo' => curl_errno($curl_handle),
+            'errorMessage' => curl_error($curl_handle),
+        ];
     }
 
     private function initRequest(): \CurlHandle

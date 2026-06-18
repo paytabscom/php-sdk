@@ -42,10 +42,20 @@ $paymentRequest = RequestsFactory::paymentRequest($profile, $hostedPage);
 4. Create the Http connector:
 ```php
 use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 
 $http = new Http();
-$http->setRequest($paymentRequest);
-$response = $http->submit();
+$http
+    ->setLogger(Paytabs::getLogger())
+    ->setRequest($paymentRequest);
+
+try {
+    $response = $http->submit();
+} catch (\Paytabs\Sdk\Http\HttpRequestException $e) {
+    // HTTP/network failures and non-2xx responses are raised as exceptions.
+    echo $e->getMessage();
+    exit;
+}
 ```
 
 5. Response handle:
