@@ -42,7 +42,7 @@ class RequestsFactory
     public static function tokenDelete(
         Profile $profile,
         Token $holder
-    ): TokenQuery {
+    ): TokenDelete {
         return new TokenDelete($profile, $holder);
     }
 

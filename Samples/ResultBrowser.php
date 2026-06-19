@@ -14,7 +14,7 @@ $response1 = BrowserAsGet::initWith($getArray1);
 $response1->setProfile($profile);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
-    'isGenuine' => $response1->isGenuine(),
+    'isGenuine' => $response1->isGenuine() ? 'Yes' : 'No',
     'Response' => $response1->getPayload()->getMapped(),
 ]);
 
@@ -28,6 +28,6 @@ $response2 = BrowserAsPost::initWith($getArray2, ['mode', 'result']);
 $response2->setProfile($profile);
 
 Paytabs::getLogger()->debug('Return Payload: ', [
-    'isGenuine' => $response2->isGenuine(),
+    'isGenuine' => $response2->isGenuine() ? 'Yes' : 'No',
     'Response' => $response2->getPayload()->getMapped(),
 ]);

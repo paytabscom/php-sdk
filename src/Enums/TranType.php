@@ -36,7 +36,7 @@ enum TranType: string
             TranType::Sale,
         ];
 
-        return in_array($this, $recurring);
+        return \in_array($this, $recurring, true);
     }
 
     /** @todo */

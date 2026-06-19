@@ -1,7 +1,7 @@
 <?php
 
 // APP_ROOT points to the root directory of the library
-define('APP_ROOT', realpath(dirname(__FILE__)).'/../');
+define('APP_ROOT', realpath(__DIR__) . '/../');
 
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
@@ -9,9 +9,9 @@ use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Profile\ProfilesFactory;
 use Paytabs\Sdk\Profile\EndpointsFactory;
 
-require_once APP_ROOT.'vendor/autoload.php';
+require_once APP_ROOT . 'vendor/autoload.php';
 
-include_once APP_ROOT.'Samples/config.php';
+include_once APP_ROOT . 'Samples/config.php';
 $configs = readConfigs();
 $_endpoint = $configs['endpoint'];
 $_profileId = $configs['profile_id'];
@@ -34,8 +34,8 @@ $http->setLogger(Paytabs::getLogger());
 $trxRef = $configs['trx_ref'];
 
 $urlBase = $configs['base_url'];
-$urlCallback = $urlBase.'?result=1';
-$urlReturn = $urlBase.'?result=1&mode=return';
+$urlCallback = $urlBase . '?result=1';
+$urlReturn = $urlBase . '?result=1&mode=return';
 
 $token = $configs['token'];
 $token_enhanced = $configs['token_enhanced'];
@@ -51,78 +51,78 @@ if ($returnUsingGet) {
 $samples = [
     1 => [
         'Payment Request',
-        APP_ROOT.'Samples/PaymentRequest.php',
+        APP_ROOT . 'Samples/PaymentRequest.php',
     ],
     2 => [
         'Own Form',
-        APP_ROOT.'Samples/OwnForm.php',
+        APP_ROOT . 'Samples/OwnForm.php',
     ],
     3 => [
         'Recurring Payment',
-        APP_ROOT.'Samples/RecurringRequest.php',
+        APP_ROOT . 'Samples/RecurringRequest.php',
     ],
     4 => [
         'Managed Form',
-        APP_ROOT.'Samples/ManagedForm.php',
+        APP_ROOT . 'Samples/ManagedForm.php',
     ],
     10 => [
         'Query Token',
-        APP_ROOT.'Samples/TokenQuery.php',
+        APP_ROOT . 'Samples/TokenQuery.php',
     ],
     11 => [
         'Token Delete',
-        APP_ROOT.'Samples/TokenDelete.php',
+        APP_ROOT . 'Samples/TokenDelete.php',
     ],
     12 => [
         'Transaction Query',
-        APP_ROOT.'Samples/TransactionQuery.php',
+        APP_ROOT . 'Samples/TransactionQuery.php',
     ],
     20 => [
         'Refund',
-        APP_ROOT.'Samples/RefundRequest.php',
+        APP_ROOT . 'Samples/RefundRequest.php',
     ],
     30 => [
         'Result Browser',
-        APP_ROOT.'Samples/ResultBrowser.php',
+        APP_ROOT . 'Samples/ResultBrowser.php',
     ],
     31 => [
         'Result CallBack',
-        APP_ROOT.'Samples/ResultCallback.php',
+        APP_ROOT . 'Samples/ResultCallback.php',
     ],
     40 => [
         'Invoice New',
-        APP_ROOT.'Samples/InvoiceNew.php',
+        APP_ROOT . 'Samples/InvoiceNew.php',
     ],
     41 => [
         'Invoice Status GET',
-        APP_ROOT.'Samples/InvoiceStatusGet.php',
+        APP_ROOT . 'Samples/InvoiceStatusGet.php',
     ],
     42 => [
         'Invoice Status POST',
-        APP_ROOT.'Samples/InvoiceStatus.php',
+        APP_ROOT . 'Samples/InvoiceStatus.php',
     ],
     43 => [
         'Invoice Cancel',
-        APP_ROOT.'Samples/InvoiceCancel.php',
+        APP_ROOT . 'Samples/InvoiceCancel.php',
     ],
     44 => [
         'Invoice Send SMS',
-        APP_ROOT.'Samples/InvoiceSms.php',
+        APP_ROOT . 'Samples/InvoiceSms.php',
     ],
     45 => [
         'Invoice Mark as Paid',
-        APP_ROOT.'Samples/InvoiceMarkPaid.php',
+        APP_ROOT . 'Samples/InvoiceMarkPaid.php',
     ],
     50 => [
         'Payment Methods',
-        APP_ROOT.'Samples/PaymentMethods.php',
+        APP_ROOT . 'Samples/PaymentMethods.php',
     ],
 ];
 
 $sampleId = filter_input(INPUT_GET, 'sample', FILTER_VALIDATE_INT);
 if ($sampleId) {
     echo '<a href="?">Back</a><br>';
-    echo '<h2>'.$samples[$sampleId][0].'</h2><br>';
+    echo '<h2>' . $samples[$sampleId][0] . '</h2><br>';
 
     include $samples[$sampleId][1];
 

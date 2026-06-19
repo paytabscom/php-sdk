@@ -5,10 +5,10 @@ use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsGet;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
 
-$return = 'return' === @$_GET['mode'];
+$return = 'return' === ($_GET['mode'] ?? null);
 
 if ($return) {
-    $returnAsGet = '1' === @$_GET['get'];
+    $returnAsGet = '1' === ($_GET['get'] ?? null);
 
     $localParams = [
         'mode',
@@ -16,17 +16,20 @@ if ($return) {
         'get',
     ];
 
-    if (!$returnAsGet) {
-        $response = BrowserAsPost::init();
-        $response->setProfile($profile);
-    } else {
+    if ($returnAsGet) {
+        // Legacy compatibility path. BrowserAsPost is the default and recommended flow.
         $response = BrowserAsGet::init($localParams);
-        $response->setProfile($profile);
+    } else {
+        $response = BrowserAsPost::init();
     }
+
+    $response->setProfile($profile);
+
+    $isGenuine = $response->isGenuine();
 
     $resMapped = $response->getPayload()->getMapped();
     Paytabs::getLogger()->debug('Return Payload: ', [
-        'isGenuine' => $response->isGenuine(),
+        'isGenuine' => $isGenuine ? 'Yes' : 'No',
         'Response' => $resMapped,
     ]);
     Paytabs::getLogger()->error('Missed Data: ', [
@@ -36,12 +39,19 @@ if ($return) {
     $ipnResponse = Callback::init();
     $ipnResponse->setProfile($profile);
 
+    $isGenuine = $ipnResponse->isGenuine();
+
     $resMapped = $ipnResponse->getPayload()->getMapped();
     Paytabs::getLogger()->debug('IPN Payload: ', [
-        'isGenuine' => $ipnResponse->isGenuine(),
+        'isGenuine' => $isGenuine ? 'Yes' : 'No',
         'Response' => $resMapped,
     ]);
     Paytabs::getLogger()->error('Missed Data: ', [
         $resMapped->unMappedData(),
     ]);
+}
+
+if (!$isGenuine) {
+    // http_response_code(400);
+    echo 'Invalid signature';
 }

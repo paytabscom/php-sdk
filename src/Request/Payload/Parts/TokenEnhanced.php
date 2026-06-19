@@ -19,7 +19,7 @@ class TokenEnhanced extends AbstractPart
         $this->tokenType = $tokenType;
         $this->counter = $counter;
 
-        if (!is_null($counter) && $counter < 1) {
+        if (null !== $counter && $counter < 1) {
             throw new \InvalidArgumentException('Counter must be greater than 0');
         }
     }
@@ -31,7 +31,7 @@ class TokenEnhanced extends AbstractPart
             'token_type' => $this->tokenType->value,
         ];
 
-        if (!is_null($this->counter)) {
+        if (null !== $this->counter) {
             $_info['counter'] = $this->counter;
         }
 

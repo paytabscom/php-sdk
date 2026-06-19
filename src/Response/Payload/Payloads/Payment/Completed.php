@@ -34,7 +34,7 @@ class Completed extends Payment
 
     protected TranClass $tranClass;
 
-    public function setTranClass(string $tran_class)
+    public function setTranClass(string $tran_class): void
     {
         $this->tran_class = $tran_class;
         $this->tranClass = TranClass::tryFrom(strtolower($tran_class)) ?? TranClass::UnKnown;

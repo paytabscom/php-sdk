@@ -12,7 +12,10 @@ $headers = [
 $ipnResponse = Callback::initWith($payload, $headers);
 $ipnResponse->setProfile($profile);
 
+$isGenuine = $ipnResponse->isGenuine();
+$mapped = $ipnResponse->getPayload()->getMapped();
+
 Paytabs::getLogger()->debug('IPN Payload: ', [
-    'isGenuine' => $ipnResponse->isGenuine(),
-    'Response' => $ipnResponse->getPayload()->getMapped(),
+    'isGenuine' => $isGenuine ? 'Yes' : 'No',
+    'Response' => $mapped,
 ]);
