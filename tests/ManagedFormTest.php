@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Paytabs\Sdk\Request\Payload\Parts\ManagedFormToken;
 use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
 use PHPUnit\Framework\TestCase;
 
