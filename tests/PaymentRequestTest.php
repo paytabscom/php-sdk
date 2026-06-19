@@ -7,14 +7,14 @@ include_once APP_ROOT . 'Samples/config.php';
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\BuilderInterface;
-use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
 use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
-use Paytabs\Sdk\Http\Http;
-use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use PHPUnit\Framework\TestCase;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
-use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
 use Paytabs\Sdk\Request\Payload\Parts\ManagedFormToken;
+use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
+use PHPUnit\Framework\TestCase;
 
 final class ManagedFormTest extends TestCase
 {

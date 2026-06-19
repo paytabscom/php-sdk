@@ -5,10 +5,11 @@ define('APP_ROOT', realpath(__DIR__) . '/../');
 
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Profile\EndpointsFactory;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Profile\ProfilesFactory;
-use Paytabs\Sdk\Profile\EndpointsFactory;
 
+// putenv('PAYTABS_LOG_BROWSER=1');
 require_once APP_ROOT . 'vendor/autoload.php';
 
 include_once APP_ROOT . 'Samples/config.php';

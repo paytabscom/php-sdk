@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Request\Payload\Payloads;
 
+use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
-use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerReference;

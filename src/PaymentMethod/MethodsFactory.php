@@ -3,10 +3,10 @@
 namespace Paytabs\Sdk\PaymentMethod;
 
 use Paytabs\Sdk\Enums\PaymentMethod;
-use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\PaymentMethod\Methods\Fawry;
+use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 
 abstract class MethodsFactory
