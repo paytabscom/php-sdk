@@ -5,6 +5,8 @@ use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
+$invoiceId = $_GET['invoice_id'] ?? $invoiceId;
+
 $holder = PayloadsFactory::invoiceStatus(true);
 $holder->buildInvoiceId($invoiceId);
 

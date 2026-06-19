@@ -18,9 +18,9 @@ $_endpoint = $configs['endpoint'];
 $_profileId = $configs['profile_id'];
 $_serverKey = $configs['server_key'];
 
-$profile = new Profile($_endpoint, $_profileId, $_serverKey);
 $profile = ProfilesFactory::createProfile(EndpointsFactory::getJordanEndpoint(), $_profileId, $_serverKey);
 $profile = ProfilesFactory::createUaeProfile($_profileId, $_serverKey);
+$profile = new Profile($_endpoint, $_profileId, $_serverKey);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {
@@ -53,6 +53,10 @@ $samples = [
     1 => [
         'Payment Request',
         APP_ROOT . 'Samples/PaymentRequest.php',
+    ],
+    5 => [
+        'Payment Request (Basic)',
+        APP_ROOT . 'Samples/PaymentRequest-simple.php',
     ],
     2 => [
         'Own Form',

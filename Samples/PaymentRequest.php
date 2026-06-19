@@ -26,7 +26,7 @@ $holder = PayloadsFactory::hostedPage();
 $holder
     ->buildCart('cart01', $configs['currency'], 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
+    ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
         (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
@@ -39,7 +39,7 @@ $holder
         new ShippingDetails('Integrations 2')
     )
     ->buildHideShipping(true)
-    ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
+    ->buildURLs($urlReturn, $urlCallback)
     ->buildAltCurrency('USD')
     ->buildConfigId($configs['config_id'])
     ->buildPaymentMethods(

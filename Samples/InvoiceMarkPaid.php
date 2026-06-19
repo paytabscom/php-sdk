@@ -7,8 +7,8 @@ use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$invoiceCurrency = 'SAR';
-$invoiceTotal = 20.00;
+$invoiceCurrency = $configs['currency'];
+$invoiceTotal = 40.00;
 $payMethod = InvoiceExternalPayMethod::Bank;
 $payDescription = 'test description';
 
