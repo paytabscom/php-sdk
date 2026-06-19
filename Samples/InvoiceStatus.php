@@ -16,6 +16,14 @@ $http->setDebugMode(true);
 
 $response = $http->submit();
 
-Paytabs::getLogger()->debug('InvoiceStatus POST response: ', [
-    $response->getPayloadMapped(),
-]);
+if ($response->isProcessed()) {
+    /** @var \Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus $invoiceStatus */
+    $invoiceStatus = $response->getPayloadMapped();
+    Paytabs::getLogger()->debug('InvoiceStatus POST response: ', [
+        $invoiceStatus,
+    ]);
+} else {
+    Paytabs::getLogger()->debug('InvoiceStatus processing failed: ', [
+        $response->getPayloadMapped(),
+    ]);
+}
