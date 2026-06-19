@@ -10,7 +10,7 @@ interface PayloadInterface
 
     public function getMapped(): static;
 
-    public function getMappedAs(PayloadInterface $class): PayloadInterface;
+    public function getMappedAs(self $class): self;
 
     public function getAsJson(): array|object;
 

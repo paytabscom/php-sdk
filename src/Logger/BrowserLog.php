@@ -11,7 +11,7 @@ class BrowserLog extends Log
             $styles = 'color: red;';
         }
 
-        echo "<pre style='{$styles}'>{$level}: {$message}".PHP_EOL;
+        echo "<pre style='{$styles}'>{$level}: {$message}" . PHP_EOL;
         print_r($context);
         echo '</pre>';
     }

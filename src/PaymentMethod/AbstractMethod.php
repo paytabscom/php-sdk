@@ -7,7 +7,7 @@ abstract class AbstractMethod
     public const ID = 0;
 
     public const CODE = '';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [];
 

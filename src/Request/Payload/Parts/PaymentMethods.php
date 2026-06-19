@@ -84,7 +84,7 @@ class PaymentMethods extends AbstractPart
         $codesArray = $this->convertToCodes($codes);
 
         if ($isExclude) {
-            $codesArray = array_map(static fn ($code): string => "-{$code}", $codesArray);
+            $codesArray = array_map(static fn($code): string => "-{$code}", $codesArray);
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);
@@ -97,7 +97,7 @@ class PaymentMethods extends AbstractPart
     {
         // Convert AbstractMethod to code string
         $codesArray = array_map(
-            static fn ($code): string => ($code instanceof AbstractMethod) ? $code::CODE : $code,
+            static fn($code): string => ($code instanceof AbstractMethod) ? $code::CODE : $code,
             $methods
         );
 

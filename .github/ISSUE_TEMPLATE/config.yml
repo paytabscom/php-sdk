@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: PayTabs Integration Support
+    url: https://site.paytabs.com/en/contact-us/
+    about: For general integration and product support requests.
+  - name: PayTabs Bug Bounty Program
+    url: https://ai.paytabs.com/en/paytabs-bug-bounty/
+    about: Report security vulnerabilities through the official bug bounty channel.

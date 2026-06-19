@@ -14,7 +14,7 @@ class Refund extends Followup
         parent::buildTransaction(TranType::Refund, TranClass::Ecom);
     }
 
-    public function buildTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom)
+    public function buildTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom): void
     {
         throw new \Exception('Can not be implemented');
     }

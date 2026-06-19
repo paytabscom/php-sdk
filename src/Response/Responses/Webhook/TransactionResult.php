@@ -65,9 +65,9 @@ abstract class TransactionResult extends AbstractResponseWebhook
         if (isset($this->logger)) {
             $hashed_key = explode('-', $serverKey ?? '')[0];
             $this->logger->alert('Invalid signature', [
-                $hashed_key,
-                $signature,
-                $requestSignature,
+                'server_key_hint' => $hashed_key,
+                'generated_signature_prefix' => substr($signature, 0, 8),
+                'request_signature_prefix' => substr($requestSignature, 0, 8),
             ]);
         }
 

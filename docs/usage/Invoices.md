@@ -1,17 +1,16 @@
 # Invoices
 - Version: `1.0.0`
-- SDK version: `1.0.0`
+- SDK version: `3.0.0`
 
 ## Create new Invoice
 
 1. Prepare the Authentication (Profile):
     ```php
-    use Paytabs\Sdk\Profile\Profile;
-    use Paytabs\Sdk\Profile\Endpoints\Uae;
+    use Paytabs\Sdk\Profile\ProfilesFactory;
 
     $profileId = 123; // your profile id
-    $serverKey = 'SRxxxx-xxxx-xxx' // the server key
-    $profile = new Profile(Uae::getInstance(), $profileId, $serverKey);
+    $serverKey = 'SRxxxx-xxxx-xxx'; // the server key
+    $profile = ProfilesFactory::createUaeProfile($profileId, $serverKey);
     ```
 
 2. Prepare the Line items:
@@ -42,6 +41,8 @@
 
 4. Create the invoice Payload:
     ```php
+    use Paytabs\Sdk\Enums\TranClass;
+    use Paytabs\Sdk\Enums\TranType;
     use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 
     $holder = PayloadsFactory::invoiceCreate();
@@ -82,7 +83,7 @@
 
 2. Prepare the Invoice status payload:
     ```php
-    $invoiceId = 12345
+    $invoiceId = '12345';
     $holder2 = PayloadsFactory::invoiceStatus();
     $holder2->buildInvoiceId($invoiceId);
     ```
@@ -98,10 +99,10 @@
     $response2 = $http->submit();
     ```
 
-5. Map  the response:
+5. Map the response:
     ```php
     // Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus
-    $invoiceStatus = $response->getPayloadMapped();
+    $invoiceStatus = $response2->getPayloadMapped();
 
     echo $invoiceStatus->invoice_status;
     ```

@@ -34,7 +34,7 @@ abstract class Payment extends Paytabs
 
     public string $paymentChannel;
 
-    public function setTranType(string $tran_type)
+    public function setTranType(string $tran_type): void
     {
         $this->tran_type = $tran_type;
         $this->tranType = TranType::tryFrom(strtolower($tran_type)) ?? TranType::UnKnown;

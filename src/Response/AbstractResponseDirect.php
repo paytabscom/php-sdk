@@ -22,12 +22,12 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
         return $this;
     }
 
-    public function setRequest(RequestInterface $request)
+    public function setRequest(RequestInterface $request): void
     {
         $this->request = $request;
     }
 
-    public function isSuccessful(): bool
+    public function isProcessed(): bool
     {
         return $this->responseCode >= 200 && $this->responseCode < 300;
     }
