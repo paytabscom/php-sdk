@@ -25,14 +25,22 @@ Paytabs::getLogger()->debug('TransactionQuery Response', [
 echo '<hr>';
 
 $holder2 = PayloadsFactory::transactionQuery();
-$holder2->buildCartId('c01');
+$holder2->buildCartId('cart01');
 $request2 = RequestsFactory::transactionQuery($profile, $holder2);
 
 $http->setRequest($request2);
 
 $response2 = $http->submit();
 
-Paytabs::getLogger()->debug('TransactionQuery Response (Array)', [
-    $response2->getPayload()->getMappedAs(new CompletedArray()),
-    // $response2->getPayloadMapped()
-]);
+if ($response2->isFailure()) {
+    Paytabs::getLogger()->debug('TransactionQuery Response (Failure)', [
+        $response2->getFailure(),
+    ]);
+} elseif ($response2->isProcessed()) {
+    // $resClassed2 = $response2->getPayload()->getMapped();
+    Paytabs::getLogger()->debug('TransactionQuery Response (Array)', [
+        $response2->getPayload()->getMappedAs(new CompletedArray()),
+        // $response2->getPayloadMapped(),
+        // $resClassed2,
+    ]);
+}
