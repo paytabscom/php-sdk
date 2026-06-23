@@ -8,8 +8,8 @@ Always verify webhook and browser callback signatures before processing payloads
 ## Production vs sample behavior
 
 - Production endpoints must reject invalid signatures (`400`) and stop processing.
-- SDK sample scripts are debugging-oriented: they show signature check results and mapped payload content to help integration troubleshooting.
-- Do not copy sample debug behavior into production callback/IPN endpoints.
+- SDK sample scripts now follow fail-closed behavior by default and return `400` on invalid signatures.
+- You can still add local debug logging, but only after signature validation has passed.
 
 ## Why this is required
 
@@ -47,7 +47,7 @@ Production-safe flow:
 
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;
 
-$response = BrowserAsPost::init(;
+$response = BrowserAsPost::init();
 $response->setProfile($profile);
 
 if (!$response->isGenuine()) {
@@ -62,12 +62,13 @@ $mapped = $response->getPayload()->getMapped();
 
 ## Debug-oriented sample flow
 
-The files [Samples/index_ipn.php](Samples/index_ipn.php) and [Samples/ResultCallback.php](Samples/ResultCallback.php) intentionally continue execution even when signature validation fails, then log:
+The files [Samples/index_ipn.php](Samples/index_ipn.php) and [Samples/ResultCallback.php](Samples/ResultCallback.php) return `400` when signature validation fails.
+After the signature is valid, you can log limited mapped fields for local troubleshooting:
 
 - `isGenuine` result
-- Full mapped response payload
+- Mapped response payload fields needed for debugging
 
-This is useful during local integration/debugging. For production, use the strict flow above and stop on invalid signatures.
+For production, keep logs redacted and stop processing on invalid signatures.
 
 ### Why `localParams` matters
 
