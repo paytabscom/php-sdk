@@ -52,7 +52,8 @@ $http
 try {
     $response = $http->submit();
 } catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
-    // HTTP/network failures and non-2xx responses are raised as exceptions.
+    // HTTP/network transport failures are raised as exceptions.
+    // Non-2xx responses with body are returned for response-layer mapping.
     echo $e->getMessage();
     exit;
 }

@@ -4,7 +4,7 @@ Official PHP SDK for integrating with PayTabs Payment Gateway.
 
 ## Requirements
 
-- PHP `^8.0`
+- PHP `^8.4`
 - cURL extension enabled
 
 ## Install
@@ -108,7 +108,7 @@ export PAYTABS_LOG_BROWSER="false"
 
 ## Samples Setup
 
-1. Copy `Samples/config.sample.php` to `Samples/config.php`.
+1. Copy `Samples/.env.sample` to `Samples/.env`.
 2. Replace placeholder values with sandbox credentials.
 3. Run samples locally and expose callback URL when needed.
 

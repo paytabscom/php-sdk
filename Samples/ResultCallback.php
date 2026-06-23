@@ -9,14 +9,15 @@ use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
  */
 
 if (!isset($profile)) {
-    throw new \RuntimeException('Required variable is not set: $profile');
+    http_response_code(500);
+    exit('Invalid sample bootstrap: missing $profile');
 }
 
 // IPN payload, Format (sample): JSON body with 'Signature' header
-$payload = '{"tran_ref":"TST2617402946403","previous_tran_ref":"TST2617402946400","merchant_id":2550,"profile_id":48214,"cart_id":"ca-03","cart_description":"Test","cart_currency":"SAR","cart_amount":"700.00","tran_currency":"SAR","tran_total":"700.00","tran_type":"Sale","tran_class":"C/Auth","customer_ref":"customer-ref-1","customer_details":{"name":"Integrations SDK3","email":"integrations@paytabs.com","phone":"0522222222","street1":"nsr st","city":"Dubai","state":"DU","country":"AE"},"payment_result":{"response_status":"A","response_code":"G07062","response_message":"Authorised","acquirer_ref":"TRAN0201.6A3A5256.00109416","cvv_result":" ","avs_result":" ","transaction_time":"2026-06-23T09:31:02Z"},"payment_info":{"payment_method":"Visa","card_type":"Credit","card_scheme":"Visa","payment_description":"4111 11## #### 1111","expiryMonth":11,"expiryYear":2033},"token":"2C4656BF67A3E832C6BE93FC61847DBC","user_defined":{"udf1":"udf_1","udf4":"udf_4","udf8":"udf_8"},"ipn_trace":"IPNS0201.6A3A5256.000136D4","paymentChannel":"PHP SDK"}';
+$payload = '{"tran_ref":"TST_REFERENCE_PLACEHOLDER","previous_tran_ref":"TST_PREVIOUS_REFERENCE_PLACEHOLDER","merchant_id":100000,"profile_id":100001,"cart_id":"cart-01","cart_description":"Sample callback payload","cart_currency":"AED","cart_amount":"100.00","tran_currency":"AED","tran_total":"100.00","tran_type":"Sale","tran_class":"ECom","customer_ref":"customer-ref-1","customer_details":{"name":"Sample Customer","email":"customer@example.test","phone":"+971500000000","street1":"Sample Street","city":"Dubai","state":"DU","country":"AE"},"payment_result":{"response_status":"A","response_code":"G00000","response_message":"Authorised","acquirer_ref":"TRAN_REFERENCE_PLACEHOLDER","cvv_result":" ","avs_result":" ","transaction_time":"2026-01-01T00:00:00Z"},"payment_info":{"payment_method":"Visa","card_type":"Credit","card_scheme":"Visa","payment_description":"4111 11## #### 1111","expiryMonth":12,"expiryYear":2030},"token":"TOKEN_PLACEHOLDER","user_defined":{"udf1":"udf_1","udf4":"udf_4","udf8":"udf_8"},"ipn_trace":"IPN_TRACE_PLACEHOLDER","paymentChannel":"PHP SDK"}';
 
 $headers = [
-    'Signature' => 'cf9a70586cb63f1f11837196562ecced04bf9e39e88f884a23b9a7aec94865af',
+    'Signature' => 'REPLACE_WITH_VALID_SIGNATURE',
 ];
 
 $ipnResponse = Callback::initWith($payload, $headers);

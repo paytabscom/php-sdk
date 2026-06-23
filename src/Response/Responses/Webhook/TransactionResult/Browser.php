@@ -21,7 +21,7 @@ abstract class Browser extends TransactionResult
     public static function initWith(array $requestArray, array $localParams = []): static
     {
         if (!$requestArray) {
-            throw new \Exception('Invalid init');
+            throw new \InvalidArgumentException('Invalid browser callback payload: empty request data');
         }
 
         $dataJson = json_encode($requestArray);
@@ -51,8 +51,11 @@ abstract class Browser extends TransactionResult
             unset($requestValues[$localParam]);
         }
 
-        // Remove any empty field.
-        $fields = array_filter($requestValues);
+        // Remove null/empty-string fields only; preserve values like "0" for signature stability.
+        $fields = array_filter(
+            $requestValues,
+            static fn ($value): bool => null !== $value && '' !== $value
+        );
 
         // Sort form fields.
         ksort($fields);
