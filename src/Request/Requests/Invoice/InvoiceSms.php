@@ -24,7 +24,7 @@ class InvoiceSms extends PaytabsRequest
         parent::__construct($profile, $holder);
     }
 
-    /** @return InvoiceSms */
+    /** @return ResponseInvoiceSms */
     public function getResponseClass(): PayloadInterface
     {
         return new ResponseInvoiceSms();

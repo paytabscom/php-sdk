@@ -7,6 +7,7 @@ use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery as PayloadsTransaction
 use Paytabs\Sdk\Request\PaytabsRequest;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
 use Paytabs\Sdk\Response\Payload\Payloads\Payment\Completed;
+use Paytabs\Sdk\Response\Payload\Payloads\Payment\CompletedArray;
 
 class TransactionQuery extends PaytabsRequest
 {
@@ -19,9 +20,9 @@ class TransactionQuery extends PaytabsRequest
         parent::__construct($profile, $holder);
     }
 
-    /** @return Completed */
+    /** @return Completed|CompletedArray */
     public function getResponseClass(): PayloadInterface
     {
-        return new Completed();
+        return $this->getPayloadObject()->getResponseClass();
     }
 }

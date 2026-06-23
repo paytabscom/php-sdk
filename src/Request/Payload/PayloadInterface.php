@@ -2,6 +2,8 @@
 
 namespace Paytabs\Sdk\Request\Payload;
 
+use Paytabs\Sdk\Enums\HttpRequestPart;
+
 interface PayloadInterface
 {
     public function buildHeader(array|PartInterface $part): void;
@@ -20,4 +22,6 @@ interface PayloadInterface
     public function getQuery(bool $removeNulls = true): array;
 
     public function getPath(bool $removeNulls = true): array;
+
+    public function exists(string $key, ?HttpRequestPart $httpPart): bool;
 }

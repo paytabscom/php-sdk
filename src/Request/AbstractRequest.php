@@ -49,6 +49,11 @@ abstract class AbstractRequest implements RequestInterface
         return json_encode($payload);
     }
 
+    public function getPayloadObject(): BuilderInterface
+    {
+        return $this->dataHolder;
+    }
+
     public function getHeaders(): array
     {
         /** @var PayloadInterface */

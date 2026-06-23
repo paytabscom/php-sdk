@@ -51,6 +51,33 @@ abstract class AbstractPayload implements PayloadInterface
         return $this->get($this->headers, $removeNulls);
     }
 
+    public function exists(string $key, ?HttpRequestPart $httpPart): bool
+    {
+        if ($httpPart === null) {
+            return \array_key_exists($key, $this->headers)
+                || \array_key_exists($key, $this->body)
+                || \array_key_exists($key, $this->query)
+                || \array_key_exists($key, $this->path);
+        }
+
+        switch ($httpPart) {
+            case HttpRequestPart::Header:
+                return \array_key_exists($key, $this->headers);
+
+            case HttpRequestPart::Body:
+                return \array_key_exists($key, $this->body);
+
+            case HttpRequestPart::Query:
+                return \array_key_exists($key, $this->query);
+
+            case HttpRequestPart::Path:
+                return \array_key_exists($key, $this->path);
+
+            default:
+                throw new \Exception('Not implemented');
+        }
+    }
+
     private function buildPart(array|PartInterface $part, HttpRequestPart $httpPart, bool $merge = false): void
     {
         $newPart = ($part instanceof PartInterface)
