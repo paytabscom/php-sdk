@@ -84,7 +84,7 @@
 2. Prepare the Invoice status payload:
     ```php
     $invoiceId = '12345';
-    $holder2 = PayloadsFactory::invoiceStatus();
+    $holder2 = PayloadsFactory::invoiceStatusAsPost();
     $holder2->buildInvoiceId($invoiceId);
     ```
 

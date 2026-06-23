@@ -107,7 +107,7 @@ Profiles:
 
 Payload builders:
 - hostedPage, ownForm, managedForm, recurringPayment
-- invoiceCreate, invoiceStatus, invoiceCancel, invoiceMarkPaid, invoiceSms
+- invoiceCreate, invoiceStatusAsPost, invoiceStatusAsGet, invoiceCancel, invoiceMarkPaid, invoiceSms
 - transactionQuery, followup, refund, token
 Defined in [src/Request/Payload/PayloadsFactory.php](src/Request/Payload/PayloadsFactory.php)
 

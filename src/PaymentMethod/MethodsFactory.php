@@ -18,7 +18,7 @@ abstract class MethodsFactory
         $instance = static::findMethodClass($code);
 
         if (!$instance) {
-            throw new \Exception("Payment Method not found for Code: {$code}");
+            throw new \RuntimeException("Payment Method not found for Code: {$code}");
         }
 
         return $instance;
@@ -29,7 +29,7 @@ abstract class MethodsFactory
         $instance = static::findMethodClassById($id);
 
         if (!$instance) {
-            throw new \Exception("Payment Method not found for ID: {$id}");
+            throw new \RuntimeException("Payment Method not found for ID: {$id}");
         }
 
         return $instance;
@@ -40,7 +40,7 @@ abstract class MethodsFactory
         $instance = static::findMethodClassByUnique($pt_code);
 
         if (!$instance) {
-            throw new \Exception("Payment Method not found for Unique Code: {$pt_code}");
+            throw new \RuntimeException("Payment Method not found for Unique Code: {$pt_code}");
         }
 
         return $instance;

@@ -30,7 +30,22 @@ Paytabs::getLogger()->debug(
 
 $http->setRequest($request);
 
-$response = $http->submit();
+try {
+    $response = $http->submit();
+} catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
+    Paytabs::getLogger()->error('TokenQuery transport error', [
+        'message' => $e->getMessage(),
+    ]);
+    throw $e;
+}
+
+if ($response->isFailure()) {
+    $failure = $response->getFailure();
+    Paytabs::getLogger()->error('TokenQuery failure', [
+        'code' => $failure->code,
+        'message' => $failure->message,
+    ]);
+}
 
 Paytabs::getLogger()->debug(
     'TokenQuery Response',

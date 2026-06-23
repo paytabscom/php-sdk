@@ -18,7 +18,7 @@ if (!isset($profile, $invoiceId, $http)) {
 
 //
 
-$holder = PayloadsFactory::invoiceStatus(true);
+$holder = PayloadsFactory::invoiceStatusAsGet();
 $holder->buildInvoiceId($invoiceId);
 
 $request = RequestsFactory::invoiceStatusAsGet($profile, $holder);

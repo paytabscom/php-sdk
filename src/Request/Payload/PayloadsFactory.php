@@ -59,12 +59,13 @@ class PayloadsFactory
         return new Invoice();
     }
 
-    public static function invoiceStatus(bool $asGet = false): InvoiceStatus|InvoiceStatusGet
+    public static function invoiceStatusAsGet(): InvoiceStatusGet
     {
-        if ($asGet) {
-            return new InvoiceStatusGet();
-        }
+        return new InvoiceStatusGet();
+    }
 
+    public static function invoiceStatusAsPost(): InvoiceStatus
+    {
         return new InvoiceStatus();
     }
 
