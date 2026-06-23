@@ -45,7 +45,7 @@ $http = (new Http())
 
 try {
 	$response = $http->submit();
-} catch (\Paytabs\Sdk\Http\HttpRequestException $e) {
+} catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
 	// Transport failure or non-2xx response.
 	throw $e;
 }

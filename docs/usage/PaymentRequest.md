@@ -51,7 +51,7 @@ $http
 
 try {
     $response = $http->submit();
-} catch (\Paytabs\Sdk\Http\HttpRequestException $e) {
+} catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
     // HTTP/network failures and non-2xx responses are raised as exceptions.
     echo $e->getMessage();
     exit;

@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Http;
 
+use Paytabs\Sdk\Exceptions\HttpRequestException;
 use Paytabs\Sdk\Request\RequestInterface;
 use Paytabs\Sdk\Response\Payload\Payloads\Generic as PayloadsGeneric;
 use Paytabs\Sdk\Response\ResponseDirectInterface;

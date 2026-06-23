@@ -1,8 +1,8 @@
 <?php
 
-namespace Paytabs\Sdk\Http;
+namespace Paytabs\Sdk\Exceptions;
 
-class HttpRequestException extends \RuntimeException
+final class HttpRequestException extends \RuntimeException
 {
     public static function transport(string $message, int $code = 0): self
     {
