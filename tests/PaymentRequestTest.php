@@ -72,22 +72,20 @@ final class PaymentRequestTest extends TestCase
 
     private function generateProfile(): Profile
     {
-        $configs = readConfigs();
-
         return new Profile(
-            $configs['endpoint'],
-            $configs['profile_id'],
-            $configs['server_key']
+            getConfig('ENDPOINT'),
+            (int) getConfig('PROFILE_ID'),
+            getConfig('SERVER_KEY')
         );
     }
 
     private function generatePayload(): BuilderInterface
     {
-        $configs = readConfigs();
+        $currency = getConfig('CURRENCY', 'AED');
 
         $holder = new HostedPage();
         $holder
-            ->buildCart('c01', $configs['currency'], 100.51, 'Test')
+            ->buildCart('c01', $currency, 100.51, 'Test')
             ->buildTransaction(TranType::Sale, TranClass::Ecom)
             ->buildPluginInfo('PHP', PHP_VERSION, null)
             ->buildCustomerDetails(

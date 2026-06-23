@@ -9,17 +9,25 @@ use Paytabs\Sdk\Profile\EndpointsFactory;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Profile\ProfilesFactory;
 
-// putenv('PAYTABS_LOG_BROWSER=1');
+putenv('PAYTABS_LOG_BROWSER=1');
 require_once APP_ROOT . 'vendor/autoload.php';
 
 include_once APP_ROOT . 'Samples/config.php';
-$configs = readConfigs();
-$_endpoint = $configs['endpoint'];
-$_profileId = $configs['profile_id'];
-$_serverKey = $configs['server_key'];
 
+$_endpoint = getConfig('ENDPOINT');
+$_profileId = (int) getConfig('PROFILE_ID');
+$_serverKey = getConfig('SERVER_KEY');
+$_currency = getConfig('CURRENCY');
+$_paymentToken = getConfig('PAYMENT_TOKEN');
+$_themeId = getConfig('THEME_ID');
+$_token = getConfig('TOKEN');
+$_tokenEnhanced = getConfig('TOKEN_ENHANCED');
+
+// Create a profile instance using the ProfilesFactory and the EndpointsFactory
 $profile = ProfilesFactory::createProfile(EndpointsFactory::getJordanEndpoint(), $_profileId, $_serverKey);
+// Or you can create a profile instance directly using the Profile Factory
 $profile = ProfilesFactory::createUaeProfile($_profileId, $_serverKey);
+// Or you can create a profile instance directly using the Profile class
 $profile = new Profile($_endpoint, $_profileId, $_serverKey);
 
 $return = array_key_exists('result', $_GET);
@@ -32,17 +40,17 @@ if ($return) {
 $http = new Http();
 $http->setLogger(Paytabs::getLogger());
 
-$trxRef = $configs['trx_ref'];
+$trxRef = getConfig('TRANSACTION_REF');
 
-$urlBase = $configs['base_url'];
+$urlBase = getConfig('APP_URL');
 $urlCallback = $urlBase . '?result=1';
 $urlReturn = $urlBase . '?result=1&mode=return';
 
-$token = $configs['token'];
-$token_enhanced = $configs['token_enhanced'];
+$_token = getConfig('TOKEN');
+$_tokenEnhanced = getConfig('TOKEN_ENHANCED');
 
-$invoiceId = $configs['invoice_id'];
-$phoneNumber = $configs['phone_number'];
+$invoiceId = getConfig('INVOICE_ID');
+$phoneNumber = getConfig('PHONE_NUMBER');
 
 $returnUsingGet = false;
 if ($returnUsingGet) {
@@ -50,6 +58,9 @@ if ($returnUsingGet) {
 }
 
 $samples = [
+    1001 => [
+        'Payment Request Samples',
+    ],
     1 => [
         'Payment Request',
         APP_ROOT . 'Samples/PaymentRequest.php',
@@ -70,8 +81,11 @@ $samples = [
         'Managed Form',
         APP_ROOT . 'Samples/ManagedForm.php',
     ],
+    1010 => [
+        'Query',
+    ],
     10 => [
-        'Query Token',
+        'Token Query',
         APP_ROOT . 'Samples/TokenQuery.php',
     ],
     11 => [
@@ -82,9 +96,15 @@ $samples = [
         'Transaction Query',
         APP_ROOT . 'Samples/TransactionQuery.php',
     ],
+    1020 => [
+        'Follow Up',
+    ],
     20 => [
         'Refund',
         APP_ROOT . 'Samples/RefundRequest.php',
+    ],
+    1030 => [
+        'Result Handling',
     ],
     30 => [
         'Result Browser',
@@ -93,6 +113,9 @@ $samples = [
     31 => [
         'Result CallBack',
         APP_ROOT . 'Samples/ResultCallback.php',
+    ],
+    1040 => [
+        'Invoices',
     ],
     40 => [
         'Invoice New',
@@ -117,6 +140,9 @@ $samples = [
     45 => [
         'Invoice Mark as Paid',
         APP_ROOT . 'Samples/InvoiceMarkPaid.php',
+    ],
+    1050 => [
+        'Factory Samples',
     ],
     50 => [
         'Payment Methods',
@@ -146,9 +172,53 @@ if ($sampleId) {
 
 <body>
     <h1>PHP SDK Samples</h1>
+    <div>
+        <div>
+            <label>
+                Invoice ID:
+                <input type="text" name="invoice_id" value="<?= $invoiceId ?>" readonly>
+            </label>
+        </div>
+        <div>
+            <label>
+                Transaction Reference:
+                <input type="text" name="trx_ref" value="<?= $trxRef ?>" readonly>
+            </label>
+        </div>
+        <div>
+            <label>
+                Token:
+                <input type="text" name="token" value="<?= $_token ?>" readonly>
+            </label>
+        </div>
+        <div>
+            <label>
+                Return URL:
+                <input type="text" name="return_url" value="<?= $urlReturn ?>" readonly size="50">
+            </label>
+            <br>
+            <label>
+                Callback URL:
+                <input type="text" name="callback_url" value="<?= $urlCallback ?>" readonly size="50">
+            </label>
+        </div>
+        <hr>
+        <div>
+            <label>
+                Redirect URL:
+                <input type="text" name="redirect_url" value="<?= $urlRedirect ?? "" ?>" readonly>
+            </label>
+        </div>
+    </div>
     <div style="padding: 30px;">
         <ol>
             <?php foreach ($samples as $id => $sample) { ?>
+                <?php if ($id > 1000) { ?>
+                    <h3>
+                        <?= $sample[0]; ?>
+                    </h3>
+                <?php continue;
+                } ?>
                 <li style="padding-bottom: 5px;">
                     <a href="?sample=<?php echo $id; ?>"><?php echo $sample[0]; ?></a>
                 </li>

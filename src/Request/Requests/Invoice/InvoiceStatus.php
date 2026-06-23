@@ -22,7 +22,7 @@ class InvoiceStatus extends PaytabsRequest
         parent::__construct($profile, $holder);
     }
 
-    /** @return InvoiceStatus */
+    /** @return ResponseInvoiceStatus */
     public function getResponseClass(): PayloadInterface
     {
         return new ResponseInvoiceStatus();

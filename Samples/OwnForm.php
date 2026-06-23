@@ -4,17 +4,29 @@ use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
-use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
-use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItem;
-use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
-use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
+/**
+ * @var Profile $profile
+ * @var Http $http
+ * @var string $urlReturn
+ * @var string $urlCallback
+ * @var bool $returnUsingGet
+ * @var string $_currency
+ */
+
+if (!isset($profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency)) {
+    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
+}
+
+//
+
 $holder = PayloadsFactory::ownForm();
 $holder
-    ->buildCart('own-form', $configs['currency'], 700, 'Test')
+    ->buildCart('own-form', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
@@ -22,49 +34,19 @@ $holder
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
             ->setIp('1.1.1.1')
     )
-    ->buildUserDefined((new UserDefined())
-        ->setUDF2('udf_2')
-        ->setUDF8('udf_8')
-        ->setUDF4('udf_4'))
     ->buildHideShipping(true)
-    ->buildTokenise(true)
     ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
-    ->buildCustomerReference('customer-ref-2')
     // ->buildPaymentMethod('card') // throws Exception
 ;
 
-$direct = true;
+$threeDSecure = true;
 
 $card_redirect = '4000 0000 0000 0002';
 $card_direct = '4111-1111 1111 1111';
-$pan = $direct ? $card_direct : $card_redirect;
+$pan = $threeDSecure ? $card_redirect : $card_direct;
 
 $holder->buildCardDetails($pan, 2030, 12, '123');
 
-// Invoice Object
-$addInvoiceObject = true;
-$lineItem1 = LineItem::init()
-    ->setTitle('sku', 'desc', 'https://test.com')
-    ->setPrice(1, 100, 100)
-;
-
-$item2 = LineItem::init()
-    ->setTitle('item-02')
-    ->setPrice(2, 300, 600)
-;
-
-$lineItems = new LineItems($lineItem1, $item2);
-
-$invoicePart = new InvoicePart();
-$invoicePart
-    // ->setCharges(0, 0, 0, 0)
-    ->setDates(null, null, '2026-01-27T13:33:00+04:00')
-    ->setLineItems($lineItems)
-;
-
-if ($addInvoiceObject) {
-    $holder->buildInvoice($invoicePart);
-}
 
 $request = RequestsFactory::paymentRequest($profile, $holder);
 
@@ -77,7 +59,6 @@ Paytabs::getLogger()->debug(
     [$request->getPayload()]
 );
 
-/** @var Http $http */
 $http->setRequest($request);
 $http->setDebugMode(false);
 
@@ -90,9 +71,6 @@ if ($response->isFailure()) {
 } else {
     $resClassed = $response->getPayload()->getMapped();
 }
-
-// case ResponseStage::UnKnown:
-// case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('OwnForm Response: ', [

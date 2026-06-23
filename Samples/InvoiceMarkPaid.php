@@ -3,11 +3,25 @@
 use Paytabs\Sdk\Enums\InvoiceExternalPayMethod;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$invoiceCurrency = $configs['currency'];
+/**
+ * @var Profile $profile
+ * @var int $invoiceId
+ * @var Http $http
+ * @var string $_currency
+ */
+
+if (!isset($profile, $invoiceId, $http, $_currency)) {
+    throw new \RuntimeException('Required variables are not set: $profile, $invoiceId, $http, $_currency');
+}
+
+//
+
+$invoiceCurrency = $_currency;
 $invoiceTotal = 40.00;
 $payMethod = InvoiceExternalPayMethod::Bank;
 $payDescription = 'test description';
@@ -23,10 +37,6 @@ Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
     $holder,
 ]);
 
-/*
- * HTTP manager
- * @var Http $http
- * */
 $http->setRequest($request);
 $http->setDebugMode(true);
 

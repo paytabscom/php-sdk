@@ -4,14 +4,30 @@ use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
+/**
+ * @var Profile $profile
+ * @var Http $http
+ * @var string $urlReturn
+ * @var string $urlCallback
+ * @var string $_currency
+ * @var string $_paymentToken
+ */
+
+if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_paymentToken)) {
+    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency, $_paymentToken');
+}
+
+//
+
 $holder = PayloadsFactory::managedForm();
 $holder
-    ->buildCart('managed-form', $configs['currency'], 700, 'Test')
+    ->buildCart('managed-form', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
@@ -24,8 +40,8 @@ $holder
         ->setUDF8('udf_8')
         ->setUDF4('udf_4'))
     ->buildHideShipping(true)
-    ->buildURLs($urlReturn, $urlCallback, $returnUsingGet)
-    ->buildPaymentToken($configs['payment_token'])
+    ->buildURLs($urlReturn, $urlCallback)
+    ->buildPaymentToken($_paymentToken)
 ;
 
 $request = RequestsFactory::paymentRequest($profile, $holder);
@@ -39,7 +55,6 @@ Paytabs::getLogger()->debug(
     [$request->getPayload()]
 );
 
-/** @var Http $http */
 $http->setRequest($request);
 $http->setDebugMode(false);
 

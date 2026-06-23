@@ -9,6 +9,7 @@ use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
@@ -22,9 +23,24 @@ use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 
+/**
+ * @var Profile $profile
+ * @var Http $http
+ * @var string $urlReturn
+ * @var string $urlCallback
+ * @var string $_currency
+ * @var string $_themeId
+ */
+
+if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId)) {
+    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId');
+}
+
+//
+
 $holder = PayloadsFactory::hostedPage();
 $holder
-    ->buildCart('cart01', $configs['currency'], 700, 'Test')
+    ->buildCart('cart01', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
@@ -41,7 +57,7 @@ $holder
     ->buildHideShipping(true)
     ->buildURLs($urlReturn, $urlCallback)
     ->buildAltCurrency('USD')
-    ->buildConfigId($configs['config_id'])
+    ->buildConfigId($_themeId)
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod(Card::CODE)
@@ -74,8 +90,7 @@ if ($tokenise) {
                     '30-MAR-2025',
                     null
                 )->setCounter(1, 10)
-            )
-        ;
+            );
     } else {
         $holder->buildTokenise(true);
     }
@@ -105,20 +120,18 @@ $holder->buildCardDiscounts($cardDiscounts);
 $addInvoiceObject = true;
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
-    ->setPrice(1, 100, 100)
-;
+    ->setPrice(1, 100, 100);
 
 $item2 = LineItem::init()
     ->setTitle('item-02')
-    ->setPrice(2, 300, 600)
-;
+    ->setPrice(2, 300, 600);
 
 $lineItems = new LineItems($lineItem1, $item2);
 
 $invoicePart = new InvoicePart();
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
-    ->setDates(null, null, '2026-01-27T13:33:00+04:00')
+    ->setDates(null, null, (new DateTimeImmutable('+8 days'))->format(DateTimeInterface::ATOM))
     ->setLineItems($lineItems)
 ;
 
@@ -133,16 +146,11 @@ Paytabs::getLogger()->debug(
     $holder->getPayload()->getBody()
 );
 
-echo '<hr>';
-
 Paytabs::getLogger()->debug(
     'PaymentRequest Payload:',
     [$request->getPayload()]
 );
 
-echo '<hr>';
-
-/** @var Http $http */
 $http->setRequest($request);
 $http->setDebugMode(false);
 
@@ -159,14 +167,10 @@ if ($response->isFailure()) {
 // case ResponseStage::UnKnown:
 // case ResponseStage::Completed:
 
-echo '<hr>';
-
 $resMapped = $response->getPayloadMapped();
 Paytabs::getLogger()->debug('PaymentRequest Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
-
-echo '<hr>';
 
 Paytabs::getLogger()->error('Missed Data: ', [
     $resMapped->unMappedData(),
