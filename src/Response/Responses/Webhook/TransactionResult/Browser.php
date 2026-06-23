@@ -54,7 +54,7 @@ abstract class Browser extends TransactionResult
         // Remove null/empty-string fields only; preserve values like "0" for signature stability.
         $fields = array_filter(
             $requestValues,
-            static fn ($value): bool => null !== $value && '' !== $value
+            static fn($value): bool => null !== $value && '' !== $value
         );
 
         // Sort form fields.

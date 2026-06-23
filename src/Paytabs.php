@@ -49,7 +49,7 @@ abstract class Paytabs
 
         $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
         if (!is_dir($basePath)) {
-            @mkdir($basePath, 0775, true);
+            @mkdir($basePath, 0o775, true);
         }
 
         $logFile = static::LOG_FILE_NAME;
