@@ -6,7 +6,7 @@ use Paytabs\Sdk\Profile\Endpoint;
 
 final class Oman extends Endpoint
 {
-    protected const CODE = 'OMN';
+    public const CODE = 'OMN';
     protected const TITLE = 'Oman';
     protected const URL = 'https://secure-oman.paytabs.com';
 }

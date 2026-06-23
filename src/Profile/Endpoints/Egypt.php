@@ -6,7 +6,7 @@ use Paytabs\Sdk\Profile\Endpoint;
 
 final class Egypt extends Endpoint
 {
-    protected const CODE = 'EGY';
+    public const CODE = 'EGY';
     protected const TITLE = 'Egypt';
     protected const URL = 'https://secure-egypt.paytabs.com';
 }
