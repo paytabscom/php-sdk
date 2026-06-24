@@ -1,0 +1,27 @@
+%% PaymentRequest Composition Diagram
+%% Shows how multiple Parts assemble into a HostedPage Payload
+
+graph TD
+    Factory["PayloadsFactory::hostedPage()"]
+    
+    subgraph HostedPage["HostedPage Payload"]
+        direction TB
+        Cart["Part: Cart<br/>(cart_id, currency, amount)"]
+        Transaction["Part: Transaction<br/>(tran_type, tran_class)"]
+        CustomerDetails["Part: CustomerDetails<br/>(name, phone, email, address)"]
+        URLs["Part: URLs<br/>(return_url, callback_url)"]
+        PaymentMethods["Part: PaymentMethods<br/>(include/exclude methods)"]
+    end
+    
+    Factory --> Cart
+    Factory --> Transaction
+    Factory --> CustomerDetails
+    Factory --> URLs
+    Factory --> PaymentMethods
+    
+    HostedPage --> Request["RequestsFactory::paymentRequest<br/>(Profile, Builder)"]
+    Profile["Profile<br/>(endpoint, credentials)"] --> Request
+    
+    Request --> HTTP["HTTP Request<br/>url, headers, payload"]
+    HTTP --> Submit["$http->submit()"]
+    Submit --> Response["Response<br/>isFailure/isRedirect/getPayload"]

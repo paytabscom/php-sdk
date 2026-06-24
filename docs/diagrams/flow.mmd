@@ -1,0 +1,27 @@
+%% Mermaid flow diagram for PayTabs SDK
+flowchart TD
+  subgraph RequestComposition["Request Composition"]
+    PartsPool("Parts Pool (Request selects needed Parts)")
+    Profile["Profile (endpoint + credentials)"] --> Request[Request]
+    Payload["Payload Builder"] --> Request
+    PartsPool -. builds .-> Payload
+    PartsPool -. builds .-> Profile
+  end
+
+  subgraph RequestSending["Request Sending"]
+    Request --> HTTP["HTTP Call"]
+  end
+
+  subgraph ResponseHandling["Response Handling"]
+    HTTP --> Response(Response)
+    Response ---> DirectResponse("Direct Response (Sync)")
+    DirectResponse --> Failure[Failure]
+    DirectResponse --> Redirect[Redirect]
+    DirectResponse --> Processed[Processed]
+
+    Response -.-> Webhook("Webhook (Async)")
+    Webhook --> Callback["Callback (IPN)"]
+    Webhook --> Browser("Browser")
+    Browser --> BrowserAsPost["BrowserAsPost (POST)"]
+    Browser --> BrowserAsGet["BrowserAsGet (GET)"]
+  end

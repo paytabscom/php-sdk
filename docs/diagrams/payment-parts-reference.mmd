@@ -1,0 +1,96 @@
+%% PayTabs Payment Parts Reference
+%% Shows all available parts and their purpose
+
+mindmap
+  root((PaymentRequest<br/>Parts))
+    )Core Transaction(
+      Transaction
+        tran_type
+        tran_class
+      TransactionRef
+        tran_ref
+
+    )Amounts and Billing(
+      Cart
+        cart_id
+        currency
+        amount
+        description
+      Invoice
+        LineItems
+          LineItem
+        charges
+        dates
+      AltCurrency
+        alternative settlement
+      Donation
+        donation mode
+      Airline
+        pnr code
+      InvoiceMarkPaid
+        invoice_id
+        amount
+
+    )Customer Info(
+      CustomerDetails
+        name
+        phone
+        email
+        address
+      ShippingDetails
+        name
+        phone
+        address
+      CustomerReference
+        customer_ref
+
+    )Payment Configuration(
+      Urls
+        return_url
+        callback_url
+        return_as_get
+      ConfigId
+        profile_config
+      PaymentMethods
+        include methods
+        exclude methods
+
+    )Merchant and UX Controls(
+      PaypageLang
+        checkout language
+      Framed
+        embedded flow
+      HideShipping
+        hide shipping section
+      ManagedFormToken
+        managed form token
+      CardDetails
+        own form card fields
+
+    )Security & Tokens(
+      Tokenise
+        type
+        frequency
+      TokeniseEnhanced
+        more options
+      Token
+        token value
+      TokenEnhanced
+        token with extra data
+      ApplePayToken
+        apple pay token payload
+      CardFilter
+        patterns
+
+    )Discounts & Special(
+      CardDiscounts
+        fixed/percent
+        by card pattern
+        CardDiscount
+      UserDefined
+        UDF1-UDF9
+
+    )Metadata(
+      PluginInfo
+        platform
+        version
