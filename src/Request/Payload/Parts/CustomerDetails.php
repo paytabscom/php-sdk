@@ -18,6 +18,15 @@ class CustomerDetails extends AbstractPart
 
     public ?string $ip = null;
 
+
+    public static function init(
+        ?string $name = null,
+        ?string $phone = null,
+        ?string $email = null
+    ): self {
+        return new static($name, $phone, $email);
+    }
+
     public function __construct(
         ?string $name = null,
         ?string $phone = null,

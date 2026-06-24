@@ -44,13 +44,15 @@ $holder
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
-        (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
+        CustomerDetails::init('Integrations SDK3', '0522222222', 'integrations@paytabs.com')
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
     )
-    ->buildUserDefined((new UserDefined())
-        ->setUDF1('udf_1')
-        ->setUDF8('udf_8')
-        ->setUDF4('udf_4'))
+    ->buildUserDefined(
+        UserDefined::init()
+            ->setUDF1('udf_1')
+            ->setUDF8('udf_8')
+            ->setUDF4('udf_4')
+    )
     ->buildShippingDetails(
         new ShippingDetails('Integrations 2')
     )
@@ -77,11 +79,10 @@ if ($tokenise) {
     if ($tokeniseEnhanced) {
         $holder
             ->buildTokeniseEnhancedObj(
-                (new TokeniseEnhanced(
+                TokeniseEnhanced::init(
                     TokenType::RecurringFixed,
                     2,
-                    true,
-                )
+                    true
                 )->setPaymentInfo(
                     TokenPaymentFrequency::Monthly,
                     10,
@@ -131,7 +132,7 @@ $lineItems = new LineItems($lineItem1, $item2);
 $invoicePart = new InvoicePart();
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
-    ->setDates(null, null, (new DateTimeImmutable('+8 days'))->format(DateTimeInterface::ATOM))
+    ->setDates(null, null, DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, '+8 days'))
     ->setLineItems($lineItems)
 ;
 

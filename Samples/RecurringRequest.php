@@ -32,13 +32,15 @@ $holder
     ->buildTransaction(TranType::Sale, TranClass::Recurring)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
     ->buildCustomerDetails(
-        (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
+        CustomerDetails::init('Integrations SDK3', '0522222222', 'integrations@paytabs.com')
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
     )
-    ->buildUserDefined((new UserDefined())
-        ->setUDF1('udf_1')
-        ->setUDF8('udf_8')
-        ->setUDF4('udf_4'))
+    ->buildUserDefined(
+        UserDefined::init()
+            ->setUDF1('udf_1')
+            ->setUDF8('udf_8')
+            ->setUDF4('udf_4')
+    )
     ->buildFramedObj(new Framed(true, FramedTarget::ReturnTop))
     ->buildURLs($urlReturn, $urlCallback)
     ->buildAltCurrency('USD')
@@ -53,12 +55,10 @@ $enableTokenEnhanced = false;
 if ($enableToken) {
     if ($enableTokenEnhanced) {
         $holder
-            ->buildTokenEnhanced(new TokenEnhanced($_tokenEnhanced, TokenType::RecurringFixed))
-        ;
+            ->buildTokenEnhanced(TokenEnhanced::init($_tokenEnhanced, TokenType::RecurringFixed));
     } else {
         $holder
-            ->buildToken(new Token($_token))
-        ;
+            ->buildToken(new Token($_token));
     }
 }
 

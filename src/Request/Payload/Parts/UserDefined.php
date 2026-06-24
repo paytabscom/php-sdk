@@ -16,6 +16,12 @@ class UserDefined extends AbstractPart
     public ?string $udf8 = null;
     public ?string $udf9 = null;
 
+
+    public static function init(): self
+    {
+        return new self();
+    }
+
     public function setUDF1(?string $udf1): self
     {
         $this->udf1 = $udf1;

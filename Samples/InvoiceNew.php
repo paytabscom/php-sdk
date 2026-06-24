@@ -37,9 +37,11 @@ $item2 = LineItem::init()
 $lineItems = new LineItems($item1, $item2);
 
 $invoicePart = new InvoicePart();
+// Expiry date after 8 days from now, in ATOM format
+$expiryDate = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, '+8 days');
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
-    ->setDates(null, null, (new DateTimeImmutable('+8 days'))->format(DateTimeInterface::ATOM))
+    ->setDates(null, null, $expiryDate)
     ->setLineItems($lineItems)
 ;
 

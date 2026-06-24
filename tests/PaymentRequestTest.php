@@ -89,12 +89,12 @@ final class PaymentRequestTest extends TestCase
             ->buildTransaction(TranType::Sale, TranClass::Ecom)
             ->buildPluginInfo('PHP', PHP_VERSION, null)
             ->buildCustomerDetails(
-                (new CustomerDetails('Wajih', '0522222222', 'wajih@mail.com'))
+                CustomerDetails::init('Wajih', '0522222222', 'wajih@mail.com')
                     ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')
                     ->setIp('1.1.1.1')
             )
             ->buildShippingDetails(
-                new ShippingDetails('Wajih 2')
+                ShippingDetails::init('Wajih 2')
             )
             ->buildHideShipping(true)
             ->buildTokenise(true)

@@ -83,11 +83,11 @@ abstract class PrimaryPayment extends AirlineData
         ?int $totalCount = null,
         bool $isOptional = false
     ) {
-        $obj = (new TokeniseEnhanced(
+        $obj = TokeniseEnhanced::init(
             $tokenType,
             $tokenFormat,
             $isOptional
-        ))->setPaymentInfo(
+        )->setPaymentInfo(
             $paymentFrequency,
             $minAmountPerPayment,
             $maxAmountPerPayment,

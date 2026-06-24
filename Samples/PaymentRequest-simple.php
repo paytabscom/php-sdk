@@ -28,7 +28,7 @@ $holder
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
-        (new CustomerDetails('Integrations SDK3', '0522222222', 'integrations@paytabs.com'))
+        CustomerDetails::init('Integrations SDK3', '0522222222', 'integrations@paytabs.com')
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
     )
     ->buildHideShipping(true)
