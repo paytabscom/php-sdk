@@ -10,7 +10,7 @@ Official PHP SDK for integrating with PayTabs Payment Gateway.
 ## Install
 
 ```bash
-composer require paytabs/sdk:^3.0
+composer require paytabs/php-sdk:^3.0
 ```
 
 ## Quick Start

@@ -1,5 +1,5 @@
 {
-    "name": "paytabs/sdk",
+    "name": "paytabs/php-sdk",
     "description": "Official PayTabs PHP SDK for Payment Gateway integrations",
     "type": "library",
     "license": "proprietary",
