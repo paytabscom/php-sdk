@@ -3,5 +3,6 @@ vendor
 .php-cs-fixer.cache
 .php-cs-fixer.dist.php
 .phpunit.cache
+plans
 
 .env
