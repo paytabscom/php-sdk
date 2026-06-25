@@ -7,7 +7,6 @@ use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
 
 /** @var Profile $profile */
-
 $return = 'return' === ($_GET['mode'] ?? null);
 
 if ($return) {
@@ -32,6 +31,7 @@ if ($return) {
     if (!$isGenuine) {
         Paytabs::getLogger()->warning('Invalid signature for browser return callback');
         http_response_code(400);
+
         exit('Invalid signature');
     }
 
@@ -51,6 +51,7 @@ if ($return) {
     if (!$isGenuine) {
         Paytabs::getLogger()->warning('Invalid signature for IPN callback');
         http_response_code(400);
+
         exit('Invalid signature');
     }
 

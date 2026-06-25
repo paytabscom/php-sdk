@@ -34,7 +34,7 @@ class OwnForm extends PrimaryPayment
         throw new \Exception('Payment Methods not allowed in Own Form');
     }
 
-    public function buildPaymentMethod(string|AbstractMethod $method): void
+    public function buildPaymentMethod(AbstractMethod|string $method): void
     {
         throw new \Exception('Payment Methods not allowed in Own Form');
     }

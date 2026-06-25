@@ -29,7 +29,8 @@ $methods = PaymentMethods::init([MethodsFactory::createApplePayMethod(), 'card']
     ->includeMethod(MethodsFactory::createCardMethod())
     ->includeMethods(['fawry', MethodsFactory::createSadadMethod()])
     ->excludeMethod('sadad')
-    ->excludeMethod(MethodsFactory::createFawryMethod());
+    ->excludeMethod(MethodsFactory::createFawryMethod())
+;
 Paytabs::getLogger()->info('Payment Methods:', [
     $methods,
     $methods->build(),

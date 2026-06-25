@@ -5,14 +5,20 @@ declare(strict_types=1);
 use Paytabs\Sdk\Enums\HttpType;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Request\RequestInterface;
+use Paytabs\Sdk\Response\Payload\PayloadInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class HttpNon2xxResponseMappingTest extends TestCase
 {
     public function testNon2xxWithJsonBodyIsMappedAsFailure(): void
     {
         $http = new class extends Http {
-            protected function executeRequest(\CurlHandle $curl_handle): array
+            protected function executeRequest(CurlHandle $curl_handle): array
             {
                 return [
                     'response' => '{"code":401,"message":"Unauthorized"}',
@@ -49,7 +55,7 @@ final class HttpNon2xxResponseMappingTest extends TestCase
                 return true;
             }
 
-            public function getResponseClass(): ?\Paytabs\Sdk\Response\Payload\PayloadInterface
+            public function getResponseClass(): ?PayloadInterface
             {
                 return null;
             }

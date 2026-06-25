@@ -5,12 +5,16 @@ declare(strict_types=1);
 use Paytabs\Sdk\Enums\CardDiscountType;
 use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
 use Paytabs\Sdk\Request\Payload\Parts\Partials\CardDiscount;
+use PHPUnit\Framework\TestCase;
 
 use function PHPUnit\Framework\assertArrayHasKey;
 use function PHPUnit\Framework\assertEquals;
 
-use PHPUnit\Framework\TestCase;
-
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class CardDiscountsTest extends TestCase
 {
     public function testCardDiscounts(): void

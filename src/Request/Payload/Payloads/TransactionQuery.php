@@ -17,6 +17,7 @@ class TransactionQuery extends PaytabsBuilder
         if ($this->getPayload()->exists('tran_ref', null)) {
             return new Completed();
         }
+
         return new CompletedArray();
     }
 

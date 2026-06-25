@@ -17,15 +17,14 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var Http $http
- * @var string $urlReturn
- * @var string $urlCallback
- * @var string $_currency
- * @var string $_themeId
- * @var string $_token
- * @var string $_tokenEnhanced
+ * @var Http    $http
+ * @var string  $urlReturn
+ * @var string  $urlCallback
+ * @var string  $_currency
+ * @var string  $_themeId
+ * @var string  $_token
+ * @var string  $_tokenEnhanced
  */
-
 $holder = PayloadsFactory::recurringPayment();
 $holder
     ->buildCart('ca-03', $_currency, 700, 'Test')
@@ -55,10 +54,12 @@ $enableTokenEnhanced = false;
 if ($enableToken) {
     if ($enableTokenEnhanced) {
         $holder
-            ->buildTokenEnhanced(TokenEnhanced::init($_tokenEnhanced, TokenType::RecurringFixed));
+            ->buildTokenEnhanced(TokenEnhanced::init($_tokenEnhanced, TokenType::RecurringFixed))
+        ;
     } else {
         $holder
-            ->buildToken(new Token($_token));
+            ->buildToken(new Token($_token))
+        ;
     }
 }
 

@@ -53,7 +53,7 @@ abstract class AbstractPayload implements PayloadInterface
 
     public function exists(string $key, ?HttpRequestPart $httpPart): bool
     {
-        if ($httpPart === null) {
+        if (null === $httpPart) {
             return \array_key_exists($key, $this->headers)
                 || \array_key_exists($key, $this->body)
                 || \array_key_exists($key, $this->query)

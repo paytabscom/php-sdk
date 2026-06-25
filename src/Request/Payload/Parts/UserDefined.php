@@ -16,7 +16,6 @@ class UserDefined extends AbstractPart
     public ?string $udf8 = null;
     public ?string $udf9 = null;
 
-
     public static function init(): self
     {
         return new self();

@@ -10,15 +10,6 @@ class TokenEnhanced extends AbstractPart
     private TokenType $tokenType;
     private ?int $counter = null;
 
-
-    public static function init(
-        string $token,
-        TokenType $tokenType,
-        ?int $counter = null
-    ): self {
-        return new self($token, $tokenType, $counter);
-    }
-
     public function __construct(
         string $token,
         TokenType $tokenType,
@@ -31,6 +22,14 @@ class TokenEnhanced extends AbstractPart
         if (null !== $counter && $counter < 1) {
             throw new \InvalidArgumentException('Counter must be greater than 0');
         }
+    }
+
+    public static function init(
+        string $token,
+        TokenType $tokenType,
+        ?int $counter = null
+    ): self {
+        return new self($token, $tokenType, $counter);
     }
 
     public function build(): array

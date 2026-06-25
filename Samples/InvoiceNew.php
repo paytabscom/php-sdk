@@ -14,25 +14,24 @@ use Paytabs\Sdk\Response\Payload\Payloads\Invoice\NewInvoice;
 
 /**
  * @var Profile $profile
- * @var Http $http
- * @var string $_currency
+ * @var Http    $http
+ * @var string  $_currency
  */
-
 if (!isset($profile, $http, $_currency)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $http, $_currency');
+    throw new RuntimeException('Required variables are not set: $profile, $http, $_currency');
 }
-
-//
 
 $holder = PayloadsFactory::invoiceCreate();
 
 $item1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
-    ->setPrice(1, 10, 10);
+    ->setPrice(1, 10, 10)
+;
 
 $item2 = LineItem::init()
     ->setTitle('item-02')
-    ->setPrice(3, 10, 30);
+    ->setPrice(3, 10, 30)
+;
 
 $lineItems = new LineItems($item1, $item2);
 

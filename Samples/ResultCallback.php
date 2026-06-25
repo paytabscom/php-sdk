@@ -7,9 +7,9 @@ use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
 /**
  * @var Profile $profile
  */
-
 if (!isset($profile)) {
     http_response_code(500);
+
     exit('Invalid sample bootstrap: missing $profile');
 }
 
@@ -26,6 +26,7 @@ $ipnResponse->setProfile($profile);
 $isGenuine = $ipnResponse->isGenuine();
 if (!$isGenuine) {
     http_response_code(400);
+
     exit('Invalid signature');
 }
 

@@ -22,15 +22,6 @@ class TokeniseEnhanced extends AbstractPart
 
     private bool $isOptional = false;
 
-
-    public static function init(
-        TokenType $tokenType,
-        int $tokenFormat = 2,
-        bool $isOptional = false
-    ): self {
-        return new self($tokenType, $tokenFormat, $isOptional);
-    }
-
     public function __construct(
         TokenType $tokenType,
         int $tokenFormat = 2,
@@ -39,6 +30,14 @@ class TokeniseEnhanced extends AbstractPart
         $this->tokenType = $tokenType;
         $this->tokenFormat = $tokenFormat;
         $this->isOptional = $isOptional;
+    }
+
+    public static function init(
+        TokenType $tokenType,
+        int $tokenFormat = 2,
+        bool $isOptional = false
+    ): self {
+        return new self($tokenType, $tokenFormat, $isOptional);
     }
 
     public function setPaymentInfo(

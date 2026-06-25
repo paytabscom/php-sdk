@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-define('APP_ROOT', realpath(__DIR__) . '/../');
-include_once APP_ROOT . 'Samples/config.php';
+define('APP_ROOT', realpath(__DIR__).'/../');
+
+include_once APP_ROOT.'Samples/config.php';
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;

@@ -1,5 +1,6 @@
 <?php
 
+use Paytabs\Sdk\Exceptions\HttpRequestException;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
@@ -8,15 +9,12 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var string $_token
- * @var Http $http
+ * @var string  $_token
+ * @var Http    $http
  */
-
 if (!isset($profile, $_token, $http)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $_token, $http');
+    throw new RuntimeException('Required variables are not set: $profile, $_token, $http');
 }
-
-//
 
 $holder = PayloadsFactory::token();
 $holder->buildToken($_token);
@@ -32,10 +30,11 @@ $http->setRequest($request);
 
 try {
     $response = $http->submit();
-} catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
+} catch (HttpRequestException $e) {
     Paytabs::getLogger()->error('TokenQuery transport error', [
         'message' => $e->getMessage(),
     ]);
+
     throw $e;
 }
 

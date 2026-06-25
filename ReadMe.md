@@ -4,7 +4,7 @@ Official PHP SDK for integrating with PayTabs Payment Gateway.
 
 ## Requirements
 
-- PHP `^8.4`
+- PHP `^8.1`
 - cURL extension enabled
 
 ## Install

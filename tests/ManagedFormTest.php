@@ -5,6 +5,11 @@ declare(strict_types=1);
 use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 final class ManagedFormTest extends TestCase
 {
     public function testBuildPaymentToken(): void
@@ -21,5 +26,4 @@ final class ManagedFormTest extends TestCase
         // Assert
         self::assertSame($managedForm, $result); // Ensure the method returns $this
     }
-
 }

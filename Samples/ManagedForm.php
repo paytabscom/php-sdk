@@ -12,18 +12,15 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var Http $http
- * @var string $urlReturn
- * @var string $urlCallback
- * @var string $_currency
- * @var string $_paymentToken
+ * @var Http    $http
+ * @var string  $urlReturn
+ * @var string  $urlCallback
+ * @var string  $_currency
+ * @var string  $_paymentToken
  */
-
 if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_paymentToken)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency, $_paymentToken');
+    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency, $_paymentToken');
 }
-
-//
 
 $holder = PayloadsFactory::managedForm();
 $holder

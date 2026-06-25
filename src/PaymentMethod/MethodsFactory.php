@@ -46,13 +46,38 @@ abstract class MethodsFactory
         return $instance;
     }
 
+    public static function createPayTabsAllMethod(): PayTabsAll
+    {
+        return new PayTabsAll();
+    }
+
+    public static function createCardMethod(): Card
+    {
+        return new Card();
+    }
+
+    public static function createApplePayMethod(): ApplePay
+    {
+        return new ApplePay();
+    }
+
+    public static function createSadadMethod(): Sadad
+    {
+        return new Sadad();
+    }
+
+    public static function createFawryMethod(): Fawry
+    {
+        return new Fawry();
+    }
+
     /** @return AbstractMethod[] */
     private static function getMethodsMapper(): array
     {
         if (empty(static::$methodsMapper)) {
             $allMethods = PaymentMethod::getAllMethods();
 
-            static::$methodsMapper = array_map(static fn($enumMethod) => new $enumMethod->value(), $allMethods);
+            static::$methodsMapper = array_map(static fn ($enumMethod) => new $enumMethod->value(), $allMethods);
         }
 
         return static::$methodsMapper;
@@ -95,32 +120,5 @@ abstract class MethodsFactory
         }
 
         return null;
-    }
-
-    //
-
-    public static function createPayTabsAllMethod(): PayTabsAll
-    {
-        return new PayTabsAll();
-    }
-
-    public static function createCardMethod(): Card
-    {
-        return new Card();
-    }
-
-    public static function createApplePayMethod(): ApplePay
-    {
-        return new ApplePay();
-    }
-
-    public static function createSadadMethod(): Sadad
-    {
-        return new Sadad();
-    }
-
-    public static function createFawryMethod(): Fawry
-    {
-        return new Fawry();
     }
 }

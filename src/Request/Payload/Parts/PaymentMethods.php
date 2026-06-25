@@ -22,7 +22,7 @@ class PaymentMethods extends AbstractPart
         return new self($methods);
     }
 
-    public function includeMethod(string|AbstractMethod $code): self
+    public function includeMethod(AbstractMethod|string $code): self
     {
         $this->add([$code]);
 
@@ -30,7 +30,7 @@ class PaymentMethods extends AbstractPart
     }
 
     /**
-     * @param string[]|AbstractMethod[] $codes
+     * @param AbstractMethod[]|string[] $codes
      */
     public function includeMethods(array $codes): self
     {
@@ -39,7 +39,7 @@ class PaymentMethods extends AbstractPart
         return $this;
     }
 
-    public function excludeMethod(string|AbstractMethod $code): self
+    public function excludeMethod(AbstractMethod|string $code): self
     {
         $this->add([$code], true);
 
@@ -47,7 +47,7 @@ class PaymentMethods extends AbstractPart
     }
 
     /**
-     * @param string[]|AbstractMethod[] $codes
+     * @param AbstractMethod[]|string[] $codes
      */
     public function excludeMethods(array $codes): self
     {
@@ -69,8 +69,7 @@ class PaymentMethods extends AbstractPart
     }
 
     /**
-     * @param string[]|AbstractMethod[] $codes
-     * @param bool $isExclude
+     * @param AbstractMethod[]|string[] $codes
      */
     private function add(array $codes, bool $isExclude = false): void
     {
@@ -84,20 +83,20 @@ class PaymentMethods extends AbstractPart
         $codesArray = $this->convertToCodes($codes);
 
         if ($isExclude) {
-            $codesArray = array_map(static fn($code): string => "-{$code}", $codesArray);
+            $codesArray = array_map(static fn ($code): string => "-{$code}", $codesArray);
         }
 
         $this->paymentMethods = array_merge($this->paymentMethods, $codesArray);
     }
 
     /**
-     * @param string[]|AbstractMethod[] $methods
+     * @param AbstractMethod[]|string[] $methods
      */
     private function convertToCodes(array $methods): array
     {
         // Convert AbstractMethod to code string
         $codesArray = array_map(
-            static fn($code): string => ($code instanceof AbstractMethod) ? $code::CODE : $code,
+            static fn ($code): string => ($code instanceof AbstractMethod) ? $code::CODE : $code,
             $methods
         );
 

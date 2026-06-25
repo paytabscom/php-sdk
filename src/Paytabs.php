@@ -47,7 +47,7 @@ abstract class Paytabs
             $basePath = rtrim(sys_get_temp_dir(), \DIRECTORY_SEPARATOR);
         }
 
-        $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
+        $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR;
         if (!is_dir($basePath)) {
             @mkdir($basePath, 0o775, true);
         }
@@ -56,9 +56,9 @@ abstract class Paytabs
 
         if (static::LOG_DAILY) {
             $time = date('Y-m-d');
-            $logFile .= '-' . $time;
+            $logFile .= '-'.$time;
         }
 
-        return $basePath . $logFile . static::LOG_FILE_EXTENSION;
+        return $basePath.$logFile.static::LOG_FILE_EXTENSION;
     }
 }

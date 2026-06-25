@@ -9,7 +9,7 @@ final class PayTabsAll extends AbstractMethod
     public const ID = 1;
 
     public const CODE = 'all';
-    public const PT_CODE = 'paytabs_' . self::CODE;
+    public const PT_CODE = 'paytabs_'.self::CODE;
 
     public const TITLE = 'PayTabs';
 

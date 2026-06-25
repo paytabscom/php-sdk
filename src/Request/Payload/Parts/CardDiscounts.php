@@ -25,7 +25,7 @@ class CardDiscounts extends AbstractPart
     {
         return [
             'card_discounts' => array_map(
-                static fn(CardDiscount $discount) => $discount->build(),
+                static fn (CardDiscount $discount) => $discount->build(),
                 $this->discounts
             ),
         ];

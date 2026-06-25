@@ -10,17 +10,14 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var string $trxRef
- * @var Http $http
- * @var string $urlCallback
- * @var string $_currency
+ * @var string  $trxRef
+ * @var Http    $http
+ * @var string  $urlCallback
+ * @var string  $_currency
  */
-
 if (!isset($profile, $trxRef, $http, $urlCallback, $_currency)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $trxRef, $http, $urlCallback, $_currency');
+    throw new RuntimeException('Required variables are not set: $profile, $trxRef, $http, $urlCallback, $_currency');
 }
-
-//
 
 // Build Refund payload using the generic Followup class
 $holder1 = PayloadsFactory::followup();

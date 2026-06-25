@@ -5,18 +5,16 @@ use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus;
 
 /**
  * @var Profile $profile
- * @var int $invoiceId
- * @var Http $http
+ * @var int     $invoiceId
+ * @var Http    $http
  */
-
 if (!isset($profile, $invoiceId, $http)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $invoiceId, $http');
+    throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http');
 }
-
-//
 
 $holder = PayloadsFactory::invoiceStatusAsPost();
 $holder->buildInvoiceId($invoiceId);
@@ -29,7 +27,7 @@ $http->setDebugMode(true);
 $response = $http->submit();
 
 if ($response->isProcessed()) {
-    /** @var \Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus $invoiceStatus */
+    /** @var InvoiceStatus $invoiceStatus */
     $invoiceStatus = $response->getPayloadMapped();
     Paytabs::getLogger()->debug('InvoiceStatus POST response: ', [
         $invoiceStatus,

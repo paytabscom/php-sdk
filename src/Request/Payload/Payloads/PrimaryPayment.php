@@ -42,7 +42,7 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildPaypageLang(string|Language $lang)
+    public function buildPaypageLang(Language|string $lang)
     {
         if ($lang instanceof Language) {
             $lang = $lang->value;
@@ -126,7 +126,7 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildPaymentMethod(string|AbstractMethod $method)
+    public function buildPaymentMethod(AbstractMethod|string $method)
     {
         $this->product->buildBody(
             PaymentMethods::init([$method]),

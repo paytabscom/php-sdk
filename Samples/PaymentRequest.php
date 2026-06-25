@@ -25,18 +25,15 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var Http $http
- * @var string $urlReturn
- * @var string $urlCallback
- * @var string $_currency
- * @var string $_themeId
+ * @var Http    $http
+ * @var string  $urlReturn
+ * @var string  $urlCallback
+ * @var string  $_currency
+ * @var string  $_themeId
  */
-
 if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId');
+    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId');
 }
-
-//
 
 $holder = PayloadsFactory::hostedPage();
 $holder
@@ -91,7 +88,8 @@ if ($tokenise) {
                     '30-MAR-2025',
                     null
                 )->setCounter(1, 10)
-            );
+            )
+        ;
     } else {
         $holder->buildTokenise(true);
     }
@@ -121,11 +119,13 @@ $holder->buildCardDiscounts($cardDiscounts);
 $addInvoiceObject = true;
 $lineItem1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')
-    ->setPrice(1, 100, 100);
+    ->setPrice(1, 100, 100)
+;
 
 $item2 = LineItem::init()
     ->setTitle('item-02')
-    ->setPrice(2, 300, 600);
+    ->setPrice(2, 300, 600)
+;
 
 $lineItems = new LineItems($lineItem1, $item2);
 

@@ -8,22 +8,19 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var string $_token
- * @var Http $http
+ * @var string  $_token
+ * @var Http    $http
  */
-
 if (!isset($profile, $_token, $http)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $_token, $http');
+    throw new RuntimeException('Required variables are not set: $profile, $_token, $http');
 }
-
-//
 
 $holder = PayloadsFactory::token();
 $holder->buildToken($_token);
 
 $request = RequestsFactory::tokenDelete($profile, $holder);
 
-/** @var Http $http */
+// @var Http $http
 $http->setRequest($request);
 
 $response = $http->submit();

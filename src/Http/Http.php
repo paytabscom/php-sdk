@@ -67,7 +67,7 @@ class Http
         // Keep non-2xx payloads available for response-layer classification.
         // Throw only when status is non-2xx and there is no response body to parse.
         if (!($curl_response_code >= 200 && $curl_response_code < 300)
-            && ($curl_response === false || $curl_response === '')
+            && (false === $curl_response || '' === $curl_response)
         ) {
             throw HttpRequestException::invalidStatusCode($curl_response_code);
         }
@@ -94,7 +94,7 @@ class Http
     }
 
     /**
-     * @return array{response: array|string|false, statusCode: int, errorNo: int, errorMessage: string}
+     * @return array{response: array|false|string, statusCode: int, errorNo: int, errorMessage: string}
      */
     protected function executeRequest(\CurlHandle $curl_handle): array
     {

@@ -120,7 +120,8 @@ final class PaymentMethodsTest extends TestCase
             ->includeMethod(MethodsFactory::createCardMethod())
             ->includeMethods(['fawry', MethodsFactory::createSadadMethod()])
             ->excludeMethod('sadad')
-            ->excludeMethod(MethodsFactory::createFawryMethod());
+            ->excludeMethod(MethodsFactory::createFawryMethod())
+        ;
 
         self::assertIsObject($methods);
 

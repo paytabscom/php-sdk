@@ -11,18 +11,15 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var Http $http
- * @var string $urlReturn
- * @var string $urlCallback
- * @var bool $returnUsingGet
- * @var string $_currency
+ * @var Http    $http
+ * @var string  $urlReturn
+ * @var string  $urlCallback
+ * @var bool    $returnUsingGet
+ * @var string  $_currency
  */
-
 if (!isset($profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
+    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
 }
-
-//
 
 $holder = PayloadsFactory::ownForm();
 $holder
@@ -46,7 +43,6 @@ $card_direct = '4111-1111 1111 1111';
 $pan = $threeDSecure ? $card_redirect : $card_direct;
 
 $holder->buildCardDetails($pan, 2030, 12, '123');
-
 
 $request = RequestsFactory::paymentRequest($profile, $holder);
 

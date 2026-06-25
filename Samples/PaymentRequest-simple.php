@@ -12,14 +12,13 @@ use Paytabs\Sdk\Response\Payload\Payloads\Redirect;
 
 /**
  * @var Profile $profile
- * @var Http $http
- * @var string $urlReturn
- * @var string $urlCallback
- * @var string $_currency
+ * @var Http    $http
+ * @var string  $urlReturn
+ * @var string  $urlCallback
+ * @var string  $_currency
  */
-
 if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency');
+    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency');
 }
 
 $holder = PayloadsFactory::hostedPage();
@@ -52,7 +51,7 @@ if ($response->isFailure()) {
 } elseif ($response->isRedirect()) {
     /** @var Redirect $resClassed */
     $resClassed = $response->getRedirect();
-    Paytabs::getLogger()->info('Redirect URL: ' . $resClassed->redirect_url);
+    Paytabs::getLogger()->info('Redirect URL: '.$resClassed->redirect_url);
 } else {
     $resClassed = $response->getPayload()->getMapped();
 }

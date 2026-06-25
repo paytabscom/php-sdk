@@ -10,16 +10,13 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var int $invoiceId
- * @var Http $http
- * @var string $_currency
+ * @var int     $invoiceId
+ * @var Http    $http
+ * @var string  $_currency
  */
-
 if (!isset($profile, $invoiceId, $http, $_currency)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $invoiceId, $http, $_currency');
+    throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http, $_currency');
 }
-
-//
 
 $invoiceCurrency = $_currency;
 $invoiceTotal = 40.00;

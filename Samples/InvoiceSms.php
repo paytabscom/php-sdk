@@ -8,17 +8,14 @@ use Paytabs\Sdk\Request\RequestsFactory;
 
 /**
  * @var Profile $profile
- * @var int $invoiceId
- * @var string $phoneNumber
- * @var Http $http
- * @var string $_currency
+ * @var int     $invoiceId
+ * @var string  $phoneNumber
+ * @var Http    $http
+ * @var string  $_currency
  */
-
 if (!isset($profile, $invoiceId, $phoneNumber, $http, $_currency)) {
-    throw new \RuntimeException('Required variables are not set: $profile, $invoiceId, $phoneNumber, $http, $_currency');
+    throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $phoneNumber, $http, $_currency');
 }
-
-//
 
 $holder = PayloadsFactory::invoiceSms();
 $holder->buildInvoiceId($invoiceId)

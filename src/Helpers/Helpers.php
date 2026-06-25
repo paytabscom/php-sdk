@@ -15,7 +15,7 @@ class Helpers
 
         $path = ltrim($path ?? '', '/');
 
-        $url = $base . '/' . $path;
+        $url = $base.'/'.$path;
 
         if ($remove_trailing_slash) {
             $url = rtrim($url, '/');
