@@ -5,7 +5,7 @@ namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Browser as BrowserPayload;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
-abstract class Browser extends TransactionResult
+abstract class AbstractBrowser extends TransactionResult
 {
     protected array $requestArray;
 

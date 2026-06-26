@@ -95,7 +95,7 @@ Webhook response mapping:
 - Webhook base verification in [src/Response/Responses/Webhook/TransactionResult.php](src/Response/Responses/Webhook/TransactionResult.php).
 - IPN callback handler: [src/Response/Responses/Webhook/TransactionResult/Callback.php](src/Response/Responses/Webhook/TransactionResult/Callback.php).
 - Browser callback/return handlers now use:
-    - [src/Response/Responses/Webhook/TransactionResult/Browser.php](src/Response/Responses/Webhook/TransactionResult/Browser.php) (abstract)
+    - [src/Response/Responses/Webhook/TransactionResult/AbstractBrowser.php](src/Response/Responses/Webhook/TransactionResult/AbstractBrowser.php) (abstract)
     - [src/Response/Responses/Webhook/TransactionResult/BrowserAsGet.php](src/Response/Responses/Webhook/TransactionResult/BrowserAsGet.php)
     - [src/Response/Responses/Webhook/TransactionResult/BrowserAsPost.php](src/Response/Responses/Webhook/TransactionResult/BrowserAsPost.php)
 
