@@ -16,7 +16,7 @@ if (!isset($profile, $invoiceId, $http)) {
     throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http');
 }
 
-$holder = PayloadsFactory::invoiceStatusAsPost();
+$holder = PayloadsFactory::createInvoiceStatusAsPost();
 $holder->buildInvoiceId($invoiceId);
 
 $request = RequestsFactory::createInvoiceStatus($profile, $holder);

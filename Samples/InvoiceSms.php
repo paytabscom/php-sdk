@@ -17,7 +17,7 @@ if (!isset($profile, $invoiceId, $phoneNumber, $http, $_currency)) {
     throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $phoneNumber, $http, $_currency');
 }
 
-$holder = PayloadsFactory::invoiceSms();
+$holder = PayloadsFactory::createInvoiceSms();
 $holder->buildInvoiceId($invoiceId)
     ->buildInvoiceSmsBody($phoneNumber)
 ;

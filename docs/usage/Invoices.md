@@ -45,7 +45,7 @@
     use Paytabs\Sdk\Enums\TranType;
     use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 
-    $holder = PayloadsFactory::invoiceCreate();
+    $holder = PayloadsFactory::createInvoice();
     $holder
         ->buildTransaction(TranType::Sale, TranClass::Ecom)
         ->buildInvoice($invoicePart)
@@ -84,7 +84,7 @@
 2. Prepare the Invoice status payload:
     ```php
     $invoiceId = '12345';
-    $holder2 = PayloadsFactory::invoiceStatusAsPost();
+    $holder2 = PayloadsFactory::createInvoiceStatusAsPost();
     $holder2->buildInvoiceId($invoiceId);
     ```
 

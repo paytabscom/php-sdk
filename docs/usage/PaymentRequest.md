@@ -21,7 +21,7 @@ use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 
-$hostedPage = PayloadsFactory::hostedPage();
+$hostedPage = PayloadsFactory::createHostedPage();
 $hostedPage
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildCart('order-01', 'AED', 100, 'Order 01 description')

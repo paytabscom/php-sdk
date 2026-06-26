@@ -20,7 +20,7 @@ if (!isset($profile, $trxRef, $http, $urlCallback, $_currency)) {
 }
 
 // Build Refund payload using the generic Followup class
-$holder1 = PayloadsFactory::followup();
+$holder1 = PayloadsFactory::createFollowup();
 $holder1
     ->buildTransaction(TranType::Refund, TranClass::Ecom)
     ->buildTransactionRef($trxRef)
@@ -30,7 +30,7 @@ $holder1
 ;
 
 // Submit the Refund request using the main Refund class
-$holder2 = PayloadsFactory::refund();
+$holder2 = PayloadsFactory::createRefund();
 $holder2
     ->buildTransactionRef($trxRef)
     ->buildCart('refund_01', $_currency, 2, 'Refund test')

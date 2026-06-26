@@ -21,7 +21,7 @@ if (!isset($profile, $http, $_currency)) {
     throw new RuntimeException('Required variables are not set: $profile, $http, $_currency');
 }
 
-$holder = PayloadsFactory::invoiceCreate();
+$holder = PayloadsFactory::createInvoice();
 
 $item1 = LineItem::init()
     ->setTitle('sku', 'desc', 'https://test.com')

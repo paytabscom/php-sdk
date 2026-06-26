@@ -21,7 +21,7 @@ if (!isset($profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currenc
     throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
 }
 
-$holder = PayloadsFactory::ownForm();
+$holder = PayloadsFactory::createOwnForm();
 $holder
     ->buildCart('own-form', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)

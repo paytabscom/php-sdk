@@ -21,7 +21,7 @@ if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency)) {
     throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency');
 }
 
-$holder = PayloadsFactory::hostedPage();
+$holder = PayloadsFactory::createHostedPage();
 $holder
     ->buildCart('cart01', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
