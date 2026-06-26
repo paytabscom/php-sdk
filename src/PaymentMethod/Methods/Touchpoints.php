@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Touchpoints extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 202;
 
     public const CODE = 'touchpoints';
     public const PT_CODE = 'paytabs_'.self::CODE;

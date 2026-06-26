@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class PayPal extends AbstractMethod
 {
-    public const ID = 20;
+    public const ID = 50;
 
     public const CODE = 'paypal';
     public const PT_CODE = 'paytabs_'.self::CODE;

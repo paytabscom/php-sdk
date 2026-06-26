@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class ValU extends AbstractMethod
 {
-    public const ID = 300;
+    public const ID = 360;
 
     public const CODE = 'valu';
     public const PT_CODE = 'paytabs_'.self::CODE;

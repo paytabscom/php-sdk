@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Forsa extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 315;
 
     public const CODE = 'forsa';
     public const PT_CODE = 'paytabs_'.self::CODE;

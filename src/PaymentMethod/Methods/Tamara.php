@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Tamara extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 135;
 
     public const CODE = 'tamara';
     public const PT_CODE = 'paytabs_'.self::CODE;

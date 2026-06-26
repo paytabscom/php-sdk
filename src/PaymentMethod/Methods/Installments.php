@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Installments extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 330;
 
     public const CODE = 'installments';
     public const PT_CODE = 'paytabs_'.self::CODE;

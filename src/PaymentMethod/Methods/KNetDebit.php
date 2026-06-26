@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class KNetDebit extends AbstractMethod
 {
-    public const ID = 700;
+    public const ID = 703;
 
     public const CODE = 'knetdebit';
     public const PT_CODE = 'paytabs_'.self::CODE;

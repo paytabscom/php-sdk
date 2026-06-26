@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Mada extends AbstractMethod
 {
-    public const ID = 100;
+    public const ID = 101;
 
     public const CODE = 'mada';
     public const PT_CODE = 'paytabs_'.self::CODE;

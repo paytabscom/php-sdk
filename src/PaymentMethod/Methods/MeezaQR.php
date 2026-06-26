@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class MeezaQR extends AbstractMethod
 {
-    public const ID = 300;
+    public const ID = 341;
 
     public const CODE = 'meezaqr';
     public const PT_CODE = 'paytabs_'.self::CODE;

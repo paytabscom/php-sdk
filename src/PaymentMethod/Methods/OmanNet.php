@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class OmanNet extends AbstractMethod
 {
-    public const ID = 400;
+    public const ID = 401;
 
     public const CODE = 'omannet';
     public const PT_CODE = 'paytabs_'.self::CODE;

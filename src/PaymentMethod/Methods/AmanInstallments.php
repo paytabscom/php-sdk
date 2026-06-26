@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class AmanInstallments extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 306;
 
     public const CODE = 'amaninstallment';
     public const PT_CODE = 'paytabs_'.self::CODE;

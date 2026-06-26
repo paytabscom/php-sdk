@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class StcPayQR extends AbstractMethod
 {
-    public const ID = 100;
+    public const ID = 111;
 
     public const CODE = 'stcpayqr';
     public const PT_CODE = 'paytabs_'.self::CODE;

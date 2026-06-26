@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class KNetCredit extends AbstractMethod
 {
-    public const ID = 700;
+    public const ID = 702;
 
     public const CODE = 'knetcredit';
     public const PT_CODE = 'paytabs_'.self::CODE;

@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Basata extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 310;
 
     public const CODE = 'basata';
     public const PT_CODE = 'paytabs_'.self::CODE;

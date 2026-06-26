@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Meeza extends AbstractMethod
 {
-    public const ID = 300;
+    public const ID = 340;
 
     public const CODE = 'meeza';
     public const PT_CODE = 'paytabs_'.self::CODE;

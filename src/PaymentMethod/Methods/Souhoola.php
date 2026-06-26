@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Souhoola extends AbstractMethod
 {
-    public const ID = 2;
+    public const ID = 345;
 
     public const CODE = 'souhoola';
     public const PT_CODE = 'paytabs_'.self::CODE;

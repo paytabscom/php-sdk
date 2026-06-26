@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class UrPay extends AbstractMethod
 {
-    public const ID = 100;
+    public const ID = 140;
 
     public const CODE = 'urpay';
     public const PT_CODE = 'paytabs_'.self::CODE;
