@@ -5,18 +5,18 @@ use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
 
-$method_code = 'applepay';
-$method = PaymentMethodsFactory::createMethod($method_code);
+$methodCode = 'applepay';
+$method = PaymentMethodsFactory::createMethod($methodCode);
 
 logMethod($method);
 
-$method_id = 1;
-$method = PaymentMethodsFactory::createMethodById($method_id);
+$methodId = 1;
+$method = PaymentMethodsFactory::createMethodById($methodId);
 
 logMethod($method);
 
-$method_pt_code = 'paytabs_sadad';
-$method = PaymentMethodsFactory::createMethodByUnique($method_pt_code);
+$methodPtCode = 'paytabs_sadad';
+$method = PaymentMethodsFactory::createMethodByUnique($methodPtCode);
 logMethod($method);
 
 $method = PaymentMethodsFactory::createPayTabsAllMethod();

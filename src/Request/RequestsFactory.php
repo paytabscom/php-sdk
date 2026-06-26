@@ -53,14 +53,14 @@ class RequestsFactory
         return new TransactionQuery($profile, $holder);
     }
 
-    public static function createInvoiceNew(
+    public static function createNewInvoice(
         Profile $profile,
         Invoice $holder
     ): NewInvoice {
         return new NewInvoice($profile, $holder);
     }
 
-    public static function createInvoiceStatus(
+    public static function createInvoiceStatusAsPost(
         Profile $profile,
         BuilderInvoiceStatus $holder
     ): InvoiceStatus {

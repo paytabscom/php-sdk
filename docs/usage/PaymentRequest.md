@@ -75,7 +75,7 @@ Response may have 3 formats:
         exit;
     }
     ```
-* Redirect: If the Payment gateway returned a redirect URL.
+* Redirect: If the Payment Gateway returned a redirect URL.
     ```php
     if ($response->isRedirect()) {
         // Map the response to Redirect class

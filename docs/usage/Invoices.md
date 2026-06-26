@@ -2,7 +2,7 @@
 - Version: `1.0.0`
 - SDK version: `3.0.0`
 
-## Create new Invoice
+## Create New Invoice
 
 1. Prepare the Authentication (Profile):
     ```php
@@ -56,7 +56,7 @@
     ```php
     use Paytabs\Sdk\Request\RequestsFactory;
 
-    $request = RequestsFactory::createInvoiceNew($profile, $holder);
+    $request = RequestsFactory::createNewInvoice($profile, $holder);
     ```
 
 6. Create the Http connector:
@@ -77,7 +77,7 @@
     ```
 
 ---
-## Invoice Status check
+## Invoice Status Check
 
 1. Prepare the Authentication (Profile) (Explained before).
 
@@ -90,7 +90,7 @@
 
 3. Create the Invoice status request:
     ```php
-    $request2 = RequestsFactory::createInvoiceStatus($profile, $holder2);
+    $request2 = RequestsFactory::createInvoiceStatusAsPost($profile, $holder2);
     ```
 
 4. Submit the request:

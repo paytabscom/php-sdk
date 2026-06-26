@@ -15,7 +15,7 @@ use Paytabs\Sdk\Request\Payload\BuilderInterface;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
 use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
-use Paytabs\Sdk\Request\Payload\Payloads\HostedPage;
+use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use PHPUnit\Framework\TestCase;
 
@@ -84,7 +84,7 @@ final class PaymentRequestTest extends TestCase
     {
         $currency = getConfig('CURRENCY', 'AED');
 
-        $holder = new HostedPage();
+        $holder = PayloadsFactory::createHostedPage();
         $holder
             ->buildCart('c01', $currency, 100.51, 'Test')
             ->buildTransaction(TranType::Sale, TranClass::Ecom)

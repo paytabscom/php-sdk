@@ -19,7 +19,7 @@ if (!isset($profile, $invoiceId, $http)) {
 $holder = PayloadsFactory::createInvoiceStatusAsPost();
 $holder->buildInvoiceId($invoiceId);
 
-$request = RequestsFactory::createInvoiceStatus($profile, $holder);
+$request = RequestsFactory::createInvoiceStatusAsPost($profile, $holder);
 
 $http->setRequest($request);
 $http->setDebugMode(true);

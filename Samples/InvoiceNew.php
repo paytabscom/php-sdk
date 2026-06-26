@@ -58,7 +58,7 @@ Paytabs::getLogger()->debug(
     $holder->getPayload()->getBody()
 );
 
-$request = RequestsFactory::createInvoiceNew($profile, $holder);
+$request = RequestsFactory::createNewInvoice($profile, $holder);
 
 $http->setRequest($request);
 $http->setDebugMode(true);

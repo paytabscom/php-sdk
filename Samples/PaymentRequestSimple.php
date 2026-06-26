@@ -56,7 +56,7 @@ if ($response->isFailure()) {
     $resClassed = $response->getPayload()->getMapped();
 }
 
-// case ResponseStage::UnKnown:
+// case ResponseStage::Unknown:
 // case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();

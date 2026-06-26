@@ -29,9 +29,9 @@ class Browser extends Paytabs
     public function setRespStatus(string $respStatus): void
     {
         $this->respStatus = $respStatus;
-        $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus)) ?? TranStatus::UnKnown;
+        $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus)) ?? TranStatus::Unknown;
 
-        if (TranStatus::UnKnown === $this->tranStatus) {
+        if (TranStatus::Unknown === $this->tranStatus) {
             PaytabsSDK::getLogger()->error('Unknown transaction status', [
                 'tran_status' => $respStatus,
             ]);
