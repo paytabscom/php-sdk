@@ -1,0 +1,251 @@
+%% PayTabs Payment Parts Canonical Mapping
+%% Source-of-truth map for builder inheritance, part usage, and restrictions.
+
+classDiagram
+    class PaytabsBuilder
+
+    class PaymentRequest {
+      +buildTransaction()
+      +buildCart()
+      +buildURLs()
+      +buildPluginInfo()
+    }
+
+    class AirlineData {
+      +buildAirlineData()
+    }
+
+    class PrimaryPayment {
+      +buildCustomerDetails()
+      +buildShippingDetails()
+      +buildHideShipping()
+      +buildPaypageConfig()
+      +buildTokenise()
+      +buildTokeniseEnhanced()
+      +buildPaymentMethods()
+      +buildPaymentMethod()
+      +buildCustomerReference()
+      +buildUserDefined()
+      +buildInvoice()
+    }
+
+    class HostedPage {
+      +buildFramedObj()
+      +buildCardFilter()
+      +buildDonationMode()
+      +buildCardDiscounts()
+    }
+
+    class OwnForm {
+      +buildCardDetails()
+      +buildPaymentMethods() throws
+      +buildPaymentMethod() throws
+    }
+
+    class ManagedForm {
+      +buildPaymentToken()
+    }
+
+    class RecurringPayment {
+      +buildToken()
+      +buildTokenEnhanced()
+      +buildTransaction() restricted types
+      +buildShippingDetails() throws
+      +buildCardFilter() throws
+    }
+
+    class Followup {
+      +buildTransactionRef()
+    }
+
+    class Refund {
+      +buildTransaction() throws
+      +buildTransactionRef()
+    }
+
+    class TokenBuilder["Token"] {
+      +buildToken()
+    }
+
+    class TransactionQuery {
+      +buildTransactionRef()
+      +buildCartId() via GenericPart
+    }
+
+    class InvoiceBuilder["Invoice"]
+    class InvoiceStatus {
+      +buildInvoiceId()
+    }
+    class InvoiceStatusGet {
+      +buildInvoiceId()
+    }
+    class InvoiceCancel {
+      +buildInvoiceId()
+    }
+    class InvoiceMarkPaidBuilder["InvoiceMarkPaid"] {
+      +buildInvoiceMarkPaid()
+    }
+    class InvoiceSms {
+      +buildInvoiceId()
+      +buildInvoiceSmsBody()
+    }
+
+    PaytabsBuilder <|-- PaymentRequest
+    PaymentRequest <|-- AirlineData
+    AirlineData <|-- PrimaryPayment
+    PrimaryPayment <|-- HostedPage
+    PrimaryPayment <|-- OwnForm
+    PrimaryPayment <|-- ManagedForm
+    HostedPage <|-- RecurringPayment
+    PaymentRequest <|-- Followup
+    Followup <|-- Refund
+    PaytabsBuilder <|-- TokenBuilder
+    PaytabsBuilder <|-- TransactionQuery
+    PrimaryPayment <|-- InvoiceBuilder
+    PaytabsBuilder <|-- InvoiceStatus
+    PaytabsBuilder <|-- InvoiceStatusGet
+    PaytabsBuilder <|-- InvoiceCancel
+    PaytabsBuilder <|-- InvoiceMarkPaidBuilder
+    PaytabsBuilder <|-- InvoiceSms
+
+    class Transaction {
+      +tran_type
+      +tran_class
+    }
+    class Cart {
+      +cart_id
+      +cart_currency
+      +cart_amount
+      +cart_description
+    }
+    class Urls {
+      +return
+      +callback
+      +return_using_get
+    }
+    class PluginInfo {
+      +plugin_info.cart_name
+      +plugin_info.cart_version
+      +plugin_info.plugin_version
+    }
+    class Airline {
+      +airline_data.pnr_code
+    }
+    class CustomerDetails {
+      +customer_details.*
+    }
+    class ShippingDetails {
+      +shipping_details.*
+    }
+    class HideShipping {
+      +hide_shipping
+    }
+    class PaypageConfig {
+      +paypage_lang
+      +alt_currency
+      +config_id
+    }
+    class PaymentMethods {
+      +payment_methods[]
+    }
+    class CustomerReference {
+      +customer_ref
+    }
+    class UserDefined {
+      +user_defined.udf1..udf9
+    }
+    class Invoice {
+      +invoice.*
+      +invoice.line_items[]
+    }
+    class Tokenise {
+      +tokenise
+      +show_save_card
+    }
+    class TokeniseEnhanced {
+      +token_info.*
+      +show_save_card
+    }
+    class Framed {
+      +framed*
+    }
+    class CardFilter {
+      +card_filter
+      +card_filter_title
+    }
+    class Donation {
+      +donation_mode
+      +cart_min
+      +cart_max
+    }
+    class CardDiscounts {
+      +card_discounts[]
+    }
+    class CardDetails {
+      +card_details.*
+    }
+    class ManagedFormToken {
+      +payment_token
+    }
+    class Token {
+      +token
+    }
+    class TokenEnhanced {
+      +token_info.token
+      +token_info.token_type
+      +token_info.counter
+    }
+    class TransactionRef {
+      +tran_ref
+    }
+    class InvoiceMarkPaid {
+      +invoice_id
+      +invoice_currency
+      +invoice_total
+      +pay_method
+      +pay_description
+    }
+    class ApplePayToken {
+      +apple_pay_token
+    }
+    class GenericPart {
+      +dynamic key/value
+    }
+
+    PaymentRequest ..> Transaction : builds
+    PaymentRequest ..> Cart : builds
+    PaymentRequest ..> Urls : builds
+    PaymentRequest ..> PluginInfo : builds
+    AirlineData ..> Airline : builds
+    PrimaryPayment ..> CustomerDetails : builds
+    PrimaryPayment ..> ShippingDetails : builds
+    PrimaryPayment ..> HideShipping : builds
+    PrimaryPayment ..> PaypageConfig : builds
+    PrimaryPayment ..> Tokenise : builds
+    PrimaryPayment ..> TokeniseEnhanced : builds
+    PrimaryPayment ..> PaymentMethods : builds
+    PrimaryPayment ..> CustomerReference : builds
+    PrimaryPayment ..> UserDefined : builds
+    PrimaryPayment ..> Invoice : builds
+    HostedPage ..> Framed : builds
+    HostedPage ..> CardFilter : builds
+    HostedPage ..> Donation : builds
+    HostedPage ..> CardDiscounts : builds
+    OwnForm ..> CardDetails : builds
+    ManagedForm ..> ManagedFormToken : builds
+    RecurringPayment ..> Token : builds
+    RecurringPayment ..> TokenEnhanced : builds
+    Followup ..> TransactionRef : builds
+    Refund ..> TransactionRef : builds
+    TransactionQuery ..> TransactionRef : builds
+    TransactionQuery ..> GenericPart : uses
+    InvoiceStatus ..> GenericPart : uses
+    InvoiceStatusGet ..> GenericPart : uses
+    InvoiceCancel ..> GenericPart : uses
+    InvoiceSms ..> GenericPart : uses
+    InvoiceMarkPaidBuilder ..> InvoiceMarkPaid : builds
+    HostedPage ..> ApplePayToken : not exposed yet
+
+    note for OwnForm "Disallows PaymentMethods and PaymentMethod methods"
+    note for RecurringPayment "Disallows ShippingDetails and CardFilter"
+    note for Refund "Refund transaction is pre-wired; manual buildTransaction is blocked"

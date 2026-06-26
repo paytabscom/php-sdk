@@ -1,96 +1,133 @@
 %% PayTabs Payment Parts Reference
-%% Shows all available parts and their purpose
+%% Overview map of request parts and their payload keys.
 
 mindmap
-  root((PaymentRequest<br/>Parts))
+  root((Payment Payload Parts))
     )Core Transaction(
       Transaction
         tran_type
         tran_class
-      TransactionRef
-        tran_ref
-
-    )Amounts and Billing(
       Cart
         cart_id
-        currency
-        amount
-        description
+        cart_currency
+        cart_amount
+        cart_description
+
+    )Recurring Payments(
+      Token
+        token
+      TokenEnhanced
+        token_info.token
+        token_info.token_type
+        token_info.counter
+      TransactionRef
+          tran_ref
+
+    )Invoice(
       Invoice
-        LineItems
-          LineItem
-        charges
-        dates
-      AltCurrency
-        alternative settlement
-      Donation
-        donation mode
-      Airline
-        pnr code
+        invoice.lang
+        invoice.shipping_charges
+        invoice.extra_charges
+        invoice.extra_discount
+        invoice.total
+        invoice.activation_date
+        invoice.due_date
+        invoice.expiry_date
+        invoice.disable_edit
+        invoice.line_items (list)
       InvoiceMarkPaid
         invoice_id
-        amount
+        invoice_currency
+        invoice_total
+        pay_method
+        pay_description
 
-    )Customer Info(
+    )Customer(
       CustomerDetails
-        name
-        phone
-        email
-        address
+        customer_details.name
+        customer_details.phone
+        customer_details.email
+        customer_details.country/state/city/street1/ip/zip
       ShippingDetails
-        name
-        phone
-        address
+        shipping_details.name
+        shipping_details.phone
+        shipping_details.email
+        shipping_details.country/state/city/street1/ip/zip
       CustomerReference
         customer_ref
 
-    )Payment Configuration(
+    )Payment Results(
       Urls
-        return_url
-        callback_url
-        return_as_get
-      ConfigId
-        profile_config
+        return
+        callback
+        return_using_get
+
+    )Payment UX and Method Controls(
       PaymentMethods
-        include methods
-        exclude methods
-
-    )Merchant and UX Controls(
-      PaypageLang
-        checkout language
+        payment_methods (list)
+        includes/excludes via method codes
+      PaypageConfig
+        paypage_lang
+        alt_currency
+        config_id
       Framed
-        embedded flow
+        framed
+        framed_return_parent
+        framed_return_top
+        force_full_ui
+        framed_message_target
       HideShipping
-        hide shipping section
-      ManagedFormToken
-        managed form token
-      CardDetails
-        own form card fields
-
-    )Security & Tokens(
-      Tokenise
-        type
-        frequency
-      TokeniseEnhanced
-        more options
-      Token
-        token value
-      TokenEnhanced
-        token with extra data
-      ApplePayToken
-        apple pay token payload
+        hide_shipping
       CardFilter
-        patterns
+        card_filter
+        card_filter_title
 
-    )Discounts & Special(
+    )Onsite Forms(
+      ManagedFormToken
+        payment_token
+      CardDetails
+        card_details.pan/cvv/expiry_year/expiry_month
+      ApplePayToken
+        apple_pay_token
+
+    )Tokenization(
+      Tokenise
+        tokenise
+        show_save_card
+      TokeniseEnhanced
+        token_info.tokenise
+        token_info.token_type
+        token_info.counter
+        token_info.total_count
+        token_info.payment_frequency
+        token_info.min/max_amount_per_payment
+        token_info.min_days_between_payments
+        token_info.start_date
+        token_info.expiry_date
+        show_save_card
+
+    )Discounts(
       CardDiscounts
-        fixed/percent
-        by card pattern
-        CardDiscount
-      UserDefined
-        UDF1-UDF9
+        card_discounts (list)
+      CardDiscount (partial)
+        discount_title
+        discount_cards
+        discount_amount or discount_percent
 
     )Metadata(
       PluginInfo
-        platform
-        version
+        plugin_info.cart_name
+        plugin_info.cart_version
+        plugin_info.plugin_version
+    
+    )Others(
+      UserDefined
+        user_defined.udf1..udf9
+      GenericPart
+        generic key/value injection (status/query/invoice paths)
+      Donation
+        donation_mode
+        cart_min
+        cart_max
+      Airline
+        airline_data.pnr_code

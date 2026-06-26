@@ -75,7 +75,9 @@ Core request area is organized as:
     - [src/Request/Payload/Parts](src/Request/Payload/Parts)
     - [src/Request/Payload/Parts/Partials](src/Request/Payload/Parts/Partials)
 
-The current parts map is maintained in [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd).
+The parts documentation is maintained in:
+- Overview map: [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd)
+- Canonical class map: [docs/diagrams/payment-parts-class-reference.mmd](docs/diagrams/payment-parts-class-reference.mmd)
 
 ## Response-Side Structure
 
@@ -120,11 +122,13 @@ Defined in [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 
 - Main flow: [docs/diagrams/flow.mmd](docs/diagrams/flow.mmd)
 - Payment request composition: [docs/diagrams/payment-request-composition.mmd](docs/diagrams/payment-request-composition.mmd)
-- Parts reference: [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd)
+- Parts reference (overview): [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd)
+- Parts reference (canonical): [docs/diagrams/payment-parts-class-reference.mmd](docs/diagrams/payment-parts-class-reference.mmd)
 
 ## Maintainer Notes
 
 1. Keep this file aligned with any class or naming changes in factories and response handlers.
 2. Update [docs/diagrams/flow.mmd](docs/diagrams/flow.mmd) whenever webhook or direct-flow naming changes.
-3. Update [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd) when new concrete part classes are added.
-4. Validate Mermaid diagrams after edits.
+3. Update [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd) for reader-facing overview grouping and examples.
+4. Update [docs/diagrams/payment-parts-class-reference.mmd](docs/diagrams/payment-parts-class-reference.mmd) when part classes, builder inheritance, or method restrictions change.
+5. Validate Mermaid diagrams after edits.
