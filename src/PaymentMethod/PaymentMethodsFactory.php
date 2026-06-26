@@ -9,7 +9,7 @@ use Paytabs\Sdk\PaymentMethod\Methods\Fawry;
 use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 
-abstract class MethodsFactory
+abstract class PaymentMethodsFactory
 {
     private static array $methodsMapper = [];
 
