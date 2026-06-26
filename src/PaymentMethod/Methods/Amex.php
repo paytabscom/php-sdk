@@ -20,7 +20,7 @@ final class Amex extends AbstractMethod
     public const ACTIVE = true;
 
     final public const CURRENCIES = [
-        'AED', 'SAR', 'USD', 'AZN', 'TRY'
+        'AED', 'SAR', 'USD', 'AZN', 'TRY',
     ];
 
     final protected const SUPPORT_ANY_CURRENCY = false;

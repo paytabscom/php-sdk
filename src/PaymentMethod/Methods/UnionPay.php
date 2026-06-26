@@ -11,6 +11,10 @@ final class UnionPay extends AbstractMethod
     public const CODE = 'unionpay';
     public const PT_CODE = 'paytabs_'.self::CODE;
 
+    public const CODE_ALIASES = [
+        'cup',
+    ];
+
     public const TITLE = 'PayTabs - UnionPay';
 
     public const ACTIVE = true;

@@ -4,18 +4,14 @@ namespace Paytabs\Sdk\PaymentMethod\Methods;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
-final class MeezaQR extends AbstractMethod
+final class Halan extends AbstractMethod
 {
-    public const ID = 300;
+    public const ID = 2;
 
-    public const CODE = 'meezaqr';
+    public const CODE = 'halan';
     public const PT_CODE = 'paytabs_'.self::CODE;
 
-    public const CODE_ALIASES = [
-        'qr',
-    ];
-
-    public const TITLE = 'PayTabs - Meeza (QR)';
+    public const TITLE = 'PayTabs - Halan';
 
     public const ACTIVE = true;
 
@@ -36,9 +32,9 @@ final class MeezaQR extends AbstractMethod
     final protected const SUPPORT_AUTH_CAPTURE = false;
     final protected const SUPPORT_MULTIPLE_CAPTURE = false;
 
-    final protected const SUPPORT_REFUND = true;
-    final protected const SUPPORT_REFUND_PARTIAL = true;
-    final protected const SUPPORT_MULTIPLE_REFUND = true;
+    final protected const SUPPORT_REFUND = false;
+    final protected const SUPPORT_REFUND_PARTIAL = false;
+    final protected const SUPPORT_MULTIPLE_REFUND = false;
 
     final protected const SUPPORT_FRAMED = true;
 }

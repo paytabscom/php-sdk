@@ -11,6 +11,10 @@ final class PayTabsAll extends AbstractMethod
     public const CODE = 'all';
     public const PT_CODE = 'paytabs_'.self::CODE;
 
+    public const CODE_ALIASES = [
+        'any',
+    ];
+
     public const TITLE = 'PayTabs';
 
     public const ACTIVE = true;
