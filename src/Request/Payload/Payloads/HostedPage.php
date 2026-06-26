@@ -2,10 +2,8 @@
 
 namespace Paytabs\Sdk\Request\Payload\Payloads;
 
-use Paytabs\Sdk\Request\Payload\Parts\AltCurrency;
 use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
 use Paytabs\Sdk\Request\Payload\Parts\CardFilter;
-use Paytabs\Sdk\Request\Payload\Parts\ConfigId;
 use Paytabs\Sdk\Request\Payload\Parts\Donation;
 use Paytabs\Sdk\Request\Payload\Parts\Framed;
 
@@ -14,24 +12,6 @@ class HostedPage extends PrimaryPayment
     public function buildFramedObj(Framed $framed)
     {
         $this->product->buildBody($framed);
-
-        return $this;
-    }
-
-    public function buildAltCurrency(string $altCurrency)
-    {
-        $this->product->buildBody(
-            new AltCurrency($altCurrency)
-        );
-
-        return $this;
-    }
-
-    public function buildConfigId(int $configId)
-    {
-        $this->product->buildBody(
-            new ConfigId($configId)
-        );
 
         return $this;
     }

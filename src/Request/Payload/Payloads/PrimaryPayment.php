@@ -11,7 +11,7 @@ use Paytabs\Sdk\Request\Payload\Parts\CustomerReference;
 use Paytabs\Sdk\Request\Payload\Parts\HideShipping;
 use Paytabs\Sdk\Request\Payload\Parts\Invoice;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
-use Paytabs\Sdk\Request\Payload\Parts\PaypageLang;
+use Paytabs\Sdk\Request\Payload\Parts\PaypageConfig;
 use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
 use Paytabs\Sdk\Request\Payload\Parts\Tokenise;
 use Paytabs\Sdk\Request\Payload\Parts\TokeniseEnhanced;
@@ -42,14 +42,13 @@ abstract class PrimaryPayment extends AirlineData
         return $this;
     }
 
-    public function buildPaypageLang(Language|string $lang)
-    {
-        if ($lang instanceof Language) {
-            $lang = $lang->value;
-        }
-
+    public function buildPaypageConfig(
+        Language|string|null $paypageLang,
+        ?string $altCurrency = null,
+        ?int $configId = null
+    ) {
         $this->product->buildBody(
-            new PaypageLang($lang)
+            new PaypageConfig($paypageLang, $altCurrency, $configId)
         );
 
         return $this;

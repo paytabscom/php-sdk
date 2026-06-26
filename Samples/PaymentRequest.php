@@ -55,8 +55,7 @@ $holder
     )
     ->buildHideShipping(true)
     ->buildURLs($urlReturn, $urlCallback)
-    ->buildAltCurrency('USD')
-    ->buildConfigId($_themeId)
+    ->buildPaypageConfig(Language::English, 'USD', $_themeId)
     ->buildPaymentMethods(
         PaymentMethods::init()
             ->includeMethod(Card::CODE)
@@ -67,7 +66,6 @@ $holder
     )
     // ->buildPaymentMethod('test')
     ->buildCustomerReference('customer-ref-1')
-    ->buildPaypageLang(Language::English)
 ;
 
 $tokenise = true;

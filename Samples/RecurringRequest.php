@@ -29,7 +29,7 @@ $holder = PayloadsFactory::createRecurringPayment();
 $holder
     ->buildCart('ca-03', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Recurring)
-    ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
+    ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
         CustomerDetails::init('Integrations SDK3', '0522222222', 'integrations@paytabs.com')
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
@@ -42,11 +42,9 @@ $holder
     )
     ->buildFramedObj(new Framed(true, FramedTarget::ReturnTop))
     ->buildURLs($urlReturn, $urlCallback)
-    ->buildAltCurrency('USD')
-    ->buildConfigId($_themeId)
     ->buildCustomerReference('customer-ref-3')
     ->buildAirlineData('pnr-code-02')
-    ->buildPaypageLang('ar')
+    ->buildPaypageConfig('ar', 'USD', $_themeId)
 ;
 
 $enableToken = true;
