@@ -21,7 +21,7 @@ use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 
-$hostedPage = PayloadsFactory::hostedPage();
+$hostedPage = PayloadsFactory::createHostedPage();
 $hostedPage
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildCart('order-01', 'AED', 100, 'Order 01 description')
@@ -36,7 +36,7 @@ $hostedPage
 ```php
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$paymentRequest = RequestsFactory::paymentRequest($profile, $hostedPage);
+$paymentRequest = RequestsFactory::createPaymentRequest($profile, $hostedPage);
 ```
 
 4. Create the Http connector:
@@ -75,7 +75,7 @@ Response may have 3 formats:
         exit;
     }
     ```
-* Redirect: If the Payment gateway returned a redirect URL.
+* Redirect: If the Payment Gateway returned a redirect URL.
     ```php
     if ($response->isRedirect()) {
         // Map the response to Redirect class

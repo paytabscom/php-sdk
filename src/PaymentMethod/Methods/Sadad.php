@@ -6,7 +6,7 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 final class Sadad extends AbstractMethod
 {
-    public const ID = 50;
+    public const ID = 120;
 
     public const CODE = 'sadad';
     public const PT_CODE = 'paytabs_'.self::CODE;

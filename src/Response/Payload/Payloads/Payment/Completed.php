@@ -37,9 +37,9 @@ class Completed extends Payment
     public function setTranClass(string $tran_class): void
     {
         $this->tran_class = $tran_class;
-        $this->tranClass = TranClass::tryFrom(strtolower($tran_class)) ?? TranClass::UnKnown;
+        $this->tranClass = TranClass::tryFrom(strtolower($tran_class)) ?? TranClass::Unknown;
 
-        if (TranClass::UnKnown === $this->tranClass) {
+        if (TranClass::Unknown === $this->tranClass) {
             PaytabsSDK::getLogger()->error('Unknown transaction class', [
                 'tran_class' => $tran_class,
             ]);

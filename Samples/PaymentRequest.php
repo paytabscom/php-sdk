@@ -35,7 +35,7 @@ if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId)) {
     throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId');
 }
 
-$holder = PayloadsFactory::hostedPage();
+$holder = PayloadsFactory::createHostedPage();
 $holder
     ->buildCart('cart01', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
@@ -140,7 +140,7 @@ if ($addInvoiceObject) {
     $holder->buildInvoice($invoicePart);
 }
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'PaymentRequest holder Payload',
@@ -165,7 +165,7 @@ if ($response->isFailure()) {
     $resClassed = $response->getPayload()->getMapped();
 }
 
-// case ResponseStage::UnKnown:
+// case ResponseStage::Unknown:
 // case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();

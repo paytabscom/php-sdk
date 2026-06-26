@@ -5,7 +5,7 @@ namespace Paytabs\Sdk\Profile;
 final class ProfilesFactory
 {
     public static function createProfile(
-        Endpoint $endpoint,
+        AbstractEndpoint $endpoint,
         int $profileId,
         string $serverKey
     ): Profile {

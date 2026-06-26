@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Profile\Endpoints;
 
-use Paytabs\Sdk\Profile\Endpoint;
+use Paytabs\Sdk\Profile\AbstractEndpoint;
 
-final class Egypt extends Endpoint
+final class Egypt extends AbstractEndpoint
 {
     public const CODE = 'EGY';
     protected const TITLE = 'Egypt';

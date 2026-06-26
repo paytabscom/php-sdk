@@ -31,13 +31,13 @@ $profile = ProfilesFactory::createUaeProfile(
 	(string) getenv('PAYTABS_SERVER_KEY')
 );
 
-$payload = PayloadsFactory::hostedPage();
+$payload = PayloadsFactory::createHostedPage();
 $payload
 	->buildTransaction(TranType::Sale, TranClass::Ecom)
 	->buildCart('order-1001', 'AED', 100.00, 'Order 1001')
 	->buildHideShipping(true);
 
-$request = RequestsFactory::paymentRequest($profile, $payload);
+$request = RequestsFactory::createPaymentRequest($profile, $payload);
 
 $http = (new Http())
 	->setLogger(Paytabs::getLogger())

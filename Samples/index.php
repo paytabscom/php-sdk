@@ -33,7 +33,7 @@ $profile = new Profile($_endpoint, $_profileId, $_serverKey);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {
-    require_once 'index_ipn.php';
+    require_once 'IndexIpn.php';
 
     exit;
 }
@@ -68,7 +68,7 @@ $samples = [
     ],
     5 => [
         'Payment Request (Basic)',
-        APP_ROOT.'Samples/PaymentRequest-simple.php',
+        APP_ROOT.'Samples/PaymentRequestSimple.php',
     ],
     2 => [
         'Own Form',
@@ -112,14 +112,14 @@ $samples = [
         APP_ROOT.'Samples/ResultBrowser.php',
     ],
     31 => [
-        'Result CallBack',
+        'Result Callback',
         APP_ROOT.'Samples/ResultCallback.php',
     ],
     1040 => [
         'Invoices',
     ],
     40 => [
-        'Invoice New',
+        'New Invoice',
         APP_ROOT.'Samples/InvoiceNew.php',
     ],
     41 => [

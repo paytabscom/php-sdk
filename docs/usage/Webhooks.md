@@ -62,7 +62,7 @@ $mapped = $response->getPayload()->getMapped();
 
 ## Debug-oriented sample flow
 
-The files [Samples/index_ipn.php](Samples/index_ipn.php) and [Samples/ResultCallback.php](Samples/ResultCallback.php) return `400` when signature validation fails.
+The files [../../Samples/IndexIpn.php](../../Samples/IndexIpn.php) and [../../Samples/ResultCallback.php](../../Samples/ResultCallback.php) return `400` when signature validation fails.
 After the signature is valid, you can log limited mapped fields for local troubleshooting:
 
 - `isGenuine` result

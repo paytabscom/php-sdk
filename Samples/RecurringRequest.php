@@ -25,7 +25,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
  * @var string  $_token
  * @var string  $_tokenEnhanced
  */
-$holder = PayloadsFactory::recurringPayment();
+$holder = PayloadsFactory::createRecurringPayment();
 $holder
     ->buildCart('ca-03', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Recurring)
@@ -63,7 +63,7 @@ if ($enableToken) {
     }
 }
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'RecurringPayment holder Payload',

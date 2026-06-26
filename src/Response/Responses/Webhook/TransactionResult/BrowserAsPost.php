@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
-class BrowserAsPost extends Browser
+class BrowserAsPost extends AbstractBrowser
 {
     public static function init(array $localParams = []): self
     {

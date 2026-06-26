@@ -8,5 +8,5 @@ enum ResponseStage
     case Error;
     case Completed;
 
-    case UnKnown;
+    case Unknown;
 }

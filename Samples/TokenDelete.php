@@ -15,10 +15,10 @@ if (!isset($profile, $_token, $http)) {
     throw new RuntimeException('Required variables are not set: $profile, $_token, $http');
 }
 
-$holder = PayloadsFactory::token();
+$holder = PayloadsFactory::createToken();
 $holder->buildToken($_token);
 
-$request = RequestsFactory::tokenDelete($profile, $holder);
+$request = RequestsFactory::createTokenDelete($profile, $holder);
 
 // @var Http $http
 $http->setRequest($request);

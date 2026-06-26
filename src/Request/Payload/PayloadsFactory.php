@@ -19,72 +19,72 @@ use Paytabs\Sdk\Request\Payload\Payloads\TransactionQuery;
 
 class PayloadsFactory
 {
-    public static function hostedPage(): HostedPage
+    public static function createHostedPage(): HostedPage
     {
         return new HostedPage();
     }
 
-    public static function ownForm(): OwnForm
+    public static function createOwnForm(): OwnForm
     {
         return new OwnForm();
     }
 
-    public static function managedForm(): ManagedForm
+    public static function createManagedForm(): ManagedForm
     {
         return new ManagedForm();
     }
 
-    public static function transactionQuery(): TransactionQuery
+    public static function createTransactionQuery(): TransactionQuery
     {
         return new TransactionQuery();
     }
 
-    public static function followup(): Followup
+    public static function createFollowup(): Followup
     {
         return new Followup();
     }
 
-    public static function refund(): Refund
+    public static function createRefund(): Refund
     {
         return new Refund();
     }
 
-    public static function recurringPayment(): RecurringPayment
+    public static function createRecurringPayment(): RecurringPayment
     {
         return new RecurringPayment();
     }
 
-    public static function invoiceCreate(): Invoice
+    public static function createInvoice(): Invoice
     {
         return new Invoice();
     }
 
-    public static function invoiceStatusAsGet(): InvoiceStatusGet
+    public static function createInvoiceStatusAsGet(): InvoiceStatusGet
     {
         return new InvoiceStatusGet();
     }
 
-    public static function invoiceStatusAsPost(): InvoiceStatus
+    public static function createInvoiceStatusAsPost(): InvoiceStatus
     {
         return new InvoiceStatus();
     }
 
-    public static function invoiceCancel(): InvoiceCancel
+    public static function createInvoiceCancel(): InvoiceCancel
     {
         return new InvoiceCancel();
     }
 
-    public static function invoiceMarkPaid(): InvoiceMarkPaid
+    public static function createInvoiceMarkPaid(): InvoiceMarkPaid
     {
         return new InvoiceMarkPaid();
     }
 
-    public static function invoiceSms(): InvoiceSms
+    public static function createInvoiceSms(): InvoiceSms
     {
         return new InvoiceSms();
     }
 
-    public static function token(): Token
+    public static function createToken(): Token
     {
         return new Token();
     }

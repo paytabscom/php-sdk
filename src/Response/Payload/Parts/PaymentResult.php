@@ -21,6 +21,6 @@ class PaymentResult
     public function setResponseStatus(string $response_status): void
     {
         $this->response_status = $response_status;
-        $this->tranStatus = TranStatus::tryFrom(strtoupper($response_status)) ?? TranStatus::UnKnown;
+        $this->tranStatus = TranStatus::tryFrom(strtoupper($response_status)) ?? TranStatus::Unknown;
     }
 }

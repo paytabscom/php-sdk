@@ -16,7 +16,7 @@ final class PayloadsFactoryTest extends TestCase
 {
     public function testExplicitInvoiceStatusHelpers(): void
     {
-        self::assertInstanceOf(InvoiceStatus::class, PayloadsFactory::invoiceStatusAsPost());
-        self::assertInstanceOf(InvoiceStatusGet::class, PayloadsFactory::invoiceStatusAsGet());
+        self::assertInstanceOf(InvoiceStatus::class, PayloadsFactory::createInvoiceStatusAsPost());
+        self::assertInstanceOf(InvoiceStatusGet::class, PayloadsFactory::createInvoiceStatusAsGet());
     }
 }

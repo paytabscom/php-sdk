@@ -12,7 +12,7 @@ final class ApplePay extends AbstractMethod
     public const PT_CODE = 'paytabs_'.self::CODE;
 
     public const CODE_ALIASES = [
-        'apple_pay',
+        'apple',
     ];
 
     public const TITLE = 'PayTabs - ApplePay';

@@ -21,7 +21,7 @@ flowchart TD
 
     Response -.-> Webhook("Webhook (Async)")
     Webhook --> Callback["Callback (IPN)"]
-    Webhook --> Browser("Browser")
+    Webhook --> Browser("Abstract Browser")
     Browser --> BrowserAsPost["BrowserAsPost (POST)"]
     Browser --> BrowserAsGet["BrowserAsGet (GET)"]
   end

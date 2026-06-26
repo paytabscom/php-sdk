@@ -16,10 +16,10 @@ if (!isset($profile, $_token, $http)) {
     throw new RuntimeException('Required variables are not set: $profile, $_token, $http');
 }
 
-$holder = PayloadsFactory::token();
+$holder = PayloadsFactory::createToken();
 $holder->buildToken($_token);
 
-$request = RequestsFactory::tokenQuery($profile, $holder);
+$request = RequestsFactory::createTokenQuery($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'TokenQuery holder Payload',

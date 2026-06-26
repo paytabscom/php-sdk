@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Profile\Endpoints;
 
-use Paytabs\Sdk\Profile\Endpoint;
+use Paytabs\Sdk\Profile\AbstractEndpoint;
 
-final class Jordan extends Endpoint
+final class Jordan extends AbstractEndpoint
 {
     public const CODE = 'JOR';
     protected const TITLE = 'Jordan';

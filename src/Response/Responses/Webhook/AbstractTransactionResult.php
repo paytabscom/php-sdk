@@ -6,7 +6,7 @@ use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\AbstractResponseWebhook;
 use Psr\Log\LoggerInterface;
 
-abstract class TransactionResult extends AbstractResponseWebhook
+abstract class AbstractTransactionResult extends AbstractResponseWebhook
 {
     protected array $headers;
 

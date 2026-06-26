@@ -13,7 +13,7 @@ enum TranStatus: string
     case Expired = 'X';
     case Canceled = 'C';
 
-    case UnKnown = 'unknown';
+    case Unknown = 'unknown';
 
     public function isSuccessful(): bool
     {

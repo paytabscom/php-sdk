@@ -7,13 +7,13 @@ use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
 
 class Profile extends AbstractPayload
 {
-    protected Endpoint $endpoint;
+    protected AbstractEndpoint $endpoint;
 
     protected int $profileId;
     protected string $serverKey;
     protected string $clientKey;
 
-    public function __construct(Endpoint $endpoint, int $profileId, string $serverKey)
+    public function __construct(AbstractEndpoint $endpoint, int $profileId, string $serverKey)
     {
         $this->endpoint = $endpoint;
         $this->profileId = $profileId;

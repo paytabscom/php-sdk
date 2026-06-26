@@ -42,7 +42,7 @@ class Helpers
             return ResponseStage::Completed;
         }
 
-        return ResponseStage::UnKnown;
+        return ResponseStage::Unknown;
     }
 
     public static function jsonValidate($json): bool
