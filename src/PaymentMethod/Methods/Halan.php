@@ -4,19 +4,19 @@ namespace Paytabs\Sdk\PaymentMethod\Methods;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
-final class Sadad extends AbstractMethod
+final class Halan extends AbstractMethod
 {
-    public const ID = 120;
+    public const ID = 320;
 
-    public const CODE = 'sadad';
+    public const CODE = 'halan';
     public const PT_CODE = 'paytabs_'.self::CODE;
 
-    public const TITLE = 'PayTabs - Sadad';
+    public const TITLE = 'PayTabs - Halan';
 
     public const ACTIVE = true;
 
     final public const CURRENCIES = [
-        'SAR',
+        'EGP',
     ];
 
     final protected const SUPPORT_ANY_CURRENCY = false;
@@ -24,9 +24,8 @@ final class Sadad extends AbstractMethod
     final protected const IS_CARD = false;
     final protected const SUPPORT_CARD_FEATURES = false;
 
-    // Fawry, Sadad
-    final protected const IS_ASYNC = true;
-    final protected const SUPPORT_ASYNC = true;
+    final protected const IS_ASYNC = false;
+    final protected const SUPPORT_ASYNC = false;
 
     final protected const SUPPORT_TOKENIZATION = false;
 

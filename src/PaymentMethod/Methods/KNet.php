@@ -4,29 +4,28 @@ namespace Paytabs\Sdk\PaymentMethod\Methods;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
-final class Fawry extends AbstractMethod
+final class KNet extends AbstractMethod
 {
-    public const ID = 301;
+    public const ID = 701;
 
-    public const CODE = 'fawry';
+    public const CODE = 'knet';
     public const PT_CODE = 'paytabs_'.self::CODE;
 
-    public const TITLE = 'PayTabs - Fawry';
+    public const TITLE = 'PayTabs - KNet';
 
-    public const ACTIVE = false;
+    public const ACTIVE = true;
 
     final public const CURRENCIES = [
-        'EGP',
+        'KWD', 'USD',
     ];
 
     final protected const SUPPORT_ANY_CURRENCY = false;
 
-    final protected const IS_CARD = false;
-    final protected const SUPPORT_CARD_FEATURES = false;
+    final protected const IS_CARD = true;
+    final protected const SUPPORT_CARD_FEATURES = true;
 
-    // Fawry, Sadad
-    final protected const IS_ASYNC = true;
-    final protected const SUPPORT_ASYNC = true;
+    final protected const IS_ASYNC = false;
+    final protected const SUPPORT_ASYNC = false;
 
     final protected const SUPPORT_TOKENIZATION = false;
 
@@ -37,5 +36,5 @@ final class Fawry extends AbstractMethod
     final protected const SUPPORT_REFUND_PARTIAL = true;
     final protected const SUPPORT_MULTIPLE_REFUND = true;
 
-    final protected const SUPPORT_FRAMED = true;
+    final protected const SUPPORT_FRAMED = false;
 }

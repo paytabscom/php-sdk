@@ -3,11 +3,37 @@
 namespace Paytabs\Sdk\PaymentMethod;
 
 use Paytabs\Sdk\Enums\PaymentMethod;
+use Paytabs\Sdk\PaymentMethod\Methods\Aman;
+use Paytabs\Sdk\PaymentMethod\Methods\AmanInstallments;
+use Paytabs\Sdk\PaymentMethod\Methods\Amex;
 use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
+use Paytabs\Sdk\PaymentMethod\Methods\Basata;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\PaymentMethod\Methods\Fawry;
+use Paytabs\Sdk\PaymentMethod\Methods\Forsa;
+use Paytabs\Sdk\PaymentMethod\Methods\Halan;
+use Paytabs\Sdk\PaymentMethod\Methods\Installments;
+use Paytabs\Sdk\PaymentMethod\Methods\KNet;
+use Paytabs\Sdk\PaymentMethod\Methods\KNetCredit;
+use Paytabs\Sdk\PaymentMethod\Methods\KNetDebit;
+use Paytabs\Sdk\PaymentMethod\Methods\Mada;
+use Paytabs\Sdk\PaymentMethod\Methods\Meeza;
+use Paytabs\Sdk\PaymentMethod\Methods\MeezaQR;
+use Paytabs\Sdk\PaymentMethod\Methods\OmanNet;
+use Paytabs\Sdk\PaymentMethod\Methods\PayPal;
 use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
+use Paytabs\Sdk\PaymentMethod\Methods\SamsungPay;
+use Paytabs\Sdk\PaymentMethod\Methods\Souhoola;
+use Paytabs\Sdk\PaymentMethod\Methods\StcPay;
+use Paytabs\Sdk\PaymentMethod\Methods\StcPayQR;
+use Paytabs\Sdk\PaymentMethod\Methods\Tabby;
+use Paytabs\Sdk\PaymentMethod\Methods\Tamara;
+use Paytabs\Sdk\PaymentMethod\Methods\Touchpoints;
+use Paytabs\Sdk\PaymentMethod\Methods\Tru;
+use Paytabs\Sdk\PaymentMethod\Methods\UnionPay;
+use Paytabs\Sdk\PaymentMethod\Methods\UrPay;
+use Paytabs\Sdk\PaymentMethod\Methods\ValU;
 
 abstract class PaymentMethodsFactory
 {
@@ -46,14 +72,21 @@ abstract class PaymentMethodsFactory
         return $instance;
     }
 
-    public static function createPayTabsAllMethod(): PayTabsAll
+    // Create specific methods for known payment methods
+
+    public static function createAmanMethod(): Aman
     {
-        return new PayTabsAll();
+        return new Aman();
     }
 
-    public static function createCardMethod(): Card
+    public static function createAmanInstallmentsMethod(): AmanInstallments
     {
-        return new Card();
+        return new AmanInstallments();
+    }
+
+    public static function createAmexMethod(): Amex
+    {
+        return new Amex();
     }
 
     public static function createApplePayMethod(): ApplePay
@@ -61,15 +94,142 @@ abstract class PaymentMethodsFactory
         return new ApplePay();
     }
 
-    public static function createSadadMethod(): Sadad
+    public static function createBasataMethod(): Basata
     {
-        return new Sadad();
+        return new Basata();
+    }
+
+    public static function createCardMethod(): Card
+    {
+        return new Card();
     }
 
     public static function createFawryMethod(): Fawry
     {
         return new Fawry();
     }
+
+    public static function createForsaMethod(): Forsa
+    {
+        return new Forsa();
+    }
+
+    public static function createHalanMethod(): Halan
+    {
+        return new Halan();
+    }
+
+    public static function createInstallmentsMethod(): Installments
+    {
+        return new Installments();
+    }
+
+    public static function createKNetMethod(): KNet
+    {
+        return new KNet();
+    }
+
+    public static function createKnetCreditMethod(): KNetCredit
+    {
+        return new KNetCredit();
+    }
+
+    public static function createKnetDebitMethod(): KNetDebit
+    {
+        return new KNetDebit();
+    }
+
+    public static function createMadaMethod(): Mada
+    {
+        return new Mada();
+    }
+
+    public static function createMeezaMethod(): Meeza
+    {
+        return new Meeza();
+    }
+
+    public static function createMeezaQRMethod(): MeezaQR
+    {
+        return new MeezaQR();
+    }
+
+    public static function createOmanNetMethod(): OmanNet
+    {
+        return new OmanNet();
+    }
+
+    public static function createPayPalMethod(): PayPal
+    {
+        return new PayPal();
+    }
+
+    public static function createPayTabsAllMethod(): PayTabsAll
+    {
+        return new PayTabsAll();
+    }
+
+    public static function createSadadMethod(): Sadad
+    {
+        return new Sadad();
+    }
+
+    public static function createSamsungPayMethod(): SamsungPay
+    {
+        return new SamsungPay();
+    }
+
+    public static function createSouhoolaMethod(): Souhoola
+    {
+        return new Souhoola();
+    }
+
+    public static function createStcPayMethod(): StcPay
+    {
+        return new StcPay();
+    }
+
+    public static function createStcPayQRMethod(): StcPayQR
+    {
+        return new StcPayQR();
+    }
+
+    public static function createTabbyMethod(): Tabby
+    {
+        return new Tabby();
+    }
+
+    public static function createTamaraMethod(): Tamara
+    {
+        return new Tamara();
+    }
+
+    public static function createTouchpointsMethod(): Touchpoints
+    {
+        return new Touchpoints();
+    }
+
+    public static function createTruMethod(): Tru
+    {
+        return new Tru();
+    }
+
+    public static function createUnionPayMethod(): UnionPay
+    {
+        return new UnionPay();
+    }
+
+    public static function createUrPayMethod(): UrPay
+    {
+        return new UrPay();
+    }
+
+    public static function createValUMethod(): ValU
+    {
+        return new ValU();
+    }
+
+    // End Create specific methods for known payment methods
 
     /** @return AbstractMethod[] */
     private static function getMethodsMapper(): array

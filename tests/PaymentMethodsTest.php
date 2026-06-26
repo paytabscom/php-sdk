@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
+use Paytabs\Sdk\Enums\PaymentMethod;
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
+use Paytabs\Sdk\PaymentMethod\Methods\Amex;
 use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
+use Paytabs\Sdk\PaymentMethod\Methods\Halan;
 use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
@@ -30,7 +33,7 @@ final class PaymentMethodsTest extends TestCase
 
     public function testCreatePaymentMethods(): void
     {
-        $codes = ['card', 'creditcard', 'sadad', 'applePay', 'apple_pay'];
+        $codes = ['card', 'creditcard', 'sadad', 'applePay', 'apple'];
         foreach ($codes as $code) {
             $method = PaymentMethodsFactory::createMethod($code);
             self::assertInstanceOf(AbstractMethod::class, $method);
@@ -49,7 +52,7 @@ final class PaymentMethodsTest extends TestCase
 
     public function testCreatePaymentMethodsById(): void
     {
-        $ids = [1, 10, 50];
+        $ids = [ApplePay::ID, PayTabsAll::ID, Amex::ID];
         foreach ($ids as $id) {
             $method = PaymentMethodsFactory::createMethodById($id);
             self::assertInstanceOf(AbstractMethod::class, $method);
@@ -58,7 +61,7 @@ final class PaymentMethodsTest extends TestCase
 
     public function testCreatePaymentMethodsByIdInvalid(): void
     {
-        $ids = [333, 444];
+        $ids = [9333, 9444];
         foreach ($ids as $id) {
             $this->expectException(Exception::class);
             $method = PaymentMethodsFactory::createMethodById($id);
@@ -82,6 +85,22 @@ final class PaymentMethodsTest extends TestCase
             $this->expectException(Exception::class);
             $method = PaymentMethodsFactory::createMethodByUnique($code);
             self::assertNull($method);
+        }
+    }
+
+    public function testCreatePaymentMethodFromEnum(): void
+    {
+        $newMethod = PaymentMethod::Halan->getMethodInstance();
+        self::assertInstanceOf(AbstractMethod::class, $newMethod);
+        self::assertInstanceOf(Halan::class, $newMethod);
+    }
+
+    public function testCreateAllPaymentMethodsFromEnum(): void
+    {
+        foreach (PaymentMethod::getAllMethods() as $methodEnum) {
+            $newMethod = $methodEnum->getMethodInstance();
+            self::assertInstanceOf(AbstractMethod::class, $newMethod);
+            self::assertInstanceOf($methodEnum->value, $newMethod);
         }
     }
 
