@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Enums;
 
+use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\PaymentMethod\Methods\Aman;
 use Paytabs\Sdk\PaymentMethod\Methods\AmanInstallments;
 use Paytabs\Sdk\PaymentMethod\Methods\Amex;
@@ -71,5 +72,10 @@ enum PaymentMethod: string
     public static function getAllMethods(): array
     {
         return PaymentMethod::cases();
+    }
+
+    public function getMethodInstance(): AbstractMethod
+    {
+        return new $this->value();
     }
 }

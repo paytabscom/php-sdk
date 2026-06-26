@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use Paytabs\Sdk\Enums\PaymentMethod;
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\PaymentMethod\Methods\Amex;
 use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
+use Paytabs\Sdk\PaymentMethod\Methods\Halan;
 use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
@@ -83,6 +85,22 @@ final class PaymentMethodsTest extends TestCase
             $this->expectException(Exception::class);
             $method = PaymentMethodsFactory::createMethodByUnique($code);
             self::assertNull($method);
+        }
+    }
+
+    public function testCreatePaymentMethodFromEnum(): void
+    {
+        $newMethod = PaymentMethod::Halan->getMethodInstance();
+        self::assertInstanceOf(AbstractMethod::class, $newMethod);
+        self::assertInstanceOf(Halan::class, $newMethod);
+    }
+
+    public function testCreateAllPaymentMethodsFromEnum(): void
+    {
+        foreach (PaymentMethod::getAllMethods() as $methodEnum) {
+            $newMethod = $methodEnum->getMethodInstance();
+            self::assertInstanceOf(AbstractMethod::class, $newMethod);
+            self::assertInstanceOf($methodEnum->value, $newMethod);
         }
     }
 
