@@ -14,7 +14,7 @@ use Paytabs\Sdk\Profile\Endpoints\Uae;
 
 final class EndpointsFactory
 {
-    /** @var array<string, class-string<Endpoint>> */
+    /** @var array<string, class-string<AbstractEndpoint>> */
     private static array $endpointByCode = [
         Uae::CODE => Uae::class,
         Ksa::CODE => Ksa::class,
@@ -26,7 +26,7 @@ final class EndpointsFactory
         GlobalPt::CODE => GlobalPt::class,
     ];
 
-    public static function getEndpointByCode(string $code): Endpoint
+    public static function getEndpointByCode(string $code): AbstractEndpoint
     {
         $normalizedCode = strtoupper($code);
 

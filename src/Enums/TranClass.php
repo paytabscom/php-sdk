@@ -11,5 +11,5 @@ enum TranClass: string
     case CAuth = 'c/auth';
     case NFC = 'nfc';
 
-    case UnKnown = 'unknown';
+    case Unknown = 'unknown';
 }

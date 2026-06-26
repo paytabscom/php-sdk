@@ -1,35 +1,35 @@
 <?php
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
-use Paytabs\Sdk\PaymentMethod\MethodsFactory;
+use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
 
-$method_code = 'applepay';
-$method = MethodsFactory::createMethod($method_code);
+$methodCode = 'applepay';
+$method = PaymentMethodsFactory::createMethod($methodCode);
 
 logMethod($method);
 
-$method_id = 1;
-$method = MethodsFactory::createMethodById($method_id);
+$methodId = 1;
+$method = PaymentMethodsFactory::createMethodById($methodId);
 
 logMethod($method);
 
-$method_pt_code = 'paytabs_sadad';
-$method = MethodsFactory::createMethodByUnique($method_pt_code);
+$methodPtCode = 'paytabs_sadad';
+$method = PaymentMethodsFactory::createMethodByUnique($methodPtCode);
 logMethod($method);
 
-$method = MethodsFactory::createPayTabsAllMethod();
+$method = PaymentMethodsFactory::createPayTabsAllMethod();
 logMethod($method);
 
-$method = MethodsFactory::createCardMethod();
+$method = PaymentMethodsFactory::createCardMethod();
 logMethod($method);
 
-$methods = PaymentMethods::init([MethodsFactory::createApplePayMethod(), 'card'])
-    ->includeMethod(MethodsFactory::createCardMethod())
-    ->includeMethods(['fawry', MethodsFactory::createSadadMethod()])
+$methods = PaymentMethods::init([PaymentMethodsFactory::createApplePayMethod(), 'card'])
+    ->includeMethod(PaymentMethodsFactory::createCardMethod())
+    ->includeMethods(['fawry', PaymentMethodsFactory::createSadadMethod()])
     ->excludeMethod('sadad')
-    ->excludeMethod(MethodsFactory::createFawryMethod())
+    ->excludeMethod(PaymentMethodsFactory::createFawryMethod())
 ;
 Paytabs::getLogger()->info('Payment Methods:', [
     $methods,

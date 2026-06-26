@@ -3,9 +3,9 @@
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Ipn;
-use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
+use Paytabs\Sdk\Response\Responses\Webhook\AbstractTransactionResult;
 
-class Callback extends TransactionResult
+class Callback extends AbstractTransactionResult
 {
     protected array $postArray;
 

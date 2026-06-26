@@ -15,10 +15,10 @@ if (!isset($profile, $invoiceId, $http)) {
     throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http');
 }
 
-$holder = PayloadsFactory::invoiceStatusAsGet();
+$holder = PayloadsFactory::createInvoiceStatusAsGet();
 $holder->buildInvoiceId($invoiceId);
 
-$request = RequestsFactory::invoiceStatusAsGet($profile, $holder);
+$request = RequestsFactory::createInvoiceStatusAsGet($profile, $holder);
 
 $http->setRequest($request);
 $http->setDebugMode(true);

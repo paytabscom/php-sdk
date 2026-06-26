@@ -2,7 +2,7 @@
 %% Shows how multiple Parts assemble into a HostedPage Payload
 
 graph TD
-    Factory["PayloadsFactory::hostedPage()"]
+    Factory["PayloadsFactory::createHostedPage()"]
     
     subgraph HostedPage["HostedPage Payload"]
         direction TB
@@ -19,7 +19,7 @@ graph TD
     Factory --> URLs
     Factory --> PaymentMethods
     
-    HostedPage --> Request["RequestsFactory::paymentRequest<br/>(Profile, Builder)"]
+    HostedPage --> Request["RequestsFactory::createPaymentRequest<br/>(Profile, Builder)"]
     Profile["Profile<br/>(endpoint, credentials)"] --> Request
     
     Request --> HTTP["HTTP Request<br/>url, headers, payload"]

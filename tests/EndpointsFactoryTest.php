@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Paytabs\Sdk\Exceptions\EndpointNotFoundException;
-use Paytabs\Sdk\Profile\Endpoint;
+use Paytabs\Sdk\Profile\AbstractEndpoint;
 use Paytabs\Sdk\Profile\Endpoints\Egypt;
 use Paytabs\Sdk\Profile\Endpoints\GlobalPt;
 use Paytabs\Sdk\Profile\Endpoints\Iraq;
@@ -37,7 +37,7 @@ final class EndpointsFactoryTest extends TestCase
 
         foreach ($cases as $code => $expectedClass) {
             $endpoint = EndpointsFactory::getEndpointByCode($code);
-            self::assertInstanceOf(Endpoint::class, $endpoint);
+            self::assertInstanceOf(AbstractEndpoint::class, $endpoint);
             self::assertInstanceOf($expectedClass, $endpoint);
         }
     }

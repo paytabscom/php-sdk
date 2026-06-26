@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Profile;
 
-abstract class Endpoint
+abstract class AbstractEndpoint
 {
     public const CODE = '';
     protected const TITLE = '';

@@ -2,9 +2,9 @@
 
 namespace Paytabs\Sdk\Profile\Endpoints;
 
-use Paytabs\Sdk\Profile\Endpoint;
+use Paytabs\Sdk\Profile\AbstractEndpoint;
 
-final class Ksa extends Endpoint
+final class Ksa extends AbstractEndpoint
 {
     public const CODE = 'SAU';
     protected const TITLE = 'Saudi Arabia';

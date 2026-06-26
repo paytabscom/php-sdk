@@ -7,7 +7,7 @@ use Paytabs\Sdk\PaymentMethod\Methods\ApplePay;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
-use Paytabs\Sdk\PaymentMethod\MethodsFactory;
+use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
 use PHPUnit\Framework\TestCase;
 
@@ -32,7 +32,7 @@ final class PaymentMethodsTest extends TestCase
     {
         $codes = ['card', 'creditcard', 'sadad', 'applePay', 'apple_pay'];
         foreach ($codes as $code) {
-            $method = MethodsFactory::createMethod($code);
+            $method = PaymentMethodsFactory::createMethod($code);
             self::assertInstanceOf(AbstractMethod::class, $method);
         }
     }
@@ -42,7 +42,7 @@ final class PaymentMethodsTest extends TestCase
         $invalidCodes = ['test', 'test2'];
         foreach ($invalidCodes as $code) {
             $this->expectException(Exception::class);
-            $method = MethodsFactory::createMethod($code);
+            $method = PaymentMethodsFactory::createMethod($code);
             self::assertNull($method);
         }
     }
@@ -51,7 +51,7 @@ final class PaymentMethodsTest extends TestCase
     {
         $ids = [1, 10, 50];
         foreach ($ids as $id) {
-            $method = MethodsFactory::createMethodById($id);
+            $method = PaymentMethodsFactory::createMethodById($id);
             self::assertInstanceOf(AbstractMethod::class, $method);
         }
     }
@@ -61,7 +61,7 @@ final class PaymentMethodsTest extends TestCase
         $ids = [333, 444];
         foreach ($ids as $id) {
             $this->expectException(Exception::class);
-            $method = MethodsFactory::createMethodById($id);
+            $method = PaymentMethodsFactory::createMethodById($id);
             self::assertNull($method);
         }
     }
@@ -70,7 +70,7 @@ final class PaymentMethodsTest extends TestCase
     {
         $codes = ['paytabs_card', 'paytabs_sadad'];
         foreach ($codes as $code) {
-            $method = MethodsFactory::createMethodByUnique($code);
+            $method = PaymentMethodsFactory::createMethodByUnique($code);
             self::assertInstanceOf(AbstractMethod::class, $method);
         }
     }
@@ -80,35 +80,35 @@ final class PaymentMethodsTest extends TestCase
         $invalidCodes = ['test', 'test2'];
         foreach ($invalidCodes as $code) {
             $this->expectException(Exception::class);
-            $method = MethodsFactory::createMethodByUnique($code);
+            $method = PaymentMethodsFactory::createMethodByUnique($code);
             self::assertNull($method);
         }
     }
 
     public function testFactoryConvenienceMethods(): void
     {
-        $all = MethodsFactory::createPayTabsAllMethod();
+        $all = PaymentMethodsFactory::createPayTabsAllMethod();
         self::assertInstanceOf(AbstractMethod::class, $all);
         self::assertInstanceOf(PayTabsAll::class, $all);
         self::assertIsString($all::CODE);
         self::assertIsString($all::PT_CODE);
         self::assertIsArray($all::supportedCurrencies());
 
-        $card = MethodsFactory::createCardMethod();
+        $card = PaymentMethodsFactory::createCardMethod();
         self::assertInstanceOf(AbstractMethod::class, $card);
         self::assertInstanceOf(Card::class, $card);
         self::assertIsString($card::CODE);
         self::assertIsString($card::PT_CODE);
         self::assertIsArray($card::supportedCurrencies());
 
-        $apple = MethodsFactory::createApplePayMethod();
+        $apple = PaymentMethodsFactory::createApplePayMethod();
         self::assertInstanceOf(AbstractMethod::class, $apple);
         self::assertInstanceOf(ApplePay::class, $apple);
         self::assertIsString($apple::CODE);
         self::assertIsString($apple::PT_CODE);
         self::assertIsArray($apple::supportedCurrencies());
 
-        $sadad = MethodsFactory::createSadadMethod();
+        $sadad = PaymentMethodsFactory::createSadadMethod();
         self::assertInstanceOf(AbstractMethod::class, $sadad);
         self::assertInstanceOf(Sadad::class, $sadad);
         self::assertIsArray($sadad::supportedCurrencies());
@@ -116,11 +116,11 @@ final class PaymentMethodsTest extends TestCase
 
     public function testPaymentMethodsBuilderIncludeExclude(): void
     {
-        $methods = PaymentMethods::init([MethodsFactory::createApplePayMethod(), 'card'])
-            ->includeMethod(MethodsFactory::createCardMethod())
-            ->includeMethods(['fawry', MethodsFactory::createSadadMethod()])
+        $methods = PaymentMethods::init([PaymentMethodsFactory::createApplePayMethod(), 'card'])
+            ->includeMethod(PaymentMethodsFactory::createCardMethod())
+            ->includeMethods(['fawry', PaymentMethodsFactory::createSadadMethod()])
             ->excludeMethod('sadad')
-            ->excludeMethod(MethodsFactory::createFawryMethod())
+            ->excludeMethod(PaymentMethodsFactory::createFawryMethod())
         ;
 
         self::assertIsObject($methods);

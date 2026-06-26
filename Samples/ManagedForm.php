@@ -22,7 +22,7 @@ if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_paymentToken
     throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency, $_paymentToken');
 }
 
-$holder = PayloadsFactory::managedForm();
+$holder = PayloadsFactory::createManagedForm();
 $holder
     ->buildCart('managed-form', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
@@ -43,7 +43,7 @@ $holder
     ->buildPaymentToken($_paymentToken)
 ;
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'ManagedForm holder Payload',
@@ -67,7 +67,7 @@ if ($response->isFailure()) {
     $resClassed = $response->getPayload()->getMapped();
 }
 
-// case ResponseStage::UnKnown:
+// case ResponseStage::Unknown:
 // case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();

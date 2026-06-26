@@ -92,10 +92,10 @@ Direct response mapping:
 
 Webhook response mapping:
 
-- Webhook base verification in [src/Response/Responses/Webhook/TransactionResult.php](src/Response/Responses/Webhook/TransactionResult.php).
+- Webhook base verification in [src/Response/Responses/Webhook/AbstractTransactionResult.php](src/Response/Responses/Webhook/AbstractTransactionResult.php).
 - IPN callback handler: [src/Response/Responses/Webhook/TransactionResult/Callback.php](src/Response/Responses/Webhook/TransactionResult/Callback.php).
 - Browser callback/return handlers now use:
-    - [src/Response/Responses/Webhook/TransactionResult/Browser.php](src/Response/Responses/Webhook/TransactionResult/Browser.php) (abstract)
+    - [src/Response/Responses/Webhook/TransactionResult/AbstractBrowser.php](src/Response/Responses/Webhook/TransactionResult/AbstractBrowser.php) (abstract)
     - [src/Response/Responses/Webhook/TransactionResult/BrowserAsGet.php](src/Response/Responses/Webhook/TransactionResult/BrowserAsGet.php)
     - [src/Response/Responses/Webhook/TransactionResult/BrowserAsPost.php](src/Response/Responses/Webhook/TransactionResult/BrowserAsPost.php)
 
@@ -106,14 +106,14 @@ Profiles:
 - regional helpers such as createUaeProfile, createKsaProfile, createEgyptProfile, and others in [src/Profile/ProfilesFactory.php](src/Profile/ProfilesFactory.php)
 
 Payload builders:
-- hostedPage, ownForm, managedForm, recurringPayment
-- invoiceCreate, invoiceStatusAsPost, invoiceStatusAsGet, invoiceCancel, invoiceMarkPaid, invoiceSms
-- transactionQuery, followup, refund, token
+- createHostedPage, createOwnForm, createManagedForm, createRecurringPayment
+- createInvoice, createInvoiceStatusAsPost, createInvoiceStatusAsGet, createInvoiceCancel, createInvoiceMarkPaid, createInvoiceSms
+- createTransactionQuery, createFollowup, createRefund, createToken
 Defined in [src/Request/Payload/PayloadsFactory.php](src/Request/Payload/PayloadsFactory.php)
 
 Requests:
-- paymentRequest, tokenQuery, tokenDelete, transactionQuery
-- invoiceNew, invoiceStatus, invoiceCancel, invoiceSms, invoiceStatusAsGet, invoiceMarkPaid
+- createPaymentRequest, createTokenQuery, createTokenDelete, createTransactionQuery
+- createNewInvoice, createInvoiceStatusAsPost, createInvoiceCancel, createInvoiceSms, createInvoiceStatusAsGet, createInvoiceMarkPaid
 Defined in [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 
 ## Architecture Diagrams

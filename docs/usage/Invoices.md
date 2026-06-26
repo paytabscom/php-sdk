@@ -2,7 +2,7 @@
 - Version: `1.0.0`
 - SDK version: `3.0.0`
 
-## Create new Invoice
+## Create New Invoice
 
 1. Prepare the Authentication (Profile):
     ```php
@@ -45,7 +45,7 @@
     use Paytabs\Sdk\Enums\TranType;
     use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 
-    $holder = PayloadsFactory::invoiceCreate();
+    $holder = PayloadsFactory::createInvoice();
     $holder
         ->buildTransaction(TranType::Sale, TranClass::Ecom)
         ->buildInvoice($invoicePart)
@@ -56,7 +56,7 @@
     ```php
     use Paytabs\Sdk\Request\RequestsFactory;
 
-    $request = RequestsFactory::invoiceNew($profile, $holder);
+    $request = RequestsFactory::createNewInvoice($profile, $holder);
     ```
 
 6. Create the Http connector:
@@ -77,20 +77,20 @@
     ```
 
 ---
-## Invoice Status check
+## Invoice Status Check
 
 1. Prepare the Authentication (Profile) (Explained before).
 
 2. Prepare the Invoice status payload:
     ```php
     $invoiceId = '12345';
-    $holder2 = PayloadsFactory::invoiceStatusAsPost();
+    $holder2 = PayloadsFactory::createInvoiceStatusAsPost();
     $holder2->buildInvoiceId($invoiceId);
     ```
 
 3. Create the Invoice status request:
     ```php
-    $request2 = RequestsFactory::invoiceStatus($profile, $holder2);
+    $request2 = RequestsFactory::createInvoiceStatusAsPost($profile, $holder2);
     ```
 
 4. Submit the request:

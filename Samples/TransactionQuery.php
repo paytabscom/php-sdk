@@ -12,10 +12,10 @@ use Paytabs\Sdk\Response\Payload\Payloads\Generic;
  * @var string  $trxRef
  * @var Http    $http
  */
-$holder = PayloadsFactory::transactionQuery();
+$holder = PayloadsFactory::createTransactionQuery();
 $holder->buildTransactionRef($trxRef);
 
-$request = RequestsFactory::transactionQuery($profile, $holder);
+$request = RequestsFactory::createTransactionQuery($profile, $holder);
 
 $http->setRequest($request);
 
@@ -26,9 +26,9 @@ Paytabs::getLogger()->debug('TransactionQuery Response (By Transaction Ref)', [
     'Generic' => $response->getPayload()->getMappedAs(new Generic()),
 ]);
 
-$holder2 = PayloadsFactory::transactionQuery();
+$holder2 = PayloadsFactory::createTransactionQuery();
 $holder2->buildCartId('cart01');
-$request2 = RequestsFactory::transactionQuery($profile, $holder2);
+$request2 = RequestsFactory::createTransactionQuery($profile, $holder2);
 
 $http->setRequest($request2);
 

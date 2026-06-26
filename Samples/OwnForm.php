@@ -21,7 +21,7 @@ if (!isset($profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currenc
     throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
 }
 
-$holder = PayloadsFactory::ownForm();
+$holder = PayloadsFactory::createOwnForm();
 $holder
     ->buildCart('own-form', $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
@@ -44,7 +44,7 @@ $pan = $threeDSecure ? $card_redirect : $card_direct;
 
 $holder->buildCardDetails($pan, 2030, 12, '123');
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'OwnForm holder Payload',

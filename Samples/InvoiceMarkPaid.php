@@ -23,12 +23,12 @@ $invoiceTotal = 40.00;
 $payMethod = InvoiceExternalPayMethod::Bank;
 $payDescription = 'test description';
 
-$holder = PayloadsFactory::invoiceMarkPaid();
+$holder = PayloadsFactory::createInvoiceMarkPaid();
 $holder->buildInvoiceMarkPaid(
     new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription)
 );
 
-$request = RequestsFactory::invoiceMarkPaid($profile, $holder);
+$request = RequestsFactory::createInvoiceMarkPaid($profile, $holder);
 
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
     $holder,
