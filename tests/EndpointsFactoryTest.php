@@ -55,4 +55,16 @@ final class EndpointsFactoryTest extends TestCase
 
         self::assertSame($direct, $fromCode);
     }
+
+    public function testGetAllEndpoints(): void
+    {
+        $endpoints = EndpointsFactory::getAllEndpoints();
+
+        self::assertIsArray($endpoints);
+        self::assertNotEmpty($endpoints);
+
+        foreach ($endpoints as $endpoint) {
+            self::assertInstanceOf(AbstractEndpoint::class, $endpoint);
+        }
+    }
 }

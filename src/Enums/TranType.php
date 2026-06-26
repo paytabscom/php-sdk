@@ -22,7 +22,7 @@ enum TranType: string
     case Unknown = 'unknown';
 
     /**
-     * @throws ValueError If there is no matching case defined
+     * @throws \ValueError If there is no matching case defined
      */
     public static function get(string $value): TranType
     {

@@ -72,6 +72,18 @@ abstract class PaymentMethodsFactory
         return $instance;
     }
 
+    public static function getAllCurrencies(): array
+    {
+        $allMethods = self::getMethodsMapper();
+
+        $currencies = [];
+        foreach ($allMethods as $method) {
+            $currencies = array_merge($currencies, $method::supportedCurrencies());
+        }
+
+        return array_unique($currencies);
+    }
+
     // Create specific methods for known payment methods
 
     public static function createAmanMethod(): Aman

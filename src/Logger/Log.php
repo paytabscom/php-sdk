@@ -32,6 +32,8 @@ class Log extends AbstractLogger
         $logMessage = $this->buildMessage($level, $message, $context);
 
         if (false === file_put_contents($this->logFile, $logMessage, FILE_APPEND)) {
+            error_log('Failed to write to log file: '.$this->logFile);
+
             throw new \Exception('Can not write to the Log');
         }
     }

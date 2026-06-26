@@ -47,6 +47,18 @@ final class EndpointsFactory
         return $endpointClass::getInstance();
     }
 
+    /** @return AbstractEndpoint[] */
+    public static function getAllEndpoints(): array
+    {
+        $endpoints = [];
+
+        foreach (self::$endpointByCode as $endpointClass) {
+            $endpoints[] = $endpointClass::getInstance();
+        }
+
+        return $endpoints;
+    }
+
     // Create specific methods for known endpoints
 
     public static function getCuzdanEndpoint(): Cuzdan

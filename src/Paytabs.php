@@ -49,7 +49,12 @@ abstract class Paytabs
 
         $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR;
         if (!is_dir($basePath)) {
-            @mkdir($basePath, 0o775, true);
+            try {
+                mkdir($basePath, 0o775, true);
+            } catch (\Throwable $e) {
+                error_log('Failed to create log directory: '.$basePath.' - '.$e->getMessage());
+                // throw new \RuntimeException('Failed to create log directory: ' . $basePath, 0, $e);
+            }
         }
 
         $logFile = static::LOG_FILE_NAME;

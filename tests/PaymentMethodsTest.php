@@ -155,4 +155,12 @@ final class PaymentMethodsTest extends TestCase
         // Ensure at least one included method is present
         self::assertStringContainsString('card', strtolower($flatten));
     }
+
+    public function testGetAllCurrencies(): void
+    {
+        $currencies = PaymentMethodsFactory::getAllCurrencies();
+        self::assertIsArray($currencies);
+        self::assertNotEmpty($currencies);
+        self::assertContains('AED', $currencies);
+    }
 }
