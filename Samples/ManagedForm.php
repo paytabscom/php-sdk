@@ -43,7 +43,7 @@ $holder
     ->buildPaymentToken($_paymentToken)
 ;
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'ManagedForm holder Payload',

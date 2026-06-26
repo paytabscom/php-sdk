@@ -18,7 +18,7 @@ if (!isset($profile, $invoiceId, $http)) {
 $holder = PayloadsFactory::invoiceCancel();
 $holder->buildInvoiceId($invoiceId);
 
-$request = RequestsFactory::invoiceCancel($profile, $holder);
+$request = RequestsFactory::createInvoiceCancel($profile, $holder);
 
 $http->setRequest($request);
 $http->setDebugMode(true);

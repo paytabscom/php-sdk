@@ -56,7 +56,7 @@
     ```php
     use Paytabs\Sdk\Request\RequestsFactory;
 
-    $request = RequestsFactory::invoiceNew($profile, $holder);
+    $request = RequestsFactory::createInvoiceNew($profile, $holder);
     ```
 
 6. Create the Http connector:
@@ -90,7 +90,7 @@
 
 3. Create the Invoice status request:
     ```php
-    $request2 = RequestsFactory::invoiceStatus($profile, $holder2);
+    $request2 = RequestsFactory::createInvoiceStatus($profile, $holder2);
     ```
 
 4. Submit the request:

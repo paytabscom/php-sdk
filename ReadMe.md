@@ -37,7 +37,7 @@ $payload
 	->buildCart('order-1001', 'AED', 100.00, 'Order 1001')
 	->buildHideShipping(true);
 
-$request = RequestsFactory::paymentRequest($profile, $payload);
+$request = RequestsFactory::createPaymentRequest($profile, $payload);
 
 $http = (new Http())
 	->setLogger(Paytabs::getLogger())

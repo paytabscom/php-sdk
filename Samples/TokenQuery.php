@@ -19,7 +19,7 @@ if (!isset($profile, $_token, $http)) {
 $holder = PayloadsFactory::token();
 $holder->buildToken($_token);
 
-$request = RequestsFactory::tokenQuery($profile, $holder);
+$request = RequestsFactory::createTokenQuery($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'TokenQuery holder Payload',

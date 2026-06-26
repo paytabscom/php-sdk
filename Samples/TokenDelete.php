@@ -18,7 +18,7 @@ if (!isset($profile, $_token, $http)) {
 $holder = PayloadsFactory::token();
 $holder->buildToken($_token);
 
-$request = RequestsFactory::tokenDelete($profile, $holder);
+$request = RequestsFactory::createTokenDelete($profile, $holder);
 
 // @var Http $http
 $http->setRequest($request);

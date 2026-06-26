@@ -44,7 +44,7 @@ $pan = $threeDSecure ? $card_redirect : $card_direct;
 
 $holder->buildCardDetails($pan, 2030, 12, '123');
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'OwnForm holder Payload',

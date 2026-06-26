@@ -28,7 +28,7 @@ $holder->buildInvoiceMarkPaid(
     new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription)
 );
 
-$request = RequestsFactory::invoiceMarkPaid($profile, $holder);
+$request = RequestsFactory::createInvoiceMarkPaid($profile, $holder);
 
 Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
     $holder,

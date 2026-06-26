@@ -15,7 +15,7 @@ use Paytabs\Sdk\Response\Payload\Payloads\Generic;
 $holder = PayloadsFactory::transactionQuery();
 $holder->buildTransactionRef($trxRef);
 
-$request = RequestsFactory::transactionQuery($profile, $holder);
+$request = RequestsFactory::createTransactionQuery($profile, $holder);
 
 $http->setRequest($request);
 
@@ -28,7 +28,7 @@ Paytabs::getLogger()->debug('TransactionQuery Response (By Transaction Ref)', [
 
 $holder2 = PayloadsFactory::transactionQuery();
 $holder2->buildCartId('cart01');
-$request2 = RequestsFactory::transactionQuery($profile, $holder2);
+$request2 = RequestsFactory::createTransactionQuery($profile, $holder2);
 
 $http->setRequest($request2);
 

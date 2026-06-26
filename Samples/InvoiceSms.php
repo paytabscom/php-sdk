@@ -22,7 +22,7 @@ $holder->buildInvoiceId($invoiceId)
     ->buildInvoiceSmsBody($phoneNumber)
 ;
 
-$request = RequestsFactory::invoiceSms($profile, $holder);
+$request = RequestsFactory::createInvoiceSms($profile, $holder);
 
 Paytabs::getLogger()->debug('InvoiceSms POST Request: ', [
     $request,

@@ -36,7 +36,7 @@ $hostedPage
 ```php
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$paymentRequest = RequestsFactory::paymentRequest($profile, $hostedPage);
+$paymentRequest = RequestsFactory::createPaymentRequest($profile, $hostedPage);
 ```
 
 4. Create the Http connector:

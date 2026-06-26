@@ -140,7 +140,7 @@ if ($addInvoiceObject) {
     $holder->buildInvoice($invoicePart);
 }
 
-$request = RequestsFactory::paymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($profile, $holder);
 
 Paytabs::getLogger()->debug(
     'PaymentRequest holder Payload',

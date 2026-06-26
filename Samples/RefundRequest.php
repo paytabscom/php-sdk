@@ -38,7 +38,7 @@ $holder2
     ->buildURLs(null, $urlCallback)
 ;
 
-$request = RequestsFactory::paymentRequest($profile, $holder2);
+$request = RequestsFactory::createPaymentRequest($profile, $holder2);
 
 $http->setRequest($request);
 
