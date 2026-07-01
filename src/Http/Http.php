@@ -23,6 +23,16 @@ class Http
         $this->logger = new NullLogger();
     }
 
+    public static function create(?RequestInterface $request = null): self
+    {
+        $instance = new self();
+        if ($request) {
+            $instance->setRequest($request);
+        }
+
+        return $instance;
+    }
+
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -66,7 +76,8 @@ class Http
 
         // Keep non-2xx payloads available for response-layer classification.
         // Throw only when status is non-2xx and there is no response body to parse.
-        if (!($curl_response_code >= 200 && $curl_response_code < 300)
+        if (
+            !($curl_response_code >= 200 && $curl_response_code < 300)
             && (false === $curl_response || '' === $curl_response)
         ) {
             throw HttpRequestException::invalidStatusCode($curl_response_code);

@@ -59,6 +59,19 @@ final class EndpointsFactory
         return $endpoints;
     }
 
+    /**
+     * @return array<string, string> an associative array where the keys are the endpoint codes and the values are the endpoint titles
+     */
+    public static function getAllEndpointsAsList(): array
+    {
+        $endpointsAsOptions = [];
+        foreach (self::getAllEndpoints() as $endpoint) {
+            $endpointsAsOptions[$endpoint->getCode()] = $endpoint->getTitle();
+        }
+
+        return $endpointsAsOptions;
+    }
+
     // Create specific methods for known endpoints
 
     public static function getCuzdanEndpoint(): Cuzdan

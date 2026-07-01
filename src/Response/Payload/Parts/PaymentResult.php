@@ -23,4 +23,14 @@ class PaymentResult
         $this->response_status = $response_status;
         $this->tranStatus = TranStatus::tryFrom(strtoupper($response_status)) ?? TranStatus::Unknown;
     }
+
+    public function toString(): string
+    {
+        return sprintf(
+            '%s (%s) - %s',
+            $this->response_status,
+            $this->tranStatus->name,
+            $this->response_message
+        );
+    }
 }

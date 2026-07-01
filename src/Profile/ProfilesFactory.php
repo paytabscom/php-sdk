@@ -5,10 +5,14 @@ namespace Paytabs\Sdk\Profile;
 final class ProfilesFactory
 {
     public static function createProfile(
-        AbstractEndpoint $endpoint,
+        AbstractEndpoint|string $endpoint,
         int $profileId,
         string $serverKey
     ): Profile {
+        $endpoint = $endpoint instanceof AbstractEndpoint
+            ? $endpoint
+            : EndpointsFactory::getEndpointByCode($endpoint);
+
         return new Profile(
             $endpoint,
             $profileId,
