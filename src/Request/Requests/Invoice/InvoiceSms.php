@@ -18,10 +18,10 @@ class InvoiceSms extends PaytabsRequest
     protected bool $hasPathParams = true;
 
     public function __construct(
-        Profile $profile,
-        BuilderInvoiceSms $holder
+        BuilderInvoiceSms $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return ResponseInvoiceSms */

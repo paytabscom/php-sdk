@@ -14,10 +14,10 @@ class TransactionQuery extends PaytabsRequest
     protected string $path = 'payment/query';
 
     public function __construct(
-        Profile $profile,
-        PayloadsTransactionQuery $holder
+        PayloadsTransactionQuery $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return Completed|CompletedArray */

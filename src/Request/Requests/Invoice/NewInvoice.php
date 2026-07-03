@@ -13,10 +13,10 @@ class NewInvoice extends PaytabsRequest
     protected string $path = 'payment/invoice/new';
 
     public function __construct(
-        Profile $profile,
-        Invoice $holder
+        Invoice $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return NewInvoiceResponse */

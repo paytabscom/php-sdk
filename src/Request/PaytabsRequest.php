@@ -8,10 +8,10 @@ use Paytabs\Sdk\Request\Payload\BuilderInterface;
 abstract class PaytabsRequest extends AbstractRequest
 {
     public function __construct(
-        Profile $profile,
-        BuilderInterface $holder
+        BuilderInterface $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     public function getHeaders(): array

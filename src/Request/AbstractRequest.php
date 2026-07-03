@@ -25,15 +25,27 @@ abstract class AbstractRequest implements RequestInterface
     protected ?ResponsePayloadInterface $responseClass = null;
 
     public function __construct(
-        Profile $profile,
         BuilderInterface $holder,
+        ?Profile $profile,
         ?string $path = null
     ) {
-        $this->profile = $profile;
         $this->dataHolder = $holder;
+        if ($profile) {
+            $this->profile = $profile;
+        }
         if ($path) {
             $this->path = $path;
         }
+    }
+
+    public function isProfileSet(): bool
+    {
+        return isset($this->profile);
+    }
+
+    public function setProfile(Profile $profile): void
+    {
+        $this->profile = $profile;
     }
 
     public function getPayload(): array|string

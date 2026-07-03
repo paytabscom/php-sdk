@@ -13,10 +13,10 @@ class TokenQuery extends PaytabsRequest
     protected string $path = 'payment/token';
 
     public function __construct(
-        Profile $profile,
-        Token $holder
+        Token $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return Completed */
