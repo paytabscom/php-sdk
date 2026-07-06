@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
+use Paytabs\Sdk\Enums\TranStatus;
 use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Ipn;
 use Paytabs\Sdk\Response\Responses\Webhook\AbstractTransactionResult;
 
@@ -32,6 +33,21 @@ class Callback extends AbstractTransactionResult
         return new self($jsonPayload, $headers);
     }
 
+    public function getTranRef(): string
+    {
+        return $this->getCallbackPayload()->tran_ref;
+    }
+
+    public function getCartId(): string
+    {
+        return $this->getCallbackPayload()->cart_id;
+    }
+
+    public function getTranStatus(): TranStatus
+    {
+        return $this->getCallbackPayload()->payment_result->tranStatus;
+    }
+
     protected function isValid(): bool
     {
         if (!\array_key_exists('signature', $this->headers)) {
@@ -49,5 +65,14 @@ class Callback extends AbstractTransactionResult
     protected function getServerSignature(): string
     {
         return $this->headers['signature'];
+    }
+
+    private function getCallbackPayload(): Ipn
+    {
+        if (!$this->payload instanceof Ipn) {
+            throw new \LogicException('Callback payload is not initialized.');
+        }
+
+        return $this->payload;
     }
 }

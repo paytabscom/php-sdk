@@ -2,6 +2,7 @@
 
 namespace Paytabs\Sdk\Response\Responses\Webhook;
 
+use Paytabs\Sdk\Enums\TranStatus;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\AbstractResponseWebhook;
 use Psr\Log\LoggerInterface;
@@ -73,6 +74,12 @@ abstract class AbstractTransactionResult extends AbstractResponseWebhook
 
         return false;
     }
+
+    abstract public function getTranRef(): string;
+
+    abstract public function getCartId(): string;
+
+    abstract public function getTranStatus(): TranStatus;
 
     /**
      * Check if it is a valid response (contains all required fields).
