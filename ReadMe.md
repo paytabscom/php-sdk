@@ -18,7 +18,6 @@ composer require paytabs/php-sdk:^3.0
 ```php
 <?php
 
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Profile\ProfilesFactory;
@@ -32,20 +31,21 @@ $profile = ProfilesFactory::createUaeProfile(
 	(string) getenv('PAYTABS_SERVER_KEY')
 );
 
+// OR create any Logger implements LoggerInterface
+$logger = PaytabsLogger::getInstance()->logger;
+
 $payload = PayloadsFactory::createHostedPage();
 $payload
 	->buildTransaction(TranType::Sale, TranClass::Ecom)
 	->buildCart('order-1001', 'AED', 100.00, 'Order 1001')
 	->buildHideShipping(true);
 
-$request = RequestsFactory::createPaymentRequest($payload, $profile);
-$logger = PaytabsLogger::getInstance()->logger;
+$request = RequestsFactory::createPaymentRequest($payload);
 
-$http = Http::create($request)
-	->setLogger($logger);
+$paytabs = Paytabs::getInstance($profile, null, $logger);
 
 try {
-	$response = $http->submit();
+	$response = $paytabs->submit();
 } catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
 	// Transport failures are raised as exceptions.
 	throw $e;
