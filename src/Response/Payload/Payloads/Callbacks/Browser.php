@@ -3,7 +3,8 @@
 namespace Paytabs\Sdk\Response\Payload\Payloads\Callbacks;
 
 use Paytabs\Sdk\Enums\TranStatus;
-use Paytabs\Sdk\Paytabs as PaytabsSDK;
+use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
+use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class Browser extends Paytabs
@@ -32,7 +33,11 @@ class Browser extends Paytabs
         $this->tranStatus = TranStatus::tryFrom(strtoupper($respStatus)) ?? TranStatus::Unknown;
 
         if (TranStatus::Unknown === $this->tranStatus) {
-            PaytabsSDK::getLogger()->error('Unknown transaction status', [
+            if (self::isStrictMode()) {
+                throw UnknownResponseValueException::forTranStatus($respStatus);
+            }
+
+            PaytabsLogger::getInstance()->logger->error('Unknown transaction status', [
                 'tran_status' => $respStatus,
             ]);
         }

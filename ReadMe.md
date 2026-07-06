@@ -85,6 +85,28 @@ $browserLogger = PaytabsLogger::getInstance(null, true)->logger;
 
 You can also inject any custom `Psr\Log\LoggerInterface` instance via `Http::setLogger()` or `Paytabs::setLogger()`.
 
+## Strict Response Mapping Mode
+
+By default, response payload mapping is tolerant. Unknown enum values (for example unseen transaction status/class/type) are mapped to `Unknown` and logged.
+
+You can enable strict mode to throw a dedicated exception instead:
+
+```php
+use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
+use Paytabs\Sdk\Response\Payload\Payloads\Paytabs as ResponsePayload;
+
+ResponsePayload::setStrictMode(true);
+
+try {
+	$mapped = $response->getPayload()->getMapped();
+} catch (UnknownResponseValueException $e) {
+	// Unknown transaction type/class/status encountered.
+}
+
+// Optional: restore default tolerant mode.
+ResponsePayload::setStrictMode(false);
+```
+
 ## Documentation
 
 - Architecture: [ARCHITECTURE.md](ARCHITECTURE.md)

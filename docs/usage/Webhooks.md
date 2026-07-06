@@ -60,6 +60,30 @@ $mapped = $response->getPayload()->getMapped();
 
 `BrowserAsGet` is supported, but `BrowserAsPost` is the recommended default.
 
+## Strict payload mapping mode
+
+Webhook/browser mapping is tolerant by default. Unknown transaction enum values are mapped to `Unknown` and logged.
+
+If your integration requires fail-fast behavior, enable strict mode before mapping:
+
+```php
+<?php
+
+use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
+use Paytabs\Sdk\Response\Payload\Payloads\Paytabs as ResponsePayload;
+
+ResponsePayload::setStrictMode(true);
+
+try {
+    $mapped = $response->getPayload()->getMapped();
+} catch (UnknownResponseValueException $e) {
+    http_response_code(422);
+    exit('Unknown response enum value');
+}
+
+ResponsePayload::setStrictMode(false);
+```
+
 ## Debug-oriented sample flow
 
 The files [../../Samples/IndexIpn.php](../../Samples/IndexIpn.php) and [../../Samples/ResultCallback.php](../../Samples/ResultCallback.php) return `400` when signature validation fails.

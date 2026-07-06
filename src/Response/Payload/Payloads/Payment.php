@@ -3,7 +3,8 @@
 namespace Paytabs\Sdk\Response\Payload\Payloads;
 
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Paytabs as PaytabsSDK;
+use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
+use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\ShippingDetails;
 use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
@@ -40,7 +41,11 @@ abstract class Payment extends Paytabs
         $this->tranType = TranType::tryFrom(strtolower($tran_type)) ?? TranType::Unknown;
 
         if (TranType::Unknown === $this->tranType) {
-            PaytabsSDK::getLogger()->error('Unknown transaction type', [
+            if (self::isStrictMode()) {
+                throw UnknownResponseValueException::forTranType($tran_type);
+            }
+
+            PaytabsLogger::getInstance()->logger->error('Unknown transaction type', [
                 'tran_type' => $tran_type,
             ]);
         }

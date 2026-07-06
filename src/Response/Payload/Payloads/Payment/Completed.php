@@ -3,7 +3,8 @@
 namespace Paytabs\Sdk\Response\Payload\Payloads\Payment;
 
 use Paytabs\Sdk\Enums\TranClass;
-use Paytabs\Sdk\Paytabs as PaytabsSDK;
+use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
+use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Response\Payload\Parts\ParentRequest;
 use Paytabs\Sdk\Response\Payload\Parts\PaymentInfo;
 use Paytabs\Sdk\Response\Payload\Parts\PaymentResult;
@@ -40,7 +41,11 @@ class Completed extends Payment
         $this->tranClass = TranClass::tryFrom(strtolower($tran_class)) ?? TranClass::Unknown;
 
         if (TranClass::Unknown === $this->tranClass) {
-            PaytabsSDK::getLogger()->error('Unknown transaction class', [
+            if (self::isStrictMode()) {
+                throw UnknownResponseValueException::forTranClass($tran_class);
+            }
+
+            PaytabsLogger::getInstance()->logger->error('Unknown transaction class', [
                 'tran_class' => $tran_class,
             ]);
         }
