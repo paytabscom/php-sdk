@@ -19,7 +19,7 @@ graph TD
     Factory --> URLs
     Factory --> PaymentMethods
     
-    HostedPage --> Request["RequestsFactory::createPaymentRequest<br/>(Profile, Builder)"]
+    HostedPage --> Request["RequestsFactory::createPaymentRequest<br/>(Builder, Profile)"]
     Profile["Profile<br/>(endpoint, credentials)"] --> Request
     
     Request --> HTTP["HTTP Request<br/>url, headers, payload"]
