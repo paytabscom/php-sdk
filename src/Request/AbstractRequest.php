@@ -38,6 +38,11 @@ abstract class AbstractRequest implements RequestInterface
         }
     }
 
+    public function isReady(): bool
+    {
+        return $this->isProfileSet();
+    }
+
     public function isProfileSet(): bool
     {
         return isset($this->profile);

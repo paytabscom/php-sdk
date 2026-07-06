@@ -2,50 +2,31 @@
 
 namespace Paytabs\Sdk\Logger;
 
-use Psr\Log\AbstractLogger;
+use Psr\Log\AbstractLogger as PsrAbstractLogger;
+use Psr\Log\LogLevel;
 
-class Log extends AbstractLogger
+abstract class AbstractLogger extends PsrAbstractLogger
 {
-    private string $logFile = '';
     private string $logPrefix = '';
 
-    private static $instances = [];
-
-    private function __construct(string $logFile, string $logPrefix)
+    public function __construct(string $logPrefix = '')
     {
-        $this->logFile = $logFile;
         $this->logPrefix = $logPrefix;
-    }
-
-    public static function getInstance(string $logFile, string $logPrefix = ''): self
-    {
-        $cls = static::class;
-        if (!isset(self::$instances[$cls])) {
-            self::$instances[$cls] = new static($logFile, $logPrefix);
-        }
-
-        return self::$instances[$cls];
-    }
-
-    public function log($level, string|\Stringable $message, array $context = []): void
-    {
-        $logMessage = $this->buildMessage($level, $message, $context);
-
-        if (false === file_put_contents($this->logFile, $logMessage, FILE_APPEND)) {
-            error_log('Failed to write to log file: '.$this->logFile);
-
-            throw new \Exception('Can not write to the Log');
-        }
     }
 
     protected function isImportant($level): bool
     {
-        $important = ['error', 'critical', 'emergency', 'alert'];
+        $important = [
+            LogLevel::ALERT,
+            LogLevel::ERROR,
+            LogLevel::CRITICAL,
+            LogLevel::EMERGENCY,
+        ];
 
         return \in_array($level, $important, true);
     }
 
-    private function buildMessage($level, string|\Stringable $message, array $context): string
+    protected function buildMessage($level, string|\Stringable $message, array $context): string
     {
         $_prefix
             = date('c')
