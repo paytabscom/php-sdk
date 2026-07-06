@@ -2,7 +2,7 @@
 
 namespace Paytabs\Sdk\Logger;
 
-class BrowserLog extends Log
+class BrowserLog extends AbstractLogger
 {
     public function log($level, string|\Stringable $message, array $context = []): void
     {

@@ -13,6 +13,13 @@ abstract class AbstractBuilder implements BuilderInterface
 
     protected LoggerInterface $logger;
 
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+
+        return $this;
+    }
+
     public function getPayload(): PayloadInterface
     {
         return $this->product;

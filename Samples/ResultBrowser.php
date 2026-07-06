@@ -1,17 +1,18 @@
 <?php
 
-use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsGet;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
+ * @var Profile         $profile
+ * @var LoggerInterface $logger
  */
-if (!isset($profile)) {
+if (!isset($profile, $logger)) {
     http_response_code(500);
 
-    exit('Invalid sample bootstrap: missing $profile');
+    exit('Invalid sample bootstrap: missing $profile or $logger');
 }
 
 // POST data, Format (sample): acquirerMessage=&acquirerRRN=&cartId=CART_ID&customerEmail=CUSTOMER_EMAIL&respCode=RESP_CODE&respMessage=RESP_MESSAGE&respStatus=RESP_STATUS&signature=SIGNATURE&token=TOKEN&tranRef=TRAN_REF
@@ -23,7 +24,7 @@ $response2 = BrowserAsPost::initWith($getArray2);
 
 $response2->setProfile($profile);
 
-Paytabs::getLogger()->debug('Return Payload (As POST): ', [
+$logger->debug('Return Payload (As POST): ', [
     'isGenuine' => $response2->isGenuine() ? 'Yes' : 'No',
     'Response' => $response2->getPayload()->getMapped(),
 ]);
@@ -37,7 +38,7 @@ $response1 = BrowserAsGet::initWith($getArray1, ['mode', 'result']);
 
 $response1->setProfile($profile);
 
-Paytabs::getLogger()->debug('Return Payload (As GET): ', [
+$logger->debug('Return Payload (As GET): ', [
     'isGenuine' => $response1->isGenuine() ? 'Yes' : 'No',
     'Response' => $response1->getPayload()->getMapped(),
 ]);

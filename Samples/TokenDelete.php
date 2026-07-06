@@ -1,31 +1,29 @@
 <?php
 
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var string  $_token
- * @var Http    $http
+ * @var string          $_token
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $_token, $http)) {
-    throw new RuntimeException('Required variables are not set: $profile, $_token, $http');
+if (!isset($paytabs, $_token, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $_token, $logger');
 }
 
 $holder = PayloadsFactory::createToken();
 $holder->buildToken($_token);
 
-$request = RequestsFactory::createTokenDelete($profile, $holder);
+$request = RequestsFactory::createTokenDelete($holder);
 
-// @var Http $http
-$http->setRequest($request);
+$paytabs->setRequest($request);
 
-$response = $http->submit();
+$response = $paytabs->submit();
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'TokenDelete Response',
     [
         'Response' => $response,

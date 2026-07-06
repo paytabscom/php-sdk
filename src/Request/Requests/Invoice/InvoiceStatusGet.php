@@ -18,10 +18,10 @@ class InvoiceStatusGet extends PaytabsRequest
     protected bool $hasPathParams = true;
 
     public function __construct(
-        Profile $profile,
-        PayloadsInvoiceStatusGet $holder
+        PayloadsInvoiceStatusGet $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return InvoiceStatus */

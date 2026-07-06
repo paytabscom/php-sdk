@@ -1,37 +1,35 @@
 <?php
 
 use Paytabs\Sdk\Exceptions\HttpRequestException;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var string  $_token
- * @var Http    $http
+ * @var string          $_token
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $_token, $http)) {
-    throw new RuntimeException('Required variables are not set: $profile, $_token, $http');
+if (!isset($paytabs, $_token, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $_token, $logger');
 }
 
 $holder = PayloadsFactory::createToken();
 $holder->buildToken($_token);
 
-$request = RequestsFactory::createTokenQuery($profile, $holder);
+$request = RequestsFactory::createTokenQuery($holder);
+$paytabs->setRequest($request);
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'TokenQuery holder Payload',
     $holder->getPayload()->getBody()
 );
 
-$http->setRequest($request);
-
 try {
-    $response = $http->submit();
+    $response = $paytabs->submit();
 } catch (HttpRequestException $e) {
-    Paytabs::getLogger()->error('TokenQuery transport error', [
+    $logger->error('TokenQuery transport error', [
         'message' => $e->getMessage(),
     ]);
 
@@ -40,13 +38,13 @@ try {
 
 if ($response->isFailure()) {
     $failure = $response->getFailure();
-    Paytabs::getLogger()->error('TokenQuery failure', [
+    $logger->error('TokenQuery failure', [
         'code' => $failure->code,
         'message' => $failure->message,
     ]);
 }
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'TokenQuery Response',
     [
         // 'Response' => $response,

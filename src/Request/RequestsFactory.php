@@ -26,72 +26,72 @@ use Paytabs\Sdk\Request\Requests\TransactionQuery;
 class RequestsFactory
 {
     public static function createPaymentRequest(
-        Profile $profile,
-        PayloadsPaymentRequest $holder
+        PayloadsPaymentRequest $holder,
+        ?Profile $profile = null,
     ): PaymentRequest {
-        return new PaymentRequest($profile, $holder);
+        return new PaymentRequest($holder, $profile);
     }
 
     public static function createTokenQuery(
-        Profile $profile,
-        Token $holder
+        Token $holder,
+        ?Profile $profile = null,
     ): TokenQuery {
-        return new TokenQuery($profile, $holder);
+        return new TokenQuery($holder, $profile);
     }
 
     public static function createTokenDelete(
-        Profile $profile,
-        Token $holder
+        Token $holder,
+        ?Profile $profile = null,
     ): TokenDelete {
-        return new TokenDelete($profile, $holder);
+        return new TokenDelete($holder, $profile);
     }
 
     public static function createTransactionQuery(
-        Profile $profile,
-        PayloadsTransactionQuery $holder
+        PayloadsTransactionQuery $holder,
+        ?Profile $profile = null,
     ): TransactionQuery {
-        return new TransactionQuery($profile, $holder);
+        return new TransactionQuery($holder, $profile);
     }
 
     public static function createNewInvoice(
-        Profile $profile,
-        Invoice $holder
+        Invoice $holder,
+        ?Profile $profile = null,
     ): NewInvoice {
-        return new NewInvoice($profile, $holder);
+        return new NewInvoice($holder, $profile);
     }
 
     public static function createInvoiceStatusAsPost(
-        Profile $profile,
-        BuilderInvoiceStatus $holder
+        BuilderInvoiceStatus $holder,
+        ?Profile $profile = null,
     ): InvoiceStatus {
-        return new InvoiceStatus($profile, $holder);
+        return new InvoiceStatus($holder, $profile);
     }
 
     public static function createInvoiceStatusAsGet(
-        Profile $profile,
-        PayloadsInvoiceStatusGet $holder
+        PayloadsInvoiceStatusGet $holder,
+        ?Profile $profile = null,
     ): InvoiceStatusGet {
-        return new InvoiceStatusGet($profile, $holder);
+        return new InvoiceStatusGet($holder, $profile);
     }
 
     public static function createInvoiceCancel(
-        Profile $profile,
-        BuilderInvoiceCancel $holder
+        BuilderInvoiceCancel $holder,
+        ?Profile $profile = null,
     ): InvoiceCancel {
-        return new InvoiceCancel($profile, $holder);
+        return new InvoiceCancel($holder, $profile);
     }
 
     public static function createInvoiceSms(
-        Profile $profile,
-        BuilderInvoiceSms $holder
+        BuilderInvoiceSms $holder,
+        ?Profile $profile = null,
     ): InvoiceSms {
-        return new InvoiceSms($profile, $holder);
+        return new InvoiceSms($holder, $profile);
     }
 
     public static function createInvoiceMarkPaid(
-        Profile $profile,
-        PayloadsInvoiceMarkPaid $holder
+        PayloadsInvoiceMarkPaid $holder,
+        ?Profile $profile = null,
     ): InvoiceMarkPaid {
-        return new InvoiceMarkPaid($profile, $holder);
+        return new InvoiceMarkPaid($holder, $profile);
     }
 }

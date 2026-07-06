@@ -13,10 +13,10 @@ class InvoiceMarkPaid extends PaytabsRequest
     protected string $path = 'payment/invoice/paid';
 
     public function __construct(
-        Profile $profile,
-        PayloadsInvoiceMarkPaid $holder
+        PayloadsInvoiceMarkPaid $holder,
+        ?Profile $profile
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return InvoiceMarkPaidResponse */

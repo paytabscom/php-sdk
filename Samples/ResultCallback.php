@@ -1,16 +1,15 @@
 <?php
 
-use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
+ * @var Profile         $profile
+ * @var LoggerInterface $logger
  */
-if (!isset($profile)) {
-    http_response_code(500);
-
-    exit('Invalid sample bootstrap: missing $profile');
+if (!isset($profile, $logger)) {
+    exit('Invalid sample bootstrap: missing $profile or $logger');
 }
 
 // IPN payload, Format (sample): JSON body with 'Signature' header
@@ -25,14 +24,16 @@ $ipnResponse->setProfile($profile);
 
 $isGenuine = $ipnResponse->isGenuine();
 if (!$isGenuine) {
-    http_response_code(400);
+    // http_response_code(400);
+
+    $logger->error('Invalid signature for IPN callback');
 
     exit('Invalid signature');
 }
 
 $mapped = $ipnResponse->getPayload()->getMapped();
 
-Paytabs::getLogger()->debug('IPN Payload: ', [
+$logger->debug('IPN Payload: ', [
     'isGenuine' => $isGenuine ? 'Yes' : 'No',
     'Response' => $mapped,
 ]);

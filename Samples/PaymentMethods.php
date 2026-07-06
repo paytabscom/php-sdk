@@ -2,9 +2,12 @@
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
-use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
+use Psr\Log\LoggerInterface;
 
+/**
+ * @var LoggerInterface $logger
+ */
 $methodCode = 'applepay';
 $method = PaymentMethodsFactory::createMethod($methodCode);
 
@@ -31,14 +34,15 @@ $methods = PaymentMethods::init([PaymentMethodsFactory::createApplePayMethod(), 
     ->excludeMethod('sadad')
     ->excludeMethod(PaymentMethodsFactory::createFawryMethod())
 ;
-Paytabs::getLogger()->info('Payment Methods:', [
+$logger->info('Payment Methods:', [
     $methods,
     $methods->build(),
 ]);
 
 function logMethod(AbstractMethod $method): void
 {
-    Paytabs::getLogger()->debug('Method object', [
+    global $logger;
+    $logger->debug('Method object', [
         $method,
         $method::PT_CODE,
         $method::CODE,

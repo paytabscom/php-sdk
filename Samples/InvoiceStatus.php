@@ -1,39 +1,37 @@
 <?php
 
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 use Paytabs\Sdk\Response\Payload\Payloads\Invoice\InvoiceStatus;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var int     $invoiceId
- * @var Http    $http
+ * @var int             $invoiceId
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $invoiceId, $http)) {
-    throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http');
+if (!isset($paytabs, $invoiceId, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $invoiceId, $logger');
 }
 
 $holder = PayloadsFactory::createInvoiceStatusAsPost();
 $holder->buildInvoiceId($invoiceId);
 
-$request = RequestsFactory::createInvoiceStatusAsPost($profile, $holder);
+$request = RequestsFactory::createInvoiceStatusAsPost($holder);
 
-$http->setRequest($request);
-$http->setDebugMode(true);
+$paytabs->setRequest($request);
 
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isProcessed()) {
     /** @var InvoiceStatus $invoiceStatus */
     $invoiceStatus = $response->getPayloadMapped();
-    Paytabs::getLogger()->debug('InvoiceStatus POST response: ', [
+    $logger->debug('InvoiceStatus POST response: ', [
         $invoiceStatus,
     ]);
 } else {
-    Paytabs::getLogger()->debug('InvoiceStatus processing failed: ', [
+    $logger->debug('InvoiceStatus processing failed: ', [
         $response->getPayloadMapped(),
     ]);
 }

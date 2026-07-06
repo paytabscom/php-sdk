@@ -9,7 +9,7 @@ Use this checklist before publishing a new public SDK release.
 - [ ] Update `CHANGELOG.md` with release notes
 - [ ] Verify licensing and governance docs are current
 - [ ] Verify security reporting path points to PayTabs Bug Bounty Program
-- [ ] Confirm deployment logging env vars are configured (`PAYTABS_LOG_PATH`, `PAYTABS_LOG_BROWSER`)
+- [ ] Confirm logger mode and destination are configured as intended for the target environment
 
 ## Validation
 

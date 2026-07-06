@@ -16,10 +16,10 @@ class InvoiceStatus extends PaytabsRequest
     protected HttpType $httpType = HttpType::POST;
 
     public function __construct(
-        Profile $profile,
-        BuilderInvoiceStatus $holder
+        BuilderInvoiceStatus $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return ResponseInvoiceStatus */

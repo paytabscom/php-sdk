@@ -3,13 +3,11 @@
 // APP_ROOT points to the root directory of the library
 define('APP_ROOT', realpath(__DIR__).'/../');
 
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Profile\EndpointsFactory;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Profile\ProfilesFactory;
-
-putenv('PAYTABS_LOG_BROWSER=1');
 
 require_once APP_ROOT.'vendor/autoload.php';
 
@@ -31,15 +29,18 @@ $profile = ProfilesFactory::createUaeProfile($_profileId, $_serverKey);
 // Or you can create a profile instance directly using the Profile class
 $profile = new Profile($_endpoint, $_profileId, $_serverKey);
 
+$paytabs = Paytabs::getInstance($profile);
+$ptLogger = PaytabsLogger::getInstance(null, true);
+$logger = $ptLogger->logger;
+
+$paytabs->setLogger($logger);
+
 $return = array_key_exists('result', $_GET);
 if ($return) {
     require_once 'IndexIpn.php';
 
     exit;
 }
-
-$http = new Http();
-$http->setLogger(Paytabs::getLogger());
 
 $trxRef = getConfig('TRANSACTION_REF');
 
@@ -156,7 +157,7 @@ if ($sampleId) {
     echo '<a href="?">Back</a><br>';
     echo '<h2>'.$samples[$sampleId][0].'</h2><br>';
 
-    include $samples[$sampleId][1];
+    include_once $samples[$sampleId][1];
 
     exit;
 }

@@ -36,17 +36,17 @@ $hostedPage
 ```php
 use Paytabs\Sdk\Request\RequestsFactory;
 
-$paymentRequest = RequestsFactory::createPaymentRequest($profile, $hostedPage);
+$paymentRequest = RequestsFactory::createPaymentRequest($hostedPage, $profile);
 ```
 
 4. Create the Http connector:
 ```php
 use Paytabs\Sdk\Http\Http;
-use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\PaytabsLogger;
 
 $http = new Http();
 $http
-    ->setLogger(Paytabs::getLogger())
+    ->setLogger(PaytabsLogger::getInstance()->logger)
     ->setRequest($paymentRequest);
 
 try {

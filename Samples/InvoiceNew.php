@@ -2,23 +2,22 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
 use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItem;
 use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 use Paytabs\Sdk\Response\Payload\Payloads\Invoice\NewInvoice;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var Http    $http
- * @var string  $_currency
+ * @var string          $_currency
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $http, $_currency)) {
-    throw new RuntimeException('Required variables are not set: $profile, $http, $_currency');
+if (!isset($paytabs, $_currency, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $_currency, $logger');
 }
 
 $holder = PayloadsFactory::createInvoice();
@@ -53,27 +52,26 @@ $holder
     ->buildPluginInfo('PHP', PHP_VERSION, Paytabs::getVersion())
 ;
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'InvoiceNew holder Payload: ',
     $holder->getPayload()->getBody()
 );
 
-$request = RequestsFactory::createNewInvoice($profile, $holder);
+$request = RequestsFactory::createNewInvoice($holder);
 
-$http->setRequest($request);
-$http->setDebugMode(true);
+$paytabs->setRequest($request);
 
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isProcessed()) {
     /** @var NewInvoice $invoiceNew */
     $invoiceNew = $response->getPayloadMapped();
-    Paytabs::getLogger()->debug('New Invoice created: ', [
+    $logger->debug('New Invoice created: ', [
         'invoice_id' => $invoiceNew->invoice_id,
         'payment_url' => $invoiceNew->invoice_link,
     ]);
 } else {
-    Paytabs::getLogger()->debug('InvoiceNew response: ', [
+    $logger->debug('InvoiceNew response: ', [
         $response->getPayloadMapped(),
     ]);
 }

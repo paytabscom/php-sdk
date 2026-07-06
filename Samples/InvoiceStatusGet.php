@@ -1,30 +1,28 @@
 <?php
 
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var int     $invoiceId
- * @var Http    $http
+ * @var int             $invoiceId
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $invoiceId, $http)) {
-    throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http');
+if (!isset($paytabs, $invoiceId, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $invoiceId, $logger');
 }
 
 $holder = PayloadsFactory::createInvoiceStatusAsGet();
 $holder->buildInvoiceId($invoiceId);
 
-$request = RequestsFactory::createInvoiceStatusAsGet($profile, $holder);
+$request = RequestsFactory::createInvoiceStatusAsGet($holder);
 
-$http->setRequest($request);
-$http->setDebugMode(true);
+$paytabs->setRequest($request);
 
-$response = $http->submit();
+$response = $paytabs->submit();
 
-Paytabs::getLogger()->debug('InvoiceStatus GET response: ', [
+$logger->debug('InvoiceStatus GET response: ', [
     $response->getPayloadMapped(),
 ]);

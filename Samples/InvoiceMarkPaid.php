@@ -1,21 +1,20 @@
 <?php
 
 use Paytabs\Sdk\Enums\InvoiceExternalPayMethod;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var int     $invoiceId
- * @var Http    $http
- * @var string  $_currency
+ * @var int             $invoiceId
+ * @var string          $_currency
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $invoiceId, $http, $_currency)) {
-    throw new RuntimeException('Required variables are not set: $profile, $invoiceId, $http, $_currency');
+if (!isset($paytabs, $invoiceId, $_currency, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $invoiceId, $_currency, $logger');
 }
 
 $invoiceCurrency = $_currency;
@@ -28,18 +27,17 @@ $holder->buildInvoiceMarkPaid(
     new InvoiceMarkPaid($invoiceId, $invoiceCurrency, $invoiceTotal, $payMethod, $payDescription)
 );
 
-$request = RequestsFactory::createInvoiceMarkPaid($profile, $holder);
+$request = RequestsFactory::createInvoiceMarkPaid($holder);
 
-Paytabs::getLogger()->debug('InvoiceMarkPaid POST Request: ', [
+$logger->debug('InvoiceMarkPaid POST Request: ', [
     $holder,
 ]);
 
-$http->setRequest($request);
-$http->setDebugMode(true);
+$paytabs->setRequest($request);
 
-$response = $http->submit();
+$response = $paytabs->submit();
 
-Paytabs::getLogger()->debug('InvoiceMarkPaid POST response: ', [
+$logger->debug('InvoiceMarkPaid POST response: ', [
     $response,
 ]);
 
@@ -49,10 +47,10 @@ if ($response->isFailure()) {
 }
 
 $resMapped = $response->getPayloadMapped();
-Paytabs::getLogger()->debug('InvoiceMarkPaid POST response Mapped Data: ', [
+$logger->debug('InvoiceMarkPaid POST response Mapped Data: ', [
     $resMapped,
 ]);
 
-Paytabs::getLogger()->error('InvoiceMarkPaid Missed Data: ', [
+$logger->error('InvoiceMarkPaid Missed Data: ', [
     $resMapped->unMappedData(),
 ]);

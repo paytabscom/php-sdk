@@ -7,6 +7,8 @@ use Paytabs\Sdk\Response\Payload\PayloadInterface;
 
 interface RequestInterface
 {
+    public function isReady(): bool;
+
     public function getUrl(): string;
 
     public function getHeaders(): array;

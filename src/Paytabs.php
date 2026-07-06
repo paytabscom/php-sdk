@@ -2,68 +2,62 @@
 
 namespace Paytabs\Sdk;
 
-use Paytabs\Sdk\Logger\BrowserLog;
-use Paytabs\Sdk\Logger\Log;
+use Paytabs\Sdk\Http\Http;
+use Paytabs\Sdk\Profile\Profile;
+use Paytabs\Sdk\Request\AbstractRequest;
+use Paytabs\Sdk\Response\ResponseDirectInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-abstract class Paytabs
+class Paytabs
 {
     // Version
     public const VERSION = '3.0.0';
 
-    // LOG
-    protected const LOG_DAILY = true;
-
-    protected const LOG_PATH = '/var/log/paytabs-sdk/';
-    protected const LOG_FILE_NAME = 'debug_paytabs';
-    protected const LOG_FILE_EXTENSION = '.log';
-
-    protected const LOG_PREFIX = 'PayTabs';
+    protected Profile $profile;
+    protected Http $http;
+    protected LoggerInterface $logger;
 
     final public static function getVersion(): string
     {
         return self::VERSION;
     }
 
-    public static function getLogger(): LoggerInterface
-    {
-        $useBrowser = filter_var((string) getenv('PAYTABS_LOG_BROWSER'), FILTER_VALIDATE_BOOL);
+    public static function getInstance(
+        Profile $profile,
+        ?Http $http = null,
+        ?LoggerInterface $logger = null
+    ): self {
+        $instance = new static();
 
-        if ($useBrowser) {
-            return BrowserLog::getInstance(static::getLogFile(), static::LOG_PREFIX);
-        }
+        $instance->profile = $profile;
+        $instance->http = $http ?? Http::create();
 
-        return Log::getInstance(static::getLogFile(), static::LOG_PREFIX);
+        $instance->setLogger($logger ?? new NullLogger());
+
+        return $instance;
     }
 
-    public static function getLogFile(): string
+    public function setRequest(AbstractRequest $request): self
     {
-        $basePath = (string) getenv('PAYTABS_LOG_PATH');
-        if ('' === trim($basePath)) {
-            $basePath = static::LOG_PATH;
+        if (!$request->isProfileSet()) {
+            $request->setProfile($this->profile);
         }
+        $this->http->setRequest($request);
 
-        if ('' === trim($basePath)) {
-            $basePath = rtrim(sys_get_temp_dir(), \DIRECTORY_SEPARATOR);
-        }
+        return $this;
+    }
 
-        $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR;
-        if (!is_dir($basePath)) {
-            try {
-                mkdir($basePath, 0o775, true);
-            } catch (\Throwable $e) {
-                error_log('Failed to create log directory: '.$basePath.' - '.$e->getMessage());
-                // throw new \RuntimeException('Failed to create log directory: ' . $basePath, 0, $e);
-            }
-        }
+    public function setLogger(LoggerInterface $logger): self
+    {
+        $this->logger = $logger;
+        $this->http->setLogger($logger);
 
-        $logFile = static::LOG_FILE_NAME;
+        return $this;
+    }
 
-        if (static::LOG_DAILY) {
-            $time = date('Y-m-d');
-            $logFile .= '-'.$time;
-        }
-
-        return $basePath.$logFile.static::LOG_FILE_EXTENSION;
+    public function submit(?ResponseDirectInterface $responseClass = null): ResponseDirectInterface
+    {
+        return $this->http->submit($responseClass);
     }
 }

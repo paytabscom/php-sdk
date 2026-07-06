@@ -26,6 +26,7 @@ class Http
     public static function create(?RequestInterface $request = null): self
     {
         $instance = new self();
+
         if ($request) {
             $instance->setRequest($request);
         }
@@ -42,6 +43,9 @@ class Http
 
     public function setRequest(RequestInterface $request)
     {
+        if (!$request->isReady()) {
+            throw new \InvalidArgumentException('Request is not Ready.');
+        }
         $this->request = $request;
 
         return $this;
@@ -119,6 +123,10 @@ class Http
 
     private function initRequest(): \CurlHandle
     {
+        if (!isset($this->request)) {
+            throw new \RuntimeException('Request is not set.');
+        }
+
         $url = $this->request->getUrl();
         $payload = $this->request->getPayload();
         $headers = $this->request->getHeaders();

@@ -9,7 +9,7 @@ include_once APP_ROOT.'Samples/config.php';
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Http\Http;
-use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\BuilderInterface;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
@@ -50,16 +50,16 @@ final class PaymentRequestTest extends TestCase
     public function testRequest(): void
     {
         if ('1' !== getenv('PAYTABS_RUN_LIVE_TESTS')) {
-            self::markTestSkipped('Live payment request test skipped. Set PAYTABS_RUN_LIVE_TESTS=1 to run it.');
+            // self::markTestSkipped('Live payment request test skipped. Set PAYTABS_RUN_LIVE_TESTS=1 to run it.');
         }
 
         $profile = $this->generateProfile();
         $holder = $this->generatePayload();
 
-        $request = new PaymentRequest($profile, $holder);
+        $request = new PaymentRequest($holder, $profile);
 
         $http = new Http();
-        $http->setLogger(Paytabs::getLogger());
+        $http->setLogger(PaytabsLogger::getInstance()->logger);
         $http->setRequest($request);
         $http->setDebugMode(false);
 

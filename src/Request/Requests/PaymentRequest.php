@@ -13,10 +13,10 @@ class PaymentRequest extends PaytabsRequest
     protected string $path = 'payment/request';
 
     public function __construct(
-        Profile $profile,
-        PayloadsPaymentRequest $holder
+        PayloadsPaymentRequest $holder,
+        ?Profile $profile,
     ) {
-        parent::__construct($profile, $holder);
+        parent::__construct($holder, $profile);
     }
 
     /** @return Completed */
