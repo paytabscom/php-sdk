@@ -9,8 +9,6 @@ use Paytabs\Sdk\Profile\EndpointsFactory;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Profile\ProfilesFactory;
 
-putenv('PAYTABS_LOG_BROWSER=1');
-
 require_once APP_ROOT.'vendor/autoload.php';
 
 include_once APP_ROOT.'Samples/config.php';
@@ -159,7 +157,7 @@ if ($sampleId) {
     echo '<a href="?">Back</a><br>';
     echo '<h2>'.$samples[$sampleId][0].'</h2><br>';
 
-    include $samples[$sampleId][1];
+    include_once $samples[$sampleId][1];
 
     exit;
 }

@@ -20,6 +20,7 @@ composer require paytabs/php-sdk:^3.0
 
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
+use Paytabs\Sdk\PaytabsLogger;
 use Paytabs\Sdk\Profile\ProfilesFactory;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
@@ -37,16 +38,16 @@ $payload
 	->buildCart('order-1001', 'AED', 100.00, 'Order 1001')
 	->buildHideShipping(true);
 
-$request = RequestsFactory::createPaymentRequest($profile, $payload);
+$request = RequestsFactory::createPaymentRequest($payload, $profile);
+$logger = PaytabsLogger::getInstance()->logger;
 
-$http = (new Http())
-	->setLogger(Paytabs::getLogger())
-	->setRequest($request);
+$http = Http::create($request)
+	->setLogger($logger);
 
 try {
 	$response = $http->submit();
 } catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
-	// Transport failure or non-2xx response.
+	// Transport failures are raised as exceptions.
 	throw $e;
 }
 
@@ -73,20 +74,16 @@ See webhook verification guide: [docs/usage/Webhooks.md](docs/usage/Webhooks.md)
 
 ## Logging Configuration
 
-The SDK logger can be configured with environment variables:
+The SDK provides a default file logger helper:
 
-- `PAYTABS_LOG_PATH`: Directory where SDK log files are stored.
-	- Default: `/var/log/paytabs-sdk/`
-	- Fallback: system temporary directory when the configured/default path is empty.
-- `PAYTABS_LOG_BROWSER`: Enables browser logger mode when set to `true`.
-	- Default behavior uses file logger mode.
+```php
+use Paytabs\Sdk\PaytabsLogger;
 
-Example:
-
-```bash
-export PAYTABS_LOG_PATH="/var/log/paytabs-sdk"
-export PAYTABS_LOG_BROWSER="false"
+$fileLogger = PaytabsLogger::getInstance()->logger;
+$browserLogger = PaytabsLogger::getInstance(null, true)->logger;
 ```
+
+You can also inject any custom `Psr\Log\LoggerInterface` instance via `Http::setLogger()` or `Paytabs::setLogger()`.
 
 ## Documentation
 
