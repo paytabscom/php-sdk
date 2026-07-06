@@ -56,6 +56,11 @@ class Paytabs
         return $this;
     }
 
+    public function getProfile(): Profile
+    {
+        return $this->profile;
+    }
+
     public function submit(?ResponseDirectInterface $responseClass = null): ResponseDirectInterface
     {
         return $this->http->submit($responseClass);

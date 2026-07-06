@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Paytabs\Sdk\Profile\ProfilesFactory;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
-use Paytabs\Sdk\Request\RequestsFactory;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceCancel;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceMarkPaid;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceSms;
@@ -15,6 +14,7 @@ use Paytabs\Sdk\Request\Requests\PaymentRequest;
 use Paytabs\Sdk\Request\Requests\TokenDelete;
 use Paytabs\Sdk\Request\Requests\TokenQuery;
 use Paytabs\Sdk\Request\Requests\TransactionQuery;
+use Paytabs\Sdk\Request\RequestsFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
