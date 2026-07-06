@@ -59,6 +59,11 @@ final class HttpNon2xxResponseMappingTest extends TestCase
             {
                 return null;
             }
+
+            public function isReady(): bool
+            {
+                return true;
+            }
         };
 
         $http->setRequest($request);

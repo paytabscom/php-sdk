@@ -1,12 +1,15 @@
 <?php
 
-use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsGet;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
+use Psr\Log\LoggerInterface;
 
-/** @var Profile $profile */
+/**
+ * @var Profile         $profile
+ * @var LoggerInterface $logger
+ */
 $return = 'return' === ($_GET['mode'] ?? null);
 
 if ($return) {
@@ -29,18 +32,18 @@ if ($return) {
 
     $isGenuine = $response->isGenuine();
     if (!$isGenuine) {
-        Paytabs::getLogger()->warning('Invalid signature for browser return callback');
+        $logger->warning('Invalid signature for browser return callback');
         http_response_code(400);
 
         exit('Invalid signature');
     }
 
     $resMapped = $response->getPayload()->getMapped();
-    Paytabs::getLogger()->debug('Return Payload: ', [
+    $logger->debug('Return Payload: ', [
         'isGenuine' => $isGenuine ? 'Yes' : 'No',
         'Response' => $resMapped,
     ]);
-    Paytabs::getLogger()->error('Missed Data: ', [
+    $logger->error('Missed Data: ', [
         $resMapped->unMappedData(),
     ]);
 } else {
@@ -49,18 +52,18 @@ if ($return) {
 
     $isGenuine = $ipnResponse->isGenuine();
     if (!$isGenuine) {
-        Paytabs::getLogger()->warning('Invalid signature for IPN callback');
+        $logger->warning('Invalid signature for IPN callback');
         http_response_code(400);
 
         exit('Invalid signature');
     }
 
     $resMapped = $ipnResponse->getPayload()->getMapped();
-    Paytabs::getLogger()->debug('IPN Payload: ', [
+    $logger->debug('IPN Payload: ', [
         'isGenuine' => $isGenuine ? 'Yes' : 'No',
         'Response' => $resMapped,
     ]);
-    Paytabs::getLogger()->error('Missed Data: ', [
+    $logger->error('Missed Data: ', [
         $resMapped->unMappedData(),
     ]);
 }

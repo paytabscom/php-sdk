@@ -6,10 +6,8 @@ use Paytabs\Sdk\Enums\TokenPaymentFrequency;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\PaymentMethod\Methods\Card;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\Invoice as InvoicePart;
@@ -22,17 +20,18 @@ use Paytabs\Sdk\Request\Payload\Parts\TokeniseEnhanced;
 use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var Http    $http
- * @var string  $urlReturn
- * @var string  $urlCallback
- * @var string  $_currency
- * @var string  $_themeId
+ * @var string          $urlReturn
+ * @var string          $urlCallback
+ * @var string          $_currency
+ * @var string          $_themeId
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId)) {
-    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency, $_themeId');
+if (!isset($paytabs, $logger, $urlReturn, $urlCallback, $_currency, $_themeId)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $logger, $urlReturn, $urlCallback, $_currency, $_themeId');
 }
 
 $holder = PayloadsFactory::createHostedPage();
@@ -138,22 +137,20 @@ if ($addInvoiceObject) {
     $holder->buildInvoice($invoicePart);
 }
 
-$request = RequestsFactory::createPaymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($holder);
+$paytabs->setRequest($request);
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'PaymentRequest holder Payload',
     $holder->getPayload()->getBody()
 );
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'PaymentRequest Payload:',
     [$request->getPayload()]
 );
 
-$http->setRequest($request);
-$http->setDebugMode(false);
-
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isFailure()) {
     $resClassed = $response->getFailure();
@@ -167,10 +164,10 @@ if ($response->isFailure()) {
 // case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();
-Paytabs::getLogger()->debug('PaymentRequest Response: ', [
+$logger->debug('PaymentRequest Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
 
-Paytabs::getLogger()->error('Missed Data: ', [
+$logger->error('Missed Data: ', [
     $resMapped->unMappedData(),
 ]);

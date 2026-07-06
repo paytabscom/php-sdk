@@ -2,23 +2,22 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var Http    $http
- * @var string  $urlReturn
- * @var string  $urlCallback
- * @var bool    $returnUsingGet
- * @var string  $_currency
+ * @var string          $urlReturn
+ * @var string          $urlCallback
+ * @var bool            $returnUsingGet
+ * @var string          $_currency
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency)) {
-    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
+if (!isset($paytabs, $logger, $urlReturn, $urlCallback, $returnUsingGet, $_currency)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $logger, $urlReturn, $urlCallback, $returnUsingGet, $_currency');
 }
 
 $holder = PayloadsFactory::createOwnForm();
@@ -44,21 +43,19 @@ $pan = $threeDSecure ? $card_redirect : $card_direct;
 
 $holder->buildCardDetails($pan, 2030, 12, '123');
 
-$request = RequestsFactory::createPaymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($holder);
+$paytabs->setRequest($request);
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'OwnForm holder Payload',
     $holder->getPayload()->getBody()
 );
-Paytabs::getLogger()->debug(
+$logger->debug(
     'OwnForm Payload:',
     [$request->getPayload()]
 );
 
-$http->setRequest($request);
-$http->setDebugMode(false);
-
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isFailure()) {
     $resClassed = $response->getFailure();
@@ -69,9 +66,9 @@ if ($response->isFailure()) {
 }
 
 $resMapped = $response->getPayloadMapped();
-Paytabs::getLogger()->debug('OwnForm Response: ', [
+$logger->debug('OwnForm Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
-Paytabs::getLogger()->error('OwnForm Missed Data: ', [
+$logger->error('OwnForm Missed Data: ', [
     'Missed Data' => $resMapped->unMappedData(),
 ]);

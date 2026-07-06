@@ -2,21 +2,20 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var string  $trxRef
- * @var Http    $http
- * @var string  $urlCallback
- * @var string  $_currency
+ * @var string          $trxRef
+ * @var string          $urlCallback
+ * @var string          $_currency
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $trxRef, $http, $urlCallback, $_currency)) {
-    throw new RuntimeException('Required variables are not set: $profile, $trxRef, $http, $urlCallback, $_currency');
+if (!isset($paytabs, $trxRef, $urlCallback, $_currency, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $trxRef, $urlCallback, $_currency, $logger');
 }
 
 // Build Refund payload using the generic Followup class
@@ -38,11 +37,11 @@ $holder2
     ->buildURLs(null, $urlCallback)
 ;
 
-$request = RequestsFactory::createPaymentRequest($profile, $holder2);
+$request = RequestsFactory::createPaymentRequest($holder2);
 
-$http->setRequest($request);
+$paytabs->setRequest($request);
 
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isFailure()) {
     $resClassed = $response->getFailure();
@@ -50,4 +49,4 @@ if ($response->isFailure()) {
     $resClassed = $response->getPayload()->getMapped();
 }
 
-Paytabs::getLogger()->debug('Refund Response', [$resClassed]);
+$logger->debug('Refund Response', [$resClassed]);

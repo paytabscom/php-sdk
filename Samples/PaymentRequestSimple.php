@@ -2,23 +2,22 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
 use Paytabs\Sdk\Response\Payload\Payloads\Redirect;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var Http    $http
- * @var string  $urlReturn
- * @var string  $urlCallback
- * @var string  $_currency
+ * @var string          $urlReturn
+ * @var string          $urlCallback
+ * @var string          $_currency
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency)) {
-    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $_currency');
+if (!isset($paytabs, $urlReturn, $urlCallback, $_currency, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $urlReturn, $urlCallback, $_currency, $logger');
 }
 
 $holder = PayloadsFactory::createHostedPage();
@@ -34,24 +33,23 @@ $holder
     ->buildURLs($urlReturn, $urlCallback)
 ;
 
-$request = RequestsFactory::createPaymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($holder);
 
-Paytabs::getLogger()->debug(
+$paytabs->setRequest($request);
+
+$logger->debug(
     'PaymentRequest Payload:',
     [$request->getPayload()]
 );
 
-$http->setRequest($request);
-$http->setDebugMode(true);
-
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isFailure()) {
     $resClassed = $response->getFailure();
 } elseif ($response->isRedirect()) {
     /** @var Redirect $resClassed */
     $resClassed = $response->getRedirect();
-    Paytabs::getLogger()->info('Redirect URL: '.$resClassed->redirect_url);
+    $logger->info('Redirect URL: '.$resClassed->redirect_url);
 } else {
     $resClassed = $response->getPayload()->getMapped();
 }
@@ -60,10 +58,10 @@ if ($response->isFailure()) {
 // case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();
-Paytabs::getLogger()->debug('PaymentRequest Response: ', [
+$logger->debug('PaymentRequest Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
 
-Paytabs::getLogger()->error('Missed Data: ', [
+$logger->error('Missed Data: ', [
     $resMapped->unMappedData(),
 ]);

@@ -2,24 +2,23 @@
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
-use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
-use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\Parts\CustomerDetails;
 use Paytabs\Sdk\Request\Payload\Parts\UserDefined;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
+use Psr\Log\LoggerInterface;
 
 /**
- * @var Profile $profile
- * @var Http    $http
- * @var string  $urlReturn
- * @var string  $urlCallback
- * @var string  $_currency
- * @var string  $_paymentToken
+ * @var string          $urlReturn
+ * @var string          $urlCallback
+ * @var string          $_currency
+ * @var string          $_paymentToken
+ * @var Paytabs         $paytabs
+ * @var LoggerInterface $logger
  */
-if (!isset($profile, $http, $urlReturn, $urlCallback, $_currency, $_paymentToken)) {
-    throw new RuntimeException('Required variables are not set: $profile, $http, $urlReturn, $urlCallback, $returnUsingGet, $_currency, $_paymentToken');
+if (!isset($paytabs, $urlReturn, $urlCallback, $_currency, $_paymentToken, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $urlReturn, $urlCallback, $_currency, $_paymentToken, $logger');
 }
 
 $holder = PayloadsFactory::createManagedForm();
@@ -43,21 +42,19 @@ $holder
     ->buildPaymentToken($_paymentToken)
 ;
 
-$request = RequestsFactory::createPaymentRequest($profile, $holder);
+$request = RequestsFactory::createPaymentRequest($holder);
+$paytabs->setRequest($request);
 
-Paytabs::getLogger()->debug(
+$logger->debug(
     'ManagedForm holder Payload',
     $holder->getPayload()->getBody()
 );
-Paytabs::getLogger()->debug(
+$logger->debug(
     'ManagedForm Payload:',
     [$request->getPayload()]
 );
 
-$http->setRequest($request);
-$http->setDebugMode(false);
-
-$response = $http->submit();
+$response = $paytabs->submit();
 
 if ($response->isFailure()) {
     $resClassed = $response->getFailure();
@@ -71,9 +68,9 @@ if ($response->isFailure()) {
 // case ResponseStage::Completed:
 
 $resMapped = $response->getPayloadMapped();
-Paytabs::getLogger()->debug('ManagedForm Response: ', [
+$logger->debug('ManagedForm Response: ', [
     'Mapped Auto' => $resMapped,
 ]);
-Paytabs::getLogger()->error('ManagedForm Missed Data: ', [
+$logger->error('ManagedForm Missed Data: ', [
     'Missed Data' => $resMapped->unMappedData(),
 ]);
