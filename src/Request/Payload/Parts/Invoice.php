@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload\Parts;
 
+use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
 
 class Invoice extends AbstractPart
@@ -59,9 +62,9 @@ class Invoice extends AbstractPart
         ];
     }
 
-    public function setLang(string $lang)
+    public function setLang(Language|string $lang)
     {
-        $this->invoiceLang = $lang;
+        $this->invoiceLang = $lang instanceof Language ? $lang->value : $lang;
 
         return $this;
     }

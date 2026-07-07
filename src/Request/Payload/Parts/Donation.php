@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload\Parts;
 
 class Donation extends AbstractPart

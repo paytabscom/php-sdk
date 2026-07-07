@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload\Payloads\Invoice;
 
 use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
@@ -7,7 +9,7 @@ use Paytabs\Sdk\Request\Payload\Paytabs\PaytabsBuilder;
 
 class InvoiceCancel extends PaytabsBuilder
 {
-    public function buildInvoiceId(string $invoiceId)
+    public function buildInvoiceId(int $invoiceId)
     {
         $this->product->buildBody(new GenericPart(
             [

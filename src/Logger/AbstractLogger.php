@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Logger;
 
 use Psr\Log\AbstractLogger as PsrAbstractLogger;
@@ -14,7 +16,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
         $this->logPrefix = $logPrefix;
     }
 
-    protected function isImportant($level): bool
+    protected function isImportant(string $level): bool
     {
         $important = [
             LogLevel::ALERT,
@@ -26,7 +28,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
         return \in_array($level, $important, true);
     }
 
-    protected function buildMessage($level, string|\Stringable $message, array $context): string
+    protected function buildMessage(string $level, string|\Stringable $message, array $context): string
     {
         $_prefix
             = date('c')

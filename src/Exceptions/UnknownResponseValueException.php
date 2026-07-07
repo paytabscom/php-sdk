@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Exceptions;
 
 final class UnknownResponseValueException extends \RuntimeException
