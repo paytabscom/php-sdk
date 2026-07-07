@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Paytabs\Sdk\Enums\CardDiscountType;
 use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Enums\TokenPaymentFrequency;
@@ -26,7 +28,7 @@ use Psr\Log\LoggerInterface;
  * @var string          $urlReturn
  * @var string          $urlCallback
  * @var string          $_currency
- * @var string          $_themeId
+ * @var int             $_themeId
  * @var Paytabs         $paytabs
  * @var LoggerInterface $logger
  */
@@ -129,7 +131,7 @@ $lineItems = new LineItems($lineItem1, $item2);
 $invoicePart = new InvoicePart();
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
-    ->setDates(null, null, DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, '+8 days'))
+    ->setDates(null, null, (new DateTimeImmutable('+8 days'))->format(DateTimeInterface::ATOM))
     ->setLineItems($lineItems)
 ;
 

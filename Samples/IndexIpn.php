@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsGet;
 use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\BrowserAsPost;

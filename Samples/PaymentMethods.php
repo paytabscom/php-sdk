@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;

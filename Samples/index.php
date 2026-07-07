@@ -18,7 +18,7 @@ $_profileId = (int) getConfig('PROFILE_ID');
 $_serverKey = getConfig('SERVER_KEY');
 $_currency = getConfig('CURRENCY');
 $_paymentToken = getConfig('PAYMENT_TOKEN');
-$_themeId = getConfig('THEME_ID');
+$_themeId = (int) getConfig('THEME_ID');
 $_token = getConfig('TOKEN');
 $_tokenEnhanced = getConfig('TOKEN_ENHANCED');
 
@@ -51,7 +51,7 @@ $urlReturn = $urlBase.'?result=1&mode=return';
 $_token = getConfig('TOKEN');
 $_tokenEnhanced = getConfig('TOKEN_ENHANCED');
 
-$invoiceId = getConfig('INVOICE_ID');
+$invoiceId = (int) getConfig('INVOICE_ID');
 $phoneNumber = getConfig('PHONE_NUMBER');
 
 $returnUsingGet = false;

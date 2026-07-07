@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Paytabs\Sdk\Enums\FramedTarget;
 use Paytabs\Sdk\Enums\TokenType;
 use Paytabs\Sdk\Enums\TranClass;
@@ -18,7 +20,7 @@ use Psr\Log\LoggerInterface;
  * @var string          $urlReturn
  * @var string          $urlCallback
  * @var string          $_currency
- * @var string          $_themeId
+ * @var int             $_themeId
  * @var string          $_token
  * @var string          $_tokenEnhanced
  * @var Paytabs         $paytabs
