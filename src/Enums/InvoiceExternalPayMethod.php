@@ -8,8 +8,8 @@ enum InvoiceExternalPayMethod: string
 {
     case Cash = 'cash';
     case Cheque = 'cheque';
-    case Bank = 'bank';
-    case POS = 'pos';
+    case Bank = 'banktransfer';
+    case PoS = 'pointofsale';
 
     case Unknown = 'unknown';
 }
