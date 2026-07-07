@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload\Parts;
 
 use Paytabs\Sdk\Enums\FramedTarget;

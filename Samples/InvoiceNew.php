@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Paytabs;
@@ -36,7 +38,7 @@ $lineItems = new LineItems($item1, $item2);
 
 $invoicePart = new InvoicePart();
 // Expiry date after 8 days from now, in ATOM format
-$expiryDate = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, '+8 days');
+$expiryDate = (new DateTimeImmutable('+8 days'))->format(DateTimeInterface::ATOM);
 $invoicePart
     // ->setCharges(0, 0, 0, 0)
     ->setDates(null, null, $expiryDate)

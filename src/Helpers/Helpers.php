@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Helpers;
 
 use Paytabs\Sdk\Enums\ResponseStage;
@@ -24,7 +26,7 @@ class Helpers
         return $url;
     }
 
-    public static function responseStage($json): ResponseStage
+    public static function responseStage(array|object $json): ResponseStage
     {
         // "Delete Token" request returns same structure but code=0
         if (isset($json->code) && $json->code > 0) {
@@ -45,7 +47,7 @@ class Helpers
         return ResponseStage::Unknown;
     }
 
-    public static function jsonValidate($json): bool
+    public static function jsonValidate(array|string $json): bool
     {
         return json_validate($json);
     }

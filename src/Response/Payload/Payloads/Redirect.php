@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Response\Payload\Payloads;
 
 class Redirect extends Payment

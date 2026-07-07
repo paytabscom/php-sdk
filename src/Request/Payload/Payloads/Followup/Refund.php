@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload\Payloads\Followup;
 
 use Paytabs\Sdk\Enums\TranClass;

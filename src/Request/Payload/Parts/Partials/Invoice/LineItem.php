@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice;
 
 use Paytabs\Sdk\Request\Payload\PartInterface;

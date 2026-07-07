@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Enums;
 
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;

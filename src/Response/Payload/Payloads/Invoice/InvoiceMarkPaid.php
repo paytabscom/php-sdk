@@ -1,20 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Response\Payload\Payloads\Invoice;
 
+use Paytabs\Sdk\Enums\InvoiceExternalPayMethod;
 use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class InvoiceMarkPaid extends Paytabs
 {
-    public string $profile_id;
+    public int $profile_id;
 
-    public string $invoice_id;
+    public int $invoice_id;
 
     public string $invoice_currency;
-    public string $invoice_total;
+    public float $invoice_total;
 
     public string $pay_method;
+    public InvoiceExternalPayMethod $payMethod;
+
     public string $pay_description;
 
     public string $tran_ref;
+
+    public function setPayMethod(string $payMethod): void
+    {
+        $this->pay_method = $payMethod;
+        $this->payMethod = InvoiceExternalPayMethod::tryFrom(strtolower($payMethod)) ?? InvoiceExternalPayMethod::Unknown;
+    }
 }

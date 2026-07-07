@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request\Payload;
 
 use Paytabs\Sdk\Response\Payload\PayloadInterface as ResponsePayload;

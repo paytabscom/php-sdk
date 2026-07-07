@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Enums\HttpType;

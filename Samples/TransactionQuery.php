@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\RequestsFactory;
