@@ -10,4 +10,6 @@ enum InvoiceExternalPayMethod: string
     case Cheque = 'cheque';
     case Bank = 'bank';
     case POS = 'pos';
+
+    case Unknown = 'unknown';
 }
