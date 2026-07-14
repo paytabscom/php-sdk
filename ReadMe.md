@@ -109,6 +109,7 @@ ResponsePayload::setStrictMode(false);
 
 ## Documentation
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/paytabscom/php-sdk)
 - Architecture: [ARCHITECTURE.md](ARCHITECTURE.md)
 - Diagrams: [docs/diagrams](docs/diagrams)
 - Payment Request guide: [docs/usage/PaymentRequest.md](docs/usage/PaymentRequest.md)
