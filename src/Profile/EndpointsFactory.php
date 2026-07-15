@@ -62,7 +62,8 @@ final class EndpointsFactory
     }
 
     /**
-     * @return array<string, string> an associative array where the keys are the endpoint codes and the values are the endpoint titles
+     * @return array<string, string> an associative array
+     *                               where the keys are the endpoint codes and the values are the endpoint titles
      */
     public static function getAllEndpointsAsList(): array
     {

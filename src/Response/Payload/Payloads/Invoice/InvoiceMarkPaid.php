@@ -26,6 +26,8 @@ class InvoiceMarkPaid extends Paytabs
     public function setPayMethod(string $payMethod): void
     {
         $this->pay_method = $payMethod;
-        $this->payMethod = InvoiceExternalPayMethod::tryFrom(strtolower($payMethod)) ?? InvoiceExternalPayMethod::Unknown;
+        $this->payMethod
+            = InvoiceExternalPayMethod::tryFrom(strtolower($payMethod))
+            ?? InvoiceExternalPayMethod::Unknown;
     }
 }
