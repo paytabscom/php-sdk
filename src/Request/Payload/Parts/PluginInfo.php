@@ -13,11 +13,11 @@ class PluginInfo extends AbstractPart
     private string $pluginVersion;
 
     public function __construct(
-        ?string $platformName,
-        ?string $platformVersion,
-        ?string $pluginVersion
+        ?string $platformName = null,
+        ?string $platformVersion = null,
+        ?string $pluginVersion = null
     ) {
-        $this->platformName = $platformName ?? 'PHP';
+        $this->platformName = $platformName ?? 'PHP SDK';
         $this->platformVersion = $platformVersion ?? PHP_VERSION;
         $this->pluginVersion = $pluginVersion ?? Paytabs::getVersion();
     }

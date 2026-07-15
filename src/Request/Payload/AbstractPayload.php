@@ -18,7 +18,7 @@ abstract class AbstractPayload implements PayloadInterface
         $this->buildPart($part, HttpRequestPart::Header);
     }
 
-    public function buildBody(array|PartInterface $part, bool $merge = true): void
+    public function buildBody(array|PartInterface $part, bool $merge = false): void
     {
         $this->buildPart($part, HttpRequestPart::Body, $merge);
     }
