@@ -13,10 +13,20 @@ class Urls extends AbstractPart
 
     public function __construct(
         ?string $returnUrl,
-        ?string $callbackUrl
+        ?string $callbackUrl = null
     ) {
-        $this->returnUrl = $returnUrl;
-        $this->callbackUrl = $callbackUrl;
+        if ($returnUrl) {
+            if (!filter_var($returnUrl, FILTER_VALIDATE_URL)) {
+                throw new \InvalidArgumentException('Invalid return URL');
+            }
+            $this->returnUrl = $returnUrl;
+        }
+        if ($callbackUrl) {
+            if (!filter_var($callbackUrl, FILTER_VALIDATE_URL)) {
+                throw new \InvalidArgumentException('Invalid callback URL');
+            }
+            $this->callbackUrl = $callbackUrl;
+        }
     }
 
     public function setReturnUsingGet(bool $returnUsingGet = false): self
@@ -28,13 +38,18 @@ class Urls extends AbstractPart
 
     public function build(): array
     {
-        $arr = [
-            'return' => $this->returnUrl,
-            'callback' => $this->callbackUrl,
-        ];
+        $arr = [];
 
-        if ($this->returnUsingGet) {
-            $arr['return_using_get'] = true;
+        if (isset($this->returnUrl)) {
+            $arr['return'] = $this->returnUrl;
+
+            if ($this->returnUsingGet) {
+                $arr['return_using_get'] = true;
+            }
+        }
+
+        if (isset($this->callbackUrl)) {
+            $arr['callback'] = $this->callbackUrl;
         }
 
         return $arr;
