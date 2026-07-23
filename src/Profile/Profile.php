@@ -39,6 +39,11 @@ class Profile extends AbstractPayload
         return $this->serverKey;
     }
 
+    public function getServerKeyPrefix(): string
+    {
+        return substr($this->serverKey, 0, 10);
+    }
+
     public function getUrl(): string
     {
         return $this->endpoint->getUrl();
