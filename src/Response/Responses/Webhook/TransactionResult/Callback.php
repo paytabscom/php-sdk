@@ -35,6 +35,11 @@ class Callback extends AbstractTransactionResult
         return new self($jsonPayload, $headers);
     }
 
+    public function getProfileId(): int
+    {
+        return $this->getCallbackPayload()->profile_id;
+    }
+
     public function getTranRef(): string
     {
         return $this->getCallbackPayload()->tran_ref;

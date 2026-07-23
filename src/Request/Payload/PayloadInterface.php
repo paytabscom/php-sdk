@@ -25,5 +25,5 @@ interface PayloadInterface
 
     public function getPath(bool $removeNulls = true): array;
 
-    public function exists(string $key, ?HttpRequestPart $httpPart): bool;
+    public function exists(string $key, ?HttpRequestPart $httpPart = null): bool;
 }

@@ -44,4 +44,9 @@ class Browser extends Paytabs
             ]);
         }
     }
+
+    public function isTransactionSuccessful(): bool
+    {
+        return $this->tranStatus->isSuccessful();
+    }
 }

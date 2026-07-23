@@ -37,7 +37,7 @@ abstract class PaymentRequest extends PaytabsBuilder
         return $this;
     }
 
-    public function buildURLs(?string $return_url, ?string $callback_url, bool $returnUsingGet = false)
+    public function buildURLs(?string $return_url, ?string $callback_url = null, bool $returnUsingGet = false)
     {
         $urls = new Urls(
             $return_url,
