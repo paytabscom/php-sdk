@@ -8,6 +8,6 @@ final class InvalidSignatureException extends \RuntimeException
 {
     public static function mismatch(string $keyPrefix): self
     {
-        return new self('Invalid signature, ' . $keyPrefix);
+        return new self('Invalid signature, '.$keyPrefix);
     }
 }
