@@ -26,6 +26,16 @@ class PaymentResult
         $this->tranStatus = TranStatus::tryFrom(strtoupper($response_status)) ?? TranStatus::Unknown;
     }
 
+    public function isSuccessful(): bool
+    {
+        return $this->tranStatus->isSuccessful();
+    }
+
+    public function isFailed(): bool
+    {
+        return $this->tranStatus->isFailed();
+    }
+
     public function toString(): string
     {
         return sprintf(

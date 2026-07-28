@@ -55,6 +55,6 @@ class Completed extends Payment
 
     public function isPaymentSuccessful(): bool
     {
-        return $this->payment_result->tranStatus->isSuccessful();
+        return $this->payment_result->isSuccessful();
     }
 }
