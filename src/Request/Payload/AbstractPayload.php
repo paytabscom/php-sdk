@@ -18,7 +18,7 @@ abstract class AbstractPayload implements PayloadInterface
         $this->buildPart($part, HttpRequestPart::Header);
     }
 
-    public function buildBody(array|PartInterface $part, bool $merge = true): void
+    public function buildBody(array|PartInterface $part, bool $merge = false): void
     {
         $this->buildPart($part, HttpRequestPart::Body, $merge);
     }
@@ -53,7 +53,7 @@ abstract class AbstractPayload implements PayloadInterface
         return $this->get($this->headers, $removeNulls);
     }
 
-    public function exists(string $key, ?HttpRequestPart $httpPart): bool
+    public function exists(string $key, ?HttpRequestPart $httpPart = null): bool
     {
         if (null === $httpPart) {
             return \array_key_exists($key, $this->headers)

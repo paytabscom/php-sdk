@@ -43,6 +43,7 @@ $payload
 $request = RequestsFactory::createPaymentRequest($payload);
 
 $paytabs = Paytabs::getInstance($profile, null, $logger);
+$paytabs->setRequest($request);
 
 try {
 	$response = $paytabs->submit();
