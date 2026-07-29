@@ -57,4 +57,9 @@ class Completed extends Payment
     {
         return $this->payment_result->isSuccessful();
     }
+
+    public function isPaymentFailed(): bool
+    {
+        return $this->payment_result->isFailed();
+    }
 }
