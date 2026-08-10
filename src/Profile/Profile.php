@@ -46,6 +46,11 @@ class Profile extends AbstractPayload
         ));
     }
 
+    public function getProfileId(): int
+    {
+        return $this->profileId;
+    }
+
     public function getServerKey(): string
     {
         return $this->serverKey;

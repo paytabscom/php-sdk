@@ -64,6 +64,11 @@ class Callback extends AbstractTransactionResult
         return !empty($this->headers['signature']);
     }
 
+    protected function isSameProfile(): bool
+    {
+        return $this->getCallbackPayload()->profile_id === $this->getProfileId();
+    }
+
     protected function prepareHashablePayload(): string
     {
         return $this->payload->getResponseData();
