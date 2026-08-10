@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Paytabs\Sdk\Enums\TranStatus;
-use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Browser as BrowserPayload;
+use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Browser;
 use Paytabs\Sdk\Response\Responses\Webhook\AbstractTransactionResult;
 
 abstract class AbstractBrowser extends AbstractTransactionResult
@@ -14,7 +14,7 @@ abstract class AbstractBrowser extends AbstractTransactionResult
 
     public function __construct(string $response, array $requestArray, array $localParams)
     {
-        $this->payload = new BrowserPayload();
+        $this->payload = new Browser();
 
         parent::__construct($response, [], $localParams);
 
@@ -57,6 +57,11 @@ abstract class AbstractBrowser extends AbstractTransactionResult
         return !empty($requestValues['signature']);
     }
 
+    protected function isSameProfile(): bool
+    {
+        return true;
+    }
+
     protected function prepareHashablePayload(): string
     {
         $requestValues = $this->requestArray;
@@ -72,7 +77,7 @@ abstract class AbstractBrowser extends AbstractTransactionResult
         // Remove null/empty-string fields only; preserve values like "0" for signature stability.
         $fields = array_filter(
             $requestValues,
-            static fn ($value): bool => null !== $value && '' !== $value
+            static fn($value): bool => null !== $value && '' !== $value
         );
 
         // Sort form fields.
@@ -89,9 +94,9 @@ abstract class AbstractBrowser extends AbstractTransactionResult
         return $requestValues['signature'];
     }
 
-    private function getBrowserPayload(): BrowserPayload
+    private function getBrowserPayload(): Browser
     {
-        if (!$this->payload instanceof BrowserPayload) {
+        if (!$this->payload instanceof Browser) {
             throw new \LogicException('Browser payload is not initialized.');
         }
 

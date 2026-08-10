@@ -53,6 +53,10 @@ abstract class AbstractTransactionResult extends AbstractResponseWebhook
             return false;
         }
 
+        if (!$this->isSameProfile()) {
+            return false;
+        }
+
         $data = $this->prepareHashablePayload();
         $requestSignature = $this->getServerSignature();
         $serverKey = $this->getServerKey();
@@ -88,6 +92,8 @@ abstract class AbstractTransactionResult extends AbstractResponseWebhook
      */
     abstract protected function isValid(): bool;
 
+    abstract protected function isSameProfile(): bool;
+
     /**
      * @return string The payload that should be hashed
      */
@@ -101,5 +107,10 @@ abstract class AbstractTransactionResult extends AbstractResponseWebhook
     protected function getServerKey(): string
     {
         return $this->profile->getServerKey();
+    }
+
+    public function getProfileId(): int
+    {
+        return $this->profile->getProfileId();
     }
 }
