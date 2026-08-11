@@ -41,6 +41,19 @@ enum TranType: string
         return \in_array($this, $recurring, true);
     }
 
+    public function isFollowup(): bool
+    {
+        $followup = [
+            TranType::AuthExt,
+            TranType::Capture,
+            TranType::Void,
+            TranType::Release,
+            TranType::Refund,
+        ];
+
+        return \in_array($this, $followup, true);
+    }
+
     /** @todo */
     public function isPaymentComplete(object $ipn_data): bool
     {
