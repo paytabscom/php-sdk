@@ -14,7 +14,7 @@ use Psr\Log\NullLogger;
 class Paytabs
 {
     // Version
-    public const VERSION = '3.2.5';
+    public const VERSION = '3.2.6';
 
     protected Profile $profile;
     protected Http $http;
