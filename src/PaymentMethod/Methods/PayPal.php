@@ -11,7 +11,7 @@ final class PayPal extends AbstractMethod
     public const ID = 50;
 
     public const CODE = 'paypal';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - PayPal';
 

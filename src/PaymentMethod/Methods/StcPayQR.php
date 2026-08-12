@@ -11,7 +11,7 @@ final class StcPayQR extends AbstractMethod
     public const ID = 111;
 
     public const CODE = 'stcpayqr';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - STC Pay (QR)';
 

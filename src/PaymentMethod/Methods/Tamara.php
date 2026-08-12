@@ -11,7 +11,7 @@ final class Tamara extends AbstractMethod
     public const ID = 135;
 
     public const CODE = 'tamara';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - Tamara';
 

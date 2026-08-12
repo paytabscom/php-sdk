@@ -51,7 +51,7 @@ if ($response->isFailure()) {
 } elseif ($response->isRedirect()) {
     /** @var Redirect $resClassed */
     $resClassed = $response->getRedirect();
-    $logger->info('Redirect URL: '.$resClassed->redirect_url);
+    $logger->info('Redirect URL: ' . $resClassed->redirect_url);
 } else {
     $resClassed = $response->getPayload()->getMapped();
 }

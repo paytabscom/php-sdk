@@ -11,7 +11,7 @@ final class KNetDebit extends AbstractMethod
     public const ID = 703;
 
     public const CODE = 'knetdebit';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - KNet (Debit)';
 

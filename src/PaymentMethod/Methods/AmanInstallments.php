@@ -11,7 +11,7 @@ final class AmanInstallments extends AbstractMethod
     public const ID = 306;
 
     public const CODE = 'amaninstallment';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [
         'amaninstallments',

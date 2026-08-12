@@ -11,7 +11,7 @@ final class Forsa extends AbstractMethod
     public const ID = 315;
 
     public const CODE = 'forsa';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - Forsa';
 

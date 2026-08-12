@@ -1,7 +1,7 @@
 <?php
 
 // APP_ROOT points to the root directory of the library
-define('APP_ROOT', realpath(__DIR__).'/../');
+define('APP_ROOT', realpath(__DIR__) . '/../');
 
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\PaytabsLogger;
@@ -9,9 +9,9 @@ use Paytabs\Sdk\Profile\EndpointsFactory;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Profile\ProfilesFactory;
 
-require_once APP_ROOT.'vendor/autoload.php';
+require_once APP_ROOT . 'vendor/autoload.php';
 
-include_once APP_ROOT.'Samples/config.php';
+include_once APP_ROOT . 'Samples/config.php';
 
 $_endpoint = getConfig('ENDPOINT');
 $_profileId = (int) getConfig('PROFILE_ID');
@@ -45,8 +45,8 @@ if ($return) {
 $trxRef = getConfig('TRANSACTION_REF');
 
 $urlBase = getConfig('APP_URL');
-$urlCallback = $urlBase.'?result=1';
-$urlReturn = $urlBase.'?result=1&mode=return';
+$urlCallback = $urlBase . '?result=1';
+$urlReturn = $urlBase . '?result=1&mode=return';
 
 $_token = getConfig('TOKEN');
 $_tokenEnhanced = getConfig('TOKEN_ENHANCED');
@@ -65,97 +65,97 @@ $samples = [
     ],
     1 => [
         'Payment Request',
-        APP_ROOT.'Samples/PaymentRequest.php',
+        APP_ROOT . 'Samples/PaymentRequest.php',
     ],
     5 => [
         'Payment Request (Basic)',
-        APP_ROOT.'Samples/PaymentRequestSimple.php',
+        APP_ROOT . 'Samples/PaymentRequestSimple.php',
     ],
     2 => [
         'Own Form',
-        APP_ROOT.'Samples/OwnForm.php',
+        APP_ROOT . 'Samples/OwnForm.php',
     ],
     3 => [
         'Recurring Payment',
-        APP_ROOT.'Samples/RecurringRequest.php',
+        APP_ROOT . 'Samples/RecurringRequest.php',
     ],
     4 => [
         'Managed Form',
-        APP_ROOT.'Samples/ManagedForm.php',
+        APP_ROOT . 'Samples/ManagedForm.php',
     ],
     1010 => [
         'Query',
     ],
     10 => [
         'Token Query',
-        APP_ROOT.'Samples/TokenQuery.php',
+        APP_ROOT . 'Samples/TokenQuery.php',
     ],
     11 => [
         'Token Delete',
-        APP_ROOT.'Samples/TokenDelete.php',
+        APP_ROOT . 'Samples/TokenDelete.php',
     ],
     12 => [
         'Transaction Query',
-        APP_ROOT.'Samples/TransactionQuery.php',
+        APP_ROOT . 'Samples/TransactionQuery.php',
     ],
     1020 => [
         'Follow Up',
     ],
     20 => [
         'Refund',
-        APP_ROOT.'Samples/RefundRequest.php',
+        APP_ROOT . 'Samples/RefundRequest.php',
     ],
     1030 => [
         'Result Handling',
     ],
     30 => [
         'Result Browser',
-        APP_ROOT.'Samples/ResultBrowser.php',
+        APP_ROOT . 'Samples/ResultBrowser.php',
     ],
     31 => [
         'Result Callback',
-        APP_ROOT.'Samples/ResultCallback.php',
+        APP_ROOT . 'Samples/ResultCallback.php',
     ],
     1040 => [
         'Invoices',
     ],
     40 => [
         'New Invoice',
-        APP_ROOT.'Samples/InvoiceNew.php',
+        APP_ROOT . 'Samples/InvoiceNew.php',
     ],
     41 => [
         'Invoice Status GET',
-        APP_ROOT.'Samples/InvoiceStatusGet.php',
+        APP_ROOT . 'Samples/InvoiceStatusGet.php',
     ],
     42 => [
         'Invoice Status POST',
-        APP_ROOT.'Samples/InvoiceStatus.php',
+        APP_ROOT . 'Samples/InvoiceStatus.php',
     ],
     43 => [
         'Invoice Cancel',
-        APP_ROOT.'Samples/InvoiceCancel.php',
+        APP_ROOT . 'Samples/InvoiceCancel.php',
     ],
     44 => [
         'Invoice Send SMS',
-        APP_ROOT.'Samples/InvoiceSms.php',
+        APP_ROOT . 'Samples/InvoiceSms.php',
     ],
     45 => [
         'Invoice Mark as Paid',
-        APP_ROOT.'Samples/InvoiceMarkPaid.php',
+        APP_ROOT . 'Samples/InvoiceMarkPaid.php',
     ],
     1050 => [
         'Factory Samples',
     ],
     50 => [
         'Payment Methods',
-        APP_ROOT.'Samples/PaymentMethods.php',
+        APP_ROOT . 'Samples/PaymentMethods.php',
     ],
 ];
 
 $sampleId = filter_input(INPUT_GET, 'sample', FILTER_VALIDATE_INT);
 if ($sampleId) {
     echo '<a href="?">Back</a><br>';
-    echo '<h2>'.$samples[$sampleId][0].'</h2><br>';
+    echo '<h2>' . $samples[$sampleId][0] . '</h2><br>';
 
     include_once $samples[$sampleId][1];
 

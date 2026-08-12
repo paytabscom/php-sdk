@@ -10,10 +10,16 @@ Thanks for your interest in improving the PayTabs PHP SDK.
 composer install
 ```
 
-2. Run coding style checks (if configured in your environment):
+2. Check coding style (PHP CS Fixer, PER-CS):
 
 ```bash
-vendor/bin/php-cs-fixer fix --dry-run --diff
+composer lint
+```
+
+To apply fixes automatically:
+
+```bash
+composer format
 ```
 
 3. Run tests:

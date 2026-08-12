@@ -11,7 +11,7 @@ final class Souhoola extends AbstractMethod
     public const ID = 345;
 
     public const CODE = 'souhoola';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - Souhoola';
 
