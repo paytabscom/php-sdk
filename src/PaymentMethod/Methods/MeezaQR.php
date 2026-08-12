@@ -11,7 +11,7 @@ final class MeezaQR extends AbstractMethod
     public const ID = 341;
 
     public const CODE = 'meezaqr';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [
         'qr',

@@ -35,7 +35,7 @@ class Profile extends AbstractPayload
 
         $this->buildHeader(new GenericPart(
             [
-                'Authorization: '.$this->serverKey,
+                'Authorization: ' . $this->serverKey,
             ]
         ));
 

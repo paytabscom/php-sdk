@@ -9,7 +9,7 @@ function getConfig(string $key, $default = null): mixed
     static $env = null;
 
     if (null === $env) {
-        $envPath = __DIR__.'/.env';
+        $envPath = __DIR__ . '/.env';
         $env = parse_ini_file($envPath);
 
         if (false === $env) {

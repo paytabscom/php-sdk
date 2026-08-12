@@ -11,7 +11,7 @@ final class OmanNet extends AbstractMethod
     public const ID = 401;
 
     public const CODE = 'omannet';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - OmanNet';
 

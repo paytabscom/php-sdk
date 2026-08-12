@@ -11,7 +11,7 @@ final class StcPay extends AbstractMethod
     public const ID = 110;
 
     public const CODE = 'stcpay';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [
         'stc',

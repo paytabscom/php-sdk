@@ -11,7 +11,7 @@ final class Installments extends AbstractMethod
     public const ID = 330;
 
     public const CODE = 'installments';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [
         'installment',

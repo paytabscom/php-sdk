@@ -11,7 +11,7 @@ final class Halan extends AbstractMethod
     public const ID = 320;
 
     public const CODE = 'halan';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - Halan';
 

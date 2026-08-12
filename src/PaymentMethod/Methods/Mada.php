@@ -11,7 +11,7 @@ final class Mada extends AbstractMethod
     public const ID = 101;
 
     public const CODE = 'mada';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - mada';
 

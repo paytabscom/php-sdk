@@ -32,21 +32,21 @@ abstract class AbstractLogger extends PsrAbstractLogger
     {
         $_prefix
             = date('c')
-            .' '
-            .$this->logPrefix
-            .'.'
-            .$level
-            .': ';
+            . ' '
+            . $this->logPrefix
+            . '.'
+            . $level
+            . ': ';
 
         $_userMessage = $this->interpolate($message, $context);
 
         $_context = json_encode($context);
 
         return $_prefix
-            .$_userMessage
-            .' '
-            .$_context
-            .PHP_EOL;
+            . $_userMessage
+            . ' '
+            . $_context
+            . PHP_EOL;
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
         foreach ($context as $key => $val) {
             // check that the value can be cast to string
             if (!\is_array($val) && (!\is_object($val) || method_exists($val, '__toString'))) {
-                $replace['{'.$key.'}'] = $val;
+                $replace['{' . $key . '}'] = $val;
             }
         }
 

@@ -11,7 +11,7 @@ final class UrPay extends AbstractMethod
     public const ID = 140;
 
     public const CODE = 'urpay';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - UrPay';
 

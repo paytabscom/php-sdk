@@ -11,7 +11,7 @@ final class Tru extends AbstractMethod
     public const ID = 350;
 
     public const CODE = 'tru';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [
         'shahry',

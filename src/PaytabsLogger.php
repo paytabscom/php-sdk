@@ -46,12 +46,12 @@ class PaytabsLogger
             $basePath = rtrim(sys_get_temp_dir(), \DIRECTORY_SEPARATOR);
         }
 
-        $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR;
+        $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
         if (!is_dir($basePath)) {
             try {
                 mkdir($basePath, 0o775, true);
             } catch (\Throwable $e) {
-                error_log('Failed to create log directory: '.$basePath.' - '.$e->getMessage());
+                error_log('Failed to create log directory: ' . $basePath . ' - ' . $e->getMessage());
                 // throw new \RuntimeException('Failed to create log directory: ' . $basePath, 0, $e);
             }
         }
@@ -60,10 +60,10 @@ class PaytabsLogger
 
         if (static::LOG_DAILY) {
             $time = date('Y-m-d');
-            $logFile .= '-'.$time;
+            $logFile .= '-' . $time;
         }
 
-        return $basePath.$logFile.static::LOG_FILE_EXTENSION;
+        return $basePath . $logFile . static::LOG_FILE_EXTENSION;
     }
 
     private static function createLogger(bool $browserLog): LoggerInterface

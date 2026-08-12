@@ -11,7 +11,7 @@ final class KNet extends AbstractMethod
     public const ID = 701;
 
     public const CODE = 'knet';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - KNet';
 

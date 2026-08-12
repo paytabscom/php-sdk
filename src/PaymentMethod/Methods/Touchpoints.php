@@ -11,7 +11,7 @@ final class Touchpoints extends AbstractMethod
     public const ID = 202;
 
     public const CODE = 'touchpoints';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const CODE_ALIASES = [
         'adcbtouchpoints',

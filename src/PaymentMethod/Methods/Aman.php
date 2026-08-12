@@ -11,7 +11,7 @@ final class Aman extends AbstractMethod
     public const ID = 305;
 
     public const CODE = 'aman';
-    public const PT_CODE = 'paytabs_'.self::CODE;
+    public const PT_CODE = 'paytabs_' . self::CODE;
 
     public const TITLE = 'PayTabs - Aman';
 
