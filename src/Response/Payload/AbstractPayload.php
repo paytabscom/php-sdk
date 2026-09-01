@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Response\Payload;
 
+use Paytabs\Sdk\Exceptions\UnexpectedResponseStageException;
 use Paytabs\Sdk\Helpers\Helpers;
 
 abstract class AbstractPayload implements PayloadInterface
@@ -53,7 +54,7 @@ abstract class AbstractPayload implements PayloadInterface
     public function unMappedData(): array
     {
         if (empty($this->payloadRaw)) {
-            throw new \Exception('Payload data is missed');
+            throw UnexpectedResponseStageException::missingPayload();
         }
         $json = json_decode($this->payloadRaw, true);
 

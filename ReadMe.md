@@ -128,11 +128,14 @@ Catch a specific class when you need to react differently:
 | Exception | Raised when | Extends |
 | --- | --- | --- |
 | `HttpRequestException` | Transport failure (DNS, TLS, timeout), or a non-2xx response with an empty or non-JSON body | `\RuntimeException` |
+| `GatewayFailureException` | The gateway refused the request and returned a `code`/`message` — authentication failure, invalid currency, duplicate request | `\RuntimeException` |
 | `InvalidConfigurationException` | Required configuration is missing, such as a profile | `\RuntimeException` |
 | `InvalidSignatureException` | `assertGenuine()` rejected a webhook or browser callback | `\RuntimeException` |
 | `MissingResponseFieldException` | The gateway omitted a field the SDK needs | `\RuntimeException` |
 | `UnknownResponseValueException` | Strict mapping mode hit an unrecognised enum value | `\RuntimeException` |
 | `EndpointNotFoundException` | An unknown endpoint code was requested | `\InvalidArgumentException` |
+| `UnexpectedResponseStageException` | A stage accessor was called out of turn, e.g. `getFailure()` without `isFailure()` | `\LogicException` |
+| `UnsupportedPayloadOperationException` | A builder was asked for something its transaction type forbids, e.g. payment methods on an Own Form | `\BadMethodCallException` |
 
 Because each class still extends the same SPL type as before, existing
 `catch (\RuntimeException)` code keeps working unchanged.

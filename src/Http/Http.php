@@ -183,11 +183,15 @@ class Http
         fclose($this->debugStream);
         $this->debugStream = null;
 
+        // cURL uses CRLF for header lines; splitting on "\n" alone left a
+        // stray \r on each element.
+        $lines = preg_split('/\r\n|\r|\n/', $trace) ?: [];
+
         $redacted = implode(
             PHP_EOL,
             array_map(
                 static fn(string $line): string => Redactor::headerLine($line),
-                explode("\n", $trace)
+                $lines
             )
         );
 

@@ -38,9 +38,10 @@ call the status predicates or implement any SDK interface.
   `LineItem::setPrice(int, float, ?float)` (`$netTotal` is now optional).
   Only affects callers that passed an array, or classes implementing
   `ResponseInterface` / `PayloadInterface` directly.
-- **`Http::setLogger()` gained an optional `bool $debugMode` second argument.**
-  Source-compatible for callers; a breaking signature change only for subclasses
-  that override it.
+- **`Paytabs::setLogger()` gained an optional `bool $debugMode` second argument**,
+  which forwards to `Http::setDebugMode()`. Source-compatible for callers; a
+  breaking signature change only for subclasses that override it.
+  `Http::setLogger()` itself is unchanged and still takes one argument.
 
 ### Added
 
@@ -50,6 +51,10 @@ call the status predicates or implement any SDK interface.
   `catch (\RuntimeException)` blocks keep working.
 - `MissingResponseFieldException`, thrown when the gateway omits a field the SDK
   needs, replacing an uninitialised-property `Error`.
+- `GatewayFailureException`, `UnexpectedResponseStageException` and
+  `UnsupportedPayloadOperationException`, replacing the last bare `\Exception`
+  throws in `src/`. Every error the SDK raises is now catchable through
+  `PaytabsExceptionInterface`.
 - `AbstractTransactionResult::assertGenuine()` — a fail-closed counterpart to
   `isGenuine()` that throws `InvalidSignatureException` rather than returning
   `false`, so a forged webhook cannot be processed by forgetting a check.
