@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Exceptions;
 
-class InvalidConfigurationException extends \RuntimeException
+class InvalidConfigurationException extends \RuntimeException implements PaytabsExceptionInterface
 {
     public static function missing(string $key): self
     {

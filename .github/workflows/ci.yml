@@ -5,12 +5,84 @@ on:
   pull_request:
 
 jobs:
-  quality:
+  lint:
+    name: Lint & validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # Lint runs on a single version on purpose: the php-cs-fixer `@auto`
+          # ruleset adapts to the PHP version, so running it across the test
+          # matrix would report different fixes per job.
+          php-version: '8.4'
+          extensions: curl, json
+          coverage: none
+
+      - name: Validate composer
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer update --no-interaction --prefer-dist --no-progress
+
+      - name: Check code style
+        run: composer lint
+
+      - name: Audit dependencies for known vulnerabilities
+        run: composer audit
+
+  runtime-php81:
+    name: Runtime only PHP 8.1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 8.1 is the declared runtime floor, but the dev toolchain needs 8.2+
+      # (PHPUnit 11 dropped 8.1). This job runs only what a consumer runs in
+      # production, so the floor stays verified without the dev dependencies.
+      - name: Setup PHP 8.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: curl, json
+          coverage: none
+
+      - name: Validate composer
+        run: composer validate --strict --no-check-lock
+
+      # --no-dev still resolves require-dev, which cannot install here, so the
+      # dev entries are dropped from the manifest copy first.
+      - name: Drop dev dependencies
+        run: composer remove --dev --no-update --no-interaction phpunit/phpunit friendsofphp/php-cs-fixer
+
+      - name: Install runtime dependencies
+        run: composer update --no-dev --no-interaction --prefer-dist --no-progress
+
+      - name: Audit dependencies for known vulnerabilities
+        run: composer audit --no-dev
+
+  test:
+    name: Test PHP ${{ matrix.php-version }} (${{ matrix.dependencies }})
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        php-version: ['8.1']
+        # Starts at 8.2, not the 8.1 runtime floor: PHPUnit 11+ requires 8.2.
+        # The php81-compat job covers 8.1.
+        php-version: ['8.2', '8.3', '8.4']
+        dependencies: ['highest']
+        include:
+          # Guards against declared constraints being looser than what the
+          # code actually needs.
+          - php-version: '8.2'
+            dependencies: 'lowest'
 
     steps:
       - name: Checkout
@@ -20,16 +92,27 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          coverage: none
+          extensions: curl, json
+          coverage: xdebug
 
-      - name: Validate composer
-        run: composer validate --strict
+      # composer.lock is intentionally untracked (this is a library), so
+      # dependencies are resolved fresh against the runner's PHP version.
+      - name: Install dependencies (highest)
+        if: matrix.dependencies == 'highest'
+        run: composer update --no-interaction --prefer-dist --no-progress
 
-      - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Lint
-        run: composer lint
+      - name: Install dependencies (lowest)
+        if: matrix.dependencies == 'lowest'
+        run: composer update --no-interaction --prefer-dist --no-progress --prefer-lowest
 
       - name: Test
+        env:
+          XDEBUG_MODE: 'off'
         run: composer test
+
+      # Reported, not gated: PHPUnit has no built-in minimum-coverage option.
+      - name: Test with coverage
+        if: matrix.php-version == '8.4' && matrix.dependencies == 'highest'
+        env:
+          XDEBUG_MODE: coverage
+        run: vendor/bin/phpunit --coverage-text --only-summary-for-coverage-text

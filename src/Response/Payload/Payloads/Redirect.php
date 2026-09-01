@@ -6,10 +6,10 @@ namespace Paytabs\Sdk\Response\Payload\Payloads;
 
 class Redirect extends Payment
 {
-    public string $callback;
-    public string $return;
+    public ?string $callback = null;
+    public ?string $return = null;
 
-    public string $redirect_url;
+    public ?string $redirect_url = null;
 
-    public int $serviceId;
+    public ?int $serviceId = null;
 }

@@ -38,15 +38,35 @@ abstract class AbstractLogger extends PsrAbstractLogger
             . $level
             . ': ';
 
-        $_userMessage = $this->interpolate($message, $context);
+        $_safeContext = Redactor::context($context);
 
-        $_context = json_encode($context);
+        // Interpolate from the redacted context so a `{pan}` placeholder cannot
+        // reintroduce cardholder data into the message.
+        $_userMessage = Redactor::singleLine($this->interpolate($message, $_safeContext));
 
         return $_prefix
             . $_userMessage
             . ' '
-            . $_context
+            . $this->encodeContext($_safeContext)
             . PHP_EOL;
+    }
+
+    /**
+     * Never returns `false`: on invalid UTF-8 a bare json_encode() would drop
+     * the entire context silently.
+     */
+    protected function encodeContext(array $context): string
+    {
+        $encoded = json_encode(
+            $context,
+            JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR
+        );
+
+        if (false === $encoded) {
+            return '{"_log_error":"context could not be encoded"}';
+        }
+
+        return $encoded;
     }
 
     /**

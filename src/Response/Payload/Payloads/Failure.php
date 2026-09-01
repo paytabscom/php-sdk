@@ -6,8 +6,8 @@ namespace Paytabs\Sdk\Response\Payload\Payloads;
 
 class Failure extends Paytabs
 {
-    public int $code;
-    public string $message;
+    public ?int $code = null;
+    public ?string $message = null;
 
     public function throwException(): void
     {

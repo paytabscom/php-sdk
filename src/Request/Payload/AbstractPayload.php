@@ -136,8 +136,19 @@ abstract class AbstractPayload implements PayloadInterface
     {
         foreach ($array as $key => $value) {
             if (\is_array($value)) {
-                $array[$key] = $this->filterNulls($value);
+                $filtered = $this->filterNulls($value);
+
+                // Test the *filtered* result, not the original.
+                // Emit the empty arrays those might come up after filtering.
+                if ([] === $filtered) {
+                    unset($array[$key]);
+                } else {
+                    $array[$key] = $filtered;
+                }
+
+                continue;
             }
+
             if (null === $value || '' === $value) {
                 unset($array[$key]);
             }

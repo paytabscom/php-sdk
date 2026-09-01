@@ -18,6 +18,15 @@ abstract class PaytabsRequest extends AbstractRequest
 
     public function getHeaders(): array
     {
-        return $this->profile->getHeaders();
+        return array_merge(
+            $this->profile->getHeaders(),
+            [
+                // The body is JSON, but cURL given a string CURLOPT_POSTFIELDS
+                // defaults to application/x-www-form-urlencoded. Without this
+                // the SDK relied on the gateway sniffing the body.
+                'Content-Type: application/json',
+                'Accept: application/json',
+            ]
+        );
     }
 }

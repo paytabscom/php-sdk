@@ -8,14 +8,12 @@ use Paytabs\Sdk\Helpers\Helpers;
 
 abstract class AbstractPayload implements PayloadInterface
 {
-    private mixed $payloadRaw;
+    private string $payloadRaw;
 
-    public function setResponseData(array|string $data): static
+    public function setResponseData(string $data): static
     {
-        if (!\is_array($data)) {
-            if (!Helpers::jsonValidate($data)) {
-                throw new \JsonException('Invalid Payload JSON data');
-            }
+        if (!Helpers::jsonValidate($data)) {
+            throw new \JsonException('Invalid Payload JSON data');
         }
 
         $this->payloadRaw = $data;
@@ -23,13 +21,21 @@ abstract class AbstractPayload implements PayloadInterface
         return $this;
     }
 
-    public function getResponseData(): array|string
+    public function getResponseData(): string
     {
         return $this->payloadRaw;
     }
 
+    /**
+     * @throws \InvalidArgumentException if the payload is not valid or cannot be mapped.
+     * @return static
+     */
     abstract public function getMapped(): static;
 
+    /**
+     * @throws \InvalidArgumentException if the payload is not valid or cannot be mapped.
+     * @return PayloadInterface
+     */
     public function getMappedAs(PayloadInterface $class): PayloadInterface
     {
         $class->setResponseData($this->getResponseData());
@@ -41,16 +47,12 @@ abstract class AbstractPayload implements PayloadInterface
     {
         $data = $this->payloadRaw;
 
-        if (\is_array($this->payloadRaw)) {
-            $data = json_encode($this->payloadRaw);
-        }
-
         return json_decode($data, false);
     }
 
     public function unMappedData(): array
     {
-        if (null === $this->payloadRaw) {
+        if (empty($this->payloadRaw)) {
             throw new \Exception('Payload data is missed');
         }
         $json = json_decode($this->payloadRaw, true);

@@ -29,7 +29,7 @@ enum TranStatus: string
 
     public function isFailed(): bool
     {
-        return !($this->isSuccessful() || $this->isNotFinal());
+        return !($this->isSuccessful() || $this->isNotFinal() || $this->isUnknown());
     }
 
     public function isOnHold(): bool
@@ -45,5 +45,10 @@ enum TranStatus: string
     public function isExpired(): bool
     {
         return TranStatus::Expired === $this;
+    }
+
+    public function isUnknown(): bool
+    {
+        return TranStatus::Unknown === $this;
     }
 }

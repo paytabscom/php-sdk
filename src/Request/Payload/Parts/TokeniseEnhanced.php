@@ -12,12 +12,12 @@ class TokeniseEnhanced extends AbstractPart
     private TokenType $tokenType;
     private int $tokenFormat = 2;
 
-    private ?TokenPaymentFrequency $paymentFrequency;
-    private ?float $minAmountPerPayment;
-    private ?float $maxAmountPerPayment;
-    private ?int $minDaysBetweenPayments;
-    private ?string $startDate;
-    private ?string $expiryDate;
+    private ?TokenPaymentFrequency $paymentFrequency = null;
+    private ?float $minAmountPerPayment = null;
+    private ?float $maxAmountPerPayment = null;
+    private ?int $minDaysBetweenPayments = null;
+    private ?string $startDate = null;
+    private ?string $expiryDate = null;
 
     private ?int $counter = null;
     private ?int $totalCount = null;
@@ -79,7 +79,7 @@ class TokeniseEnhanced extends AbstractPart
             'counter' => $this->counter,
             'total_count' => $this->totalCount,
 
-            'payment_frequency' => $this->paymentFrequency->value,
+            'payment_frequency' => $this->paymentFrequency?->value,
             'min_amount_per_payment' => $this->minAmountPerPayment,
             'max_amount_per_payment' => $this->maxAmountPerPayment,
             'min_days_between_payments' => $this->minDaysBetweenPayments,

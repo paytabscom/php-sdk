@@ -1,14 +1,14 @@
 # Webhook Verification
 
-- Version: `1.0.0`
-- SDK version: `3.0.0`
+- Version: `1.1.0`
+- SDK version: >= `3.0.0`
 
 Always verify webhook and browser callback signatures before processing payloads.
 
 ## Production vs sample behavior
 
-- Production endpoints must reject invalid signatures (`400`) and stop processing.
-- SDK sample scripts now follow fail-closed behavior by default and return `400` on invalid signatures.
+- Production endpoints must reject invalid signatures (`403`) and stop processing.
+- Every SDK sample that handles a callback (`IndexIpn.php`, `ResultCallback.php`, `ResultBrowser.php`) fails closed and returns `403` on an invalid signature.
 - You can still add local debug logging, but only after signature validation has passed.
 
 ## Why this is required
@@ -28,15 +28,42 @@ $callback = Callback::init();
 $callback->setProfile($profile);
 
 if (!$callback->isGenuine()) {
-    http_response_code(400);
+    http_response_code(403);
     exit('Invalid signature');
 }
 
 $mapped = $callback->getPayload()->getMapped();
 
-// Use your own idempotency key strategy with tranRef.
-// Process business logic only after signature passes.
+// Process business logic only after the signature passes.
+// See "Handling repeated callbacks" below before marking an order paid.
 ```
+
+### Fail-closed alternative
+
+`isGenuine()` returns a boolean, so a forgotten `if` silently processes a forged
+payload. `assertGenuine()` throws instead, which makes that mistake impossible:
+
+```php
+<?php
+
+use Paytabs\Sdk\Exceptions\InvalidSignatureException;
+use Paytabs\Sdk\Response\Responses\Webhook\TransactionResult\Callback;
+
+try {
+    $mapped = Callback::init()
+        ->setProfile($profile)
+        ->assertGenuine()
+        ->getPayload()
+        ->getMapped()
+    ;
+} catch (InvalidSignatureException $e) {
+    http_response_code(403);
+    exit('Invalid signature');
+}
+```
+
+The exception message carries only a non-reversible hint of the server key, never
+the key itself, so it is safe to log.
 
 ## Browser return example
 
@@ -51,7 +78,7 @@ $response = BrowserAsPost::init();
 $response->setProfile($profile);
 
 if (!$response->isGenuine()) {
-    http_response_code(400);
+    http_response_code(403);
     exit('Invalid signature');
 }
 
@@ -84,13 +111,74 @@ try {
 ResponsePayload::setStrictMode(false);
 ```
 
+## Reading the transaction outcome
+
+The status predicates are **three-state** and return `?bool`:
+
+| Return | Meaning |
+| --- | --- |
+| `true` | The status is known and matches |
+| `false` | The status is known and does not match |
+| `null` | No status was reported, so the outcome is unknown |
+
+A transaction is also neither successful nor failed while it is pending or on
+hold (`P` / `H`). So both of these are unsafe:
+
+```php
+// WRONG: true for a decline, for pending, and for an unknown status.
+if (!$completed->isPaymentFailed()) {
+    $order->markPaid();
+}
+
+// WRONG: null is falsy, so an unknown status takes the "declined" branch.
+if ($browser->isTransactionSuccessful()) { /* ... */ } else { $order->cancel(); }
+```
+
+Test for `true` explicitly and handle the remaining states apart:
+
+```php
+if (true === $completed->isPaymentSuccessful()) {
+    $order->markPaid();
+} elseif (true === $completed->isPaymentPending()) {
+    // Not final: wait for a later IPN, do not fulfil and do not cancel.
+} elseif (true === $completed->isPaymentFailed()) {
+    $order->markFailed();
+} else {
+    // null: no status reported. Query the transaction before acting.
+}
+```
+
+`Browser` exposes the same trio for browser returns: `isTransactionSuccessful()`,
+`isTransactionFailed()` and `isTransactionPending()`.
+
+## Handling repeated callbacks
+
+PayTabs may deliver the same IPN more than once, and a captured callback can be
+replayed. The SDK does **not** deduplicate for you, and the gateway does not
+offer an idempotency key.
+
+`cart_id` is your own reference and the gateway does not enforce it as unique, so
+it cannot serve as a deduplication key on its own. Use `tran_ref`, which is
+assigned by the gateway and identifies one transaction:
+
+```php
+<?php
+
+$tranRef = $callback->getTranRef();
+
+// Record tranRef under a UNIQUE constraint and ignore a repeat delivery.
+if (!$orders->markCallbackSeen($tranRef)) {
+    http_response_code(200); // Already handled; acknowledge so PayTabs stops retrying.
+    exit;
+}
+```
+
+Acknowledge duplicates with `200`. Returning an error makes the gateway retry.
+
 ## Debug-oriented sample flow
 
-The files [../../Samples/IndexIpn.php](../../Samples/IndexIpn.php) and [../../Samples/ResultCallback.php](../../Samples/ResultCallback.php) return `400` when signature validation fails.
-After the signature is valid, you can log limited mapped fields for local troubleshooting:
-
-- `isGenuine` result
-- Mapped response payload fields needed for debugging
+The files [../../Samples/IndexIpn.php](../../Samples/IndexIpn.php), [../../Samples/ResultCallback.php](../../Samples/ResultCallback.php) and [../../Samples/ResultBrowser.php](../../Samples/ResultBrowser.php) return `403` when signature validation fails.
+After the signature is valid, you can log limited mapped fields for local troubleshooting.
 
 For production, keep logs redacted and stop processing on invalid signatures.
 
@@ -103,7 +191,8 @@ For simple browser POST callbacks where the payload comes directly from PG and n
 
 ## Operational checklist
 
-- Return `400` on invalid signature.
+- Return `403` on invalid signature.
 - Never trust client-side status without signature validation.
 - Do not log full signatures, full tokens, PAN, or CVV.
-- Add idempotency handling using transaction reference.
+- Deduplicate repeated deliveries on `tran_ref`, and acknowledge duplicates with `200`.
+- Treat a transaction as paid only when the status is successful; `!isPaymentFailed()` also covers pending.

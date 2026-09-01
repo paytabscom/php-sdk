@@ -12,19 +12,20 @@ use Paytabs\Sdk\Response\Payload\Payloads\Redirect;
 use Psr\Log\LoggerInterface;
 
 /**
+ * @var string          $cartId
  * @var string          $urlReturn
  * @var string          $urlCallback
  * @var string          $_currency
  * @var Paytabs         $paytabs
  * @var LoggerInterface $logger
  */
-if (!isset($paytabs, $urlReturn, $urlCallback, $_currency, $logger)) {
-    throw new RuntimeException('Required variables are not set: $paytabs, $urlReturn, $urlCallback, $_currency, $logger');
+if (!isset($paytabs, $cartId, $urlReturn, $urlCallback, $_currency, $logger)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $cartId, $urlReturn, $urlCallback, $_currency, $logger');
 }
 
 $holder = PayloadsFactory::createHostedPage();
 $holder
-    ->buildCart('cart01', $_currency, 700, 'Test')
+    ->buildCart($cartId, $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(

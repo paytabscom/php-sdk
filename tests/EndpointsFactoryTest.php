@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Exceptions\EndpointNotFoundException;
 use Paytabs\Sdk\Profile\AbstractEndpoint;
 use Paytabs\Sdk\Profile\Endpoints\Egypt;
@@ -17,8 +19,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class EndpointsFactoryTest extends TestCase
 {

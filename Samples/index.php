@@ -30,10 +30,14 @@ $profile = ProfilesFactory::createUaeProfile($_profileId, $_serverKey);
 $profile = new Profile($_endpoint, $_profileId, $_serverKey);
 
 $paytabs = Paytabs::getInstance($profile);
-$ptLogger = PaytabsLogger::getInstance(null, true);
+
+// BrowserLog writes into the HTTP response, so it stays off unless explicitly
+// requested: set BROWSER_LOG="1" in Samples/.env for local debugging only.
+$_browserLog = '1' === getConfig('BROWSER_LOG', '0');
+$ptLogger = PaytabsLogger::getInstance(null, $_browserLog);
 $logger = $ptLogger->logger;
 
-$paytabs->setLogger($logger);
+$paytabs->setLogger($logger, true);
 
 $return = array_key_exists('result', $_GET);
 if ($return) {
@@ -43,6 +47,7 @@ if ($return) {
 }
 
 $trxRef = getConfig('TRANSACTION_REF');
+$cartId = getConfig('CART_ID');
 
 $urlBase = getConfig('APP_URL');
 $urlCallback = $urlBase . '?result=1';
@@ -97,6 +102,10 @@ $samples = [
     12 => [
         'Transaction Query',
         APP_ROOT . 'Samples/TransactionQuery.php',
+    ],
+    13 => [
+        'Transaction Query By Cart ID',
+        APP_ROOT . 'Samples/TransactionQueryByCart.php',
     ],
     1020 => [
         'Follow Up',
@@ -177,38 +186,44 @@ if ($sampleId) {
     <div>
         <div>
             <label>
+                Cart ID:
+                <input type="text" name="cart_id" value="<?= $cartId; ?>" readonly>
+            </label>
+        </div>
+        <div>
+            <label>
                 Invoice ID:
-                <input type="text" name="invoice_id" value="<?php echo $invoiceId; ?>" readonly>
+                <input type="text" name="invoice_id" value="<?= $invoiceId; ?>" readonly>
             </label>
         </div>
         <div>
             <label>
                 Transaction Reference:
-                <input type="text" name="trx_ref" value="<?php echo $trxRef; ?>" readonly>
+                <input type="text" name="trx_ref" value="<?= $trxRef; ?>" readonly>
             </label>
         </div>
         <div>
             <label>
                 Token:
-                <input type="text" name="token" value="<?php echo $_token; ?>" readonly>
+                <input type="text" name="token" value="<?= $_token; ?>" readonly>
             </label>
         </div>
         <div>
             <label>
                 Return URL:
-                <input type="text" name="return_url" value="<?php echo $urlReturn; ?>" readonly size="50">
+                <input type="text" name="return_url" value="<?= $urlReturn; ?>" readonly size="50">
             </label>
             <br>
             <label>
                 Callback URL:
-                <input type="text" name="callback_url" value="<?php echo $urlCallback; ?>" readonly size="50">
+                <input type="text" name="callback_url" value="<?= $urlCallback; ?>" readonly size="50">
             </label>
         </div>
         <hr>
         <div>
             <label>
                 Redirect URL:
-                <input type="text" name="redirect_url" value="<?php echo $urlRedirect ?? ''; ?>" readonly>
+                <input type="text" name="redirect_url" value="<?= $urlRedirect ?? ''; ?>" readonly>
             </label>
         </div>
     </div>
@@ -217,13 +232,15 @@ if ($sampleId) {
             <?php foreach ($samples as $id => $sample) { ?>
                 <?php if ($id > 1000) { ?>
                     <h3>
-                        <?php echo $sample[0]; ?>
+                        <?= htmlspecialchars((string) $sample[0], ENT_QUOTES, 'UTF-8'); ?>
                     </h3>
-                <?php continue;
-                } ?>
-                <li style="padding-bottom: 5px;">
-                    <a href="?sample=<?php echo $id; ?>"><?php echo $sample[0]; ?></a>
-                </li>
+                <?php } else { ?>
+                    <li style="padding-bottom: 5px;">
+                        <a href="?sample=<?= urlencode((string) $id); ?>">
+                            <?= htmlspecialchars((string) $sample[0], ENT_QUOTES, 'UTF-8'); ?>
+                        </a>
+                    </li>
+                <?php } ?>
             <?php } ?>
         </ol>
     </div>

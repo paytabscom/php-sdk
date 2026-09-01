@@ -62,6 +62,9 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
         return $this->payload->getMappedAs(new Redirect());
     }
 
+    /**
+     * @throws \InvalidArgumentException if the payload is not valid or cannot be mapped.
+     */
     public function getPayloadMapped(): PayloadInterface
     {
         if ($this->isFailure()) {

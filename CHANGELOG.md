@@ -4,6 +4,169 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project aims to follow Semantic Versioning.
 
+## [3.3.0] - 2026-09-01
+
+Hardening release following a full SDK audit. It closes several crashes on
+ordinary gateway responses, removes two paths that could leak a live server key
+into logs or an HTTP response, and makes transaction status honest about the
+difference between "declined" and "unknown".
+
+Most integrations upgrade without changes. Read **Breaking changes** first if you
+call the status predicates or implement any SDK interface.
+
+### Breaking changes
+
+- **Status predicates now return `?bool` instead of `bool`.** Affects
+  `PaymentResult::isSuccessful()` / `isFailed()`, `Completed::isPaymentSuccessful()` /
+  `isPaymentFailed()`, and `Browser::isTransactionSuccessful()`. `null` means the
+  gateway reported no status, so the outcome is unknown — previously this was a
+  fatal error or an unhelpful `false`. Compare against `true` explicitly;
+  `if ($completed->isPaymentSuccessful())` still behaves correctly, but
+  `!isPaymentFailed()` is now true for pending *and* unknown.
+- **`TranStatus::Unknown` is no longer classified as failed.** `isFailed()`
+  returns `false` for it, and the new `isUnknown()` reports it. A future gateway
+  status code no longer reads as a definite failure, which previously could fire
+  a merchant's auto-cancel or auto-refund on a transaction that had succeeded.
+- **`PaymentResult::toString()` is now `__toString()`**, so string interpolation
+  and PSR-3 message placeholders work. Replace any explicit `->toString()` call
+  with a cast or interpolation.
+- **Narrowed parameter and return types** on internal plumbing:
+  `Helpers::jsonValidate(string)` (was `array|string`),
+  `AbstractResponse::setResponse(string)` (was `mixed`),
+  `setResponseData(string)` and `getResponseData(): string` (were `array|string`),
+  `InvoiceStatus::setTranStatus(?string)` (was `string`),
+  `LineItem::setPrice(int, float, ?float)` (`$netTotal` is now optional).
+  Only affects callers that passed an array, or classes implementing
+  `ResponseInterface` / `PayloadInterface` directly.
+- **`Http::setLogger()` gained an optional `bool $debugMode` second argument.**
+  Source-compatible for callers; a breaking signature change only for subclasses
+  that override it.
+
+### Added
+
+- `PaytabsExceptionInterface`, implemented by every exception the SDK throws, so
+  a single `catch (PaytabsExceptionInterface $e)` covers all of them. Each
+  exception still extends the same SPL class, so existing
+  `catch (\RuntimeException)` blocks keep working.
+- `MissingResponseFieldException`, thrown when the gateway omits a field the SDK
+  needs, replacing an uninitialised-property `Error`.
+- `AbstractTransactionResult::assertGenuine()` — a fail-closed counterpart to
+  `isGenuine()` that throws `InvalidSignatureException` rather than returning
+  `false`, so a forged webhook cannot be processed by forgetting a check.
+- `AbstractTransactionResult::getConfiguredProfileId()`, the locally configured
+  profile ID as distinct from the one echoed by a webhook payload.
+- `Completed::isPaymentPending()`, plus `Browser::isTransactionFailed()` and
+  `isTransactionPending()`, so both payloads expose the same three-state view
+  instead of a success check alone.
+- `Logger\Redactor`: masks PANs to first-6/last-4, strips CVV, `Authorization`
+  headers and key-like fields, redacts card data inside an already-serialised
+  JSON string, and derives a non-reversible `keyHint()` from a server key.
+- `Logger\ErrorLogLogger`, a never-throwing default used for diagnostics raised
+  during response mapping.
+- `HttpRequestException::unexpectedResponseBody()`, `::transport()` and
+  `::payloadNotEncodable()` factories, each naming the failure.
+- Luhn validation for card numbers (`CardDetails::passesLuhn()`).
+- `Samples/.htaccess` denying dotfile access, `Samples/TransactionQueryByCart.php`,
+  and a `BROWSER_LOG` samples flag that defaults to off.
+
+### Changed
+
+- Runtime support stays at PHP `^8.1`, so the SDK keeps working inside
+  e-commerce plugins on older merchant hosting. Contributing now requires PHP
+  8.2+, because PHPUnit 11 dropped 8.1 — the dev toolchain only, never consumers.
+- The PHPUnit constraint is now `^11.5 || ^12.0 || ^13.0` so the dev toolchain
+  resolves on every version CI exercises. Previously `^13.2` required
+  PHP >= 8.4.1, which prevented `composer install` on 8.1, 8.2 and 8.3.
+- CI now runs the suite on 8.2/8.3/8.4 plus a `--prefer-lowest` job on 8.2, a
+  `runtime-php81` job exercising only the consumer-facing composer commands on
+  8.1, `composer audit`, and a coverage report. PHPUnit fails on warnings, risky
+  tests, notices and deprecations.
+- Requests now send `Content-Type: application/json` explicitly instead of
+  relying on the gateway sniffing the body.
+- `CURLOPT_CONNECTTIMEOUT` is set (10s) alongside the existing 30s timeout.
+- GET requests no longer build and discard a request body.
+- Response DTO properties are nullable with defaults throughout, so a `null` in
+  any single field no longer aborts the whole mapping.
+- A single shared `JsonMapper` instance is reused instead of one per mapping call.
+- `Profile` rejects a non-positive profile ID and trims the server key, so a
+  whitespace-only key no longer ships as an empty `Authorization` header.
+- Invalid signatures in samples return `403` and stop before the payload is read.
+- `Samples/config.php`: `getConfig()` gained an explicit `$hasDefault` parameter,
+  so a legitimately `null` default no longer falls through to an exception.
+- The test suite grew from 10 files to 16, including the first coverage of
+  signature verification, response mapping, transaction-status semantics and log
+  redaction. Coverage is now measured and reported in CI.
+- `ext-curl` and `ext-json` are declared in `composer.json`.
+
+### Fixed
+
+- `Browser::isTransactionSuccessful()` raised
+  `Error: Call to a member function isSuccessful() on null` when a browser
+  callback omitted `respStatus` — trivially triggered by any unauthenticated
+  request to the return URL. It now reports `null`.
+- `Callback::isSameProfile()` compared the payload's `profile_id` against
+  `getProfileId()`, which `Callback` overrides to return that same field, so the
+  check was always true and the profile binding never ran. It now compares
+  against the configured profile. Signature verification was unaffected, since
+  the HMAC is keyed on the configured server key.
+- `AbstractTransactionResult::getProfileId()` raised a raw property `Error` when
+  no profile was set; it now throws `InvalidConfigurationException`.
+- Webhook accessors no longer require `getMapped()` to be called first; mapping
+  happens lazily, and the previous ordering requirement was undocumented.
+- A non-2xx response with a non-JSON body (a CDN or WAF error page) escaped as a
+  bare `\JsonException` from deep in the payload layer, losing the status code.
+  It now throws `HttpRequestException::unexpectedResponseBody()` with the status
+  and a truncated excerpt.
+- A payload containing non-UTF-8 bytes — ordinary latin-1 or cp1256 customer
+  data — aborted the request with a `TypeError`. Encoding now substitutes
+  invalid sequences and reports a named exception if it still fails.
+- A sub-object whose fields were all null serialised as a JSON array `[]` where
+  the API expects an object.
+- An unsubstituted path placeholder was sent to the gateway verbatim; it now
+  raises `InvalidConfigurationException`, and path parameters are URL-encoded.
+- `InvoiceStatus::setTranStatus()` threw on an unpaid invoice (`tran_status: null`)
+  and on any unrecognised status letter.
+- `PaymentMethods`, `Invoice` and `TokeniseEnhanced` fataled on uninitialised
+  properties on ordinary paths, including the documented `buildTokeniseEnhanced()`
+  happy path.
+- **`street1` is no longer silently dropped from every webhook.** The response
+  layer maps into the request `CustomerDetails` part, whose property is `$street`
+  while the gateway sends `street1`.
+- `Helpers::responseStage()` now handles array input instead of silently returning
+  `Unknown`;
+- A CVV of `"0"` skipped validation because `'0'` is falsy in PHP; an already
+  expired card in the current year was accepted; the PAN pattern rejected valid
+  17–19 digit numbers.
+- `PaytabsLogger::getLogFile()` ignored an explicit path argument and wrote to
+  the shared temp directory instead.
+- `Samples/ResultBrowser.php` verified the signature into a log field and then
+  mapped the payload regardless. It now fails closed.
+- `Samples/index.php` enabled `BrowserLog` unconditionally, contradicting the
+  ReadMe warning against enabling it outside local debugging.
+
+### Security
+
+- **A fragment of the live server key is no longer written to logs.** An invalid
+  webhook signature logged the first 10 characters of the secret — a third of
+  the key, on a branch any unauthenticated caller can trigger repeatedly by
+  POSTing a bogus signature. It is now a SHA-256 derived hint. The same fix
+  applies to `Profile::getServerKeyPrefix()` and
+  `InvalidSignatureException::mismatch()`.
+- **`BrowserLog` escaped nothing.** Gateway text and callback fields reached the
+  HTTP response unescaped, so a payload containing `</pre><script>` executed;
+  the log context was also dumped wholesale, which in the shipped samples
+  included card data and the `Authorization` header. Output is now escaped and
+  redacted.
+- `CURLOPT_VERBOSE` wrote the `Authorization` header to stderr; the trace is now
+  captured and redacted before logging.
+- Log files are created `0600` and the log directory `0700`; log writes take an
+  exclusive lock and fail soft rather than throwing mid-payment.
+- CRLF sequences are stripped from log messages, closing log-entry forgery.
+- An array-valued `signature`, and an empty request to a return URL, each caused
+  an unauthenticated `TypeError`. Both now fail closed.
+- Invalid browser returns and IPNs in the samples respond `403` and halt before
+  mapping.
+
 ## [3.2.6] - 2026-08-12
 
 ### Changed

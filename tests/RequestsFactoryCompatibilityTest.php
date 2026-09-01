@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Profile\ProfilesFactory;
 use Paytabs\Sdk\Request\Payload\PayloadsFactory;
 use Paytabs\Sdk\Request\Requests\Invoice\InvoiceCancel;
@@ -19,8 +21,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class RequestsFactoryCompatibilityTest extends TestCase
 {
