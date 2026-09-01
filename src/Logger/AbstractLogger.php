@@ -42,7 +42,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
         // Interpolate from the redacted context so a `{pan}` placeholder cannot
         // reintroduce cardholder data into the message.
-        $_userMessage = Redactor::singleLine($this->interpolate($message, $_safeContext));
+        $_userMessage = Redactor::message($this->interpolate($message, $_safeContext));
 
         return $_prefix
             . $_userMessage

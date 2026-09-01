@@ -164,6 +164,15 @@ call the status predicates or implement any SDK interface.
 
 ### Security
 
+- **The server key is no longer written to the verbose cURL trace.** Debug mode
+  captured the trace and mapped a redaction over it, but the pattern was anchored
+  at the start of the string while cURL prefixes header lines with `> `, so it
+  never matched. Redaction now applies to every line of a multi-line trace.
+- **A PAN interpolated into a log message is now masked.** Only the context array
+  was redacted, so `$logger->info("charging 4111111111111111")` was written
+  verbatim while the ReadMe promised loggers strip cardholder data. Free-text
+  messages now go through a Luhn-gated sweep, which leaves order references,
+  timestamps and amounts untouched.
 - **A fragment of the live server key is no longer written to logs.** An invalid
   webhook signature logged the first 10 characters of the secret — a third of
   the key, on a branch any unauthenticated caller can trigger repeatedly by

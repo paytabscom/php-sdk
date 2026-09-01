@@ -96,12 +96,84 @@ final class Redactor
     }
 
     /**
-     * Redacts an `Authorization: <serverKey>` style header line.
+     * Full cleanup for a free-text log message.
+     *
+     * Key-based redaction cannot help here — a message has no keys — so a PAN
+     * interpolated straight into the text (`"charging 4111111111111111"`) would
+     * otherwise be written verbatim.
+     */
+    public static function message(string $message): string
+    {
+        return self::singleLine(
+            self::headerLine(
+                self::embeddedJson(
+                    self::maskLoosePans($message)
+                )
+            )
+        );
+    }
+
+    /**
+     * Masks bare 13-19 digit runs that pass Luhn.
+     *
+     * The Luhn gate keeps order references, timestamps and amounts untouched:
+     * roughly 9 in 10 random digit runs fail it.
+     */
+    public static function maskLoosePans(string $value): string
+    {
+        return (string) preg_replace_callback(
+            '/(?<![0-9])(?:[0-9][ -]?){12,18}[0-9](?![0-9])/',
+            static function (array $m): string {
+                $digits = preg_replace('/\D/', '', $m[0]) ?? '';
+
+                if (\strlen($digits) < 13 || \strlen($digits) > 19 || !self::passesLuhn($digits)) {
+                    return $m[0];
+                }
+
+                return self::maskPan($digits);
+            },
+            $value
+        );
+    }
+
+    private static function passesLuhn(string $digits): bool
+    {
+        $sum = 0;
+        $double = false;
+
+        for ($i = \strlen($digits) - 1; $i >= 0; --$i) {
+            $digit = (int) $digits[$i];
+
+            if ($double) {
+                $digit *= 2;
+
+                if ($digit > 9) {
+                    $digit -= 9;
+                }
+            }
+
+            $sum += $digit;
+            $double = !$double;
+        }
+
+        return 0 === $sum % 10;
+    }
+
+    /**
+     * Redacts every `Authorization: <serverKey>` style header line.
+     *
+     * Tolerates cURL's verbose-trace prefixes (`> `, `< `, `* `) and matches at
+     * any line start, not just the start of the string: a verbose trace arrives
+     * as one multi-line blob, so an anchor-only pattern redacted nothing.
      */
     public static function headerLine(string $header): string
     {
+        // Matches the key anywhere on a line, not just at the start, so it also
+        // catches cURL's `> ` verbose prefix and the `[Authorization] => value`
+        // shape a print_r()'d header array produces. The separator may be `:`
+        // or `=>`, and the key may be bracketed or quoted.
         return (string) preg_replace(
-            '/^(authorization\s*:\s*).*/i',
+            '/(["\'\[]?authorization["\'\]]?[ \t]*(?::|=>)[ \t]*).*$/im',
             '$1' . self::MASK,
             $header
         );

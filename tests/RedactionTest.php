@@ -31,6 +31,129 @@ final class RedactionTest extends TestCase
         self::assertSame(Redactor::MASK, Redactor::maskPan('411111'));
     }
 
+    /**
+     * Key-based redaction cannot see a PAN interpolated straight into the
+     * message text, and the ReadMe promises loggers strip cardholder data.
+     */
+    #[DataProvider('panInMessageProvider')]
+    public function testAPanInAFreeTextMessageIsMasked(string $message, string $pan): void
+    {
+        $redacted = Redactor::message($message);
+
+        self::assertStringNotContainsString($pan, $redacted);
+
+        // Masked to first-6/last-4, so the middle digits are gone. The number
+        // of asterisks varies with PAN length (15-digit Amex vs 16-digit Visa).
+        self::assertMatchesRegularExpression('/\d{6}\*+\d{4}/', $redacted);
+    }
+
+    /**
+     * @return iterable<string, array{string, string}>
+     */
+    public static function panInMessageProvider(): iterable
+    {
+        yield 'bare' => ['charging ' . self::PAN, self::PAN];
+        yield 'spaced' => ['card 4111 1111 1111 1111 declined', '4111 1111 1111 1111'];
+        yield 'hyphenated' => ['card 4111-1111-1111-1111', '4111-1111-1111-1111'];
+        yield 'mastercard' => ['pan=5555555555554444', '5555555555554444'];
+        yield 'amex 15 digit' => ['amex 378282246310005', '378282246310005'];
+    }
+
+    /**
+     * The sweep is Luhn-gated so ordinary identifiers survive — a redactor that
+     * mangles cart IDs and timestamps gets switched off.
+     */
+    #[DataProvider('nonPanProvider')]
+    public function testOrdinaryIdentifiersAreNotMangled(string $message): void
+    {
+        self::assertSame($message, Redactor::message($message));
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function nonPanProvider(): iterable
+    {
+        yield 'order reference' => ['order 1234567890123'];
+        yield 'timestamp' => ['ts 1788242461146'];
+        yield 'cart id' => ['cart_id 20260901120000'];
+        yield 'tran ref' => ['tran TST2623802990085'];
+        yield 'amount' => ['amount 700.00'];
+        yield 'invoice id' => ['invoice 5829212'];
+    }
+
+    public function testAServerKeyInAMessageHeaderLineIsRedacted(): void
+    {
+        $redacted = Redactor::message('Authorization: ' . self::SERVER_KEY);
+
+        self::assertStringNotContainsString(self::SERVER_KEY, $redacted);
+    }
+
+    /**
+     * The key does not always start the line: cURL prefixes verbose output with
+     * `> `, and a print_r()'d header array yields `[Authorization] => value`.
+     */
+    #[DataProvider('authorizationLineProvider')]
+    public function testAnAuthorizationValueIsRedactedInAnyLineShape(string $line): void
+    {
+        $redacted = Redactor::headerLine($line);
+
+        self::assertStringNotContainsString(self::SERVER_KEY, $redacted);
+        self::assertStringContainsString(Redactor::MASK, $redacted);
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function authorizationLineProvider(): iterable
+    {
+        yield 'plain header' => ['Authorization: ' . self::SERVER_KEY];
+        yield 'curl request prefix' => ['> Authorization: ' . self::SERVER_KEY];
+        yield 'curl response prefix' => ['< Authorization: ' . self::SERVER_KEY];
+        yield 'open bracket' => ['[Authorization: ' . self::SERVER_KEY];
+        yield 'print_r array entry' => ['[Authorization] => ' . self::SERVER_KEY];
+        yield 'print_r lowercase' => ['    [authorization] => ' . self::SERVER_KEY];
+        yield 'print_r uppercase' => ['[AUTHORIZATION] => ' . self::SERVER_KEY];
+        yield 'numeric key then header' => ['[0] => Authorization: ' . self::SERVER_KEY];
+        yield 'json' => ['"authorization": "' . self::SERVER_KEY . '"'];
+        yield 'var_export' => ["'authorization' => '" . self::SERVER_KEY . "',"];
+    }
+
+    public function testEveryAuthorizationLineInAMultiLineDumpIsRedacted(): void
+    {
+        $dump = "Array\n(\n    [Authorization] => " . self::SERVER_KEY . "\n"
+            . "    [Accept] => application/json\n"
+            . '    [X-Retry] => Authorization: ' . self::SERVER_KEY . "\n)";
+
+        $redacted = Redactor::headerLine($dump);
+
+        self::assertStringNotContainsString(self::SERVER_KEY, $redacted);
+        self::assertSame(2, substr_count($redacted, Redactor::MASK));
+
+        // Unrelated headers survive.
+        self::assertStringContainsString('[Accept] => application/json', $redacted);
+    }
+
+    /** Broadening the pattern must not swallow ordinary text. */
+    #[DataProvider('nonAuthorizationLineProvider')]
+    public function testOrdinaryLinesAreLeftAlone(string $line): void
+    {
+        self::assertSame($line, Redactor::headerLine($line));
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function nonAuthorizationLineProvider(): iterable
+    {
+        yield 'other header' => ['Content-Type: application/json'];
+        yield 'other array entry' => ['[Accept] => application/json'];
+        yield 'similar key' => ['authorization_required: false'];
+        yield 'negated key' => ['unauthorized: true'];
+        yield 'prose' => ['the authorization flow completed'];
+        yield 'request line' => ['> POST /payment/request HTTP/1.1'];
+    }
+
     #[DataProvider('secretKeyProvider')]
     public function testSecretKeysAreRedacted(string $key): void
     {
@@ -163,7 +286,7 @@ final class RedactionTest extends TestCase
         try {
             (new BrowserLog('PayTabs'))->error('</pre><script>alert(1)</script>', [
                 'card_details' => ['pan' => self::PAN, 'cvv' => '123'],
-                'headers' => ['Authorization: ' . self::SERVER_KEY],
+                'headers' => ['[Authorization: ' . self::SERVER_KEY . ']'],
             ]);
             $output = (string) ob_get_clean();
         } catch (\Throwable $e) {
