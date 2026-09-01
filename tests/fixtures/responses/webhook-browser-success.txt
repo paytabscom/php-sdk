@@ -1,0 +1,1 @@
+acquirerMessage=&acquirerRRN=&cartId=cart01&customerEmail=integrations%40paytabs.com&respCode=G33093&respMessage=Authorised&respStatus=A&signature=b7a0a35e75faec1573d168d008f983c9cadaefacd3974b3ff2eb880751208256&token=2C4656BF67A3E43DC6BE93FE66857CBD&tranRef=TST2623802990085

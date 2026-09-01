@@ -93,9 +93,12 @@ call the status predicates or implement any SDK interface.
 - Invalid signatures in samples return `403` and stop before the payload is read.
 - `Samples/config.php`: `getConfig()` gained an explicit `$hasDefault` parameter,
   so a legitimately `null` default no longer falls through to an exception.
-- The test suite grew from 10 files to 16, including the first coverage of
+- The test suite grew from 10 files to 17, including the first coverage of
   signature verification, response mapping, transaction-status semantics and log
   redaction. Coverage is now measured and reported in CI.
+- Mapping is now tested against captured live gateway responses in
+  `tests/fixtures/responses/` rather than invented fixtures. `tests/` is
+  `export-ignore`d, so the fixtures do not ship in the Composer package.
 - `ext-curl` and `ext-json` are declared in `composer.json`.
 
 ### Fixed

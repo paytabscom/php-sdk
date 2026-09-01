@@ -19,13 +19,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Profile binding, fail-closed verification, and the null-status accessor.
  *
- * Fixtures are real gateway responses captured in Samples/responses.
+ * Fixtures are real gateway responses captured in tests/fixtures/responses.
  *
  * @internal
  */
 final class WebhookProfileBindingTest extends TestCase
 {
-    /** The profile_id every Samples/responses IPN fixture was captured under. */
+    /** The profile_id every captured IPN fixture was recorded under. */
     private const FIXTURE_PROFILE_ID = 48214;
 
     private const OTHER_PROFILE_ID = 99999;
@@ -224,7 +224,7 @@ final class WebhookProfileBindingTest extends TestCase
 
     private static function fixture(string $name): string
     {
-        $path = \dirname(__DIR__) . '/Samples/responses/' . $name;
+        $path = __DIR__ . '/fixtures/responses/' . $name;
 
         $contents = file_get_contents($path);
         self::assertIsString($contents, 'Missing fixture: ' . $name);

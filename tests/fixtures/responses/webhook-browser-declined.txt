@@ -1,0 +1,1 @@
+acquirerMessage=&acquirerRRN=&cartId=cart01&customerEmail=integrations%40paytabs.com&respCode=305&respMessage=Card+security+code+%28CVV%29+mismatch&respStatus=D&signature=7b806d3721e5ac671252f5a59a6bdf5d1533f6adcf6308bca7d344558e2d98c2&token=&tranRef=TST2623802990092
