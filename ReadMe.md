@@ -93,11 +93,11 @@ $completed = $response->getPayloadMapped();
 
 // These return ?bool, so compare against true: null means "no status reported",
 // and a pending transaction is neither successful nor failed.
-if (true === $completed->isPaymentSuccessful()) {
+if (true === $completed->isTransactionSuccessful()) {
     // Paid. Fulfil the order.
-} elseif (true === $completed->isPaymentPending()) {
+} elseif (true === $completed->isTransactionPending()) {
     // Not final yet — wait for the IPN, do not fulfil and do not cancel.
-} elseif (true === $completed->isPaymentFailed()) {
+} elseif (true === $completed->isTransactionFailed()) {
     // Declined or failed.
 } else {
     // Unknown: query the transaction before acting on it.
