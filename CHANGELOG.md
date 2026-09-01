@@ -16,13 +16,17 @@ call the status predicates or implement any SDK interface.
 
 ### Breaking changes
 
+- **`Completed::isPaymentSuccessful()` / `isPaymentFailed()` are renamed to
+  `isTransactionSuccessful()` / `isTransactionFailed()`**, matching `Browser` and
+  making the subject explicit: they report the transaction, not the order. Update
+  any call site — the old names are gone.
 - **Status predicates now return `?bool` instead of `bool`.** Affects
-  `PaymentResult::isSuccessful()` / `isFailed()`, `Completed::isPaymentSuccessful()` /
-  `isPaymentFailed()`, and `Browser::isTransactionSuccessful()`. `null` means the
-  gateway reported no status, so the outcome is unknown — previously this was a
-  fatal error or an unhelpful `false`. Compare against `true` explicitly;
-  `if ($completed->isPaymentSuccessful())` still behaves correctly, but
-  `!isPaymentFailed()` is now true for pending *and* unknown.
+  `PaymentResult::isSuccessful()` / `isFailed()`, and the
+  `isTransaction*()` trio on `Completed` and `Browser`. `null` means the gateway
+  reported no status, so the outcome is unknown — previously this was a fatal
+  error or an unhelpful `false`. Compare against `true` explicitly;
+  `if ($completed->isTransactionSuccessful())` still behaves correctly, but
+  `!isTransactionFailed()` is now true for pending *and* unknown.
 - **`TranStatus::Unknown` is no longer classified as failed.** `isFailed()`
   returns `false` for it, and the new `isUnknown()` reports it. A future gateway
   status code no longer reads as a definite failure, which previously could fire
@@ -55,12 +59,18 @@ call the status predicates or implement any SDK interface.
   `UnsupportedPayloadOperationException`, replacing the last bare `\Exception`
   throws in `src/`. Every error the SDK raises is now catchable through
   `PaytabsExceptionInterface`.
+- `Completed::isFollowup()`, so a refund, void, release or capture IPN can be
+  told apart from an original payment. PayTabs sends an IPN for every
+  transaction against a cart, and the status predicates describe the
+  transaction — a completed refund reports
+  `isTransactionSuccessful() === true`. Check `isFollowup()` before marking an
+  order paid, or a refund re-marks it paid. See `docs/usage/Webhooks.md`.
 - `AbstractTransactionResult::assertGenuine()` — a fail-closed counterpart to
   `isGenuine()` that throws `InvalidSignatureException` rather than returning
   `false`, so a forged webhook cannot be processed by forgetting a check.
 - `AbstractTransactionResult::getConfiguredProfileId()`, the locally configured
   profile ID as distinct from the one echoed by a webhook payload.
-- `Completed::isPaymentPending()`, plus `Browser::isTransactionFailed()` and
+- `Completed::isTransactionPending()`, plus `Browser::isTransactionFailed()` and
   `isTransactionPending()`, so both payloads expose the same three-state view
   instead of a success check alone.
 - `Logger\Redactor`: masks PANs to first-6/last-4, strips CVV, `Authorization`

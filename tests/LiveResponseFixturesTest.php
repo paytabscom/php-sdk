@@ -214,9 +214,9 @@ final class LiveResponseFixturesTest extends TestCase
 
         self::assertSame($tranRef, $mapped->tran_ref);
         self::assertSame($status, $mapped->payment_result->tranStatus);
-        self::assertSame($successful, $mapped->isPaymentSuccessful());
-        self::assertSame($failed, $mapped->isPaymentFailed());
-        self::assertFalse($mapped->isPaymentPending());
+        self::assertSame($successful, $mapped->isTransactionSuccessful());
+        self::assertSame($failed, $mapped->isTransactionFailed());
+        self::assertFalse($mapped->isTransactionPending());
     }
 
     /**
@@ -286,7 +286,7 @@ final class LiveResponseFixturesTest extends TestCase
         $mapped = self::completed('query-trx-by-ref.json');
 
         self::assertSame('TST2530002372060', $mapped->tran_ref);
-        self::assertTrue($mapped->isPaymentSuccessful());
+        self::assertTrue($mapped->isTransactionSuccessful());
         self::assertSame('2C46xxxE67A3E5xxxxB791F560837DB1', $mapped->token);
     }
 
@@ -307,7 +307,7 @@ final class LiveResponseFixturesTest extends TestCase
         self::assertCount(20, $mapped->transactions);
         self::assertContainsOnlyInstancesOf(Completed::class, $mapped->transactions);
         self::assertSame('TST2530002372060', $mapped->transactions[0]->tran_ref);
-        self::assertTrue($mapped->transactions[0]->isPaymentSuccessful());
+        self::assertTrue($mapped->transactions[0]->isTransactionSuccessful());
     }
 
     /**
@@ -320,9 +320,9 @@ final class LiveResponseFixturesTest extends TestCase
 
         self::assertSame('TST2105900091509', $mapped->tran_ref);
         self::assertNull($mapped->payment_result);
-        self::assertNull($mapped->isPaymentSuccessful());
-        self::assertNull($mapped->isPaymentFailed());
-        self::assertNull($mapped->isPaymentPending());
+        self::assertNull($mapped->isTransactionSuccessful());
+        self::assertNull($mapped->isTransactionFailed());
+        self::assertNull($mapped->isTransactionPending());
     }
 
     // ---------------------------------------------------------------- invoices

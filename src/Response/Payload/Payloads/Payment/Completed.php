@@ -60,26 +60,43 @@ class Completed extends Payment
     }
 
     /**
-     * Beware: this and isPaymentFailed() are BOTH false for a pending or
-     * on-hold transaction (`P` / `H`). Do not treat `!isPaymentFailed()` as
-     * "paid" — use isPaymentPending() to tell the third state apart.
+     * Whether the gateway authorised this transaction.
+     *
+     * Reports the transaction, not the order: for a follow-up (refund, void,
+     * release, capture) `true` means the follow-up succeeded, not that the cart
+     * was paid. Check isFollowup() before treating this as "paid".
+     *
+     * Beware: this and isTransactionFailed() are BOTH false for a pending or
+     * on-hold transaction (`P` / `H`). Do not treat `!isTransactionFailed()` as
+     * "paid" — use isTransactionPending() to tell the third state apart.
      */
-    public function isPaymentSuccessful(): ?bool
+    public function isTransactionSuccessful(): ?bool
     {
         return $this->payment_result?->isSuccessful();
     }
 
-    public function isPaymentFailed(): ?bool
+    public function isTransactionFailed(): ?bool
     {
         return $this->payment_result?->isFailed();
     }
 
     /**
      * True while the gateway has not reached a final decision, i.e. neither
-     * isPaymentSuccessful() nor isPaymentFailed().
+     * isTransactionSuccessful() nor isTransactionFailed().
      */
-    public function isPaymentPending(): ?bool
+    public function isTransactionPending(): ?bool
     {
         return $this->payment_result?->isNotFinal();
+    }
+
+    /**
+     * Whether this transaction is a follow-up (refund, void, release, capture,
+     * auth extension) rather than a payment.
+     *
+     * `null` when the gateway reported no transaction type.
+     */
+    public function isFollowup(): ?bool
+    {
+        return $this->tranType?->isFollowup();
     }
 }

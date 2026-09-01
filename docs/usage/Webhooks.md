@@ -126,7 +126,7 @@ hold (`P` / `H`). So both of these are unsafe:
 
 ```php
 // WRONG: true for a decline, for pending, and for an unknown status.
-if (!$completed->isPaymentFailed()) {
+if (!$completed->isTransactionFailed()) {
     $order->markPaid();
 }
 
@@ -137,19 +137,58 @@ if ($browser->isTransactionSuccessful()) { /* ... */ } else { $order->cancel(); 
 Test for `true` explicitly and handle the remaining states apart:
 
 ```php
-if (true === $completed->isPaymentSuccessful()) {
+if (true === $completed->isTransactionSuccessful()) {
     $order->markPaid();
-} elseif (true === $completed->isPaymentPending()) {
+} elseif (true === $completed->isTransactionPending()) {
     // Not final: wait for a later IPN, do not fulfil and do not cancel.
-} elseif (true === $completed->isPaymentFailed()) {
+} elseif (true === $completed->isTransactionFailed()) {
     $order->markFailed();
 } else {
     // null: no status reported. Query the transaction before acting.
 }
 ```
 
-`Browser` exposes the same trio for browser returns: `isTransactionSuccessful()`,
-`isTransactionFailed()` and `isTransactionPending()`.
+`Browser` exposes the same trio for browser returns.
+
+## Refunds, voids and captures arrive on the same endpoint
+
+PayTabs sends an IPN for **every** transaction against a cart, not just the
+original payment. A completed refund arrives with the same shape as a sale:
+
+```json
+{
+  "tran_type": "refund",
+  "cart_id": "cart-1001",
+  "payment_result": { "response_status": "A", "response_message": "Authorised" }
+}
+```
+
+**The predicates describe the transaction, not the order.** So a completed refund
+reports `isTransactionSuccessful() === true` — correct, the refund did succeed —
+and the block above would re-mark the order paid at the moment it was refunded.
+
+Gate on `isFollowup()` before treating a success as payment:
+
+```php
+<?php
+
+if (true === $completed->isFollowup()) {
+    // refund, void, release, capture or auth extension.
+    if (true === $completed->isTransactionSuccessful()) {
+        // Inspect $completed->tranType to decide which, then adjust the order.
+    }
+
+    return;
+}
+
+// Only an original payment reaches here.
+if (true === $completed->isTransactionSuccessful()) {
+    $order->markPaid();
+}
+```
+
+`isFollowup()` returns `null` when the gateway reported no transaction type —
+treat that as "unknown" and query the transaction rather than assuming a sale.
 
 ## Handling repeated callbacks
 
@@ -195,4 +234,5 @@ For simple browser POST callbacks where the payload comes directly from PG and n
 - Never trust client-side status without signature validation.
 - Do not log full signatures, full tokens, PAN, or CVV.
 - Deduplicate repeated deliveries on `tran_ref`, and acknowledge duplicates with `200`.
-- Treat a transaction as paid only when the status is successful; `!isPaymentFailed()` also covers pending.
+- Treat a transaction as paid only when the status is successful; `!isTransactionFailed()` also covers pending and unknown.
+- Check `isFollowup()` before marking an order paid — a successful refund is a successful transaction.

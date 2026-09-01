@@ -96,9 +96,9 @@ final class ResponseMappingTest extends TestCase
     {
         $mapped = $this->mapIpn(['payment_result' => null]);
 
-        self::assertNull($mapped->isPaymentSuccessful());
-        self::assertNull($mapped->isPaymentFailed());
-        self::assertNull($mapped->isPaymentPending());
+        self::assertNull($mapped->isTransactionSuccessful());
+        self::assertNull($mapped->isTransactionFailed());
+        self::assertNull($mapped->isTransactionPending());
     }
 
     // ------------------------------------------------------- lazy mapping
