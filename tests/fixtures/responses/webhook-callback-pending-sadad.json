@@ -1,0 +1,42 @@
+{
+    "tran_ref": "TST2624502994613",
+    "merchant_id": 3333,
+    "profile_id": 88888,
+    "cart_id": "cart_11111",
+    "cart_description": "Description of the items/services",
+    "cart_currency": "SAR",
+    "cart_amount": "100.00",
+    "tran_currency": "SAR",
+    "tran_total": "100.00",
+    "tran_type": "Payment Request",
+    "tran_class": "ECom",
+    "customer_details": {
+        "name": "wajih sadad",
+        "email": "email@domain.com",
+        "phone": "050 555 5555",
+        "street1": "address street",
+        "city": "Makka",
+        "state": "02",
+        "country": "SA",
+        "zip": "12345",
+        "ip": "2001:db8:1471:b409::20"
+    },
+    "payment_result": {
+        "response_status": "P",
+        "response_code": "234320012565",
+        "response_message": "Pending",
+        "acquirer_ref": "234320012565",
+        "cvv_result": " ",
+        "avs_result": " ",
+        "transaction_time": "2026-09-02T07:05:39Z"
+    },
+    "payment_info": {
+        "payment_method": "SADAD (IFS)",
+        "card_scheme": "",
+        "payment_description": "Sadad (IFS)",
+        "issuerCountry": "SA",
+        "issuerName": "Sadad"
+    },
+    "ipn_trace": "IPNS0201.6A97CAC3.000009FB",
+    "paymentChannel": "Payment Page"
+}

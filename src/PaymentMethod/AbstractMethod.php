@@ -23,8 +23,21 @@ abstract class AbstractMethod
     protected const IS_CARD = false;
     protected const SUPPORT_CARD_FEATURES = false;
 
-    // Fawry, Sadad
+    /**
+     * Deferred (asynchronous) payment: the customer leaves the payment page with
+     * a reference number and pays later at an agent or machine — Aman, SADAD,
+     * Fawry, Basata. The gateway reports `P` on a `Payment Request` first, then
+     * `A` or `X` on a separate transaction hours or days later.
+     *
+     * Synchronous methods settle inside the customer's session and produce a
+     * single transaction, so they never report `P`.
+     */
     protected const IS_ASYNC = false;
+
+    /**
+     * The method can carry a deferred payment, even if it is not itself one.
+     * True for aggregate methods that expose deferred options downstream.
+     */
     protected const SUPPORT_ASYNC = false;
 
     protected const SUPPORT_TOKENIZATION = false;
@@ -32,6 +45,11 @@ abstract class AbstractMethod
     protected const SUPPORT_AUTH_CAPTURE = false;
     protected const SUPPORT_MULTIPLE_CAPTURE = false;
 
+    /**
+     * Whether PayTabs currently implements refunds for this method — not a
+     * property of the method itself. A `false` here may simply mean the support
+     * is not built yet, so expect these to change as PayTabs adds coverage.
+     */
     protected const SUPPORT_REFUND = false;
     protected const SUPPORT_REFUND_PARTIAL = false;
     protected const SUPPORT_MULTIPLE_REFUND = false;

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project aims to follow Semantic Versioning.
 
-## [3.3.0] - 2026-09-01
+## [3.3.0] - 2026-09-02
 
 Hardening release following a full SDK audit. It closes several crashes on
 ordinary gateway responses, removes two paths that could leak a live server key
@@ -49,6 +49,16 @@ call the status predicates or implement any SDK interface.
 
 ### Added
 
+- **`Completed::$original_tran_type` / `$originalTranType` and
+  `isTranTypeChanged()`.** The gateway reports what you *asked for* when it
+  performed something else — a `Sale` carried out as an `Auth` (hold on reject),
+  or a `Void` carried out as a `Release`. The field is returned by
+  `payment/query` but **not** by the webhook, so `isTranTypeChanged()` returns
+  `null` for every callback payload. Query the transaction when the distinction
+  affects accounting.
+- **`Completed::isDeferredPaymentResolved()`**, reporting whether a pending
+  offline payment (Aman, SADAD, Fawry) has concluded — either the customer paid
+  at the agent or the window expired.
 - `PaytabsExceptionInterface`, implemented by every exception the SDK throws, so
   a single `catch (PaytabsExceptionInterface $e)` covers all of them. Each
   exception still extends the same SPL class, so existing
@@ -65,6 +75,15 @@ call the status predicates or implement any SDK interface.
   transaction — a completed refund reports
   `isTransactionSuccessful() === true`. Check `isFollowup()` before marking an
   order paid, or a refund re-marks it paid. See `docs/usage/Webhooks.md`.
+- `Completed::isAgainstEarlierTransaction()`, reporting whether
+  `previous_tran_ref` is set. `tran_type` is not a reliable follow-up marker: a
+  capture, a tokenised repeat charge, and the sale that settles a pending offline
+  payment all report `Sale`.
+- `Completed::isDeferredPaymentResolved()`, for offline methods such as SADAD,
+  Aman and Fawry. A pending (`P`) sale is not resolved by a status change on the
+  original transaction but by a second IPN with a new `tran_ref` — either the
+  settling sale (`Sale` with `previous_tran_ref`) or an expiry (`X`). Replaces
+  the unported `TranType::isPaymentComplete()`.
 - `AbstractTransactionResult::assertGenuine()` — a fail-closed counterpart to
   `isGenuine()` that throws `InvalidSignatureException` rather than returning
   `false`, so a forged webhook cannot be processed by forgetting a check.
@@ -113,7 +132,20 @@ call the status predicates or implement any SDK interface.
   redaction. Coverage is now measured and reported in CI.
 - Mapping is now tested against captured live gateway responses in
   `tests/fixtures/responses/` rather than invented fixtures. `tests/` is
-  `export-ignore`d, so the fixtures do not ship in the Composer package.
+  `export-ignore`d, so the fixtures do not ship in the Composer package. The
+  fixtures now cover the flows that had none: deferred payments (Aman and
+  SADAD), expiry, gateway error, hold on reject, void success and void refusal,
+  and the SADAD direct API.
+- **`TranType::isPaymentComplete()` was removed.** It predated the v3 payload
+  classes, suppressed errors with `@`, and could throw a non-SDK `\ValueError`.
+  Its logic now lives in `Completed::isDeferredPaymentResolved()`, which reads
+  the mapped payload instead of raw input.
+- Documented behaviour the code could not convey on its own: `TranType::Register`
+  is card verification (auth then void — never a payment); `TranType::PaymentRequest`
+  is the deferred-payment placeholder; `PaymentResult::$response_code` carries the
+  buyer's **agent reference number** on a deferred payment rather than a status
+  code; `AbstractMethod::IS_ASYNC` means *deferred*; and `SUPPORT_REFUND` tracks
+  current PayTabs availability rather than a property of the method.
 - `ext-curl` and `ext-json` are declared in `composer.json`.
 
 ### Fixed
@@ -129,6 +161,13 @@ call the status predicates or implement any SDK interface.
   the HMAC is keyed on the configured server key.
 - `AbstractTransactionResult::getProfileId()` raised a raw property `Error` when
   no profile was set; it now throws `InvalidConfigurationException`.
+- **The webhook and refund guidance in `docs/usage/Webhooks.md` was wrong in
+  ways that could lose money.** It described the browser return as firing again
+  on later outcomes — it fires once and is never re-sent, so order state must be
+  driven by `callback`/IPN. It also told callers to reject a notification whose
+  amount did not match the order total, which rejects every legitimate partial
+  refund, since a follow-up reports the amount *it* moved. Amount matching now
+  applies only to an original payment.
 - Webhook accessors no longer require `getMapped()` to be called first; mapping
   happens lazily, and the previous ordering requirement was undocumented.
 - A non-2xx response with a non-JSON body (a CDN or WAF error page) escaped as a

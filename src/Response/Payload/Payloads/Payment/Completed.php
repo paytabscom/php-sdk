@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Paytabs\Sdk\Response\Payload\Payloads\Payment;
 
 use Paytabs\Sdk\Enums\TranClass;
+use Paytabs\Sdk\Enums\TranStatus;
+use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
 use Paytabs\Sdk\Response\Payload\Parts\ParentRequest;
 use Paytabs\Sdk\Response\Payload\Parts\PaymentInfo;
@@ -19,6 +21,15 @@ class Completed extends Payment
 
     public ?string $previous_tran_ref = null;
     public ?string $tran_currency = null;
+
+    /**
+     * The type originally requested, when the gateway performed a different one:
+     * a `Sale` downgraded to `Auth` on hold-on-reject, or a `Void` carried out as
+     * a `Release`. Only returned in the Query API flow, not in the Webhook (IPN)
+     * flow, so a callback alone cannot tell you what was asked for.
+     */
+    public ?string $original_tran_type = null;
+    public ?TranType $originalTranType = null;
 
     // Only returned in the Webhook callback (IPN) flow, not in the Query API flow.
     public ?string $tran_class = null;
@@ -59,6 +70,39 @@ class Completed extends Payment
         }
     }
 
+    public function setOriginalTranType(string $original_tran_type): void
+    {
+        $this->original_tran_type = $original_tran_type;
+        $this->originalTranType = TranType::tryFrom(strtolower($original_tran_type)) ?? TranType::Unknown;
+
+        if (TranType::Unknown === $this->originalTranType) {
+            static::logger()->error('Unknown original transaction type', [
+                'original_tran_type' => $original_tran_type,
+            ]);
+
+            if (self::isStrictMode()) {
+                throw UnknownResponseValueException::forTranType($original_tran_type);
+            }
+        }
+    }
+
+    /**
+     * Whether the gateway performed a different transaction type than requested.
+     *
+     * Two known cases: a `Sale` downgraded to `Auth` (hold on reject — the funds
+     * are held, not taken), and a `Void` carried out as a `Release`. Returns
+     * null when the gateway did not report an original type, which includes
+     * every webhook payload.
+     */
+    public function isTranTypeChanged(): ?bool
+    {
+        if (null === $this->originalTranType || null === $this->tranType) {
+            return null;
+        }
+
+        return $this->originalTranType !== $this->tranType;
+    }
+
     /**
      * Whether the gateway authorised this transaction.
      *
@@ -94,9 +138,44 @@ class Completed extends Payment
      * auth extension) rather than a payment.
      *
      * `null` when the gateway reported no transaction type.
+     *
+     * Necessary but not sufficient: a capture or a tokenised repeat charge
+     * reports `tran_type: Sale`, so this returns false for it. Use
+     * isAgainstEarlierTransaction() to catch those.
      */
     public function isFollowup(): ?bool
     {
         return $this->tranType?->isFollowup();
+    }
+
+    /**
+     * Whether this transaction was performed against an earlier one.
+     *
+     * `previous_tran_ref` is the dependable marker; `tran_type` is not, because
+     * a capture, a tokenised repeat charge, and the sale that settles a pending
+     * offline payment all report `Sale`.
+     */
+    public function isAgainstEarlierTransaction(): bool
+    {
+        return null !== $this->previous_tran_ref && '' !== $this->previous_tran_ref;
+    }
+
+    /**
+     * Whether a deferred payment has reached a final outcome.
+     *
+     * A pending (`P`) sale — SADAD, Aman, Fawry — is not resolved by a status
+     * change on the original transaction. It is resolved by a second IPN with a
+     * new `tran_ref`, which is either the sale that settles it (reported as
+     * `Sale` with `previous_tran_ref` set) or an expiry.
+     *
+     * Ported from v2's `TranIsPaymentComplete()`.
+     */
+    public function isDeferredPaymentResolved(): bool
+    {
+        if (TranType::Sale === $this->tranType && $this->isAgainstEarlierTransaction()) {
+            return true;
+        }
+
+        return TranStatus::Expired === $this->payment_result?->tranStatus;
     }
 }

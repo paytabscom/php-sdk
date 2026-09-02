@@ -37,6 +37,12 @@ use Paytabs\Sdk\PaymentMethod\Methods\UnionPay;
 use Paytabs\Sdk\PaymentMethod\Methods\UrPay;
 use Paytabs\Sdk\PaymentMethod\Methods\ValU;
 
+/**
+ * The registered methods are not the complete PayTabs catalogue — InstaPay and
+ * others are not modelled yet — so a code the gateway accepts may still have no
+ * class here, and the create* methods throw for it. Callers passing a code from
+ * a gateway response should be ready to catch.
+ */
 abstract class PaymentMethodsFactory
 {
     private static array $methodsMapper = [];

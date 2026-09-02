@@ -125,6 +125,112 @@ final class FollowupSemanticsTest extends TestCase
         }
     }
 
+    /**
+     * A capture or tokenised repeat charge reports `tran_type: Sale`, because a
+     * sale against a stored authorisation or token is what the gateway
+     * performed. isFollowup() therefore says false, and `previous_tran_ref` is
+     * the only reliable marker that this ran against an earlier transaction.
+     */
+    #[DataProvider('repeatChargeStatusProvider')]
+    public function testASaleAgainstAnEarlierTransactionIsNotFlaggedByTranType(string $status): void
+    {
+        $completed = self::mapWith([
+            'tran_type' => 'sale',
+            'previous_tran_ref' => 'TST1',
+            'payment_result' => ['response_status' => $status],
+        ]);
+
+        self::assertFalse($completed->isFollowup(), 'tran_type alone cannot see this');
+        self::assertTrue($completed->isAgainstEarlierTransaction());
+        self::assertSame('TST1', $completed->previous_tran_ref);
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function repeatChargeStatusProvider(): iterable
+    {
+        yield 'authorised' => ['A'];
+        yield 'expired' => ['X'];
+    }
+
+    /** A pending refund is a normal outcome, not a failure to retry. */
+    public function testAPendingRefundIsNeitherSuccessfulNorFailed(): void
+    {
+        $completed = self::map('refund', 'P');
+
+        self::assertTrue($completed->isTransactionPending());
+        self::assertFalse($completed->isTransactionSuccessful());
+        self::assertFalse($completed->isTransactionFailed());
+        self::assertTrue($completed->isFollowup());
+    }
+
+    // ------------------------------------------- deferred payment resolution
+
+    /**
+     * A pending offline payment (SADAD, Aman, Fawry) is not resolved by a status
+     * change on the original transaction. It is resolved by a second IPN — the
+     * settling sale, or an expiry.
+     */
+    public function testTheOriginalPendingSaleIsNotYetResolved(): void
+    {
+        $completed = self::map('sale', 'P');
+
+        self::assertFalse($completed->isDeferredPaymentResolved());
+        self::assertFalse($completed->isAgainstEarlierTransaction());
+    }
+
+    public function testTheSettlingSaleResolvesTheDeferredPayment(): void
+    {
+        $completed = self::mapWith([
+            'tran_type' => 'sale',
+            'previous_tran_ref' => 'TST1',
+            'payment_result' => ['response_status' => 'A'],
+        ]);
+
+        self::assertTrue($completed->isDeferredPaymentResolved());
+        self::assertTrue($completed->isTransactionSuccessful());
+    }
+
+    /** Expiry is the other terminal outcome: the customer never paid. */
+    public function testAnExpiredTransactionResolvesTheDeferredPayment(): void
+    {
+        $completed = self::map('sale', 'X');
+
+        self::assertTrue($completed->isDeferredPaymentResolved());
+        self::assertTrue($completed->isTransactionFailed());
+    }
+
+    /** An ordinary immediate sale is not a deferred-payment resolution. */
+    public function testAPlainSaleIsNotADeferredResolution(): void
+    {
+        self::assertFalse(self::map('sale', 'A')->isDeferredPaymentResolved());
+    }
+
+    public function testARefundIsNotADeferredPaymentResolution(): void
+    {
+        $completed = self::mapWith([
+            'tran_type' => 'refund',
+            'previous_tran_ref' => 'TST1',
+            'payment_result' => ['response_status' => 'A'],
+        ]);
+
+        self::assertFalse($completed->isDeferredPaymentResolved());
+        self::assertTrue($completed->isAgainstEarlierTransaction());
+    }
+
+    public function testAnEmptyPreviousTranRefIsNotAnEarlierTransaction(): void
+    {
+        $completed = self::mapWith([
+            'tran_type' => 'sale',
+            'previous_tran_ref' => '',
+            'payment_result' => ['response_status' => 'A'],
+        ]);
+
+        self::assertFalse($completed->isAgainstEarlierTransaction());
+        self::assertFalse($completed->isDeferredPaymentResolved());
+    }
+
     /** With no tran_type reported, follow-up status is unknown rather than false. */
     public function testAnAbsentTranTypeReportsAnUnknownFollowupStatus(): void
     {
@@ -142,12 +248,21 @@ final class FollowupSemanticsTest extends TestCase
 
     private static function map(string $tranType, string $responseStatus): Completed
     {
-        $body = json_encode([
-            'tran_ref' => 'TST1',
-            'cart_id' => 'cart-1',
+        return self::mapWith([
             'tran_type' => $tranType,
             'payment_result' => ['response_status' => $responseStatus],
-        ], JSON_THROW_ON_ERROR);
+        ]);
+    }
+
+    /**
+     * @param array<string, mixed> $overrides
+     */
+    private static function mapWith(array $overrides): Completed
+    {
+        $body = json_encode(
+            ['tran_ref' => 'TST2', 'cart_id' => 'cart-1'] + $overrides,
+            JSON_THROW_ON_ERROR
+        );
 
         return (new Completed())->setResponseData($body)->getMapped();
     }

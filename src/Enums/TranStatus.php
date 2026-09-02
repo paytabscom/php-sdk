@@ -32,11 +32,22 @@ enum TranStatus: string
         return !($this->isSuccessful() || $this->isNotFinal() || $this->isUnknown());
     }
 
+    /**
+     * Hold on reject: authorized, but deliberately not captured because risk
+     * screening flagged it. A `sale` in this state has effectively become an
+     * `auth` — only the merchant can capture or void it, on their own liability.
+     * It will never settle on its own, so route it to review rather than a poller.
+     */
     public function isOnHold(): bool
     {
         return TranStatus::OnHold === $this;
     }
 
+    /**
+     * On a sale, the customer pays through another medium (SADAD, Aman, Fawry)
+     * and settlement takes hours to days, ending as Expired if they never pay.
+     * On a refund, this is a normal accepted-and-processing state.
+     */
     public function isPending(): bool
     {
         return TranStatus::Pending === $this;

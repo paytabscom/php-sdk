@@ -1,0 +1,51 @@
+{
+    "tran_ref": "TST2624502994576",
+    "tran_type": "Auth",
+    "original_tran_type": "Sale",
+    "cart_id": "cart_11111",
+    "cart_description": "Description of the items/services",
+    "cart_currency": "SAR",
+    "cart_amount": "120.30",
+    "tran_currency": "SAR",
+    "tran_total": "120.30",
+    "customer_details": {
+        "name": "wajih sau",
+        "email": "email@domain.com",
+        "phone": "0555555555",
+        "street1": "address street",
+        "city": "Makka",
+        "state": "02",
+        "country": "SA",
+        "zip": "12345",
+        "ip": "2001:db8:1471:b409::21"
+    },
+    "shipping_details": {
+        "name": "wajih sau shipping",
+        "email": "email1@domain.com",
+        "phone": "0555555555",
+        "street1": "street2",
+        "city": "Makka",
+        "state": "02",
+        "country": "SA",
+        "zip": "54321"
+    },
+    "payment_result": {
+        "response_status": "H",
+        "response_code": "G30046",
+        "response_message": "Authorised",
+        "transaction_time": "2026-09-02T06:20:46Z"
+    },
+    "payment_info": {
+        "payment_method": "Visa",
+        "card_type": "Credit",
+        "card_scheme": "Visa",
+        "payment_description": "4111 11## #### 1111",
+        "expiryMonth": 11,
+        "expiryYear": 2033
+    },
+    "serviceId": 2,
+    "paymentChannel": "Payment Page",
+    "profileId": 48214,
+    "merchantId": 2550,
+    "trace": "PMNT0202.6A97C09C.00012285"
+}

@@ -1,0 +1,34 @@
+{
+    "tran_ref": "TST2505001006695",
+    "tran_type": "Payment Request",
+    "original_tran_type": "Sale",
+    "cart_id": "",
+    "cart_description": "Sadad transaction via direct API",
+    "cart_currency": "SAR",
+    "cart_amount": "500.00",
+    "tran_currency": "SAR",
+    "tran_total": "500.00",
+    "customer_details": {
+        "name": "Wajih Postman",
+        "phone": "050 555 5555",
+        "ip": "1.0.2.1"
+    },
+    "payment_result": {
+        "response_status": "P",
+        "response_code": "234320011172",
+        "response_message": "Pending",
+        "transaction_time": "2025-02-19T07:32:38Z"
+    },
+    "payment_info": {
+        "payment_method": "SADAD (IFS)",
+        "card_scheme": "Unknown",
+        "payment_description": "Sadad transaction via direct API",
+        "issuerCountry": "SA",
+        "issuerName": "IFS"
+    },
+    "serviceId": 1,
+    "paymentChannel": "Transaction API",
+    "profileId": 48214,
+    "merchantId": 2550,
+    "trace": "PMNT0201.6A97CE24.00017104"
+}

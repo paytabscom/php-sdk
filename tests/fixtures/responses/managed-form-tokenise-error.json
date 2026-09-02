@@ -1,0 +1,9 @@
+{
+    "error": true,
+    "errorCode": 200,
+    "errorField": "number",
+    "errorStatus": "E",
+    "errorText": "Visa is not supported, please enter a different card.",
+    "status": 400,
+    "trace": "PMNT0202.6A97D0CE.00017310"
+}

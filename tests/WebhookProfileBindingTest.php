@@ -174,6 +174,25 @@ final class WebhookProfileBindingTest extends TestCase
         ];
     }
 
+    /**
+     * A deferred payment sends the customer back with `P` and the agent
+     * reference in respCode — the browser return is not a payment confirmation.
+     */
+    public function testTheBrowserReturnOfADeferredPaymentIsPending(): void
+    {
+        $fields = self::browserFields('webhook-browser-pending.txt');
+
+        self::assertSame('P', $fields['respStatus']);
+        self::assertSame('234320012565', $fields['respCode']);
+
+        $payload = new Browser();
+        $payload->setRespStatus($fields['respStatus']);
+
+        self::assertTrue($payload->isTransactionPending());
+        self::assertFalse($payload->isTransactionSuccessful());
+        self::assertFalse($payload->isTransactionFailed());
+    }
+
     // ------------------------------------------------- exception contract
 
     public function testEverySdkExceptionIsCatchableThroughOneInterface(): void

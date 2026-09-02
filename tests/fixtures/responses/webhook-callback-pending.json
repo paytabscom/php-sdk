@@ -1,0 +1,42 @@
+{
+    "tran_ref": "PTE1231231231231",
+    "merchant_id": 12345,
+    "profile_id": 54321,
+    "cart_id": "Order-010203",
+    "cart_description": "Deferred Payment",
+    "cart_currency": "EGP",
+    "cart_amount": "150.00",
+    "tran_currency": "EGP",
+    "tran_total": "150.00",
+    "tran_type": "Payment Request",
+    "tran_class": "ECom",
+    "customer_details": {
+        "name": "Customer Name",
+        "email": "customer@example.com",
+        "phone": "01012345678",
+        "street1": "Nsr Street",
+        "city": "Cairo",
+        "state": "Cairo",
+        "country": "EG",
+        "zip": "111",
+        "ip": "1.2.3.4"
+    },
+    "payment_result": {
+        "response_status": "P",
+        "response_code": "12624479397955",
+        "response_message": "Pending",
+        "acquirer_ref": "12624479397955",
+        "cvv_result": " ",
+        "avs_result": " ",
+        "transaction_time": "2026-09-11T13:32:16Z"
+    },
+    "payment_info": {
+        "payment_method": "Aman",
+        "card_scheme": "",
+        "payment_description": "Aman",
+        "issuerCountry": "EG",
+        "issuerName": "Aman"
+    },
+    "ipn_trace": "IPNS0401.6A00D0E0.00000000",
+    "paymentChannel": "Payment Page"
+}

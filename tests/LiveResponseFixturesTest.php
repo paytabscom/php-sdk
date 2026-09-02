@@ -7,6 +7,7 @@ namespace Paytabs\Sdk\Tests;
 use Paytabs\Sdk\Enums\InvoiceStatus as InvoiceStatusEnum;
 use Paytabs\Sdk\Enums\ResponseStage;
 use Paytabs\Sdk\Enums\TranStatus;
+use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Helpers\Helpers;
 use Paytabs\Sdk\Profile\EndpointsFactory;
 use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Ipn;
@@ -233,6 +234,238 @@ final class LiveResponseFixturesTest extends TestCase
         yield 'cancelled' => [
             'webhook-callback-cancelled.json', 'TST2623802990091', TranStatus::Canceled, false, true,
         ];
+        yield 'expired' => [
+            'webhook-callback-expired.json', 'TST2624302306928', TranStatus::Expired, false, true,
+        ];
+        yield 'gateway error' => [
+            'webhook-callback-error.json', 'PTE7897897897897', TranStatus::Error, false, true,
+        ];
+    }
+
+    // ------------------------------------------------- Deferred payments
+
+    /**
+     * An offline method (Aman/SADAD/Fawry) produces two transactions, not one
+     * status change: a `Payment Request` holding the reference number, then a
+     * separate `Sale` once the customer pays at an agent.
+     */
+    public function testAPendingOfflinePaymentIsAPaymentRequestNotASale(): void
+    {
+        $pending = self::completed('webhook-callback-pending.json');
+
+        self::assertSame(TranType::PaymentRequest, $pending->tranType);
+        self::assertSame(TranStatus::Pending, $pending->payment_result->tranStatus);
+        self::assertTrue($pending->isTransactionPending());
+        self::assertFalse($pending->isTransactionSuccessful());
+        self::assertFalse($pending->isTransactionFailed());
+
+        // Nothing has been collected yet, so it must not count as resolved.
+        self::assertFalse($pending->isDeferredPaymentResolved());
+        self::assertNull($pending->previous_tran_ref);
+    }
+
+    /**
+     * On a deferred payment response_code carries the reference number the buyer
+     * quotes at the agent, and both transactions repeat it.
+     */
+    public function testResponseCodeCarriesTheOfflineReferenceNumber(): void
+    {
+        $pending = self::completed('webhook-callback-pending.json');
+        $paid = self::completed('webhook-callback-pending-completed.json');
+
+        self::assertSame('12624479397955', $pending->payment_result->response_code);
+        self::assertSame(
+            $pending->payment_result->response_code,
+            $paid->payment_result->response_code
+        );
+    }
+
+    /**
+     * Not an Aman quirk: SADAD reports the same way, which is what makes the
+     * reference-in-response_code rule safe to apply to deferred methods.
+     */
+    public function testSadadReportsTheReferenceTheSameWayAsAman(): void
+    {
+        $sadad = self::completed('webhook-callback-pending-sadad.json');
+
+        self::assertSame(TranType::PaymentRequest, $sadad->tranType);
+        self::assertSame(TranStatus::Pending, $sadad->payment_result->tranStatus);
+        self::assertSame('234320012565', $sadad->payment_result->response_code);
+        self::assertSame('SADAD (IFS)', $sadad->payment_info->payment_method);
+    }
+
+    /**
+     * The direct SADAD API returns the reference in the body instead of a
+     * payment page, but creates the same transaction — so it maps as a normal
+     * pending payment request on query.
+     */
+    public function testTheDirectSadadApiCreatesAnOrdinaryPaymentRequest(): void
+    {
+        $queried = self::completed('query-sadad-api-success.json');
+
+        self::assertSame(TranType::PaymentRequest, $queried->tranType);
+        self::assertSame(TranType::Sale, $queried->originalTranType);
+        self::assertSame(TranStatus::Pending, $queried->payment_result->tranStatus);
+        self::assertSame('Transaction API', $queried->paymentChannel);
+    }
+
+    /**
+     * The create call is not a payment_result envelope: no response_status, and
+     * the reference is sadad_number rather than payment_result.response_code.
+     */
+    public function testTheDirectSadadCreateResponseHasItsOwnShape(): void
+    {
+        $created = self::json('api-sadad-create-payment.json');
+
+        self::assertObjectHasProperty('sadad_number', $created);
+        self::assertObjectHasProperty('expire_date', $created);
+        self::assertObjectNotHasProperty('payment_result', $created);
+        self::assertSame('TST2624502994619', $created->tran_ref);
+    }
+
+    /**
+     * The paying transaction reports `Sale`/`A` — there is no distinct
+     * settlement type — so `previous_tran_ref` is the only reliable marker.
+     */
+    public function testTheAgentPaymentArrivesAsAnAuthorisedSaleAgainstTheRequest(): void
+    {
+        $paid = self::completed('webhook-callback-pending-completed.json');
+        $pending = self::completed('webhook-callback-pending.json');
+
+        self::assertSame(TranType::Sale, $paid->tranType);
+        self::assertSame(TranStatus::Authorised, $paid->payment_result->tranStatus);
+        self::assertSame($pending->tran_ref, $paid->previous_tran_ref);
+        self::assertSame($pending->cart_id, $paid->cart_id);
+
+        self::assertTrue($paid->isAgainstEarlierTransaction());
+        self::assertTrue($paid->isDeferredPaymentResolved());
+        self::assertTrue($paid->isTransactionSuccessful());
+
+        // A capture/void/refund is a follow-up; this is a genuine sale.
+        self::assertFalse($paid->isFollowup());
+    }
+
+    /**
+     * Expiry is normal attrition and can arrive without previous_tran_ref, so
+     * detecting it must not depend on that field.
+     */
+    public function testAnExpiryResolvesTheDeferredPaymentWithoutAPreviousRef(): void
+    {
+        $expired = self::completed('webhook-callback-expired.json');
+
+        self::assertSame(TranStatus::Expired, $expired->payment_result->tranStatus);
+        self::assertNull($expired->previous_tran_ref);
+        self::assertFalse($expired->isAgainstEarlierTransaction());
+
+        self::assertTrue($expired->isDeferredPaymentResolved());
+        self::assertTrue($expired->isTransactionFailed());
+        self::assertFalse($expired->isTransactionPending());
+    }
+
+    // -------------------------------------------------------- Capture
+
+    /**
+     * A hold released in the PayTabs dashboard reaches the merchant as an
+     * ordinary Capture notification: nothing in the merchant's own code
+     * triggered it, so only callback/IPN carries it.
+     */
+    public function testAHoldReleasedInTheDashboardArrivesAsACapture(): void
+    {
+        $capture = self::completed('webhook-callback-capture-onhold.json');
+
+        self::assertSame(TranType::Capture, $capture->tranType);
+        self::assertSame(TranStatus::Authorised, $capture->payment_result->tranStatus);
+        self::assertSame('Dashboard', $capture->paymentChannel);
+
+        // A follow-up against the held transaction, not a second payment.
+        self::assertTrue($capture->isFollowup());
+        self::assertTrue($capture->isAgainstEarlierTransaction());
+        self::assertSame('TST2624502784914', $capture->previous_tran_ref);
+    }
+
+    // ----------------------------------------------------------- Void
+
+    public function testASuccessfulVoidIsAFollowupNotAPayment(): void
+    {
+        $void = self::completed('void-success.json');
+
+        self::assertSame(TranType::Void, $void->tranType);
+        self::assertSame(TranStatus::Authorised, $void->payment_result->tranStatus);
+        self::assertTrue($void->isFollowup());
+        self::assertTrue($void->isAgainstEarlierTransaction());
+
+        // Reports the transaction, not the order — the money was released.
+        self::assertTrue($void->isTransactionSuccessful());
+    }
+
+    /**
+     * A held transaction cannot be cleared through the API: the void comes back
+     * inside a normal response as `E`/120, not as an error object.
+     */
+    public function testVoidingAHeldTransactionIsRefusedWithCode120(): void
+    {
+        $refused = self::completed('void-declined-onhold.json');
+        $held = self::completed('webhook-callback-success-onhold.json');
+
+        self::assertSame($held->tran_ref, $refused->previous_tran_ref);
+        self::assertSame(TranType::Void, $refused->tranType);
+        self::assertSame(TranStatus::Error, $refused->payment_result->tranStatus);
+        self::assertSame('120', $refused->payment_result->response_code);
+
+        self::assertTrue($refused->isTransactionFailed());
+        self::assertFalse($refused->isTransactionSuccessful());
+    }
+
+    // ------------------------------------------- Changed transaction types
+
+    /**
+     * A `sale` that hits hold-on-reject is performed as an `auth`. Only the
+     * query response reveals what was originally requested.
+     */
+    public function testQueryRevealsASaleWasDowngradedToAnAuth(): void
+    {
+        $queried = self::completed('query-trx-by-ref-onhold.json');
+
+        self::assertSame(TranType::Auth, $queried->tranType);
+        self::assertSame(TranType::Sale, $queried->originalTranType);
+        self::assertTrue($queried->isTranTypeChanged());
+        self::assertSame(TranStatus::OnHold, $queried->payment_result->tranStatus);
+    }
+
+    public function testQueryRevealsAVoidWasPerformedAsARelease(): void
+    {
+        $queried = self::completed('query-trx-by-ref-void-release.json');
+
+        self::assertSame(TranType::Release, $queried->tranType);
+        self::assertSame(TranType::Void, $queried->originalTranType);
+        self::assertTrue($queried->isTranTypeChanged());
+    }
+
+    /**
+     * The webhook omits original_tran_type entirely, so the same transaction
+     * that reports a downgrade on query reports "unknown" on the callback.
+     */
+    public function testTheWebhookCannotRevealAChangedTranType(): void
+    {
+        $webhook = self::completed('webhook-callback-success-onhold.json');
+        $queried = self::completed('query-trx-by-ref-onhold.json');
+
+        self::assertSame($queried->tran_ref, $webhook->tran_ref);
+        self::assertSame(TranType::Auth, $webhook->tranType);
+
+        self::assertNull($webhook->original_tran_type);
+        self::assertNull($webhook->originalTranType);
+        self::assertNull($webhook->isTranTypeChanged());
+    }
+
+    /**
+     * paymentChannel reports the medium the request arrived through, so it is
+     * informational only and must not be read as transaction state.
+     */
+    public function testPaymentChannelIsMappedAsAnOpaqueString(): void
+    {
+        self::assertSame('Mobile SDK', self::completed('webhook-callback-error.json')->paymentChannel);
+        self::assertSame('Payment Page', self::completed('webhook-callback-expired.json')->paymentChannel);
     }
 
     public function testNestedPartsSurviveMapping(): void

@@ -13,6 +13,11 @@ class PaymentResult
     public ?string $response_status = null; // "A",
     public ?TranStatus $tranStatus = null;
 
+    /**
+     * Gateway/acquirer code — except on a deferred payment (Aman, SADAD, Fawry),
+     * where it carries the **reference number the buyer quotes at the agent** to
+     * pay. Show it to the customer; without it they cannot complete the payment.
+     */
     public ?string $response_code = null; // "G08490",
     public ?string $response_message = null; // "Authorised",
 
