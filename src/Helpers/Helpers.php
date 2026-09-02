@@ -15,7 +15,7 @@ class Helpers
     ): string {
         $base = rtrim($base_url, '/');
 
-        $path = ltrim($path ?? '', '/');
+        $path = ltrim($path, '/');
 
         $url = $base . '/' . $path;
 
@@ -28,6 +28,10 @@ class Helpers
 
     public static function responseStage(array|object $json): ResponseStage
     {
+        if (\is_array($json)) {
+            $json = (object) $json;
+        }
+
         // "Delete Token" request returns same structure but code=0
         if (isset($json->code) && $json->code > 0) {
             return ResponseStage::Error;
@@ -47,7 +51,7 @@ class Helpers
         return ResponseStage::Unknown;
     }
 
-    public static function jsonValidate(array|string $json): bool
+    public static function jsonValidate(string $json): bool
     {
         return json_validate($json);
     }

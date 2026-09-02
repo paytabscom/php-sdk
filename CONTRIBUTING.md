@@ -4,6 +4,20 @@ Thanks for your interest in improving the PayTabs PHP SDK.
 
 ## Development Setup
 
+The SDK runs on PHP `^8.1`, because it is embedded in e-commerce platform plugins
+that must work on older merchant hosting.
+
+**Contributing requires PHP 8.2 or newer.** PHPUnit 11 dropped 8.1, so
+`composer install` cannot resolve the dev dependencies there. The constraint
+applies to the toolchain, not to the SDK.
+
+CI runs the suite on 8.2, 8.3 and 8.4, plus a `--prefer-lowest` job on 8.2.
+
+A separate `runtime-php81` job runs on **8.1** and executes only what a consumer
+runs in production: `composer validate`, then a runtime-only install and
+`composer audit`, with the dev dependencies dropped first. That job is what keeps
+the 8.1 floor verified, so keep `src/` free of 8.2+ syntax and functions.
+
 1. Install dependencies:
 
 ```bash

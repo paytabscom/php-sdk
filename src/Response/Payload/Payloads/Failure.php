@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Response\Payload\Payloads;
 
+use Paytabs\Sdk\Exceptions\GatewayFailureException;
+
 class Failure extends Paytabs
 {
-    public int $code;
-    public string $message;
+    public ?int $code = null;
+    public ?string $message = null;
 
+    /**
+     * @throws GatewayFailureException always
+     */
     public function throwException(): void
     {
-        throw new \Exception($this->message, $this->code);
+        throw GatewayFailureException::fromResponse($this->code, $this->message);
     }
 
     /*

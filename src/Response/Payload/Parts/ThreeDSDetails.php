@@ -6,15 +6,15 @@ namespace Paytabs\Sdk\Response\Payload\Parts;
 
 class ThreeDSDetails
 {
-    public int $responseLevel;
-    public int $responseStatus;
+    public ?int $responseLevel = null;
+    public ?int $responseStatus = null;
 
-    public string $enrolled; // "Y" / "N"
-    public string $paResStatus; // "Y" / "N",
+    public ?string $enrolled = null; // "Y" / "N"
+    public ?string $paResStatus = null; // "Y" / "N",
 
-    public string $eci; // "05",
-    public string $cavv;
-    public string $ucaf;
+    public ?string $eci = null; // "05",
+    public ?string $cavv = null;
+    public ?string $ucaf = null;
 
-    public string $threeDSVersion;
+    public ?string $threeDSVersion = null;
 }

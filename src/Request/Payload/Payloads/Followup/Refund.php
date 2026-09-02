@@ -6,6 +6,7 @@ namespace Paytabs\Sdk\Request\Payload\Payloads\Followup;
 
 use Paytabs\Sdk\Enums\TranClass;
 use Paytabs\Sdk\Enums\TranType;
+use Paytabs\Sdk\Exceptions\UnsupportedPayloadOperationException;
 use Paytabs\Sdk\Request\Payload\Payloads\Followup;
 
 class Refund extends Followup
@@ -16,8 +17,9 @@ class Refund extends Followup
         parent::buildTransaction(TranType::Refund, TranClass::Ecom);
     }
 
+    // The transaction type is fixed to Refund by the constructor.
     public function buildTransaction(TranType $tran_type, TranClass $tran_class = TranClass::Ecom): void
     {
-        throw new \Exception('Can not be implemented');
+        throw UnsupportedPayloadOperationException::forPayload('Changing the transaction type', 'Refund');
     }
 }

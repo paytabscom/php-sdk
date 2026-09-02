@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Enums\TranStatus;
 use Paytabs\Sdk\Enums\TranType;
 use Paytabs\Sdk\Exceptions\UnknownResponseValueException;
@@ -9,18 +11,27 @@ use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Browser;
 use Paytabs\Sdk\Response\Payload\Payloads\Payment;
 use Paytabs\Sdk\Response\Payload\Payloads\Payment\Completed;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ResponsePayloadStrictModeTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Unknown enum values are expected here; keep the diagnostic out of the
+        // test output. Also exercises the injectable mapping logger.
+        Payment::setLogger(new NullLogger());
+    }
+
     protected function tearDown(): void
     {
         Browser::setStrictMode(false);
         Completed::setStrictMode(false);
+        Payment::setLogger(null);
         parent::tearDown();
     }
 

@@ -9,19 +9,19 @@ use Paytabs\Sdk\Response\Payload\Payloads\Paytabs;
 
 class InvoiceMarkPaid extends Paytabs
 {
-    public int $profile_id;
+    public ?int $profile_id = null;
 
-    public int $invoice_id;
+    public ?int $invoice_id = null;
 
-    public string $invoice_currency;
-    public float $invoice_total;
+    public ?string $invoice_currency = null;
+    public ?float $invoice_total = null;
 
-    public string $pay_method;
-    public InvoiceExternalPayMethod $payMethod;
+    public ?string $pay_method = null;
+    public ?InvoiceExternalPayMethod $payMethod = null;
 
-    public string $pay_description;
+    public ?string $pay_description = null;
 
-    public string $tran_ref;
+    public ?string $tran_ref = null;
 
     public function setPayMethod(string $payMethod): void
     {

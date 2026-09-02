@@ -1,0 +1,1 @@
+acquirerMessage=&acquirerRRN=&cartId=cart_11111&customerEmail=email%40domain.com&respCode=234320012565&respMessage=Pending&respStatus=P&signature=1fcc29a02141a552a2b4330f454ef376f16b403494aab0b4f55eb7ea291b9b25&token=&tranRef=TST2624502994613

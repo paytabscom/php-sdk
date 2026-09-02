@@ -37,23 +37,22 @@ class PaytabsLogger
 
     public static function getLogFile(?string $logPath = null): string
     {
-        $basePath = '';
-        if ('' === trim($logPath ?? '')) {
-            $basePath = static::LOG_PATH;
-        }
+        $basePath = '' !== trim($logPath ?? '')
+            ? trim($logPath ?? '')
+            : static::LOG_PATH;
 
         if ('' === trim($basePath)) {
             $basePath = rtrim(sys_get_temp_dir(), \DIRECTORY_SEPARATOR);
         }
 
         $basePath = rtrim($basePath, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
-        if (!is_dir($basePath)) {
-            try {
-                mkdir($basePath, 0o775, true);
-            } catch (\Throwable $e) {
-                error_log('Failed to create log directory: ' . $basePath . ' - ' . $e->getMessage());
-                // throw new \RuntimeException('Failed to create log directory: ' . $basePath, 0, $e);
-            }
+
+        // mkdir() raises a warning rather than throwing, so a try/catch around
+        // it never fires — the return value is the only signal. The trailing
+        // is_dir() keeps this safe when a concurrent request wins the race.
+        // 0o700: the directory holds gateway payloads.
+        if (!is_dir($basePath) && !@mkdir($basePath, 0o700, true) && !is_dir($basePath)) {
+            error_log('PayTabs SDK: failed to create log directory: ' . $basePath);
         }
 
         $logFile = static::LOG_FILE_NAME;

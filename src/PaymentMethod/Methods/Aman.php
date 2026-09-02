@@ -26,7 +26,6 @@ final class Aman extends AbstractMethod
     final protected const IS_CARD = false;
     final protected const SUPPORT_CARD_FEATURES = false;
 
-    // Fawry, Sadad
     final protected const IS_ASYNC = true;
     final protected const SUPPORT_ASYNC = true;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Exceptions;
 
-final class UnknownResponseValueException extends \RuntimeException
+final class UnknownResponseValueException extends \RuntimeException implements PaytabsExceptionInterface
 {
     public static function forTranType(string $tranType): self
     {

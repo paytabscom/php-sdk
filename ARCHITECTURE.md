@@ -125,6 +125,7 @@ Defined in [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 - Parts reference (overview): [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd)
 - Parts reference (canonical): [docs/diagrams/payment-parts-class-reference.mmd](docs/diagrams/payment-parts-class-reference.mmd)
 
+
 ## Maintainer Notes
 
 1. Keep this file aligned with any class or naming changes in factories and response handlers.

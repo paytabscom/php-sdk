@@ -8,7 +8,7 @@ use Paytabs\Sdk\Response\Payload\PayloadInterface;
 
 interface ResponseInterface
 {
-    public function setResponse(mixed $raw_response): static;
+    public function setResponse(string $raw_response): static;
 
     public function setPayload(PayloadInterface $payloadClass): static;
 

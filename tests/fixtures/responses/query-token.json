@@ -1,0 +1,18 @@
+{
+    "tran_ref": "TST2105900091509",
+    "payment_info": {
+        "card_type": "Credit",
+        "card_scheme": "Visa",
+        "payment_description": "4111 11## #### 1111"
+    },
+    "customer_details": {
+        "name": "first last",
+        "email": "email@domain.com",
+        "phone": "0522222222",
+        "street1": "address street",
+        "city": "dubai",
+        "state": "DU",
+        "country": "AE",
+        "ip": "203.0.113.13"
+    }
+}

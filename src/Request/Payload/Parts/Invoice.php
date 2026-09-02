@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Request\Payload\Parts;
 
+use InvalidArgumentException;
 use Paytabs\Sdk\Enums\Language;
 use Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice\LineItems;
 
@@ -25,10 +26,16 @@ class Invoice extends AbstractPart
 
     public ?bool $disableEdit = null;
 
+    // Line items are mandatory in the PayTabs invoice API, when the Invoice object is used.
+    // The API will return an error if the invoice object is sent without line items.
     public LineItems $lineItems;
 
     public function build(): array
     {
+        if (!isset($this->lineItems)) {
+            throw new InvalidArgumentException('Line items are required for the Invoice object.');
+        }
+
         $charges = [
             'shipping_charges' => $this->shippingCharges,
             'extra_charges' => $this->extraCharges,

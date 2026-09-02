@@ -8,7 +8,7 @@ class BrowserAsGet extends AbstractBrowser
 {
     public static function init(array $localParams = []): self
     {
-        $data = filter_input_array(INPUT_GET);
+        $data = filter_input_array(INPUT_GET) ?? [];
 
         return self::initWith($data, $localParams);
     }

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 use Paytabs\Sdk\Profile\EndpointsFactory;
 
-function getConfig(string $key, $default = null): mixed
+/**
+ * Pass $hasDefault = true to make a key optional; $default is then returned when
+ * the key is absent, including when $default is itself null.
+ */
+function getConfig(string $key, $default = null, bool $hasDefault = false): mixed
 {
     static $env = null;
 
@@ -24,7 +28,7 @@ function getConfig(string $key, $default = null): mixed
     }
 
     if (!array_key_exists($key, $env)) {
-        if (null !== $default) {
+        if ($hasDefault || null !== $default) {
             return $default;
         }
 

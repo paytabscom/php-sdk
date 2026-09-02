@@ -1,0 +1,42 @@
+{
+    "tran_ref": "TST2624502784916",
+    "previous_tran_ref": "TST2624502784914",
+    "merchant_id": 3333,
+    "profile_id": 55555,
+    "cart_id": "cart_11111",
+    "cart_description": "Description of the items/services",
+    "cart_currency": "AED",
+    "cart_amount": "2.00",
+    "tran_currency": "AED",
+    "tran_total": "2.00",
+    "tran_type": "Capture",
+    "tran_class": "ECom",
+    "customer_details": {
+        "name": "Wajih 2",
+        "email": "email@domain.com",
+        "phone": "0555555555",
+        "street1": "address street",
+        "city": "Dubai",
+        "state": "DU",
+        "country": "AE"
+    },
+    "payment_result": {
+        "response_status": "A",
+        "response_code": "G37783",
+        "response_message": "Authorised",
+        "acquirer_ref": "TRAN0001.6A97DE76.00010D22",
+        "cvv_result": " ",
+        "avs_result": " ",
+        "transaction_time": "2026-09-02T08:29:43Z"
+    },
+    "payment_info": {
+        "payment_method": "Visa",
+        "card_type": "Credit",
+        "card_scheme": "Visa",
+        "payment_description": "4111 11## #### 1111",
+        "expiryMonth": 11,
+        "expiryYear": 2033
+    },
+    "ipn_trace": "IPNS0001.6A97DE77.00000C0A",
+    "paymentChannel": "Dashboard"
+}

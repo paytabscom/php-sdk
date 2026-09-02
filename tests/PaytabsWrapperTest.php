@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Paytabs;
 use Paytabs\Sdk\PaytabsLogger;
@@ -14,8 +16,6 @@ use Psr\Log\NullLogger;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PaytabsWrapperTest extends TestCase
 {

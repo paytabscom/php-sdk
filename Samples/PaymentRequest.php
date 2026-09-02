@@ -25,6 +25,7 @@ use Paytabs\Sdk\Request\RequestsFactory;
 use Psr\Log\LoggerInterface;
 
 /**
+ * @var string          $cartId
  * @var string          $urlReturn
  * @var string          $urlCallback
  * @var string          $_currency
@@ -32,13 +33,13 @@ use Psr\Log\LoggerInterface;
  * @var Paytabs         $paytabs
  * @var LoggerInterface $logger
  */
-if (!isset($paytabs, $logger, $urlReturn, $urlCallback, $_currency, $_themeId)) {
-    throw new RuntimeException('Required variables are not set: $paytabs, $logger, $urlReturn, $urlCallback, $_currency, $_themeId');
+if (!isset($paytabs, $logger, $cartId, $urlReturn, $urlCallback, $_currency, $_themeId)) {
+    throw new RuntimeException('Required variables are not set: $paytabs, $logger, $cartId, $urlReturn, $urlCallback, $_currency, $_themeId');
 }
 
 $holder = PayloadsFactory::createHostedPage();
 $holder
-    ->buildCart('cart01', $_currency, 700, 'Test')
+    ->buildCart($cartId, $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
     ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
@@ -84,7 +85,7 @@ if ($tokenise) {
                     10,
                     null,
                     1,
-                    '30-MAR-2025',
+                    '30-MAR-2027',
                     null
                 )->setCounter(1, 10)
             )
@@ -123,7 +124,7 @@ $lineItem1 = LineItem::init()
 
 $item2 = LineItem::init()
     ->setTitle('item-02')
-    ->setPrice(2, 300, 600)
+    ->setPrice(2, 300)
 ;
 
 $lineItems = new LineItems($lineItem1, $item2);

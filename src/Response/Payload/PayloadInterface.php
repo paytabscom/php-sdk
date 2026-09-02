@@ -6,9 +6,9 @@ namespace Paytabs\Sdk\Response\Payload;
 
 interface PayloadInterface
 {
-    public function setResponseData(array|string $data): static;
+    public function setResponseData(string $data): static;
 
-    public function getResponseData(): array|string;
+    public function getResponseData(): string;
 
     public function getMapped(): static;
 

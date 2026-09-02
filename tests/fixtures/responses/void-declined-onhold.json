@@ -1,0 +1,40 @@
+{
+    "tran_ref": "TST2624502994580",
+    "previous_tran_ref": "TST2624502994576",
+    "tran_type": "Void",
+    "cart_id": "cart_66666",
+    "cart_description": "Void reason",
+    "cart_currency": "SAR",
+    "cart_amount": "1.30",
+    "tran_currency": "SAR",
+    "tran_total": "1.30",
+    "customer_details": {
+        "name": "wajih sau",
+        "email": "email@domain.com",
+        "phone": "0555555555",
+        "street1": "address street",
+        "city": "Makka",
+        "state": "02",
+        "country": "SA",
+        "zip": "12345"
+    },
+    "payment_result": {
+        "response_status": "E",
+        "response_code": "120",
+        "response_message": "Previous transaction is on hold",
+        "transaction_time": "2026-09-02T06:25:32Z"
+    },
+    "payment_info": {
+        "payment_method": "Visa",
+        "card_type": "Credit",
+        "card_scheme": "Visa",
+        "payment_description": "4111 11## #### 1111",
+        "expiryMonth": 11,
+        "expiryYear": 2033
+    },
+    "serviceId": 1,
+    "paymentChannel": "Transaction API",
+    "profileId": 48214,
+    "merchantId": 2550,
+    "trace": "PMNT0202.6A97C15C.0001262E"
+}

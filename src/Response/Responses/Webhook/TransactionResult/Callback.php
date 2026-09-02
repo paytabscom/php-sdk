@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Paytabs\Sdk\Response\Responses\Webhook\TransactionResult;
 
 use Paytabs\Sdk\Enums\TranStatus;
+use Paytabs\Sdk\Helpers\Helpers;
 use Paytabs\Sdk\Response\Payload\Payloads\Callbacks\Ipn;
 use Paytabs\Sdk\Response\Responses\Webhook\AbstractTransactionResult;
 
@@ -22,37 +23,61 @@ class Callback extends AbstractTransactionResult
     public static function init(): self
     {
         $response_stream = file_get_contents('php://input');
-        $headers = getallheaders();
+
+        if (false === $response_stream || '' === $response_stream) {
+            throw new \InvalidArgumentException('Invalid IPN payload: empty request body');
+        }
+
+        $headers = getallheaders() ?: [];
 
         return self::initWith($response_stream, $headers);
     }
 
     public static function initWith(string $jsonPayload, array $headers): self
     {
+        // Guard here as well as in init(): an empty or non-JSON body otherwise
+        // surfaced as a bare \JsonException raised from a constructor, deep in
+        // the payload layer.
+        if ('' === trim($jsonPayload)) {
+            throw new \InvalidArgumentException('Invalid IPN payload: empty request body');
+        }
+
+        if (!Helpers::jsonValidate($jsonPayload)) {
+            throw new \InvalidArgumentException('Invalid IPN payload: body is not valid JSON');
+        }
+
         // Lower case all keys
         $headers = array_change_key_case($headers);
 
         return new self($jsonPayload, $headers);
     }
 
+    /**
+     * The profile ID reported by the IPN payload.
+     *
+     * Only trustworthy once isGenuine() has returned true. Use
+     * getConfiguredProfileId() for the locally configured value.
+     */
     public function getProfileId(): int
     {
-        return $this->getCallbackPayload()->profile_id;
+        return self::required($this->getCallbackPayload()->profile_id, 'profile_id');
     }
 
     public function getTranRef(): string
     {
-        return $this->getCallbackPayload()->tran_ref;
+        return self::required($this->getCallbackPayload()->tran_ref, 'tran_ref');
     }
 
     public function getCartId(): string
     {
-        return $this->getCallbackPayload()->cart_id;
+        return self::required($this->getCallbackPayload()->cart_id, 'cart_id');
     }
 
     public function getTranStatus(): TranStatus
     {
-        return $this->getCallbackPayload()->payment_result->tranStatus;
+        $paymentResult = self::required($this->getCallbackPayload()->payment_result, 'payment_result');
+
+        return self::required($paymentResult->tranStatus, 'payment_result.response_status');
     }
 
     protected function isValid(): bool
@@ -61,12 +86,14 @@ class Callback extends AbstractTransactionResult
             return false;
         }
 
-        return !empty($this->headers['signature']);
+        // is_string(), not !empty(): see AbstractBrowser::isValid().
+        return \is_string($this->headers['signature']) && '' !== $this->headers['signature'];
     }
 
     protected function isSameProfile(): bool
     {
-        return $this->getCallbackPayload()->profile_id === $this->getProfileId();
+        // Compare against the configured credential, not the payload's own field.
+        return $this->getCallbackPayload()->profile_id === $this->getConfiguredProfileId();
     }
 
     protected function prepareHashablePayload(): string
@@ -76,7 +103,9 @@ class Callback extends AbstractTransactionResult
 
     protected function getServerSignature(): string
     {
-        return $this->headers['signature'];
+        $signature = $this->headers['signature'] ?? '';
+
+        return \is_string($signature) ? $signature : '';
     }
 
     private function getCallbackPayload(): Ipn

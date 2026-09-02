@@ -12,6 +12,10 @@ use Paytabs\Sdk\Request\RequestsFactory;
 use Psr\Log\LoggerInterface;
 
 /**
+ * $_paymentToken comes from the browser: paylib.js posts the card to
+ * payment/tokenise with the client key and returns a token. The card itself
+ * never reaches this server, which is what keeps the integration in SAQ A-EP.
+ *
  * @var string          $urlReturn
  * @var string          $urlCallback
  * @var string          $_currency

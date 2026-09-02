@@ -62,22 +62,14 @@ abstract class AbstractPayload implements PayloadInterface
                 || \array_key_exists($key, $this->path);
         }
 
-        switch ($httpPart) {
-            case HttpRequestPart::Header:
-                return \array_key_exists($key, $this->headers);
-
-            case HttpRequestPart::Body:
-                return \array_key_exists($key, $this->body);
-
-            case HttpRequestPart::Query:
-                return \array_key_exists($key, $this->query);
-
-            case HttpRequestPart::Path:
-                return \array_key_exists($key, $this->path);
-
-            default:
-                throw new \Exception('Not implemented');
-        }
+        // match is exhaustive over the enum, so an unreachable default throw
+        // is not needed: a new case becomes a TypeError at the call site.
+        return match ($httpPart) {
+            HttpRequestPart::Header => \array_key_exists($key, $this->headers),
+            HttpRequestPart::Body => \array_key_exists($key, $this->body),
+            HttpRequestPart::Query => \array_key_exists($key, $this->query),
+            HttpRequestPart::Path => \array_key_exists($key, $this->path),
+        };
     }
 
     private function buildPart(array|PartInterface $part, HttpRequestPart $httpPart, bool $merge = false): void
@@ -86,32 +78,12 @@ abstract class AbstractPayload implements PayloadInterface
             ? $part->build()
             : $part;
 
-        switch ($httpPart) {
-            case HttpRequestPart::Header:
-                $this->add($this->headers, $newPart);
-
-                break;
-
-            case HttpRequestPart::Body:
-                $this->add($this->body, $newPart, $merge);
-
-                break;
-
-            case HttpRequestPart::Query:
-                $this->add($this->query, $newPart);
-
-                break;
-
-            case HttpRequestPart::Path:
-                $this->add($this->path, $newPart);
-
-                break;
-
-            default:
-                throw new \Exception('Not implemented');
-
-                break;
-        }
+        match ($httpPart) {
+            HttpRequestPart::Header => $this->add($this->headers, $newPart),
+            HttpRequestPart::Body => $this->add($this->body, $newPart, $merge),
+            HttpRequestPart::Query => $this->add($this->query, $newPart),
+            HttpRequestPart::Path => $this->add($this->path, $newPart),
+        };
     }
 
     private function add(array &$array, array $newItems, bool $merge = false): void
@@ -136,8 +108,19 @@ abstract class AbstractPayload implements PayloadInterface
     {
         foreach ($array as $key => $value) {
             if (\is_array($value)) {
-                $array[$key] = $this->filterNulls($value);
+                $filtered = $this->filterNulls($value);
+
+                // Test the *filtered* result, not the original.
+                // Emit the empty arrays those might come up after filtering.
+                if ([] === $filtered) {
+                    unset($array[$key]);
+                } else {
+                    $array[$key] = $filtered;
+                }
+
+                continue;
             }
+
             if (null === $value || '' === $value) {
                 unset($array[$key]);
             }

@@ -1,0 +1,63 @@
+{
+    "tran_ref": "PTE7897897897897",
+    "merchant_id": 12349,
+    "profile_id": 98765,
+    "cart_id": "Order-090909",
+    "cart_description": "Description of the items/services",
+    "cart_currency": "EGP",
+    "cart_amount": "5085.41",
+    "tran_currency": "EGP",
+    "tran_total": "5085.41",
+    "tran_type": "Sale",
+    "tran_class": "ECom",
+    "customer_details": {
+        "name": "Customer3 name",
+        "email": "customer3@example.com",
+        "phone": "+97111111111",
+        "street1": "non",
+        "city": "Cairo",
+        "state": "Cairo",
+        "country": "EG",
+        "ip": "1.2.3.9"
+    },
+    "shipping_details": {
+        "name": "Customer3 name shipping",
+        "email": "another-email@example.com",
+        "phone": "000000000",
+        "street1": "non",
+        "city": "Cairo",
+        "state": "C",
+        "country": "EG",
+        "zip": "12345"
+    },
+    "payment_result": {
+        "response_status": "E",
+        "response_code": "401",
+        "response_message": "No response",
+        "cvv_result": " ",
+        "avs_result": " ",
+        "transaction_time": "2026-09-02T04:49:19Z"
+    },
+    "payment_info": {
+        "payment_method": "Visa",
+        "card_type": "Debit",
+        "card_scheme": "Visa",
+        "payment_description": "4111 78## #### 1115",
+        "expiryMonth": 6,
+        "expiryYear": 2029,
+        "issuerCountry": "AE",
+        "issuerName": "Emirates NBD"
+    },
+    "threeDSDetails": {
+        "responseLevel": 2,
+        "responseStatus": 4,
+        "enrolled": "Y",
+        "paResStatus": "Y",
+        "eci": "05",
+        "cavv": "AAcCAWZ0OQAAB8J0gYJFdQAAAAA=",
+        "ucaf": "",
+        "threeDSVersion": "2.2.0"
+    },
+    "ipn_trace": "IPNS0402.6A97AACF.00000207",
+    "paymentChannel": "Mobile SDK"
+}

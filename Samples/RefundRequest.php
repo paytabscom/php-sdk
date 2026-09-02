@@ -20,22 +20,11 @@ if (!isset($paytabs, $trxRef, $urlCallback, $_currency, $logger)) {
     throw new RuntimeException('Required variables are not set: $paytabs, $trxRef, $urlCallback, $_currency, $logger');
 }
 
-// Build Refund payload using the generic Followup class
-$holder1 = PayloadsFactory::createFollowup();
-$holder1
-    ->buildTransaction(TranType::Refund, TranClass::Ecom)
-    ->buildTransactionRef($trxRef)
-    ->buildCart('refund_01', $_currency, 1, 'Refund test')
-    ->buildPluginInfo('PHP', PHP_VERSION, Paytabs::getVersion())
-    ->buildURLs(null, $urlCallback)
-;
-
 // Submit the Refund request using the main Refund class
 $holder2 = PayloadsFactory::createRefund();
 $holder2
     ->buildTransactionRef($trxRef)
-    ->buildCart('refund_01', $_currency, 2, 'Refund test')
-    ->buildPluginInfo('PHP', PHP_VERSION, Paytabs::getVersion())
+    ->buildCart('refund_01', $_currency, 4, 'Refund test')
     ->buildURLs(null, $urlCallback)
 ;
 
