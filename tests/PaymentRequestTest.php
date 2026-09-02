@@ -105,7 +105,7 @@ final class PaymentRequestTest extends TestCase
         $holder
             ->buildCart($cartId, 'AED', 100.51, 'Test')
             ->buildTransaction(TranType::Sale, TranClass::Ecom)
-            ->buildPluginInfo('PHP', PHP_VERSION, null)
+            ->buildPluginInfo('PHP-SDK', PHP_VERSION, null)
             ->buildCustomerDetails(
                 CustomerDetails::init('Wajih', '0522222222', 'wajih@mail.com')
                     ->setAddress('ARE', 'Dubai', 'Dubai', null, '11111')

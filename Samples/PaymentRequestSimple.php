@@ -27,7 +27,6 @@ $holder = PayloadsFactory::createHostedPage();
 $holder
     ->buildCart($cartId, $_currency, 700, 'Test')
     ->buildTransaction(TranType::Sale, TranClass::Ecom)
-    ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
     ->buildCustomerDetails(
         CustomerDetails::init('Integrations SDK3', '0522222222', 'integrations@paytabs.com')
             ->setAddress('ARE', 'Dubai', 'Dubai', 'nsr st', '11111')
