@@ -1,6 +1,6 @@
 # PayTabs PHP SDK Architecture
 
-This document reflects the current architecture of the SDK in version 3.x.
+This document reflects the current architecture of the SDK in version 4.x.
 Think of the SDK as LEGO blocks.
 
 ## Building Blocks

@@ -1,4 +1,4 @@
-# PayTabs PHP SDK (v3)
+# PayTabs PHP SDK (v4)
 
 Official PHP SDK for integrating with PayTabs Payment Gateway.
 
@@ -27,7 +27,7 @@ environment variables rather than in the repository.
 ## Install
 
 ```bash
-composer require paytabs/php-sdk:^3.0
+composer require paytabs/php-sdk:^4.0
 ```
 
 ## Quick Start

@@ -2,17 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on Keep a Changelog, and this project aims to follow Semantic Versioning.
+The format is based on Keep a Changelog, and this project follows Semantic Versioning.
 
-## [3.3.0] - 2026-09-02
+## [4.0.0] - 2026-09-02
 
 Hardening release following a full SDK audit. It closes several crashes on
 ordinary gateway responses, removes two paths that could leak a live server key
 into logs or an HTTP response, and makes transaction status honest about the
 difference between "declined" and "unknown".
 
-Most integrations upgrade without changes. Read **Breaking changes** first if you
-call the status predicates or implement any SDK interface.
+The major version bump is dictated by the **Breaking changes** below: renamed
+status predicates, `bool` → `?bool` return types and narrowed signatures. Most
+integrations still upgrade without changes; read that section first if you call
+the status predicates or implement any SDK interface.
 
 ### Breaking changes
 
