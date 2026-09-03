@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Paytabs\Sdk\Profile;
 
 use Paytabs\Sdk\Exceptions\InvalidConfigurationException;
+use Paytabs\Sdk\Logger\Redactor;
 use Paytabs\Sdk\Request\Payload\AbstractPayload;
 use Paytabs\Sdk\Request\Payload\Parts\GenericPart;
 
@@ -21,10 +22,11 @@ class Profile extends AbstractPayload
      */
     public function __construct(AbstractEndpoint $endpoint, int $profileId, string $serverKey)
     {
-        if (!is_numeric($profileId) || (int) $profileId <= 0) {
+        if ($profileId <= 0) {
             throw InvalidConfigurationException::missing('profile_id');
         }
 
+        $serverKey = trim($serverKey);
         if ('' === $serverKey) {
             throw InvalidConfigurationException::missing('server_key');
         }
@@ -56,9 +58,13 @@ class Profile extends AbstractPayload
         return $this->serverKey;
     }
 
+    /**
+     * Non-reversible hint identifying which server key is in use, safe to put
+     * in a log or an exception message.
+     */
     public function getServerKeyPrefix(): string
     {
-        return substr($this->serverKey, 0, 10);
+        return Redactor::keyHint($this->serverKey);
     }
 
     public function getUrl(): string

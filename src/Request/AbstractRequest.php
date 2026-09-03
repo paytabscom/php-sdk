@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Paytabs\Sdk\Request;
 
 use Paytabs\Sdk\Enums\HttpType;
+use Paytabs\Sdk\Exceptions\HttpRequestException;
+use Paytabs\Sdk\Exceptions\InvalidConfigurationException;
 use Paytabs\Sdk\Helpers\Helpers;
 use Paytabs\Sdk\Profile\Profile;
 use Paytabs\Sdk\Request\Payload\BuilderInterface;
@@ -65,7 +67,13 @@ abstract class AbstractRequest implements RequestInterface
             $dataPayload->getBody(),
         );
 
-        return json_encode($payload);
+        $encoded = json_encode($payload);
+
+        if (false === $encoded) {
+            throw HttpRequestException::payloadNotEncodable(json_last_error_msg());
+        }
+
+        return $encoded;
     }
 
     public function getPayloadObject(): BuilderInterface
@@ -94,7 +102,17 @@ abstract class AbstractRequest implements RequestInterface
         if ($this->hasPathParams) {
             $pathParams = $this->dataHolder->getPayload()->getPath();
             if (!empty($pathParams)) {
-                $fullUrl = str_replace(array_keys($pathParams), array_values($pathParams), $fullUrl);
+                $fullUrl = str_replace(
+                    array_keys($pathParams),
+                    array_map(static fn($value): string => rawurlencode((string) $value), array_values($pathParams)),
+                    $fullUrl
+                );
+            }
+
+            // Fail loudly rather than sending a request to a literal
+            // `.../invoice/{invoice_id}/status`.
+            if (preg_match('/\{[a-z_]+\}/i', $fullUrl, $matches)) {
+                throw InvalidConfigurationException::missing(trim($matches[0], '{}'));
             }
         }
 

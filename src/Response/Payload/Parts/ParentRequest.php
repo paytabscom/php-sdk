@@ -8,8 +8,8 @@ class ParentRequest
 {
     // "parentRequest"
 
-    public string $tran_ref;
+    public ?string $tran_ref = null;
 
-    public float $cart_amount;
-    public string $cart_currency;
+    public ?float $cart_amount = null;
+    public ?string $cart_currency = null;
 }

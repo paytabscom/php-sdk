@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Enums\CardDiscountType;
 use Paytabs\Sdk\Request\Payload\Parts\CardDiscounts;
 use Paytabs\Sdk\Request\Payload\Parts\Partials\CardDiscount;
@@ -12,8 +14,6 @@ use function PHPUnit\Framework\assertEquals;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class CardDiscountsTest extends TestCase
 {
@@ -66,9 +66,9 @@ final class CardDiscountsTest extends TestCase
 
     public function testInvalidPattern(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
-        $discountInvalid = new CardDiscount(
+        new CardDiscount(
             CardDiscountType::Percent,
             5.0,
             '4,A1',

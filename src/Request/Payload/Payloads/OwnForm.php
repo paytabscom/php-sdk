@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Request\Payload\Payloads;
 
+use Paytabs\Sdk\Exceptions\UnsupportedPayloadOperationException;
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\Request\Payload\Parts\CardDetails;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
@@ -33,11 +34,11 @@ class OwnForm extends PrimaryPayment
 
     public function buildPaymentMethods(array|PaymentMethods $methods): void
     {
-        throw new \Exception('Payment Methods not allowed in Own Form');
+        throw UnsupportedPayloadOperationException::forPayload('Payment methods', 'Own Form');
     }
 
     public function buildPaymentMethod(AbstractMethod|string $method): void
     {
-        throw new \Exception('Payment Methods not allowed in Own Form');
+        throw UnsupportedPayloadOperationException::forPayload('Payment methods', 'Own Form');
     }
 }

@@ -1,0 +1,1 @@
+acquirerMessage=&acquirerRRN=&cartId=cart01&customerEmail=integrations%40paytabs.com&respCode=321&respMessage=Cancelled&respStatus=C&signature=6e68ea30bad4158315d642abb76c44c0a5b1e3762132ceaba705dcac358f3e71&token=&tranRef=TST2623802990091

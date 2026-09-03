@@ -1,6 +1,6 @@
 # Payment Request: Hosted Payment Page
-- Version: `1.0.0`
-- SDK version: `3.0.0`
+- Version: `1.1.0`
+- SDK version: >= `4.0.0`
 
 Here is a basic example of how to use the PayTabs SDK:
 
@@ -52,12 +52,33 @@ $http
 try {
     $response = $http->submit();
 } catch (\Paytabs\Sdk\Exceptions\HttpRequestException $e) {
-    // HTTP/network transport failures are raised as exceptions.
-    // Non-2xx responses with body are returned for response-layer mapping.
+    // Raised for transport failures (DNS, TLS, timeout), and for a non-2xx
+    // response whose body is empty or is not JSON — a CDN or WAF error page,
+    // for example. A non-2xx response *with* a JSON body is not thrown: it is
+    // returned for response-layer mapping and surfaces via isFailure().
     echo $e->getMessage();
     exit;
 }
 ```
+
+To catch anything the SDK itself raises, catch the shared interface instead:
+
+```php
+use Paytabs\Sdk\Exceptions\PaytabsExceptionInterface;
+
+try {
+    $response = $http->submit();
+} catch (PaytabsExceptionInterface $e) {
+    // Any SDK exception: transport, configuration, signature, mapping.
+}
+```
+
+> **Do not blindly retry a payment request.**
+> PayTabs has no idempotency-key header, and `cart_id` is your own reference
+> which the gateway does not enforce as unique — so a retry after a timeout can
+> create a **second charge**. The SDK therefore performs no automatic retries.
+> If a request times out, do not resend it: query the transaction first (see
+> `Samples/TransactionQuery.php`) and resend only if no transaction exists.
 
 5. Response handle:
 Response may have 3 formats:

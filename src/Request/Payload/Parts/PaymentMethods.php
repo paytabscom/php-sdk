@@ -8,8 +8,8 @@ use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 
 class PaymentMethods extends AbstractPart
 {
-    /** @var string[] */
-    private ?array $paymentMethods;
+    /** @var null|string[] */
+    private ?array $paymentMethods = null;
 
     protected function __construct(
         ?array $paymentMethods = null
@@ -60,6 +60,10 @@ class PaymentMethods extends AbstractPart
 
     public function build(): array
     {
+        if (null === $this->paymentMethods || [] === $this->paymentMethods) {
+            return [];
+        }
+
         /** array_values used to remove the indexes */
         $paymentMethods = array_values(
             array_unique($this->paymentMethods)

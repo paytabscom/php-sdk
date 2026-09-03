@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Paytabs\Sdk\Response;
 
 use Paytabs\Sdk\Enums\ResponseStage;
+use Paytabs\Sdk\Exceptions\UnexpectedResponseStageException;
 use Paytabs\Sdk\Helpers\Helpers;
 use Paytabs\Sdk\Request\RequestInterface;
 use Paytabs\Sdk\Response\Payload\PayloadInterface;
@@ -42,7 +43,7 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
     public function getFailure(): Failure
     {
         if (!$this->isFailure()) {
-            throw new \Exception('Not Failure');
+            throw UnexpectedResponseStageException::forStage('failure');
         }
 
         return $this->payload->getMappedAs(new Failure());
@@ -56,12 +57,15 @@ abstract class AbstractResponseDirect extends AbstractResponse implements Respon
     public function getRedirect(): Redirect
     {
         if (!$this->isRedirect()) {
-            throw new \Exception('Not Redirect');
+            throw UnexpectedResponseStageException::forStage('redirect');
         }
 
         return $this->payload->getMappedAs(new Redirect());
     }
 
+    /**
+     * @throws \InvalidArgumentException if the payload is not valid or cannot be mapped.
+     */
     public function getPayloadMapped(): PayloadInterface
     {
         if ($this->isFailure()) {

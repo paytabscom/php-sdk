@@ -10,15 +10,23 @@ class PaymentResult
 {
     // "payment_result"
 
-    public string $response_status; // "A",
-    public TranStatus $tranStatus;
+    public ?string $response_status = null; // "A",
+    public ?TranStatus $tranStatus = null;
 
-    public string $response_code; // "G08490",
-    public string $response_message; // "Authorised",
-    public string $acquirer_ref; // "TRAN0001.6764066A.00033E57",
-    public string $cvv_result; // " ",
-    public string $avs_result; // " ",
-    public string $transaction_time; // "2024-12-19T11:41:30Z"
+    /**
+     * Gateway/acquirer code — except on a deferred payment (Aman, SADAD, Fawry),
+     * where it carries the **reference number the buyer quotes at the agent** to
+     * pay. Show it to the customer; without it they cannot complete the payment.
+     */
+    public ?string $response_code = null; // "G08490",
+    public ?string $response_message = null; // "Authorised",
+
+    public ?string $transaction_time = null; // "2024-12-19T11:41:30Z"
+
+    // Only returned in the Webhook callback (IPN) flow, not in the Query API flow.
+    public ?string $acquirer_ref = null; // "TRAN0001.6764066A.00033E57",
+    public ?string $cvv_result = null; // " ",
+    public ?string $avs_result = null; // " ",
 
     public function setResponseStatus(string $response_status): void
     {
@@ -26,23 +34,34 @@ class PaymentResult
         $this->tranStatus = TranStatus::tryFrom(strtoupper($response_status)) ?? TranStatus::Unknown;
     }
 
-    public function isSuccessful(): bool
+    public function isSuccessful(): ?bool
     {
-        return $this->tranStatus->isSuccessful();
+        // No response_status means nothing to be successful about. Absent is not
+        // success, so this is the safe default.
+        return $this->tranStatus?->isSuccessful();
     }
 
-    public function isFailed(): bool
+    public function isFailed(): ?bool
     {
-        return $this->tranStatus->isFailed();
+        return $this->tranStatus?->isFailed();
     }
 
-    public function toString(): string
+    /**
+     * On-hold or pending: the gateway has not reached a final decision, so this
+     * is neither isSuccessful() nor isFailed().
+     */
+    public function isNotFinal(): ?bool
+    {
+        return $this->tranStatus?->isNotFinal();
+    }
+
+    public function __toString(): string
     {
         return sprintf(
             '%s (%s) - %s',
-            $this->response_status,
-            $this->tranStatus->name,
-            $this->response_message
+            $this->response_status ?? '-',
+            $this->tranStatus?->name ?? '-',
+            $this->response_message ?? '-'
         );
     }
 }

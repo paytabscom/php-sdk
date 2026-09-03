@@ -1,6 +1,6 @@
 # PayTabs PHP SDK Architecture
 
-This document reflects the current architecture of the SDK in version 3.x.
+This document reflects the current architecture of the SDK in version 4.x.
 Think of the SDK as LEGO blocks.
 
 ## Building Blocks
@@ -124,6 +124,7 @@ Defined in [src/Request/RequestsFactory.php](src/Request/RequestsFactory.php)
 - Payment request composition: [docs/diagrams/payment-request-composition.mmd](docs/diagrams/payment-request-composition.mmd)
 - Parts reference (overview): [docs/diagrams/payment-parts-reference.mmd](docs/diagrams/payment-parts-reference.mmd)
 - Parts reference (canonical): [docs/diagrams/payment-parts-class-reference.mmd](docs/diagrams/payment-parts-class-reference.mmd)
+
 
 ## Maintainer Notes
 

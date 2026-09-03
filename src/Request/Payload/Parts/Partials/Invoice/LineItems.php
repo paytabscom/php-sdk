@@ -25,6 +25,10 @@ class LineItems implements PartInterface
 
     public function build(): array
     {
+        if (empty($this->lineItems)) {
+            throw new \InvalidArgumentException('At least one line item is required for the LineItems object.');
+        }
+
         $items['line_items'] = [];
 
         foreach ($this->lineItems as $item) {

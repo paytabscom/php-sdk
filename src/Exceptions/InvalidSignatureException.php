@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Exceptions;
 
-final class InvalidSignatureException extends \RuntimeException
+final class InvalidSignatureException extends \RuntimeException implements PaytabsExceptionInterface
 {
-    public static function mismatch(string $keyPrefix): self
+    /**
+     * @param string $keyHint non-reversible hint from Profile::getServerKeyPrefix()
+     */
+    public static function mismatch(string $keyHint): self
     {
-        return new self('Invalid signature, ' . $keyPrefix);
+        return new self('Invalid signature (server key hint: ' . $keyHint . ')');
     }
 }

@@ -35,7 +35,7 @@ if ($return) {
     $isGenuine = $response->isGenuine();
     if (!$isGenuine) {
         $logger->warning('Invalid signature for browser return callback');
-        http_response_code(400);
+        http_response_code(403);
 
         exit('Invalid signature');
     }
@@ -55,7 +55,7 @@ if ($return) {
     $isGenuine = $ipnResponse->isGenuine();
     if (!$isGenuine) {
         $logger->warning('Invalid signature for IPN callback');
-        http_response_code(400);
+        http_response_code(403);
 
         exit('Invalid signature');
     }
@@ -69,3 +69,5 @@ if ($return) {
         $resMapped->unMappedData(),
     ]);
 }
+
+http_response_code(200);

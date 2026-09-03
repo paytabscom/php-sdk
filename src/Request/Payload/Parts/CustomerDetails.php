@@ -15,7 +15,7 @@ class CustomerDetails extends AbstractPart
     public ?string $country = null;
     public ?string $state = null;
     public ?string $city = null;
-    public ?string $street = null;
+    public ?string $street1 = null;
     public ?string $zip = null;
 
     public ?string $ip = null;
@@ -50,7 +50,7 @@ class CustomerDetails extends AbstractPart
         $this->country = $details->country;
         $this->state = $details->state;
         $this->city = $details->city;
-        $this->street = $details->street;
+        $this->street1 = $details->street1;
         $this->zip = $details->zip;
 
         $this->ip = $details->ip;
@@ -76,7 +76,7 @@ class CustomerDetails extends AbstractPart
         $this->country = $first->country ?? $second->country;
         $this->state = $first->state ?? $second->state;
         $this->city = $first->city ?? $second->city;
-        $this->street = $first->street ?? $second->street;
+        $this->street1 = $first->street1 ?? $second->street1;
         $this->zip = $first->zip ?? $second->zip;
 
         $this->ip = $first->ip ?? $second->ip;
@@ -88,13 +88,13 @@ class CustomerDetails extends AbstractPart
         ?string $country = null,
         ?string $state = null,
         ?string $city = null,
-        ?string $street = null,
+        ?string $street1 = null,
         ?string $zip = null
     ): self {
         $this->country = $country;
         $this->state = $state;
         $this->city = $city;
-        $this->street = $street;
+        $this->street1 = $street1;
         $this->zip = $zip;
 
         return $this;
@@ -118,7 +118,7 @@ class CustomerDetails extends AbstractPart
                 'country' => $this->country,
                 'state' => $this->state,
                 'city' => $this->city,
-                'street1' => $this->street,
+                'street1' => $this->street1,
                 'ip' => $this->ip,
                 'zip' => $this->zip,
             ],

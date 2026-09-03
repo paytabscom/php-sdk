@@ -1,6 +1,6 @@
 # Invoices
-- Version: `1.0.0`
-- SDK version: `3.0.0`
+- Version: `1.0.1`
+- SDK version: >= `3.0.0`
 
 ## Create New Invoice
 
@@ -83,7 +83,7 @@
 
 2. Prepare the Invoice status payload:
     ```php
-    $invoiceId = '12345';
+    $invoiceId = 12345; // int: buildInvoiceId(int $invoiceId)
     $holder2 = PayloadsFactory::createInvoiceStatusAsPost();
     $holder2->buildInvoiceId($invoiceId);
     ```

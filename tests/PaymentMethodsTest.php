@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Enums\PaymentMethod;
 use Paytabs\Sdk\PaymentMethod\AbstractMethod;
 use Paytabs\Sdk\PaymentMethod\Methods\Amex;
@@ -12,12 +14,11 @@ use Paytabs\Sdk\PaymentMethod\Methods\PayTabsAll;
 use Paytabs\Sdk\PaymentMethod\Methods\Sadad;
 use Paytabs\Sdk\PaymentMethod\PaymentMethodsFactory;
 use Paytabs\Sdk\Request\Payload\Parts\PaymentMethods;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class PaymentMethodsTest extends TestCase
 {
@@ -40,14 +41,17 @@ final class PaymentMethodsTest extends TestCase
         }
     }
 
-    public function testCreatePaymentMethodsInvalid(): void
+    /**
+     * One case per invalid code: an `expectException()` inside a loop would
+     * abort the test on the first iteration and leave the rest unasserted.
+     */
+    #[DataProvider('invalidCodeProvider')]
+    public function testCreatePaymentMethodsInvalid(string $code): void
     {
-        $invalidCodes = ['test', 'test2'];
-        foreach ($invalidCodes as $code) {
-            $this->expectException(Exception::class);
-            $method = PaymentMethodsFactory::createMethod($code);
-            self::assertNull($method);
-        }
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Payment Method not found for Code: {$code}");
+
+        PaymentMethodsFactory::createMethod($code);
     }
 
     public function testCreatePaymentMethodsById(): void
@@ -59,14 +63,27 @@ final class PaymentMethodsTest extends TestCase
         }
     }
 
-    public function testCreatePaymentMethodsByIdInvalid(): void
+    #[DataProvider('invalidIdProvider')]
+    public function testCreatePaymentMethodsByIdInvalid(int $id): void
     {
-        $ids = [9333, 9444];
-        foreach ($ids as $id) {
-            $this->expectException(Exception::class);
-            $method = PaymentMethodsFactory::createMethodById($id);
-            self::assertNull($method);
-        }
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Payment Method not found for ID: {$id}");
+
+        PaymentMethodsFactory::createMethodById($id);
+    }
+
+    /**
+     * @return iterable<string, array{int}>
+     */
+    public static function invalidIdProvider(): iterable
+    {
+        yield '9333' => [9333];
+
+        yield '9444' => [9444];
+
+        yield 'zero' => [0];
+
+        yield 'negative' => [-1];
     }
 
     public function testCreatePaymentMethodsByUnique(): void
@@ -78,14 +95,25 @@ final class PaymentMethodsTest extends TestCase
         }
     }
 
-    public function testCreatePaymentMethodsByUniqueInvalid(): void
+    #[DataProvider('invalidCodeProvider')]
+    public function testCreatePaymentMethodsByUniqueInvalid(string $code): void
     {
-        $invalidCodes = ['test', 'test2'];
-        foreach ($invalidCodes as $code) {
-            $this->expectException(Exception::class);
-            $method = PaymentMethodsFactory::createMethodByUnique($code);
-            self::assertNull($method);
-        }
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Payment Method not found for Unique Code: {$code}");
+
+        PaymentMethodsFactory::createMethodByUnique($code);
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public static function invalidCodeProvider(): iterable
+    {
+        yield 'unknown code' => ['test'];
+
+        yield 'another unknown code' => ['test2'];
+
+        yield 'empty code' => [''];
     }
 
     public function testCreatePaymentMethodFromEnum(): void

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Enums\HttpType;
 use Paytabs\Sdk\Http\Http;
 use Paytabs\Sdk\Request\RequestInterface;
@@ -10,15 +12,13 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class HttpNon2xxResponseMappingTest extends TestCase
 {
     public function testNon2xxWithJsonBodyIsMappedAsFailure(): void
     {
         $http = new class extends Http {
-            protected function executeRequest(CurlHandle $curl_handle): array
+            protected function executeRequest(\CurlHandle $curl_handle): array
             {
                 return [
                     'response' => '{"code":401,"message":"Unauthorized"}',

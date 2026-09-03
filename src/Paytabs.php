@@ -14,7 +14,7 @@ use Psr\Log\NullLogger;
 class Paytabs
 {
     // Version
-    public const VERSION = '3.2.6';
+    public const VERSION = '4.0.0';
 
     protected Profile $profile;
     protected Http $http;
@@ -50,10 +50,12 @@ class Paytabs
         return $this;
     }
 
-    public function setLogger(LoggerInterface $logger): self
+    public function setLogger(LoggerInterface $logger, bool $debugMode = false): self
     {
         $this->logger = $logger;
         $this->http->setLogger($logger);
+
+        $this->http->setDebugMode($debugMode);
 
         return $this;
     }

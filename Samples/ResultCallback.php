@@ -26,7 +26,9 @@ $ipnResponse->setProfile($profile);
 
 $isGenuine = $ipnResponse->isGenuine();
 if (!$isGenuine) {
-    // http_response_code(400);
+    // Fail closed, and tell PayTabs so: a 2xx here signals "IPN accepted" and
+    // stops the gateway retrying.
+    http_response_code(403);
 
     $logger->error('Invalid signature for IPN callback');
 

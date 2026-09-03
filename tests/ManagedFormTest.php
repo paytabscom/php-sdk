@@ -2,28 +2,36 @@
 
 declare(strict_types=1);
 
+namespace Paytabs\Sdk\Tests;
+
 use Paytabs\Sdk\Request\Payload\Payloads\ManagedForm;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @coversNothing
  */
 final class ManagedFormTest extends TestCase
 {
-    public function testBuildPaymentToken(): void
+    public function testBuildPaymentTokenIsFluent(): void
     {
-        // Arrange
-        $paymentToken = 'test_payment_token_123';
-
-        // Create an instance of ManagedForm
         $managedForm = new ManagedForm();
 
-        // Act
-        $result = $managedForm->buildPaymentToken($paymentToken);
+        $result = $managedForm->buildPaymentToken('test_payment_token_123');
 
-        // Assert
-        self::assertSame($managedForm, $result); // Ensure the method returns $this
+        self::assertSame($managedForm, $result);
+    }
+
+    public function testBuildPaymentTokenReachesThePayloadBody(): void
+    {
+        $paymentToken = 'test_payment_token_123';
+
+        $managedForm = new ManagedForm();
+        $managedForm->buildPaymentToken($paymentToken);
+
+        $body = $managedForm->getPayload()->getBody();
+
+        self::assertIsArray($body);
+        self::assertArrayHasKey('payment_token', $body);
+        self::assertSame($paymentToken, $body['payment_token']);
     }
 }

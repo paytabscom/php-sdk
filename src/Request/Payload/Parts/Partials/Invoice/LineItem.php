@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paytabs\Sdk\Request\Payload\Parts\Partials\Invoice;
 
+use InvalidArgumentException;
 use Paytabs\Sdk\Request\Payload\PartInterface;
 
 class LineItem implements PartInterface
@@ -12,8 +13,10 @@ class LineItem implements PartInterface
     public ?string $description = null;
     public ?string $url = null;
 
-    public ?int $quantity = null;
-    public ?float $unitCost = null;
+    // Required fields for the PayTabs invoice API
+    public int $quantity;
+    public float $unitCost;
+
     public ?float $netTotal = null;
 
     public ?float $discountRate = null;
@@ -38,11 +41,14 @@ class LineItem implements PartInterface
         return $this;
     }
 
-    public function setPrice(int $quantity, float $unitCost, float $netTotal): self
+    public function setPrice(int $quantity, float $unitCost, ?float $netTotal = null): self
     {
         $this->quantity = $quantity;
         $this->unitCost = $unitCost;
-        $this->netTotal = $netTotal;
+
+        if ($netTotal !== null) {
+            $this->netTotal = $netTotal;
+        }
 
         return $this;
     }
@@ -72,6 +78,10 @@ class LineItem implements PartInterface
 
     public function build(): array
     {
+        if (!isset($this->quantity, $this->unitCost)) {
+            throw new InvalidArgumentException('Quantity and unit cost are required for the LineItem object.');
+        }
+
         return [
             'sku' => $this->sku,
             'description' => $this->description,

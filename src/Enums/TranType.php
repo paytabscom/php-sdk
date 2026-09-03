@@ -7,13 +7,27 @@ namespace Paytabs\Sdk\Enums;
 enum TranType: string
 {
     case Auth = 'auth';
+
+    /**
+     * Card verification, normally to tokenise it: the gateway authorises then
+     * voids, so nothing is collected, and the hosted page shows "Verify Card"
+     * instead of "Pay Now". Never treat a successful `register` as a payment.
+     */
     case Register = 'register';
+
     case Sale = 'sale';
 
+    /**
+     * Refreshes the hold on the funds, as a follow-up to an Auth. Needed because
+     * the acquirer drops an uncaptured authorization after roughly 15-30 days.
+     */
     case AuthExt = 'authext';
-    // Auth Extension is used to refresh the hold on the funds
-    // Followup an Auth transaction
 
+    /**
+     * The deferred-payment placeholder holding the reference number the buyer
+     * takes to an agent (Aman, SADAD, Fawry). Reports `P`; nothing is collected
+     * until a separate `Sale` arrives against it.
+     */
     case PaymentRequest = 'payment request';
 
     case Capture = 'capture';
@@ -54,25 +68,4 @@ enum TranType: string
         return \in_array($this, $followup, true);
     }
 
-    /** @todo */
-    public function isPaymentComplete(object $ipn_data): bool
-    {
-        if ($ipn_data) {
-            $original_trx = @$ipn_data->previous_tran_ref;
-            $tran_type = $ipn_data->tran_type;
-
-            // Sale && previous_tran_ref
-            if (isset($original_trx) && (TranType::Sale === TranType::get($tran_type))) {
-                return true;
-            }
-
-            // Or Expired
-            $tran_status = @$ipn_data->payment_result->response_status;
-            if ('X' === $tran_status) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

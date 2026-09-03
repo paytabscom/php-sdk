@@ -6,19 +6,19 @@ namespace Paytabs\Sdk\Response\Payload\Parts;
 
 class Invoice
 {
-    public int $id;
+    public ?int $id = null;
 
-    public float $shipping_charges;
-    public float $extra_charges;
-    public float $extra_discount;
+    public ?float $shipping_charges = null;
+    public ?float $extra_charges = null;
+    public ?float $extra_discount = null;
 
-    public float $total;
+    public ?float $total = null;
 
-    public string $activation_date;
-    public string $expiry_date;
-    public string $due_date;
-    public string $issue_date;
+    public ?string $activation_date = null;
+    public ?string $expiry_date = null;
+    public ?string $due_date = null;
+    public ?string $issue_date = null;
 
     /** @var LineItem[] */
-    public array $line_items;
+    public array $line_items = [];
 }

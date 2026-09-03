@@ -29,22 +29,26 @@ abstract class AbstractBrowser extends AbstractTransactionResult
 
         $dataJson = json_encode($requestArray);
 
+        if (false === $dataJson) {
+            throw new \InvalidArgumentException('Invalid browser callback payload: not encodable as JSON');
+        }
+
         return new static($dataJson, $requestArray, $localParams);
     }
 
     public function getTranRef(): string
     {
-        return $this->getBrowserPayload()->tranRef;
+        return self::required($this->getBrowserPayload()->tranRef, 'tranRef');
     }
 
     public function getCartId(): string
     {
-        return $this->getBrowserPayload()->cartId;
+        return self::required($this->getBrowserPayload()->cartId, 'cartId');
     }
 
     public function getTranStatus(): TranStatus
     {
-        return $this->getBrowserPayload()->tranStatus;
+        return self::required($this->getBrowserPayload()->tranStatus, 'respStatus');
     }
 
     protected function isValid(): bool
@@ -54,9 +58,13 @@ abstract class AbstractBrowser extends AbstractTransactionResult
             return false;
         }
 
-        return !empty($requestValues['signature']);
+        return \is_string($requestValues['signature']) && '' !== $requestValues['signature'];
     }
 
+    /**
+     * Browser callbacks carry no profile_id field, so there is nothing to compare.
+     * Profile binding still holds: the HMAC is keyed on the configured server key.
+     */
     protected function isSameProfile(): bool
     {
         return true;
@@ -89,9 +97,9 @@ abstract class AbstractBrowser extends AbstractTransactionResult
 
     protected function getServerSignature(): string
     {
-        $requestValues = $this->requestArray;
+        $signature = $this->requestArray['signature'] ?? '';
 
-        return $requestValues['signature'];
+        return \is_string($signature) ? $signature : '';
     }
 
     private function getBrowserPayload(): Browser

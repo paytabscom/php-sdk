@@ -51,7 +51,7 @@ $holder
     ->buildCart('inv-01', $_currency, 40, 'Invoice test')
     ->buildCustomerReference('customer-01')
     ->buildPaymentMethod('card')
-    ->buildPluginInfo('PHP', PHP_VERSION, Paytabs::getVersion())
+    ->buildPluginInfo('PHP-SDK', PHP_VERSION, Paytabs::getVersion())
 ;
 
 $logger->debug(
