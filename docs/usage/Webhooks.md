@@ -1,6 +1,6 @@
 # Webhook Verification
 
-- Version: `1.1.0`
+- Version: `2.0.0`
 - SDK version: >= `4.0.0`
 
 Always verify webhook and browser callback signatures before processing payloads.

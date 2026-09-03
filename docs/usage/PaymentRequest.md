@@ -1,6 +1,6 @@
 # Payment Request: Hosted Payment Page
-- Version: `1.0.0`
-- SDK version: >= `3.0.0`
+- Version: `1.1.0`
+- SDK version: >= `4.0.0`
 
 Here is a basic example of how to use the PayTabs SDK:
 
